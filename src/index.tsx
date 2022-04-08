@@ -5,6 +5,7 @@ import { App } from "./App"
 import { Summary } from "./components"
 import reportWebVitals from "./reportWebVitals"
 import * as serviceWorker from "./serviceWorker"
+import { Cart } from "./components"
 
 ReactDOM.render(
   <React.StrictMode>

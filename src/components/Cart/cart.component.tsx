@@ -13,6 +13,10 @@ import {
   HStack,
   AspectRatio,
   Divider,
+  Stack,
+  Input,
+  InputRightElement,
+  InputGroup,
 } from "@chakra-ui/react"
 import { ICart } from "./cart.types";
 
@@ -23,15 +27,27 @@ function Cart(props: ICart): JSX.Element {
 		<VStack
 			h="full"
 			w="full"
-			p={10}
+			padding='20px'
 			spacing={10}
 			alignItems="flex-start"
 			bg="wtw.200"
+			background="#EBE9E9"
 		>
-			<VStack alignItems="flex-start" p={0}>
-				<Heading size="2xl">Your cart</Heading>
-				<Text>If price is too hard on your eyes, try changing the theme.</Text>
-			</VStack>					
+			<Stack spacing={2}>
+				
+					<Text fontSize='20px' color='#3F6FE4'>Basic Information / Name</Text>
+					<Text fontSize='50px'>Give your experience a name</Text>
+					<Text fontSize='25px' paddingTop='20px'>Make sure it's descriptive and unique so travelers know what you offer.</Text>	
+				
+				
+				<Stack spacing={3} w='full' paddingTop='20px'>
+					<InputGroup>
+						<Input placeholder='Experience name' size='lg'w='full'/>
+					</InputGroup>
+				</Stack>
+
+			</Stack>
+			
 		</VStack>
 	);
 }
