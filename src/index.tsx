@@ -3,14 +3,14 @@ import * as React from "react"
 import ReactDOM from "react-dom"
 import { App } from "./App"
 import Login from "./pages/login"
-import Signup from "./pages/signup"
+import MainScreenTO from "./pages/mainScreenTO"
 import reportWebVitals from "./reportWebVitals"
 import * as serviceWorker from "./serviceWorker"
 
 ReactDOM.render(
   <React.StrictMode>
     <ColorModeScript />
-    <Signup />
+    <MainScreenTO />
   </React.StrictMode>,
   document.getElementById("root"),
 )
