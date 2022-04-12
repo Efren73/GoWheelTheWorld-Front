@@ -6,6 +6,7 @@ import Login from "./pages/login"
 import MainScreenTO from "./pages/mainScreenTO"
 import reportWebVitals from "./reportWebVitals"
 import * as serviceWorker from "./serviceWorker"
+import { Cart } from "./components"
 
 ReactDOM.render(
   <React.StrictMode>
