@@ -2,8 +2,6 @@ import React from 'react';
 import {
   Text,
   VStack,
-  Grid,
-  GridItem,
   Heading,
   Flex,
   FormControl,
@@ -16,62 +14,74 @@ import {
   Image,
   HStack,
   Link,
+  Box,
+  InputGroup,
+  InputRightElement,
+
 } from "@chakra-ui/react";
+import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import logo from './logo.png';
 import ImagenPrincipal from './ImagenPrincipal.png';
 import { ILogin } from './login.types';
 
 function Login(props: ILogin): JSX.Element {
+  
+  const [show, setShow] = React.useState(false)
+  const handleClick = () => setShow(!show)
+
 	return (
 		<ChakraProvider>
-      <Container maxWidth="full" >
+      <Container maxWidth="full">
         <Flex h="100vh">
-          <VStack h="full"
-                  w="50%"
-                  p={90}
-                  spacing={1}
-                  alignItems="flex-start"
-                  background= "blue.100">
-            <Heading size="2xl"> HELLO! </Heading>
-              <Text> Empower people with disabilities to travel the world without limits </Text>
-          </VStack>
-          <VStack h="full"
-                  w="50%">
-            <HStack justifyContent="flex-end" w="full">
-              <AspectRatio ratio={1.5} w={32}>
-                <Image src={logo} alt="logo" />
-              </AspectRatio>
-            </HStack>
-            <VStack 
-              spacing={10}
-              alignItems="center"
-              justifyContent="center">
-              <Heading p={35}> Welcome back! </Heading>
-              <Grid rowGap={6}>
-                <GridItem colSpan={2}>
-                  <FormControl>
-                    <FormLabel> Email address </FormLabel>
-                    <Input placeholder="What's your email address?" h="50px" w="450px"/>
-                  </FormControl>
-                </GridItem>
-
-                <GridItem colSpan={2}>
-                  <FormControl>
-                    <FormLabel> Password </FormLabel>
-                    <Input placeholder="What's your password?" h="50px" w="450px"/>
-                  </FormControl>
-                </GridItem>
-
-                <GridItem colSpan={2}>
-                  <Button h="50px" w="450px" >Login</Button>
-                </GridItem>
-              </Grid>
-              <GridItem colSpan={2} p={35}>
-                  <Text> Don't have an account yet? </Text>
-                  <Link> Click here to become a partner. </Link>
-                </GridItem>
+          <Box bgImage={`url(${ImagenPrincipal})`} w="50%" h="full" bgSize={"cover"}>
+            <VStack h="full"
+                    w="full"
+                    paddingLeft={10}
+                    paddingTop={85}
+                    paddingRight={5}
+                    alignItems="flex-start">
+              <Heading fontSize="50px"> HELLO! </Heading>
+              <Text fontSize="30px"> Empower people with disabilities to travel the world without limits </Text>
             </VStack>
-          </VStack>
+          </Box>
+          <Box w="50%">
+            <HStack justifyContent="flex-end" w="full" h="13%" >
+                <Image src={logo} w="22%" h="full"/>
+            </HStack>
+            <VStack w="full" spacing={20} p={10}>
+              <Heading> Welcome back! </Heading>
+              <VStack w="full" spacing={10}>
+                <FormControl w="62%">
+                  <FormLabel fontSize="25px"> Email address </FormLabel>
+                  <Input placeholder="What's your email address?" borderRadius={10} fontSize="20px"/>
+                </FormControl>
+                <FormControl w="62%">
+                  <FormLabel fontSize="20px"> Password </FormLabel>
+                  <InputGroup size='md'>
+                    <Input
+                      type={show ? 'text' : 'password'}
+                      placeholder="What's your password?"
+                      borderRadius={10}
+                      fontSize="20px"
+                      size='lg'
+                    />
+                    <InputRightElement width='18%' h="100%">
+                      <Button h='80%' size='lg' onClick={handleClick} fontSize="15px"> 
+                        {show ? <ViewOffIcon w="6" h="6"/> : <ViewIcon w="6" h="6"/>} 
+                      </Button>
+                    </InputRightElement>
+                  </InputGroup>
+                </FormControl>
+              </VStack>
+              <Button size='lg'
+                      width='62%'
+                      fontSize='30px'> Login </Button>
+              <VStack>
+                <Text>Don't have an account yet? </Text>
+                <Link color="blue.500"> Click here to become a partner. </Link>
+              </VStack>
+            </VStack>
+          </Box>
         </Flex>
       </Container>
 		</ChakraProvider>

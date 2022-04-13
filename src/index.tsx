@@ -4,14 +4,16 @@ import ReactDOM from "react-dom"
 import { App } from "./App"
 import Login from "./pages/login"
 import MainScreenTO from "./pages/mainScreenTO"
+import Cart from "./components/Cart"
 import reportWebVitals from "./reportWebVitals"
 import * as serviceWorker from "./serviceWorker"
-import { Cart } from "./components"
+import Signup from "./pages/signup"
+
 
 ReactDOM.render(
   <React.StrictMode>
     <ColorModeScript />
-    <MainScreenTO />
+    <Login />
   </React.StrictMode>,
   document.getElementById("root"),
 )
