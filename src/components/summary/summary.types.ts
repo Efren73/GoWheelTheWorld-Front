@@ -1,3 +1,3 @@
-export interface ISummary {
+export interface IMenu {
     
 }
