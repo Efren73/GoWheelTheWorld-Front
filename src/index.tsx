@@ -2,14 +2,14 @@ import { ColorModeScript } from "@chakra-ui/react"
 import * as React from "react"
 import ReactDOM from "react-dom"
 import { App } from "./App"
-import { Summary } from "./components"
+import { MenuDes } from "./components"
 import reportWebVitals from "./reportWebVitals"
 import * as serviceWorker from "./serviceWorker"
 
 ReactDOM.render(
   <React.StrictMode>
     <ColorModeScript />
-    <Summary />
+    <MenuDes />
   </React.StrictMode>,
   document.getElementById("root"),
 )
