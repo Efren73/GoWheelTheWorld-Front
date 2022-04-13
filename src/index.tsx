@@ -4,11 +4,12 @@ import ReactDOM from "react-dom"
 import { App } from "./App"
 import Login from "./pages/login"
 import MainScreenTO from "./pages/mainScreenTO"
-import Cart from "./components/Cart"
 import reportWebVitals from "./reportWebVitals"
 import * as serviceWorker from "./serviceWorker"
-import Signup from "./pages/signup"
-
+import { Cart } from "./components"
+import Multiple from "./components/Multiple/multiple.component"
+import GroupPrivate from "./components/GroupPrivate"
+import Price from "./components/Price"
 
 ReactDOM.render(
   <React.StrictMode>
