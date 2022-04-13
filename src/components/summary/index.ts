@@ -1,2 +1,2 @@
-export * from './summary.component';
-export { default } from './summary.component';
+export * from './menu.component';
+export { default } from './menu.component';
