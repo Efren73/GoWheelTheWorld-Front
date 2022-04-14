@@ -10,11 +10,12 @@ import { Cart } from "./components"
 import Multiple from "./components/Multiple/multiple.component"
 import GroupPrivate from "./components/GroupPrivate"
 import Price from "./components/Price"
+import TourCompleted from "./pages/tourCompleted"
 
 ReactDOM.render(
   <React.StrictMode>
     <ColorModeScript />
-    <Login />
+    <TourCompleted />
   </React.StrictMode>,
   document.getElementById("root"),
 )
