@@ -9,11 +9,16 @@ import { Cart } from "./components"
 import Multiple from "./components/Multiple/multiple.component"
 import GroupPrivate from "./components/GroupPrivate"
 import Price from "./components/Price"
+import Meeting from "./components/Meeting"
+import Stops from "./components/Stops"
+import Languages from "./components/Languages"
+import Restrictions from "./components/Restrictions"
+import Children from "./components/Children"
 
 ReactDOM.render(
   <React.StrictMode>
     <ColorModeScript />
-    <Summary />
+    <Children />
   </React.StrictMode>,
   document.getElementById("root"),
 )
