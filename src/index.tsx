@@ -2,15 +2,22 @@ import { ColorModeScript } from "@chakra-ui/react"
 import * as React from "react"
 import ReactDOM from "react-dom"
 import { App } from "./App"
-import { Admin } from "./pages/Admin"
-
+import Login from "./pages/login"
+import MainScreenTO from "./pages/mainScreenTO"
 import reportWebVitals from "./reportWebVitals"
 import * as serviceWorker from "./serviceWorker"
+import { Cart, Summary } from "./components"
+import Multiple from "./components/Multiple/multiple.component"
+import GroupPrivate from "./components/GroupPrivate"
+import Price from "./components/Price"
+import TourCompleted from "./pages/tourCompleted"
+import Signup from "./pages/signup"
+import Question from "./pages/question"
 
 ReactDOM.render(
   <React.StrictMode>
     <ColorModeScript />
-    <App />
+    <Question />
   </React.StrictMode>,
   document.getElementById("root"),
 )

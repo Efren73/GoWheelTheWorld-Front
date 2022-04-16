@@ -1,8 +1,8 @@
 import React from "react"
 import { screen } from "@testing-library/react"
 import { render } from "../../test-utils"
-import Summary from "."
+import Cart from "./cart.component"
 
 test("renders learn react link", () => {
-  render(<Summary />)
+  render(<Cart />)
 })
