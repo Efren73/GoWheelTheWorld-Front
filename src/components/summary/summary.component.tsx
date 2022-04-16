@@ -31,7 +31,7 @@ const Summary = () => (
       Summary
     </Heading>
 
-    <VStack alignItems='flex-start' h='83%' overflowY='auto' padding='25px' maxW={310}>
+    <VStack alignItems='flex-start' h='80%' overflowY='auto' padding='20px' maxW={310}>
    
       <Text color='#2F6FE4'>
         Basic Information
