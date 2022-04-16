@@ -18,7 +18,7 @@ import Admin from "./pages/admin/Admin"
 ReactDOM.render(
   <React.StrictMode>
     <ColorModeScript />
-    <TourCompleted />
+    <Signup />
   </React.StrictMode>,
   document.getElementById("root"),
 )
