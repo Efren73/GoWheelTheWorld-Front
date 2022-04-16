@@ -2,7 +2,6 @@ import * as React from "react"
 import {
   ChakraProvider,
   Box,
-  Text,
   Drawer,
   DrawerBody,
   DrawerHeader,
@@ -16,8 +15,8 @@ import {
   AccordionButton,
   AccordionPanel,
   AccordionIcon,
-  Image,
 } from "@chakra-ui/react"
+import { HamburgerIcon } from "@chakra-ui/icons"
 
  
 const LateralMenu = () => {
@@ -26,8 +25,8 @@ const LateralMenu = () => {
   return (
     <ChakraProvider>
       <Box p={4}>
-      <Button colorScheme='blackAlpha' onClick={onOpen}>
-     <Text fontSize='4xl'>≡</Text>
+      <Button colorScheme='blackAlpha' onClick={onOpen} background='#000'>
+        <HamburgerIcon w={7} h={7} />
       </Button>
         <Drawer 
         isOpen={isOpen}
@@ -35,16 +34,16 @@ const LateralMenu = () => {
         onClose={onClose}
         >
           <DrawerOverlay/>
-          <DrawerContent bg="gray.50" >
+          <DrawerContent bg="#000" color='#fff'>
             <DrawerCloseButton/>
-            <DrawerHeader> Send your tour/activity</DrawerHeader>
+            <DrawerHeader color='#fff'>Tour/Activity Information</DrawerHeader>
             <DrawerBody>
                 <Accordion defaultIndex={[0]} allowMultiple>
-                  <AccordionItem>
+                  <AccordionItem >
                     <h2>
                       <AccordionButton>
                       <AccordionIcon />
-                        <Box flex='1' textAlign='left'>
+                        <Box flex='1' textAlign='left' >
                           Basic Information
                         </Box>
                        
@@ -80,33 +79,25 @@ const LateralMenu = () => {
                   <AccordionItem>
                     <h2>
                       <AccordionButton>
-                      <AccordionIcon />
                         <Box flex='1' textAlign='left'>
                           Childern Policy
                         </Box>
                         
                       </AccordionButton>
                     </h2>
-                    <AccordionPanel pb={4}>
-                    
-                    </AccordionPanel>
                   </AccordionItem>
 
-                  <AccordionItem>
+                  <AccordionItem >
                     <h2>
                       <AccordionButton>
-                      <AccordionIcon />
                         <Box flex='1' textAlign='left'>
                           What's Included
                         </Box>
                       </AccordionButton>
                     </h2>
-                    <AccordionPanel pb={4}>
-                      
-                    </AccordionPanel>
                   </AccordionItem>
 
-                  <AccordionItem>
+                  <AccordionItem >
                     <h2>
                       <AccordionButton>
                       <AccordionIcon />
@@ -124,19 +115,14 @@ const LateralMenu = () => {
                     </AccordionPanel>
                   </AccordionItem>
                   
-                  <AccordionItem>
+                  <AccordionItem >
                     <h2>
                       <AccordionButton>
-                      <AccordionIcon />
                         <Box flex='1' textAlign='left'>
                           FAQ
                         </Box>
-                        
                       </AccordionButton>
                     </h2>
-                    <AccordionPanel pb={4}>
-                     
-                    </AccordionPanel>
                   </AccordionItem>
 
                 </Accordion>

@@ -7,10 +7,9 @@ import LateralMenu from "./components/Lateral-Menu"
 import reportWebVitals from "./reportWebVitals"
 import * as serviceWorker from "./serviceWorker"
 
-
 ReactDOM.render(
   <React.StrictMode>
-    <Summary />
+    <LateralMenu />
   </React.StrictMode>,
   document.getElementById("root"),
 )
