@@ -12,11 +12,12 @@ import GroupPrivate from "./components/GroupPrivate"
 import Price from "./components/Price"
 import TourCompleted from "./pages/tourCompleted"
 import Signup from "./pages/signup"
+import Question from "./pages/question"
 
 ReactDOM.render(
   <React.StrictMode>
     <ColorModeScript />
-    <MainScreenTO />
+    <Question />
   </React.StrictMode>,
   document.getElementById("root"),
 )

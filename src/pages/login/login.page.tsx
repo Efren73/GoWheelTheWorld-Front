@@ -10,7 +10,6 @@ import {
   Button,
   ChakraProvider,
   Container,
-  AspectRatio,
   Image,
   HStack,
   Link,
@@ -20,7 +19,7 @@ import {
 
 } from "@chakra-ui/react";
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
-import logo from './logo.png';
+import logo from './logo.png'
 import ImagenPrincipal from './ImagenPrincipal.png';
 import { ILogin } from './login.types';
 
