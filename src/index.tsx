@@ -13,11 +13,12 @@ import Price from "./components/Price"
 import TourCompleted from "./pages/tourCompleted"
 import Signup from "./pages/signup"
 import Question from "./pages/question"
+import Admin from "./pages/admin/Admin"
 
 ReactDOM.render(
   <React.StrictMode>
     <ColorModeScript />
-    <Question />
+    <Admin />
   </React.StrictMode>,
   document.getElementById("root"),
 )

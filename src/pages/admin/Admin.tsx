@@ -50,7 +50,7 @@ import {
   import { ChevronDownIcon, ArrowDownIcon, WarningIcon } from '@chakra-ui/icons'
   import { Avatar, AvatarBadge, AvatarGroup } from '@chakra-ui/react'
   import { Image } from '@chakra-ui/react'
-  import { TopMenu } from "../components/summary/TopMenu"
+  import { TopMenu } from "../../components/summary/TopMenu"
 
 
 
@@ -262,3 +262,5 @@ import {
     </ChakraProvider>
   )
   
+  
+export default Admin;
