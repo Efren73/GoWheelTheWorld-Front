@@ -18,6 +18,7 @@ import logo from '../../pages/login/logo.png'
 import { IQuestion } from './question.types';
 import Cart from '../../components/Cart/cart.component';
 import Summary from '../../components/summary/summary.component';
+import { LateralMenu } from '../../components';
 
 function Question(props: IQuestion): JSX.Element {
 	return (
@@ -25,7 +26,7 @@ function Question(props: IQuestion): JSX.Element {
       <Container maxWidth="full">
         <Flex h="100vh">
             <HStack w="full" h="full" >
-                <Box w="5%" h="100%" bgColor="black"></Box>
+                <LateralMenu />
                 <VStack h="100%" w="100%">
                     <Box w="100%" h="16%">
                         <HStack justifyContent="space-between" w="full" h="full" paddingRight={55}>
