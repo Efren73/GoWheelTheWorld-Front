@@ -14,11 +14,12 @@ import TourCompleted from "./pages/tourCompleted"
 import Signup from "./pages/signup"
 import Question from "./pages/question"
 import Admin from "./pages/admin/Admin"
+import Transportation from "./components/Transportation"
 
 ReactDOM.render(
   <React.StrictMode>
     <ColorModeScript />
-    <Signup />
+    <Question />
   </React.StrictMode>,
   document.getElementById("root"),
 )

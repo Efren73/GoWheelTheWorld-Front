@@ -49,25 +49,47 @@ function Signup(props: ISignup): JSX.Element {
               <FormControl w="62%">
                 <VStack alignItems="flex-start" spacing="-2.5">
                   <FormLabel fontSize="20px"> Full name </FormLabel>
-                  <Input placeholder="What's your full name?" borderRadius={10} fontSize="20px" size='lg'/>
+                  <Input  placeholder="What's your full name?" 
+                          borderRadius={10} 
+                          fontSize="20px" 
+                          size='lg'
+                          border='1px'
+                          borderColor='#2F6FE4'/>
                 </VStack>
               </FormControl>
               <FormControl w="62%">
                 <VStack alignItems="flex-start" spacing="-2.5">
                   <FormLabel fontSize="20px"> Company name </FormLabel>
-                  <Input placeholder="What's your company name?" borderRadius={10} fontSize="20px" size='lg'/>
+                  <Input  placeholder="What's your company name?" 
+                          borderRadius={10} 
+                          fontSize="20px" 
+                          size='lg'
+                          border='1px'
+                          borderColor='#2F6FE4'/>
                 </VStack>
               </FormControl>
               <FormControl w="62%">
                 <VStack alignItems="flex-start" spacing="-2.5">
                   <FormLabel fontSize="20px"> Phone number </FormLabel>
-                  <Input placeholder="What's your phone number?" borderRadius={10} fontSize="20px" size='lg' type='tel'/>
+                  <Input  placeholder="What's your phone number?" 
+                          borderRadius={10} 
+                          fontSize="20px" 
+                          size='lg' 
+                          type='tel'
+                          border='1px'
+                          borderColor='#2F6FE4'/>
                 </VStack>
               </FormControl>
               <FormControl w="62%">
                 <VStack alignItems="flex-start" spacing="-2.5">
                   <FormLabel fontSize="20px"> Email address </FormLabel>
-                  <Input placeholder="What's your email address?" borderRadius={10} fontSize="20px" size='lg' type='email' />
+                  <Input  placeholder="What's your email address?" 
+                          borderRadius={10} 
+                          fontSize="20px" 
+                          size='lg' 
+                          type='email'
+                          border='1px'
+                          borderColor='#2F6FE4'/>
                 </VStack>
               </FormControl>
               <FormControl w="62%">
@@ -80,6 +102,8 @@ function Signup(props: ISignup): JSX.Element {
                       borderRadius={10}
                       fontSize="20px"
                       size='lg'
+                      border='1px'
+                      borderColor='#2F6FE4'
                     />
                     <InputRightElement width='18%' h="100%">
                       <Button h='80%' size='lg' onClick={handleClick} fontSize="15px"> 
@@ -94,7 +118,8 @@ function Signup(props: ISignup): JSX.Element {
                     width='62%'
                     fontSize='20px'
                     bg="#2F6FE4"
-                    color="white"> Create Account </Button>
+                    color="white"
+                    borderRadius={10}> Create Account </Button>
           </VStack>
         </Box>
       </Flex>
