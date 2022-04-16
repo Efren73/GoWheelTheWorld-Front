@@ -3,9 +3,6 @@ import {
   Text,
   VStack,
   Stack,
-  Input,
-  Button,
-  HStack,
   Checkbox,
 } from "@chakra-ui/react"
 
