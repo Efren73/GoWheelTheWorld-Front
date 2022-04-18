@@ -18,6 +18,7 @@ import UploadPhotos from "./components/Upload-Photos"
 import Description from "./components/Description"
 import WhatsIncluded from "./components/Whats-included"
 import Faqs from './components/FAQS/faqs.component'
+import Transportation from "./components/Transportation"
 
 ReactDOM.render(
   <React.StrictMode>
