@@ -5,26 +5,28 @@ import {
   Button,
   Stack,
   Text,
+  Box,
 } from "@chakra-ui/react"
 
 const Multiple = () => (
-  <VStack
-    h='full'
-    w="880px"
-    padding='20px'
-    alignItems='flex-start'
-    background="#EBE9E9">
+  <Box boxShadow='2xl'
+			 w="65%" 
+			 h="full"
+			 p={20}
+			 background="#EBE9E9"
+			 borderRadius="10px">
+      
       
       <Stack spacing={2}>
         <Text fontSize='20px' color='#3F6FE4'>Basic Information / Type</Text>
         <Text fontSize='35px'>What kind of experience would you like to offer?</Text>
       </Stack>
       
-      <Grid templateColumns='repeat(3, 5fr)' gap={15} paddingTop='50px' alignSelf={'center'}>
+      <Grid templateColumns='repeat(3, 5fr)' gap={15} paddingTop='30px' h='80%' overflowY='auto'  w='700px'>
         <Button
             variant='outline'
             height='48px'
-            width='200px'
+            width='180px'
             borderColor='#3F6FE4'
             background='#FFFFFF'
             fontSize={'15px'}
@@ -34,7 +36,7 @@ const Multiple = () => (
         <Button
           variant='outline'
           height='48px'
-          width='200px'
+          width='180px'
           borderColor='#3F6FE4'
           background='#FFFFFF'
           fontSize={'15px'}
@@ -43,7 +45,7 @@ const Multiple = () => (
         </Button>
         <Button variant='outline'
             height='48px'
-            width='200px'
+            width='180px'
             borderColor='#3F6FE4'
             background='#FFFFFF'
             fontSize={'15px'}>
@@ -51,7 +53,7 @@ const Multiple = () => (
         </Button>
         <Button variant='outline'
             height='48px'
-            width='200px'
+            width='180px'
             borderColor='#3F6FE4'
             background='#FFFFFF'
             fontSize={'15px'}>
@@ -59,7 +61,7 @@ const Multiple = () => (
         </Button>
         <Button variant='outline'
             height='48px'
-            width='200px'
+            width='180px'
             borderColor='#3F6FE4'
             background='#FFFFFF'
             fontSize={'15px'}>
@@ -67,7 +69,7 @@ const Multiple = () => (
             </Button>
             <Button variant='outline'
             height='48px'
-            width='200px'
+            width='180px'
             borderColor='#3F6FE4'
             background='#FFFFFF'
             fontSize={'15px'}>
@@ -75,7 +77,7 @@ const Multiple = () => (
             </Button>
             <Button variant='outline'
             height='48px'
-            width='200px'
+            width='180px'
             borderColor='#3F6FE4'
             background='#FFFFFF'
             fontSize={'15px'}>
@@ -83,7 +85,7 @@ const Multiple = () => (
             </Button>
             <Button variant='outline'
             height='48px'
-            width='200px'
+            width='180px'
             borderColor='#3F6FE4'
             background='#FFFFFF'
             fontSize={'15px'}>
@@ -91,7 +93,7 @@ const Multiple = () => (
             </Button>
             <Button variant='outline'
             height='48px'
-            width='200px'
+            width='180px'
             borderColor='#3F6FE4'
             background='#FFFFFF'
             fontSize={'15px'}>
@@ -99,7 +101,7 @@ const Multiple = () => (
             </Button>
             <Button variant='outline'
             height='48px'
-            width='200px'
+            width='180px'
             borderColor='#3F6FE4'
             background='#FFFFFF'
             fontSize={'15px'}>
@@ -107,7 +109,7 @@ const Multiple = () => (
             </Button>
             <Button variant='outline'
             height='48px'
-            width='200px'
+            width='180px'
             borderColor='#3F6FE4'
             background='#FFFFFF'
             fontSize={'15px'}>
@@ -115,7 +117,7 @@ const Multiple = () => (
             </Button>
             <Button variant='outline'
             height='48px'
-            width='200px'
+            width='180px'
             borderColor='#3F6FE4'
             background='#FFFFFF'
             fontSize={'15px'}>
@@ -123,7 +125,7 @@ const Multiple = () => (
             </Button>
             <Button variant='outline'
             height='48px'
-            width='200px'
+            width='180px'
             borderColor='#3F6FE4'
             background='#FFFFFF'
             fontSize={'15px'}>
@@ -131,7 +133,7 @@ const Multiple = () => (
             </Button>
             <Button variant='outline'
             height='48px'
-            width='200px'
+            width='180px'
             borderColor='#3F6FE4'
             background='#FFFFFF'
             fontSize={'15px'}>
@@ -139,14 +141,14 @@ const Multiple = () => (
             </Button>
             <Button variant='outline'
             height='48px'
-            width='200px'
+            width='180px'
             borderColor='#3F6FE4'
             background='#FFFFFF'
             fontSize={'15px'}>
             Other
             </Button>
       </Grid>
-  </VStack>
+  </Box>
 )
     
 export default Multiple;

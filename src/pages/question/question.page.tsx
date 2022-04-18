@@ -17,11 +17,16 @@ import logo from '../../pages/login/images/logo.png'
 import { IQuestion } from './question.types';
 import Cart from '../../components/Cart/cart.component';
 import Summary from '../../components/summary/summary.component';
-import { LateralMenu } from '../../components';
+import { LateralMenu, Multiple, Price } from '../../components';
 import Transportation from '../../components/Transportation';
 import Restrooms from '../../components/Restrooms'
 import Places from '../../components/Places';
 import Equipment from '../../components/Equipment';
+import GroupPrivate from '../../components/GroupPrivate';
+import Stops from '../../components/Stops';
+import Languages from '../../components/Languages';
+import Restrictions from '../../components/Restrictions';
+import Assistance from '../../components/Assistance';
 
 function Question(props: IQuestion): JSX.Element {
 	return (
@@ -41,7 +46,7 @@ function Question(props: IQuestion): JSX.Element {
                     </Box>
                     <Box h="68%" w="100%" >
                         <HStack justifyContent="center" h="full" w="full" spacing={51}>
-                            <Cart />
+                            <Assistance />
                             <Summary />
                         </HStack>
                     </Box>

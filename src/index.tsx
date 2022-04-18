@@ -14,17 +14,16 @@ import Meeting from "./components/Meeting"
 import Stops from "./components/Stops"
 import Languages from "./components/Languages"
 import Restrictions from "./components/Restrictions"
-import Children from "./components/Children"
 import TourCompleted from "./pages/tourCompleted"
 import Signup from "./pages/signup"
 import Question from "./pages/question"
-import Admin from "./pages/admin/Admin"
+//import Admin from "./pages/admin/Admin"
 import Transportation from "./components/Transportation"
 
 ReactDOM.render(
   <React.StrictMode>
     <ColorModeScript />
-    <Children />
+    <Question />
   </React.StrictMode>,
   document.getElementById("root"),
 )

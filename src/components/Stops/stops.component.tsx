@@ -6,15 +6,16 @@ import {
   Input,
   Button,
   HStack,
+  Box,
 } from "@chakra-ui/react"
 
 const Stops = () => (
-    <VStack
-        h='full'
-        w='880px'
-        padding='20px'
-        alignItems='flex-start'
-        background="#EBE9E9">
+  <Box boxShadow='2xl'
+    w="65%" 
+    h="full"
+    p={20}
+    background="#EBE9E9"
+    borderRadius="10px">
       
       <Stack spacing={2}>
         <Text fontSize='20px' color='#3F6FE4'>Itinerary / Meeting and end Point</Text>
@@ -33,7 +34,8 @@ const Stops = () => (
                     -
                 </Button>
                 <Input
-                    h='40px'
+                  background={'white'}
+                    h='45px'
                     w='55px'
                     variant='outline'
                     placeholder='0'
@@ -50,7 +52,7 @@ const Stops = () => (
                 </Button>
 
       </HStack>
-    </VStack>
+    </Box>
 
 )
 export default Stops;
