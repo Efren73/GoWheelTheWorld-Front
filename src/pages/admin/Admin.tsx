@@ -52,7 +52,7 @@ import {
   import { Image } from '@chakra-ui/react'
   import { TopMenu } from "../../components/summary/TopMenu"
 
-
+{/*
 
   function Feature({ Title, Destination, TourOperator, Date, Status, ...rest }) {
     return (
@@ -86,7 +86,7 @@ import {
     )
   }
   
-
+*/}
   export const Admin = () => (
 
     <ChakraProvider theme={theme}>
@@ -250,13 +250,13 @@ import {
         </Box>
         
         <VStack p={5} direction='row' w="full">
-            <Feature w={"full"} 
+           {/* <Feature w={"full"} 
             Title='Snorkel'
             Destination='Cancun, Mex'
             TourOperator = 'Jhon Wayne'
             Date = '10/10/21'
             Status = '29'
-            />
+  />*/}
         </VStack>
 
     </ChakraProvider>
