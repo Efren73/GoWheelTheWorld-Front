@@ -34,7 +34,7 @@ import {
   import { Image } from '@chakra-ui/react'
   import TopMenu from "../../components/TopMenu/topMenu.component"
 
-
+/*
 function Feature({ Title, Destination, TourOperator, Date, Status, ...rest }) {
     return (
         <Box p={5} shadow='md' borderWidth='1px' {...rest}   paddingLeft={10}>
@@ -239,4 +239,4 @@ export const Admin = () => (
     </ChakraProvider>
 )
    
-export default Admin;
+export default Admin;*/

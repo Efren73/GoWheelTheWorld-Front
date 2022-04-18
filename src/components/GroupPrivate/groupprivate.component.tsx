@@ -9,19 +9,22 @@ import {
   useNumberInput,
   Stack,
   WrapItem,
+  IconButton,
+  Box,
 } from "@chakra-ui/react"
 
 import group from './images/grupo.png';
 //import private from './images/usuario.png';
 import src from "@chakra-ui/visually-hidden/dist/declarations/src";
+import { InfoIcon } from "@chakra-ui/icons";
 
 const GruoupPrivate = () => (
-    <VStack
-        h='full'
-        w='880px'
-        padding='20px'
-        alignItems='flex-start'
-        background="#EBE9E9">
+        <Box boxShadow='2xl'
+			 w="65%" 
+			 h="full"
+			 p={20}
+			 background="#EBE9E9"
+			 borderRadius="10px">
       
       <Stack spacing={2}>
         <Text fontSize='20px' color='#3F6FE4'>Basic Information / Type</Text>
@@ -37,10 +40,28 @@ const GruoupPrivate = () => (
                     background='#FFFFFF'
                     border-radius='5px'
                     fontSize={'20px'}
+                    
                     >
                         
                 Private
             </Button>
+
+            <IconButton
+						variant='outline'
+						aria-label='Private'
+                        height='80px'
+                        width='200px'
+                        borderColor='#3F6FE4'
+                        background='#FFFFFF'
+                        border-radius='5px'
+                        fontSize={'20px'}
+						icon={<InfoIcon
+                        h='50px'
+                        w='50px'
+                        />}
+                        
+					/>
+            
     
             <Button
                 variant='outline'
@@ -59,13 +80,13 @@ const GruoupPrivate = () => (
 
         <Text fontSize='35px' paddingBottom='30px'>Is it a private or a group tour/activity?</Text>
 
-        <Wrap paddingBottom='10px' spacing={'170px'}>
-            <Text fontSize='15px' paddingLeft='240px'>Minimum</Text>
+        <Wrap paddingBottom='10px' spacing={'160px'}>
+            <Text fontSize='15px' paddingLeft='100px'>Minimum</Text>
             <Text fontSize='15px' >Maximum</Text>
         </Wrap>
 
-        <Wrap alignSelf={'center'}>
-            <WrapItem>
+        <Wrap paddingLeft='100px'>
+            <WrapItem >
                 <Button 
                     variant='outline'
                     h='45px'
@@ -77,6 +98,7 @@ const GruoupPrivate = () => (
                     -
                 </Button>
                 <Input
+                    background={'white'}
                     h='40px'
                     w='55px'
                     variant='outline'
@@ -107,6 +129,7 @@ const GruoupPrivate = () => (
                     -
                 </Button>
                 <Input
+                    background={'white'}
                     h='40px'
                     w='55px'
                     variant='outline'
@@ -126,7 +149,7 @@ const GruoupPrivate = () => (
             </WrapItem>
         </Wrap>
     
-    </VStack>
+        </Box>
             
 
 )
