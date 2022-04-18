@@ -24,10 +24,12 @@ const LateralMenu = () => {
   const btnRef= React.useRef()
   return (
     <ChakraProvider>
-      <Box p={4}>
-      <Button colorScheme='blackAlpha' onClick={onOpen} background='#000'>
-        <HamburgerIcon w={7} h={7} />
-      </Button>
+      <Box h="full">
+        <Box h="full" alignItems="flex-start" background='#000' paddingTop={2}>
+          <Button colorScheme='blackAlpha' onClick={onOpen} >
+            <HamburgerIcon w={7} h={7} />
+          </Button>
+        </Box>
         <Drawer 
         isOpen={isOpen}
         placement="left"
@@ -39,7 +41,7 @@ const LateralMenu = () => {
             <DrawerHeader color='#fff'>Tour/Activity Information</DrawerHeader>
             <DrawerBody>
                 <Accordion defaultIndex={[0]} allowMultiple>
-                  <AccordionItem >
+                  <AccordionItem>
                     <h2>
                       <AccordionButton>
                       <AccordionIcon />
@@ -50,11 +52,11 @@ const LateralMenu = () => {
                       </AccordionButton>
                     </h2>
                     <AccordionPanel pb={4}>
-                    <Button colorScheme='white' variant='ghost' height='30px' width='250px'>Name</Button>
-                    <br/><Button colorScheme='white' variant='ghost' height='30px' width='250px'>Type</Button>
-                    <br/><Button colorScheme='white' variant='ghost' height='30px' width='250px'>Travelers</Button>
-                    <br/><Button colorScheme='white' variant='ghost' height='30px' width='250px'>Price</Button>
-                    <br/><Button colorScheme='white' variant='ghost' height='30px' width='250px'>Description</Button>
+                    <Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">Name</Button>
+                    <br/><Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">Type</Button>
+                    <br/><Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">Travelers</Button>
+                    <br/><Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">Price</Button>
+                    <br/><Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">Description</Button>
                     </AccordionPanel>
                   </AccordionItem>
 
@@ -63,16 +65,16 @@ const LateralMenu = () => {
                       <AccordionButton>
                       <AccordionIcon />
                         <Box flex='1' textAlign='left'>
-                          Intinerary
+                          Itinerary
                         </Box>
                         
                       </AccordionButton>
                     </h2>
                     <AccordionPanel pb={4}>
-                      <Button colorScheme='white' variant='ghost' height='30px' width='250px'>Meet/End Point</Button>
-                    <br/><Button colorScheme='white' variant='ghost' height='30px' width='250px'>Stops</Button>
-                    <br/><Button colorScheme='white' variant='ghost'height='30px' width='250px'>Spoken Languages</Button>
-                    <br/><Button colorScheme='white' variant='ghost' height='30px' width='250px'>Restriction</Button>
+                      <Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">Meet/End Point</Button>
+                      <br/><Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">Stops</Button>
+                      <br/><Button colorScheme='white' variant='ghost'height='30px' width='250px' justifyContent="flex-start">Spoken Languages</Button>
+                      <br/><Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">Restriction</Button>
                     </AccordionPanel>
                   </AccordionItem>
 
@@ -80,7 +82,7 @@ const LateralMenu = () => {
                     <h2>
                       <AccordionButton>
                         <Box flex='1' textAlign='left'>
-                          Childern Policy
+                          Children Policy
                         </Box>
                         
                       </AccordionButton>
@@ -107,11 +109,11 @@ const LateralMenu = () => {
                       </AccordionButton>
                     </h2>
                     <AccordionPanel pb={5}>
-                    <Button colorScheme='white' variant='ghost' height='30px' width='250px'>Assisstance</Button>
-                    <br/><Button colorScheme='white' variant='ghost' height='30px' width='250px'>Transportation</Button>
-                    <br/><Button colorScheme='white' variant='ghost' height='30px' width='250px'>Restrooms</Button>
-                    <br/><Button colorScheme='white' variant='ghost'height='30px' width='250px'>Places</Button>
-                    <br/><Button colorScheme='white' variant='ghost' height='30px' width='250px'>Equipment</Button>
+                    <Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">Assisstance</Button>
+                    <br/><Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">Transportation</Button>
+                    <br/><Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">Restrooms</Button>
+                    <br/><Button colorScheme='white' variant='ghost'height='30px' width='250px' justifyContent="flex-start">Places</Button>
+                    <br/><Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">Equipment</Button>
                     </AccordionPanel>
                   </AccordionItem>
                   
