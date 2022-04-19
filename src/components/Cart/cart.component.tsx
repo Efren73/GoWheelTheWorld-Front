@@ -38,6 +38,7 @@ function Cart(props: ICart): JSX.Element {
 				<Text fontSize='25px' paddingBottom='20px'>Make sure it's descriptive and unique so travelers know what you offer.</Text>
 			
 				<Input
+				background={'white'}
 				variant='outline'
 				h='40px'
 				fontSize={'20px'}

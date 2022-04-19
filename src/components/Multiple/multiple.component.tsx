@@ -16,7 +16,6 @@ const Multiple = () => (
 			 background="#EBE9E9"
 			 borderRadius="10px">
       
-      
       <Stack spacing={2}>
         <Text fontSize='20px' color='#3F6FE4'>Basic Information / Type</Text>
         <Text fontSize='35px'>What kind of experience would you like to offer?</Text>

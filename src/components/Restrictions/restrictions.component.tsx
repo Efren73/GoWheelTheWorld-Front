@@ -5,6 +5,7 @@ import {
   Stack,
   Checkbox,
   Box,
+  HStack,
 } from "@chakra-ui/react"
 
 const Restrictions = () => (
@@ -20,30 +21,49 @@ const Restrictions = () => (
         <Text fontSize='35px'>Select the restrictions on this tour</Text>
       </Stack>
 
-      <VStack spacing={15} alignItems='flex-start' paddingTop='20px'>
-        <Checkbox iconColor={'#3F6FE4'}>
-            There is no restriction of any kind regarding this tour.
-        </Checkbox>
-        <Checkbox iconColor={'#3F6FE4'}>
-            This tour is not recommended for people with a heart condition.
-        </Checkbox>
-        <Checkbox iconColor={'#3F6FE4'}>
-            This tour is not recommended for pregnant travelers.
-            </Checkbox>
-        <Checkbox iconColor={'#3F6FE4'}>
-            This tour is not recommended for people with dietary restrictions.
-        </Checkbox>
-        <Checkbox >
-            Special dietary needs and restrictions can be accommodated with prior notice.
-        </Checkbox>
-        <Checkbox iconColor={'#3F6FE4'}>
-            This tour is not recommended for travelers using a power wheelchair.
-        </Checkbox>
-        <Checkbox >
-            Travelers must be willing to self-transfer manually or be helped to do so,  in order to take part in this tour.      </Checkbox>
-        <Checkbox iconColor={'#3F6FE4'}>
-            Other
-        </Checkbox>
+      <VStack spacing={19} alignItems='flex-start' paddingTop='20px'>
+        <HStack justifyContent='flex-start'>
+                <Checkbox 
+                    background ='#fff' 
+                    _focus={{background: '#000'}} 
+                    size='lg'/>
+                <Text fontSize='17px'>This tour is not recommended for people with a heart condition.</Text>
+        </HStack>
+        <HStack justifyContent='flex-start'>
+                <Checkbox 
+                    background ='#fff' 
+                    _focus={{background: '#000'}} 
+                    size='lg'/>
+                <Text fontSize='17px'>This tour is not recommended for pregnant travelers.</Text>
+        </HStack>
+        <HStack justifyContent='flex-start'>
+                <Checkbox 
+                    background ='#fff' 
+                    _focus={{background: '#000'}} 
+                    size='lg'/>
+                <Text fontSize='17px'>This tour is not recommended for people with dietary restrictions.</Text>
+        </HStack>
+        <HStack justifyContent='flex-start'>
+                <Checkbox 
+                    background ='#fff' 
+                    _focus={{background: '#000'}} 
+                    size='lg'/>
+                <Text fontSize='17px'>Special dietary needs and restrictions can be accommodated with prior notice.</Text>
+        </HStack>
+        <HStack justifyContent='flex-start'>
+                <Checkbox 
+                    background ='#fff' 
+                    _focus={{background: '#000'}} 
+                    size='lg'/>
+                <Text fontSize='17px'>This tour is not recommended for travelers using a power wheelchair.</Text>
+        </HStack>
+        <HStack justifyContent='flex-start'>
+                <Checkbox 
+                    background ='#fff' 
+                    _focus={{background: '#000'}} 
+                    size='lg'/>
+                <Text fontSize='17px'>Travelers must be willing to self-transfer manually or be helped to do so,  in order to take part in this tour.</Text>
+        </HStack>
       </VStack>
       
     </Box>
