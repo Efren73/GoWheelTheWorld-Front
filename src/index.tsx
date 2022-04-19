@@ -17,17 +17,19 @@ import Restrictions from "./components/Restrictions"
 import TourCompleted from "./pages/tourCompleted"
 import Signup from "./pages/signup"
 import Question from "./pages/question"
-import Admin from "./pages/admin/Admin"
+import Admin from "./pages/admin/admin.page"
 import UploadPhotos from "./components/Upload-Photos"
 import Description from "./components/Description"
 import WhatsIncluded from "./components/Whats-included"
 import Faqs from './components/FAQS/faqs.component'
 import Transportation from "./components/Transportation"
+import ChildPolicy from "./components/ChildPolicy"
+
 
 ReactDOM.render(
   <React.StrictMode>
     <ColorModeScript />
-    <Faqs />
+    <Question />
   </React.StrictMode>,
   document.getElementById("root"),
 )

@@ -34,8 +34,8 @@ import {
   import { Image } from '@chakra-ui/react'
   import TopMenu from "../../components/TopMenu/topMenu.component"
 
-/*
-function Feature({ Title, Destination, TourOperator, Date, Status, ...rest }) {
+
+function Feature({ Title, Destination, TourOperator, Date, Status, ...rest }:any) {
     return (
         <Box p={5} shadow='md' borderWidth='1px' {...rest}   paddingLeft={10}>
         <HStack justifyContent="space-between" fontSize="20" p="5" >
@@ -239,4 +239,4 @@ export const Admin = () => (
     </ChakraProvider>
 )
    
-export default Admin;*/
+export default Admin;
