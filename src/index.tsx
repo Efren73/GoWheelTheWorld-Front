@@ -27,7 +27,7 @@ import Transportation from "./components/Transportation"
 ReactDOM.render(
   <React.StrictMode>
     <ColorModeScript />
-    <Faqs />
+    <Question />
   </React.StrictMode>,
   document.getElementById("root"),
 )
