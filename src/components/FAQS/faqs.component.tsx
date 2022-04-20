@@ -138,7 +138,9 @@ const Faqs: React.FC = () => {
                             </Stack>
                         ))
                     }
+                    {/*
                     <Button type="submit">Type submit</Button>
+                */}
                 </form>
             </Stack>
 

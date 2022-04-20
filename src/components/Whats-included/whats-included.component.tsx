@@ -4,12 +4,56 @@ import {
   Text,
   VStack,
   ChakraProvider,
-  Button,
   Stack,
   Grid,
+  useCheckbox,
+  chakra, 
+  useCheckboxGroup,
 } from "@chakra-ui/react"
 
 const WhatsIncluded: React.FC = () => {
+
+    //Customización del checkbox
+    function CustomCheckbox(props: any) {
+        const { state, getCheckboxProps, getInputProps, getLabelProps } =
+          useCheckbox()
+        
+        let backgroundValue: string;
+        let colorValue: string;
+
+          if(!state.isChecked){
+
+            backgroundValue = '#fff'
+            colorValue = '#000'
+          }
+          else{
+            backgroundValue = '#3F6FE4'
+            colorValue='#fff'
+          }
+
+          return (
+            <chakra.label
+                display='flex'
+                alignItems='center'
+                justifyContent='center'
+                w='200px'
+                h='48px'
+                bg={backgroundValue}
+                border='1px solid'
+                borderColor='#3F6FE4'
+                color={colorValue}
+                rounded='lg'
+                cursor='pointer'
+                {...getCheckboxProps()}
+                >
+                <input {...getInputProps()} hidden />
+                <Text {...getLabelProps()}>{props.value}</Text>
+             </chakra.label>
+          )
+        }
+        const { value, getCheckboxProps } = useCheckboxGroup()
+
+
     const included: string[]=[
         'Admission / ticket',
         'Snacks',
@@ -32,7 +76,8 @@ const WhatsIncluded: React.FC = () => {
         'Parking',
         'Tourist city taxes'
     ];
-    console.log(included.length)
+
+
     return(
     <ChakraProvider>
          <VStack
@@ -47,24 +92,13 @@ const WhatsIncluded: React.FC = () => {
                 <Text fontSize='35px'>Select what's included with your tour.</Text>
             </Stack>
             
-            <Grid templateColumns='repeat(3, 7fr)' gap={15} paddingTop='50px' alignSelf={'center'}>
-                {
+            <Grid templateColumns='repeat(3, 7fr)' gap={15} paddingTop='50px' alignSelf={'center'} overflowY='auto'>
+            {
                     included.map ((includes: string) =>(
-                        <Button
-                        variant='outline'
-                        height='48px'
-                        width='200px'
-                        borderColor='#3F6FE4'
-                        background='#FFFFFF'
-                        fontSize={'15px'}
-                        _focus={{background: '#3F6FE4', color: '#fff'}}
-                        _hover={{background: '##3F6FE4'}}
-                        value={includes}
-                        >
-                            {includes}
-                        </Button>
+                        <CustomCheckbox {...getCheckboxProps({value: `${includes}`})}/>
                     ))
                 }
+                
         
       </Grid>
 

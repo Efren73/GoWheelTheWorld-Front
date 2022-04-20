@@ -14,6 +14,7 @@ import {
   NumberInputField,
 } from "@chakra-ui/react"
 
+import '../Upload-Photos/upload-photos.modules.css';
 const Price = () => (
 
     <Box boxShadow='2xl'
@@ -48,14 +49,10 @@ const Price = () => (
 
             <Text fontSize='35px' paddingBottom='30px'>Please share any document related to the price.</Text>
 
-            <Button marginLeft={'35%'}
-                background='#4F6FE4'
-                color='#FFFFFF'
-                fontSize={'15px'}
-                height='48px'
-                width='200px'>
-                Upload
-            </Button>
+            <div className='uploadBtn'>
+                <p className='textBtn'>Upload</p>
+                <input className="inputFile" type='file' accept='image/*, .pdf'/>
+            </div>
             
     </Box>
 
