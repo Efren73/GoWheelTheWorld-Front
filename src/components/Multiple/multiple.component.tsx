@@ -6,13 +6,14 @@ import {
   Stack,
   Text,
   Box,
+  Checkbox,
 } from "@chakra-ui/react"
 
 const Multiple = () => (
   <Box boxShadow='2xl'
 			 w="65%" 
 			 h="full"
-			 p={20}
+			 p={10}
 			 background="#EBE9E9"
 			 borderRadius="10px">
       
@@ -21,7 +22,7 @@ const Multiple = () => (
         <Text fontSize='35px'>What kind of experience would you like to offer?</Text>
       </Stack>
       
-      <Grid templateColumns='repeat(3, 5fr)' gap={15} paddingTop='30px' h='80%' overflowY='auto'  w='700px'>
+      <Grid templateColumns='repeat(3, 5fr)' gap={15} paddingTop='25px' h='70%' overflowY='auto'  >
         <Button
             variant='outline'
             height='48px'
