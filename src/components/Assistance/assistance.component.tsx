@@ -38,10 +38,8 @@ const Assistance = () => (
                 <Tbody>
                     <Tr fontSize="16px">
                         <Td >
-                            <Box w='20px'> 
                             <Text>Guides / staff members have been trained by Wheel the World to provide assistance to people with disabilities during the tour/activity.
                             </Text>
-                        </Box>
                         </Td>
                         <Td>
                             <RadioGroup>
