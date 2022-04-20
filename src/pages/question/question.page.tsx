@@ -30,6 +30,9 @@ import Assistance from '../../components/Assistance';
 import Faqs from '../../components/FAQS/faqs.component'
 import Meeting from '../../components/Meeting';
 import ChildPolicy from '../../components/ChildPolicy';
+import Description from '../../components/Description';
+import Faqs from '../../components/FAQS';
+import Meeting from '../../components/Meeting';
 
 function Question(props: IQuestion): JSX.Element {
 	return (
@@ -49,7 +52,7 @@ function Question(props: IQuestion): JSX.Element {
                     </Box>
                     <Box h="68%" w="100%" >
                         <HStack justifyContent="center" h="full" w="full" spacing={51}>
-                            <UploadPhotos />
+                            <Transportation />
                             <Summary />
                         </HStack>
                     </Box>
