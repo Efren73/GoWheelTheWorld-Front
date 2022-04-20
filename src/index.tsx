@@ -30,7 +30,7 @@ ReactDOM.render(
   <React.StrictMode>
     <ColorModeScript />
     <ChakraProvider>
-      <Question />
+      <Admin />
     </ChakraProvider>
   </React.StrictMode>,
   document.getElementById("root"),
