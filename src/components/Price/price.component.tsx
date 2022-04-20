@@ -8,8 +8,10 @@ import {
   Select,
   InputGroup,
   InputLeftElement,
-  Input,
+  NumberInput,
   Box,
+  Input,
+  NumberInputField,
 } from "@chakra-ui/react"
 
 const Price = () => (
@@ -17,7 +19,7 @@ const Price = () => (
     <Box boxShadow='2xl'
 			 w="65%" 
 			 h="full"
-			 p={20}
+			 p={10}
 			 background="#EBE9E9"
 			 borderRadius="10px">
   
@@ -30,11 +32,11 @@ const Price = () => (
                 <InputGroup size={'lg'}>
                     <InputLeftElement
                         pointerEvents='none'
-                        color='gray.300'
                         fontSize='1.2em'
                         children='$'
                         />
-                    <Input placeholder='Enter amount'/>
+                    <Input placeholder='Enter amount' background='white'/>
+                    
                 </InputGroup>
 
                 <Select size={'lg'} background='white' placeholder='Select option'>

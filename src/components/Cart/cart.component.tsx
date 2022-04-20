@@ -20,7 +20,7 @@ function Cart(props: ICart): JSX.Element {
 		<Box boxShadow='2xl'
 			 w="65%" 
 			 h="full"
-			 p={20}
+			 p={10}
 			 background="#EBE9E9"
 			 borderRadius="10px">
 			<VStack alignItems='flex-start'>
@@ -38,6 +38,7 @@ function Cart(props: ICart): JSX.Element {
 				<Text fontSize='25px' paddingBottom='20px'>Make sure it's descriptive and unique so travelers know what you offer.</Text>
 			
 				<Input
+				background={'white'}
 				variant='outline'
 				h='40px'
 				fontSize={'20px'}

@@ -28,6 +28,9 @@ import Languages from '../../components/Languages';
 import Restrictions from '../../components/Restrictions';
 import Assistance from '../../components/Assistance';
 import ChildPolicy from '../../components/ChildPolicy';
+import Description from '../../components/Description';
+import Faqs from '../../components/FAQS';
+import Meeting from '../../components/Meeting';
 
 function Question(props: IQuestion): JSX.Element {
 	return (
