@@ -17,6 +17,7 @@ import {
     ModalHeader,
     ModalBody,
     ModalFooter,
+    FormControl,
 } from "@chakra-ui/react"
 
 import { DeleteIcon } from "@chakra-ui/icons"
@@ -79,6 +80,10 @@ const Faqs: React.FC = () => {
         ['Can I have a meal?', 'Yes! there is a Cafe on-site and eating and drinking is allowed in designated areas.']
     ];
 
+    function handleSubmit(e: any){
+        e.preventDefault();
+        console.dir(e.target)
+    }
     
     return(
     <ChakraProvider>
@@ -117,20 +122,24 @@ const Faqs: React.FC = () => {
                         + Add
                     </Button>
                 </Stack>
-            {
-                questionAnswer && questionAnswer.map(()=>(
-                    <Stack w='70%'>
-                        <HStack>
-                            <Input placeholder='Question' bg="#fff" />
-                            <Text >0/60</Text>
-                        </HStack>
-                        <HStack>
-                            <Input placeholder='Answer' bg="#fff"/>
-                            <Text>0/60</Text>
-                        </HStack>
-                    </Stack>
-                ))
-            }
+                <form onSubmit={handleSubmit}>
+                    {
+                        questionAnswer && questionAnswer.map(()=>(
+                            
+                            <Stack w='70%'>
+                                <HStack>
+                                    <Input placeholder='Question' bg="#fff" />
+                                    <Text >0/60</Text>
+                                </HStack>
+                                <HStack>
+                                    <Input placeholder='Answer' bg="#fff"/>
+                                    <Text>0/60</Text>
+                                </HStack>
+                            </Stack>
+                        ))
+                    }
+                    <Button type="submit">Type submit</Button>
+                </form>
             </Stack>
 
             <Box w='full'>
@@ -158,7 +167,7 @@ const Faqs: React.FC = () => {
                 {
                     faqsExamples.map((faq) => (
                         <Stack marginBottom='10px'>
-                            <Text color='#3F6FE4' fontSize='20px'>{faq[0]}</Text>
+                            <Text color='#3F6FE4' fontSize='20px' >{faq[0]}</Text>
                             <Text fontSize='16px'>{faq[1]}</Text>
                         </Stack>
                     ))

@@ -29,6 +29,7 @@ import Restrictions from '../../components/Restrictions';
 import Assistance from '../../components/Assistance';
 import Faqs from '../../components/FAQS/faqs.component'
 import Meeting from '../../components/Meeting';
+import ChildPolicy from '../../components/ChildPolicy';
 
 function Question(props: IQuestion): JSX.Element {
 	return (
@@ -48,7 +49,7 @@ function Question(props: IQuestion): JSX.Element {
                     </Box>
                     <Box h="68%" w="100%" >
                         <HStack justifyContent="center" h="full" w="full" spacing={51}>
-                            <Faqs />
+                            <UploadPhotos />
                             <Summary />
                         </HStack>
                     </Box>

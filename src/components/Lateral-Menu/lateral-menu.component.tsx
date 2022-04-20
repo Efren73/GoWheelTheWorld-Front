@@ -70,8 +70,9 @@ const LateralMenu = () => {
                         
                       </AccordionButton>
                     </h2>
-                    <AccordionPanel pb={4}>
-                      <Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">Meet/End Point</Button>
+                    <AccordionPanel pb={5}>
+                      <Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">Meet Point</Button>
+                      <Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">End Point</Button>
                       <br/><Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">Stops</Button>
                       <br/><Button colorScheme='white' variant='ghost'height='30px' width='250px' justifyContent="flex-start">Spoken Languages</Button>
                       <br/><Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">Restriction</Button>
