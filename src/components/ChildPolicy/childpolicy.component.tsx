@@ -37,7 +37,7 @@ const ChildPolicy: React.FC = () => {
         return(
             <Box>
                 <HStack>
-                    <Box w='400px' paddingTop='5px' paddingBottom='5px'>
+                    <Box w='500px' paddingTop='5px' paddingBottom='5px'>
                         <Text fontSize='20px'>From what age are children allowed?</Text>
                     </Box>
                         <RadioGroup onChange={setValueQ2} value={valueQ2}  >
@@ -52,7 +52,7 @@ const ChildPolicy: React.FC = () => {
                 </HStack>
 
                 <HStack>
-                    <Box w='400px' paddingTop='5px' paddingBottom='5px'>
+                    <Box w='500px' paddingTop='5px' paddingBottom='5px'>
                         <Text fontSize='20px'>From what age does children pay for the tour/activity</Text>
                     </Box>
                     <RadioGroup onChange={setValueQ3} value={valueQ3} >
@@ -67,7 +67,7 @@ const ChildPolicy: React.FC = () => {
                 </HStack>
 
                 <HStack>
-                    <Box w='400px' paddingTop='5px' paddingBottom='5px'>
+                    <Box w='500px' paddingTop='5px' paddingBottom='5px'>
                         <Text fontSize='20px'>Is there height limit to this tour/activity?</Text>
                     </Box>
                     <RadioGroup onChange={setValueQ4} value={valueQ4} >
@@ -109,7 +109,7 @@ const ChildPolicy: React.FC = () => {
                 <Text fontSize='20px' color='#3F6FE4'>Child Policy</Text>
                 <Text fontSize='35px'>Tell us about Children Policy.</Text>
                 <HStack>
-                    <Box w='400px' paddingTop='20px' paddingBottom='5px'>
+                    <Box w='500px' paddingTop='20px' paddingBottom='5px'>
                         <Text fontSize='20px'>Are Children allowed in this tour? </Text>
                     </Box>
                     <RadioGroup onChange={setValueQ1} value={valueQ1} >

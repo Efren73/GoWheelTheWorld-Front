@@ -50,7 +50,7 @@ function Question(props: IQuestion): JSX.Element {
                     </Box>
                     <Box h="68%" w="100%" >
                         <HStack justifyContent="center" h="full" w="full" spacing={51}>
-                            <ChildPolicy />
+                            <Transportation />
                             <Summary />
                         </HStack>
                     </Box>

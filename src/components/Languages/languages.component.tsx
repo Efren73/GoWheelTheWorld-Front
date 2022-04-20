@@ -21,7 +21,7 @@ const Languages = () => (
         <Text fontSize='35px'>Select the spoken languages on this tour.</Text>
       </Stack>
 
-      <Grid templateColumns='repeat(2, 5fr)' gap={15} justifyItems='center' paddingTop='30px' h='80%' overflowY='auto' w='700px'>
+      <Grid templateColumns='repeat(2, 5fr)' gap={15} justifyItems='center' paddingTop='30px' h='80%' overflowY='auto'>
         <Button
             variant='outline'
             height='48px'
