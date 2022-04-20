@@ -15,22 +15,28 @@ import {
 } from "@chakra-ui/react";
 import logo from '../../pages/login/images/logo.png'
 import { IQuestion } from './question.types';
-import Cart from '../../components/Cart/cart.component';
 import Summary from '../../components/summary/summary.component';
-import { LateralMenu, Multiple, Price } from '../../components';
-import Transportation from '../../components/Transportation';
-import Restrooms from '../../components/Restrooms'
-import Places from '../../components/Places';
-import Equipment from '../../components/Equipment';
-import GroupPrivate from '../../components/GroupPrivate';
-import Stops from '../../components/Stops';
-import Languages from '../../components/Languages';
-import Restrictions from '../../components/Restrictions';
-import Assistance from '../../components/Assistance';
-import ChildPolicy from '../../components/ChildPolicy';
-import Description from '../../components/Description';
-import Faqs from '../../components/FAQS';
-import Meeting from '../../components/Meeting';
+import { 
+    LateralMenu,
+    Cart,
+    Multiple,
+    GroupPrivate,
+    Price,
+    Description,
+    UploadPhotos,
+    Meeting,
+    Stops,
+    Languages,
+    Restrictions,
+    ChildPolicy,
+    Assistance,
+    Transportation,
+    Restrooms,
+    Places, 
+    Equipment,
+    Faqs
+ } from '../../components';
+
 
 function Question(props: IQuestion): JSX.Element {
 	return (
@@ -50,7 +56,7 @@ function Question(props: IQuestion): JSX.Element {
                     </Box>
                     <Box h="68%" w="100%" >
                         <HStack justifyContent="center" h="full" w="full" spacing={51}>
-                            <Transportation />
+                            <Price />
                             <Summary />
                         </HStack>
                     </Box>
@@ -67,7 +73,7 @@ function Question(props: IQuestion): JSX.Element {
                                     bg="white"
                                     border='1px'
                                     borderColor="#3F6FE4" > Back </Button>
-                            <Text fontSize="20px" color="#9B9B9B"> 1 of 20 items sent </Text>
+                            <Text fontSize="20px" color="#9B9B9B"> 1 of 18 items sent </Text>
                             <Button size='lg'
                                     fontSize="20px"
                                     borderRadius={10}

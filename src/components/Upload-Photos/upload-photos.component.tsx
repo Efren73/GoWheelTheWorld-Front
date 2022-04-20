@@ -6,10 +6,12 @@ import {
   Image,
   ChakraProvider,
   Button,
-  Stack
+  Stack,
+  Box
 } from "@chakra-ui/react"
 
 import Photo from './image.png';
+import './upload-photos.modules.css'
 
 const arreglo: string[] = ['Photo 1', 'Photo 2']; 
 const UploadPhotos = () => (
@@ -39,15 +41,14 @@ const UploadPhotos = () => (
                  
                 
             </VStack>
-            <Button alignSelf={'end'}
-                background='#4F6FE4'
-                color='#FFFFFF'
-                fontSize={'15px'}
-                height='48px'
-                width='200px'
-                >
-                Upload
-            </Button>
+            <Box >
+                <div className='uploadBtn'>
+                    <p className='textBtn'>Upload</p>
+                    <input className="inputFile" type='file' accept='image/*'/>
+                </div>
+                
+            </Box>
+        
         </VStack >
     </ChakraProvider>
 ) 
