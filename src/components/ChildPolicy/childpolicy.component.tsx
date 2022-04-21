@@ -30,7 +30,6 @@ const ChildPolicy: React.FC = () => {
                 )
         }
     }
-
     
     function addAnswer(RadioB:string){
         if (RadioB == 'yes')
@@ -82,7 +81,6 @@ const ChildPolicy: React.FC = () => {
                 </HStack>
 
             </Box>
-
         )
         else
         return(
@@ -92,8 +90,6 @@ const ChildPolicy: React.FC = () => {
                  </Center>
         )
     }
-
-
     
     return(
     <ChakraProvider>
@@ -128,9 +124,7 @@ const ChildPolicy: React.FC = () => {
                 
             </Box>
 
-
         </Box >
-
     </ChakraProvider>
     )
 } 
