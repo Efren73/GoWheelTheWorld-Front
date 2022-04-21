@@ -1,4 +1,4 @@
-import { ColorModeScript } from "@chakra-ui/react"
+import { ChakraProvider, ColorModeScript } from "@chakra-ui/react"
 import * as React from "react"
 import ReactDOM from "react-dom"
 import { App } from "./App"
@@ -24,12 +24,14 @@ import WhatsIncluded from "./components/Whats-included"
 import Faqs from './components/FAQS/faqs.component'
 import Transportation from "./components/Transportation"
 import ChildPolicy from "./components/ChildPolicy"
-
+import Assistance from "./components/Assistance"
 
 ReactDOM.render(
   <React.StrictMode>
     <ColorModeScript />
-    <Question />
+      <ChakraProvider>
+        <Question />
+      </ChakraProvider>
   </React.StrictMode>,
   document.getElementById("root"),
 )

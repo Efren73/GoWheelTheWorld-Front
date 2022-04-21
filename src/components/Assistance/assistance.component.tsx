@@ -2,9 +2,6 @@ import * as React from "react"
 import {
   Text,
   VStack,
-  Stack,
-  Button,
-  Grid,
   Box,
   Heading,
   HStack,
@@ -15,30 +12,36 @@ import {
   Tr,
   RadioGroup,
   Radio,
-} from "@chakra-ui/react"
+} from "@chakra-ui/react";
 
 const Assistance = () => (
     <Box boxShadow='2xl'
-    w="65%" 
-    h="full"
-    p={20}
-    background="#EBE9E9"
-    borderRadius="10px">
+        w="65%" 
+        h="full"
+        p={20}
+        background="#EBE9E9"
+        borderRadius="10px">
     <VStack alignItems='flex-start' w="full">
         <Text fontSize='20px' color='#3F6FE4'> Accesibility / Assistance </Text>
-        <Heading fontSize='35px'>Assistance</Heading>
+        <Heading fontSize='35px'> Assistance </Heading>
         <HStack justifyContent="flex-end" w="full">
             <HStack w="15%" spacing={31}>
                 <Text color="#4F6FE4"> Yes </Text>
                 <Text color="#4F6FE4"> No </Text>
             </HStack>
         </HStack>
-        <TableContainer w="full">
+        <TableContainer maxWidth="100%">
             <Table bg="white" borderRadius={10}>
                 <Tbody>
-                    <Tr fontSize="16px">
-                        <Td >
-                        Guides / staff members have been trained by Wheel the World to provide assistance to people with disabilities during the tour/activity.
+                    <Tr>
+                        <Td>
+                            <Box>
+                                <Text> 
+                                Guides / staff members have been trained 
+                                by Wheel the World to provide assistance to 
+                                people with disabilities during the tour/activity.
+                                </Text>
+                            </Box>
                         </Td>
                         <Td>
                             <RadioGroup>
@@ -53,7 +56,7 @@ const Assistance = () => (
                             </RadioGroup>
                         </Td>
                     </Tr>
-                    <Tr fontSize="16px">
+                    <Tr>
                         <Td>Guides / staff members have experience assisting people with disabilities.</Td>
                         <Td>
                             <RadioGroup>
@@ -68,7 +71,7 @@ const Assistance = () => (
                             </RadioGroup>
                         </Td>
                     </Tr>
-                    <Tr fontSize="16px">
+                    <Tr>
                         <Td>Guides / staff members will be available to assist.</Td>
                         <Td>
                             <RadioGroup>
@@ -83,11 +86,9 @@ const Assistance = () => (
                             </RadioGroup>
                         </Td>
                     </Tr>
-                    
                 </Tbody>
             </Table>
         </TableContainer>
-        
     </VStack>
 </Box>
 )
