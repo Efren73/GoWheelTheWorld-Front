@@ -1,2 +1,2 @@
 export * from './admin.page';
-//export { default } from './Admin';
+export { default } from './admin.page';

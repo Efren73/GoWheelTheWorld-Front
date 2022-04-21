@@ -39,9 +39,9 @@ const GruoupPrivate: React.FC = () => {
 
         return (
             <HStack maxW='200px'>
-            <Button {...inc} background='#2F6FE4'>+</Button>
-            <Input {...input} background='#white'/>
             <Button {...dec} background='#2F6FE4'>-</Button>
+            <Input {...input} background='#white'/>
+            <Button {...inc} background='#2F6FE4'>+</Button>
             </HStack>
         )
     }
@@ -56,7 +56,7 @@ const GruoupPrivate: React.FC = () => {
                 borderRadius="10px">
         
             <Stack spacing={2}>
-                <Text fontSize='20px' color='#3F6FE4'>Basic Information / Type</Text>
+                <Text fontSize='20px' color='#3F6FE4'>Basic Information / Travelers</Text>
             </Stack>
 
             <VStack h='90%' overflowY='auto'>

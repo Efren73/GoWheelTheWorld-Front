@@ -21,11 +21,29 @@ import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import logo from './images/logo.png';
 import ImagenPrincipal from './images/ImagenPrincipal.png';
 import { ILogin } from './login.types';
+import {useNavigate} from 'react-router-dom'
 
 function Login(props: ILogin): JSX.Element {
   
   const [show, setShow] = React.useState(false)
   const handleClick = () => setShow(!show)
+  const navigate = useNavigate();
+  const [password, setPassword] = React.useState('')
+
+  function change(){
+    if(password === "tour")
+      navigate('/tour-operator/1')
+    else if(password==="admin")
+      navigate('/admin')
+  }
+
+  function change2(){
+    navigate('/signup')
+  }
+
+  function handleChange(e: any){
+    setPassword(e.target.value);
+  }
 
 	return (
 		<ChakraProvider>
@@ -74,6 +92,8 @@ function Login(props: ILogin): JSX.Element {
                       border='1px'
                       borderColor='#2F6FE4'
                       isRequired={true}
+                      value={password}
+                      onChange={handleChange}
                     />
                     <InputRightElement width='19%' h="100%">
                       <Button h='80%' size='lg' onClick={handleClick} fontSize="15px"> 
@@ -89,10 +109,11 @@ function Login(props: ILogin): JSX.Element {
                     fontSize='25px'
                     bg="#2F6FE4"
                     color="white"
-                    borderRadius={10}> Login </Button>
+                    borderRadius={10}
+                    onClick={change}> Login </Button>
             <VStack spacing="-2">
               <Text>Don't have an account yet? </Text>
-              <Link color="#2F6FE4"> Click here to become a partner. </Link>
+              <Link color="#2F6FE4" onClick={change2}> Click here to become a partner. </Link>
             </VStack>
           </VStack>
         </Box>

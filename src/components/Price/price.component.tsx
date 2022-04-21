@@ -25,7 +25,7 @@ const Price = () => (
 			 borderRadius="10px">
   
         <Stack spacing={2}>
-            <Text fontSize='20px' color='#3F6FE4'>Basic Information / Type</Text>
+            <Text fontSize='20px' color='#3F6FE4'>Basic Information / Price</Text>
             <Text fontSize='35px'>Price per person, based on 2 travelers.</Text>
         </Stack>
             

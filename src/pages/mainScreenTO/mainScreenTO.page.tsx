@@ -19,8 +19,13 @@ import { IMainScreenTO } from './mainScreenTO.types';
 import ImageInfoMSTO from './ImageInfoMSTO.png';
 import fondoMS from './FondoMS.png';
 import TopMenu from '../../components/TopMenu/topMenu.component';
+import {useNavigate} from 'react-router-dom'
 
 function MainScreenTO(props: IMainScreenTO): JSX.Element {
+  const navigate = useNavigate()
+  function change(){
+    navigate('/tour-operator/1/question/1/name-of-tour')
+  }
 	return (
     <ChakraProvider>
       <Flex h="100vh">
@@ -63,7 +68,8 @@ function MainScreenTO(props: IMainScreenTO): JSX.Element {
                             width='200px'
                             fontSize='25px'
                             bg="#2F6FE4" 
-                            color="white"> 
+                            color="white"
+                            onClick={change}> 
                       Let's start! </Button>
                   </HStack>
                 </VStack>

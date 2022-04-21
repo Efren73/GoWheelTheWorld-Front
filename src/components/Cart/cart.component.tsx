@@ -46,7 +46,7 @@ const Cart: React.FC = () => {
 				background="#EBE9E9"
 				borderRadius="10px">
 				<VStack alignItems='flex-start'>
-					<Text fontSize='20px' color='#3F6FE4'>Basic Information / Name</Text>
+					<Text fontSize='20px' color='#3F6FE4'>Basic Information / Name of the tour</Text>
 					<HStack w="full">
 						<Heading fontSize='35px'>Give your experience a name</Heading>
 						<IconButton
@@ -66,7 +66,7 @@ const Cart: React.FC = () => {
 					fontSize={'20px'}
 					required maxLength={80}
 					placeholder='Experience name'
-					color={'#2F6FE4'}/>
+					/>
 					
 					<Box w='full'>
 					<HStack justifyContent='flex-end'>

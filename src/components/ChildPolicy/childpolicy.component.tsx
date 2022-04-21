@@ -106,7 +106,7 @@ const ChildPolicy: React.FC = () => {
         borderRadius="10px">
   
             <Box>
-                <Text fontSize='20px' color='#3F6FE4'>Child Policy</Text>
+                <Text fontSize='20px' color='#3F6FE4'>Children Policy</Text>
                 <Text fontSize='35px'>Tell us about Children Policy.</Text>
                 <HStack>
                     <Box w='500px' paddingTop='20px' paddingBottom='5px'>
