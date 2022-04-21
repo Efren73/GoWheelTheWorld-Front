@@ -28,9 +28,9 @@ const Stops: React.FC = () => {
 
     return (
         <HStack maxW='200px'>
-        <Button {...inc} background='#2F6FE4'>+</Button>
-        <Input {...input} background='#white'/>
         <Button {...dec} background='#2F6FE4'>-</Button>
+        <Input {...input} background='#white'/>
+        <Button {...inc} background='#2F6FE4'>+</Button>
         </HStack>
     )
   }
@@ -45,7 +45,7 @@ const Stops: React.FC = () => {
         borderRadius="10px">
           
           <Stack spacing={2}>
-            <Text fontSize='20px' color='#3F6FE4'>Itinerary / Meeting and end Point</Text>
+            <Text fontSize='20px' color='#3F6FE4'>Itinerary / Stops</Text>
             <Text fontSize='35px'>Introduce the number of stops</Text>
           </Stack>
 

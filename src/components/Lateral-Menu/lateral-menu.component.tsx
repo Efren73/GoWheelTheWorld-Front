@@ -18,10 +18,15 @@ import {
 } from "@chakra-ui/react"
 import { HamburgerIcon } from "@chakra-ui/icons"
 
- 
-const LateralMenu = () => {
+import { BrowserRouter, Link, Route} from "react-router-dom"
+import Cart from '../Cart/cart.component'
+
+
+const LateralMenu = (props: any) => {
   const {isOpen,onOpen,onClose}= useDisclosure()
   const btnRef= React.useRef()
+
+  console.log(props)
   return (
     <ChakraProvider>
       <Box h="full">
@@ -51,12 +56,30 @@ const LateralMenu = () => {
                        
                       </AccordionButton>
                     </h2>
-                    <AccordionPanel pb={4}>
-                    <Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">Name</Button>
-                    <br/><Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">Type</Button>
-                    <br/><Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">Travelers</Button>
-                    <br/><Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">Price</Button>
-                    <br/><Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">Description</Button>
+                    <AccordionPanel pb={5}>
+                      <Link to="name-of-tour">
+                        <Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">Name</Button>
+                      </Link>
+
+                      <Link to="type-of-tour">
+                        <Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">Type</Button>
+                      </Link>
+
+                      <Link to="group-private">
+                        <Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">Travelers</Button>
+                      </Link>
+
+                      <Link to="price">
+                        <Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">Price</Button>
+                      </Link>
+
+                      <Link to="description">
+                        <Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">Description</Button>
+                      </Link>
+
+                      <Link to="upload-photos">
+                        <Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">Upload Photos</Button>
+                      </Link>
                     </AccordionPanel>
                   </AccordionItem>
 
@@ -71,32 +94,54 @@ const LateralMenu = () => {
                       </AccordionButton>
                     </h2>
                     <AccordionPanel pb={5}>
-                      <Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">Meet Point</Button>
-                      <Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">End Point</Button>
-                      <br/><Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">Stops</Button>
-                      <br/><Button colorScheme='white' variant='ghost'height='30px' width='250px' justifyContent="flex-start">Spoken Languages</Button>
-                      <br/><Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">Restriction</Button>
+                      <Link to="meeting-point">
+                        <Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">Meet Point</Button>
+                      </Link>
+                      
+                      <Link to="end-point">
+                        <Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">End Point</Button>
+                      </Link>
+
+                      <Link to="stops">
+                        <Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">Stops</Button>
+                      </Link>
+                      
+                      <Link to="languages">
+                        <Button colorScheme='white' variant='ghost'height='30px' width='250px' justifyContent="flex-start">Spoken Languages</Button>
+                      </Link>
+
+                      <Link to="restrictions">
+                        <Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">Restriction</Button>
+                      </Link>
+
                     </AccordionPanel>
                   </AccordionItem>
 
                   <AccordionItem>
                     <h2>
-                      <AccordionButton>
-                        <Box flex='1' textAlign='left'>
+                      
+                      <Link to="children-policy">
+                        <AccordionButton>
+                          <Box flex='1' textAlign='left'>
                           Children Policy
-                        </Box>
-                        
-                      </AccordionButton>
+                          </Box>
+                        </AccordionButton>
+                      </Link>
+
                     </h2>
                   </AccordionItem>
 
                   <AccordionItem >
                     <h2>
-                      <AccordionButton>
-                        <Box flex='1' textAlign='left'>
+
+                      <Link to="whats-included">
+                        <AccordionButton>
+                          <Box flex='1' textAlign='left'>
                           What's Included
-                        </Box>
-                      </AccordionButton>
+                          </Box>
+                        </AccordionButton>
+                      </Link>
+
                     </h2>
                   </AccordionItem>
 
@@ -110,21 +155,41 @@ const LateralMenu = () => {
                       </AccordionButton>
                     </h2>
                     <AccordionPanel pb={5}>
-                    <Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">Assisstance</Button>
-                    <br/><Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">Transportation</Button>
-                    <br/><Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">Restrooms</Button>
-                    <br/><Button colorScheme='white' variant='ghost'height='30px' width='250px' justifyContent="flex-start">Places</Button>
-                    <br/><Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">Equipment</Button>
+
+                      <Link to="assistance">
+                        <Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">Assistance</Button>
+                      </Link>
+
+                      <Link to="transportation">
+                        <Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">Transportation</Button>
+                      </Link>
+
+                      <Link to="restrooms">
+                        <Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">Restrooms</Button>
+                      </Link>
+
+                      <Link to="places">
+                        <Button colorScheme='white' variant='ghost'height='30px' width='250px' justifyContent="flex-start">Places</Button>
+                      </Link>
+
+                      <Link to="equipment">
+                        <Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">Equipment</Button>
+                      </Link>
+
                     </AccordionPanel>
                   </AccordionItem>
                   
                   <AccordionItem >
                     <h2>
-                      <AccordionButton>
-                        <Box flex='1' textAlign='left'>
-                          FAQ
-                        </Box>
-                      </AccordionButton>
+
+                      <Link to="faqs">
+                        <AccordionButton>
+                          <Box flex='1' textAlign='left'>
+                            FAQ
+                          </Box>
+                        </AccordionButton>
+                      </Link>
+
                     </h2>
                   </AccordionItem>
 

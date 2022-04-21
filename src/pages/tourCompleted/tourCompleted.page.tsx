@@ -17,8 +17,13 @@ import { CheckCircleIcon, ChevronRightIcon } from '@chakra-ui/icons';
 import fondoMS from '../mainScreenTO/FondoMS.png';
 import { ITourCompleted } from './tourCompleted.types';
 import TopMenu from '../../components/TopMenu/topMenu.component';
+import {useNavigate} from 'react-router-dom'
 
 function TourCompleted(props: ITourCompleted): JSX.Element {
+    const navigate = useNavigate()
+    function change(){
+        navigate('/tour-operator/1')
+    }
 	return (
         <ChakraProvider>
             <Flex h="100vh">
@@ -43,7 +48,8 @@ function TourCompleted(props: ITourCompleted): JSX.Element {
                                         rightIcon={<ChevronRightIcon />} 
                                         borderRadius={10}
                                         bg="#2F6FE4"
-                                        color="white"> Finish </Button>
+                                        color="white"
+                                        onClick={change}> Finish </Button>
                             </HStack>
                         </VStack>
                     </Box>

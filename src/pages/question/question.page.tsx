@@ -36,9 +36,16 @@ import {
     Equipment,
     Faqs
  } from '../../components';
+import { Routes, useNavigate, Outlet } from 'react-router-dom';
 
 
 function Question(props: IQuestion): JSX.Element {
+      const navigate = useNavigate();
+
+      function change(){
+        
+        navigate('/tour-operator/1/tour-completed/1')
+      }
 	return (
 	<ChakraProvider>
         <Flex h="100vh">
@@ -56,7 +63,7 @@ function Question(props: IQuestion): JSX.Element {
                     </Box>
                     <Box h="68%" w="100%" >
                         <HStack justifyContent="center" h="full" w="full" spacing={51}>
-                            <Price /> 
+                            <Outlet />
                             <Summary />
                         </HStack>
                     </Box>
@@ -73,12 +80,13 @@ function Question(props: IQuestion): JSX.Element {
                                     bg="white"
                                     border='1px'
                                     borderColor="#3F6FE4" > Back </Button>
-                            <Text fontSize="20px" color="#9B9B9B"> 1 of 18 items sent </Text>
+                            <Text fontSize="20px" color="#9B9B9B"> 1 of 19 items sent </Text>
                             <Button size='lg'
                                     fontSize="20px"
                                     borderRadius={10}
                                     bg="#3F6FE4"
-                                    color="white"> Next </Button>
+                                    color="white"
+                                    onClick={change}> Next </Button>
                         </HStack>
                     </Box>
                 </VStack>
