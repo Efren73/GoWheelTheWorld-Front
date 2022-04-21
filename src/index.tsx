@@ -6,7 +6,7 @@ import Login from "./pages/login"
 import MainScreenTO from "./pages/mainScreenTO"
 import reportWebVitals from "./reportWebVitals"
 import * as serviceWorker from "./serviceWorker"
-import { Cart, Summary } from "./components"
+import { Cart, LateralMenu, Summary } from "./components"
 import Multiple from "./components/Multiple/multiple.component"
 import GroupPrivate from "./components/GroupPrivate"
 import Price from "./components/Price"
@@ -24,14 +24,21 @@ import WhatsIncluded from "./components/Whats-included"
 import Faqs from './components/FAQS/faqs.component'
 import Transportation from "./components/Transportation"
 import ChildPolicy from "./components/ChildPolicy"
-import Assistance from "./components/Assistance"
+/*
+  signup
+  Login
+  Admin
+  mainScreenTo
+  Question
+  Tour completed
+*/
 
 ReactDOM.render(
   <React.StrictMode>
     <ColorModeScript />
-      <ChakraProvider>
-        <Question />
-      </ChakraProvider>
+    <ChakraProvider>
+      <App />
+    </ChakraProvider>
   </React.StrictMode>,
   document.getElementById("root"),
 )

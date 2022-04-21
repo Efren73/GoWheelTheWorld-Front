@@ -16,11 +16,11 @@ import {
 
 const Assistance = () => (
     <Box boxShadow='2xl'
-        w="65%" 
-        h="full"
-        p={20}
-        background="#EBE9E9"
-        borderRadius="10px">
+    w="65%" 
+    h="full"
+    p={10}
+    background="#EBE9E9"
+    borderRadius="10px">
     <VStack alignItems='flex-start' w="full">
         <Text fontSize='20px' color='#3F6FE4'> Accesibility / Assistance </Text>
         <Heading fontSize='35px'> Assistance </Heading>
@@ -30,18 +30,13 @@ const Assistance = () => (
                 <Text color="#4F6FE4"> No </Text>
             </HStack>
         </HStack>
-        <TableContainer maxWidth="100%">
+        <TableContainer w="full" >
             <Table bg="white" borderRadius={10}>
                 <Tbody>
-                    <Tr>
-                        <Td>
-                            <Box>
-                                <Text> 
-                                Guides / staff members have been trained 
-                                by Wheel the World to provide assistance to 
-                                people with disabilities during the tour/activity.
-                                </Text>
-                            </Box>
+                    <Tr fontSize="16px">
+                        <Td >
+                            <Text>Guides / staff members have been trained by Wheel the World to provide assistance to people with disabilities during the tour/activity.
+                            </Text>
                         </Td>
                         <Td>
                             <RadioGroup>

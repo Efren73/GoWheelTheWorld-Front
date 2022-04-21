@@ -48,14 +48,16 @@ const Description: React.FC = () => {
         'This bus tour of Miami brings together some of the city’s best tourist highlights and takes place on a bus with a transparent roof, so you can admire the great views whilst being protected from the elements. Drivers are available to help people with reduced mobility to transfer into the bus and there is space to store one manual wheelchair onboard. Service animals are also welcome on this tour. The tour lasts for approximately 3 hours and has 3 pick-up/drop-off points, plus an extended stop in Little Havana and in Wynwood. Each meeting point is easy to find and is located close to a parking lot. You’ll get a chance to see the South Beach area of Miami, with its famous Art Deco-style buildings, and then you’ll cruise through downtown Miami. Next is Little Havana, the neighborhood where many Cuban migrants settled, and you’ll have approximately 20 minutes here if you wish to get off the bus and explore. Afterwards, you will head to Wynwood, the trendiest art district which is home to Wynwood Wall, a place to see the best urban street art. This stop is slightly longer, giving you time to explore the district by yourself, if you wish. The tour will then loop through to chic Miami Design District before returning to the first meeting point. The tour bus does not have accessible bathroom facilities, but the drivers are very familiar with the city and can recommend accessible public bathroom facilities in cafes or restaurants that are close to the stop-off points in Little Havana and Wynwood.'
     ];
 
+    console.log(value)
     return(
     <ChakraProvider>
-         <VStack
-        h='full'
-        w="880px"
-        padding='20px'
-        alignItems='flex-start'
-        background="#EBE9E9">
+        <Box
+        boxShadow='2xl'
+        w="65%" 
+        h="full"
+        p={10}
+        background="#EBE9E9"
+        borderRadius="10px">
   
             <Stack spacing={2}>
                 <Text fontSize='20px' color='#3F6FE4'>Basic Information / Description</Text>
@@ -77,7 +79,7 @@ const Description: React.FC = () => {
                     </Button>
                 </HStack>
             </Box>
-        </VStack >
+        </Box >
 
         <Modal onClose={onClose} size='xl' isOpen={isOpen} scrollBehavior='inside'>
             <ModalOverlay />

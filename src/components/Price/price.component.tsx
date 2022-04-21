@@ -8,21 +8,24 @@ import {
   Select,
   InputGroup,
   InputLeftElement,
-  Input,
+  NumberInput,
   Box,
+  Input,
+  NumberInputField,
 } from "@chakra-ui/react"
 
+import '../Upload-Photos/upload-photos.modules.css';
 const Price = () => (
 
     <Box boxShadow='2xl'
 			 w="65%" 
 			 h="full"
-			 p={20}
+			 p={10}
 			 background="#EBE9E9"
 			 borderRadius="10px">
   
         <Stack spacing={2}>
-            <Text fontSize='20px' color='#3F6FE4'>Basic Information / Type</Text>
+            <Text fontSize='20px' color='#3F6FE4'>Basic Information / Price</Text>
             <Text fontSize='35px'>Price per person, based on 2 travelers.</Text>
         </Stack>
             
@@ -30,11 +33,11 @@ const Price = () => (
                 <InputGroup size={'lg'}>
                     <InputLeftElement
                         pointerEvents='none'
-                        color='gray.300'
                         fontSize='1.2em'
                         children='$'
                         />
-                    <Input placeholder='Enter amount'/>
+                    <Input placeholder='Enter amount' background='white'/>
+                    
                 </InputGroup>
 
                 <Select size={'lg'} background='white' placeholder='Select option'>
@@ -46,14 +49,10 @@ const Price = () => (
 
             <Text fontSize='35px' paddingBottom='30px'>Please share any document related to the price.</Text>
 
-            <Button marginLeft={'35%'}
-                background='#4F6FE4'
-                color='#FFFFFF'
-                fontSize={'15px'}
-                height='48px'
-                width='200px'>
-                Upload
-            </Button>
+            <div className='uploadBtn'>
+                <p className='textBtn'>Upload</p>
+                <input className="inputFile" type='file' accept='image/*, .pdf'/>
+            </div>
             
     </Box>
 

@@ -16,8 +16,11 @@ import {
     ModalContent,
     ModalHeader,
     ModalBody,
-    ModalFooter
+    ModalFooter,
+    FormControl,
 } from "@chakra-ui/react"
+
+import { DeleteIcon } from "@chakra-ui/icons"
 
 const Faqs: React.FC = () => {
 
@@ -77,6 +80,10 @@ const Faqs: React.FC = () => {
         ['Can I have a meal?', 'Yes! there is a Cafe on-site and eating and drinking is allowed in designated areas.']
     ];
 
+    function handleSubmit(e: any){
+        e.preventDefault();
+        console.dir(e.target)
+    }
     
     return(
     <ChakraProvider>
@@ -85,47 +92,67 @@ const Faqs: React.FC = () => {
         w="880px"
         padding='20px'
         alignItems='flex-start'
-        background="#EBE9E9">
+        background="#EBE9E9"
+        borderRadius="10px"
+        >
   
             <Stack spacing={2}>
                 <Text fontSize='20px' color='#3F6FE4'>FAQS</Text>
                 <Text fontSize='35px'>Add your Frequently Asked Questions.</Text>
             </Stack>
 
-            <Stack w='70%' justifyContent='start'>
-                <HStack justifyContent='flex-start'>
-                    <Checkbox 
-                        background ='#fff' 
-                        _focus={{background: '#000'}} 
-                        size='lg' 
-                        onChange={() => setCheck1(!check1)}
-                        />
-                    <Text fontSize='25px'>Can I Park here?</Text>
-                </HStack>
-                    {check1 && addAnswer()}
-                
+            <Stack overflowY='auto' w='full' justifyContent='flex-start'>
+
+                <Stack w='70%' justifyContent='start'>
+                    <HStack justifyContent='flex-start'>
+                        <Checkbox 
+                            background ='#fff' 
+                            _focus={{background: '#000'}} 
+                            size='lg' 
+                            onChange={() => setCheck1(!check1)}
+                            />
+                        <Text fontSize='25px'>Can I Park here?</Text>
+                    </HStack>
+                        {check1 && addAnswer()}
+                    
+                </Stack>
+                <Stack>
+                    <Button bg='#3F6FE4' border=' 1px solid #000' color='#fff' borderRadius='20px' 
+                    onClick={addQuestionAnswer} w='10%' >
+                        + Add
+                    </Button>
+                </Stack>
+                <form onSubmit={handleSubmit}>
+                    {
+                        questionAnswer && questionAnswer.map(()=>(
+                            
+                            <Stack w='70%'>
+                                <HStack>
+                                    <Input placeholder='Question' bg="#fff" />
+                                    <Text >0/60</Text>
+                                </HStack>
+                                <HStack>
+                                    <Input placeholder='Answer' bg="#fff"/>
+                                    <Text>0/60</Text>
+                                </HStack>
+                            </Stack>
+                        ))
+                    }
+                    {/*
+                    <Button type="submit">Type submit</Button>
+                */}
+                </form>
             </Stack>
 
-            <Button bg='#3F6FE4' border=' 1px solid #000' color='#fff' borderRadius='20px'
-             onClick={addQuestionAnswer}>
-                + Add
-            </Button>
-            {
-                questionAnswer && questionAnswer.map(()=>(
-                    <Stack w='70%'>
-                        <HStack>
-                            <Input placeholder='Question' bg="#fff" />
-                            <Text >0/60</Text>
-                        </HStack>
-                        <HStack>
-                            <Input placeholder='Answer' bg="#fff"/>
-                            <Text>0/60</Text>
-                        </HStack>
-                    </Stack>
-                ))
-            }
-
             <Box w='full'>
+                <HStack justifyContent='flex-end'>
+                    <Button variant="link" >
+                        <DeleteIcon />
+                    </Button>
+                </HStack>
+            </Box>
+
+            <Box w='full' >
                 <HStack justifyContent='flex-end'>
                     <Button variant="link" onClick={onOpen}>
                         <Text color='#2F6FE4' as='u'>Show examples</Text>
@@ -142,7 +169,7 @@ const Faqs: React.FC = () => {
                 {
                     faqsExamples.map((faq) => (
                         <Stack marginBottom='10px'>
-                            <Text color='#3F6FE4' fontSize='20px'>{faq[0]}</Text>
+                            <Text color='#3F6FE4' fontSize='20px' >{faq[0]}</Text>
                             <Text fontSize='16px'>{faq[1]}</Text>
                         </Stack>
                     ))

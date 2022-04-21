@@ -16,21 +16,37 @@ import {
 
 import logo from '../../pages/login/images/logo.png';
 import { IQuestion } from './question.types';
-import Cart from '../../components/Cart/cart.component';
 import Summary from '../../components/summary/summary.component';
-import { LateralMenu, Multiple, Price } from '../../components';
-import Assistance from '../../components/Assistance';
-import Transportation from '../../components/Transportation';
-import Restrooms from '../../components/Restrooms';
-import Places from '../../components/Places';
-import Equipment from '../../components/Equipment';
-import GroupPrivate from '../../components/GroupPrivate';
-import Stops from '../../components/Stops';
-import Languages from '../../components/Languages';
-import Restrictions from '../../components/Restrictions';
-import ChildPolicy from '../../components/ChildPolicy';
+import { 
+    LateralMenu,
+    Cart,
+    Multiple,
+    GroupPrivate,
+    Price,
+    Description,
+    UploadPhotos,
+    Meeting,
+    Stops,
+    Languages,
+    Restrictions,
+    ChildPolicy,
+    Assistance,
+    Transportation,
+    Restrooms,
+    Places, 
+    Equipment,
+    Faqs
+ } from '../../components';
+import { Routes, useNavigate, Outlet } from 'react-router-dom';
+
 
 function Question(props: IQuestion): JSX.Element {
+      const navigate = useNavigate();
+
+      function change(){
+        
+        navigate('/tour-operator/1/tour-completed/1')
+      }
 	return (
         <Flex h="100vh">
             <HStack w="full" h="full" >
@@ -47,7 +63,7 @@ function Question(props: IQuestion): JSX.Element {
                     </Box>
                     <Box h="68%" w="100%" >
                         <HStack justifyContent="center" h="full" w="full" spacing={51}>
-                            <Assistance />
+                            <Outlet />
                             <Summary />
                         </HStack>
                     </Box>
@@ -64,12 +80,13 @@ function Question(props: IQuestion): JSX.Element {
                                     bg="white"
                                     border='1px'
                                     borderColor="#3F6FE4" > Back </Button>
-                            <Text fontSize="20px" color="#9B9B9B"> 1 of 20 items sent </Text>
+                            <Text fontSize="20px" color="#9B9B9B"> 1 of 19 items sent </Text>
                             <Button size='lg'
                                     fontSize="20px"
                                     borderRadius={10}
                                     bg="#3F6FE4"
-                                    color="white"> Next </Button>
+                                    color="white"
+                                    onClick={change}> Next </Button>
                         </HStack>
                     </Box>
                 </VStack>
