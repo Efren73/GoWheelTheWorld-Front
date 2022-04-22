@@ -24,12 +24,13 @@ import WhatsIncluded from "./components/Whats-included"
 import Faqs from './components/FAQS/faqs.component'
 import Transportation from "./components/Transportation"
 import ChildPolicy from "./components/ChildPolicy"
+import ProfileSettings from './pages/userSettings/profileSettings.page'
 
 
 ReactDOM.render(
   <React.StrictMode>
     <ColorModeScript />
-    <Question />
+    <ProfileSettings />
   </React.StrictMode>,
   document.getElementById("root"),
 )
