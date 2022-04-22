@@ -8,7 +8,7 @@ import {
   Box,
 } from "@chakra-ui/react"
 
-const Meeting = () => (
+const EndPoint = () => (
     <Box
       boxShadow='2xl'
       w="65%" 
@@ -18,8 +18,8 @@ const Meeting = () => (
       borderRadius="10px">
       
       <Stack spacing={2}>
-        <Text fontSize='20px' color='#3F6FE4'>Itinerary / Meeting Point</Text>
-        <Text fontSize='35px'>Please introduce the meeting point</Text>
+        <Text fontSize='20px' color='#3F6FE4'>Itinerary / End Point</Text>
+        <Text fontSize='35px'>Please introduce the end point</Text>
       </Stack>
 
       <Input
@@ -44,4 +44,4 @@ const Meeting = () => (
     </Box>
 
 )
-export default Meeting;
+export default EndPoint;

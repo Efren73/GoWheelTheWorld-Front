@@ -1,4 +1,6 @@
 import * as React from "react"
+import { useState } from "react"
+import { useDisclosure } from "@chakra-ui/react"
 import {
     ChakraProvider,
     Button,
@@ -19,6 +21,7 @@ import {
     RadioGroup, 
     MenuButton,
     Wrap,
+    Grid,
     MenuList,
     MenuItem,
     Slider,
@@ -28,17 +31,31 @@ import {
     WrapItem,
     Flex,
   } from "@chakra-ui/react"
-
+  
   import { ChevronDownIcon, ArrowDownIcon, WarningIcon } from '@chakra-ui/icons'
   import { Avatar, AvatarBadge, AvatarGroup } from '@chakra-ui/react'
   import { Image } from '@chakra-ui/react'
   import TopMenu from "../../components/TopMenu/topMenu.component"
+  
+
+function StatusSlider(State:boolean){
+    
+    if (State)
+    return(
+        <Slider aria-label='slider-ex-1' defaultValue={30}>
+            <SliderTrack>
+                <SliderFilledTrack />
+            </SliderTrack>
+            <SliderThumb />
+        </Slider>
+    )
+}
 
 
 function Feature({ Title, Destination, TourOperator, Date, Status, ...rest }:any) {
     return (
         <Box p={5} shadow='md' borderWidth='1px' {...rest}   paddingLeft={10}>
-        <HStack justifyContent="space-between" fontSize="20" p="5" >
+        <HStack justifyContent="space-between" fontSize="20" p="5"  >
             <VStack h="full">
                 <Text >
                     {Title}
@@ -64,12 +81,19 @@ function Feature({ Title, Destination, TourOperator, Date, Status, ...rest }:any
     )
 }
 
-export const Admin = () => (
+export const Admin  = () => {
+    let [check1, setCheck1] = useState(true)
+    return(
     <ChakraProvider theme={theme}>
         <Flex h="100vh">
             <VStack w="full" h="full">
                 <TopMenu/>
-                <HStack w={"full"} justifyContent="space-between" p={4} paddingRight={10} paddingLeft={10}>
+
+                <HStack w={"80%"} justifyContent="flex-end" paddingRight={2}  color="red.500">
+                    <Text>Clear all filters</Text>
+                </HStack>
+
+                <HStack w={"80%"} justifyContent="space-between"  paddingRight={10} paddingLeft={10}>
                     <Menu>
                         <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
                             Country
@@ -155,7 +179,7 @@ export const Admin = () => (
                         </MenuButton>
                         <MenuList>
                             <RadioGroup >
-                                <Stack spacing={5} p={5} direction='column'>
+                                <Stack spacing={5} p='1' direction='column'>
                                     <Radio value='1'>
                                         Water Activity
                                     </Radio>
@@ -170,40 +194,25 @@ export const Admin = () => (
                         </MenuList>
                     </Menu>
 
-                    <Menu>
-                        <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
-                            Status
-                        </MenuButton>
-                        <MenuList>
-                            <MenuItem>
-                                <FormControl display='flex' alignItems='center'>
-                                    <FormLabel htmlFor='email-alerts' mb='0'>
+                    <HStack>
+
+                    <Text paddingRight={1}>
+                        Select progress:                  
+                    </Text>
+                    <VStack>
+                        <FormControl display='flex' alignItems='center'>
+                            <FormLabel htmlFor='status' mb='0'>
                                         Completed tours
-                                    </FormLabel>
-                                    <Switch id='email-alerts'/>
-                                </FormControl>
-                            </MenuItem>
-
-                            <Divider />
-
-                            <MenuItem>
-                                <Slider aria-label='slider-ex-1' defaultValue={30}>
-                                    <SliderTrack>
-                                        <SliderFilledTrack />
-                                    </SliderTrack>
-                                    <SliderThumb />
-                                </Slider>
-                            </MenuItem>
-
-                        </MenuList>
-                    </Menu>
+                            </FormLabel>
+                            <Switch onChange={() => setCheck1(!check1)} id='status'/>
+                        </FormControl>
+                            {StatusSlider(check1)}
+                    </VStack>
+                    </HStack>
                 </HStack>
 
-                <HStack w={"full"} justifyContent="flex-end" paddingRight={5} p={1}  color="red.500">
-                    <Text>Clear all filters</Text>
-                </HStack>
         
-                <Box bg='#3F6FE4' w='100%' p={3} paddingRight={20} paddingLeft={20} color='white'>
+                <Box bg='#3F6FE4' w='100%' p={3} paddingRight={'10%'} paddingLeft={'10%'} color='white'>
                     <HStack w={"full"} justifyContent="space-between">
                         <Text>
                             Name
@@ -225,18 +234,18 @@ export const Admin = () => (
                     </HStack>
                 </Box>
         
-                <VStack p={5} direction='row' w="full">
+                <VStack p={5} direction='row' w="80%" >
                     <Feature w={"full"} 
                     Title='Snorkel'
                     Destination='Cancun, Mex'
                     TourOperator = 'Jhon Wayne'
                     Date = '10/10/21'
                     Status = '29'
-                    />
+                    borderRadius="10px" />
                 </VStack>
             </VStack>
         </Flex>
     </ChakraProvider>
-)
+    )}
    
 export default Admin;
