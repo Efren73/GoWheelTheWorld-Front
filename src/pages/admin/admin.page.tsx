@@ -1,5 +1,6 @@
 import * as React from "react"
 import { useState } from "react"
+import {useNavigate} from 'react-router-dom'
 import { useDisclosure } from "@chakra-ui/react"
 import {
     ChakraProvider,
@@ -52,9 +53,14 @@ function StatusSlider(State:boolean){
 }
 
 
-function Feature({ Title, Destination, TourOperator, Date, Status, ...rest }:any) {
+function Feature({ Title, Destination, TourOperator, Date, Status, tourId, ...rest }:any) {
+    let navigate = useNavigate()
+    
+    function Change():void {
+        navigate (`AdminSummary/${tourId}`)
+    }
     return (
-        <Box p={5} shadow='md' borderWidth='1px' {...rest}   paddingLeft={10}>
+        <Box p={5} shadow='md' borderWidth='1px' {...rest}   paddingLeft={10} onClick={Change}>
         <HStack justifyContent="space-between" fontSize="20" p="5"  >
             <VStack h="full">
                 <Text >
@@ -67,7 +73,7 @@ function Feature({ Title, Destination, TourOperator, Date, Status, ...rest }:any
 
             <Text mt={4}>{TourOperator}</Text>
             <Text mt={4}>{Date}</Text>
-            <Wrap spacing="10px" align ="center">
+            <Wrap spacing="{5}" align ="center">
                 <WrapItem >
                     <Text>{Status}%</Text>
                 </WrapItem>
@@ -83,6 +89,8 @@ function Feature({ Title, Destination, TourOperator, Date, Status, ...rest }:any
 
 export const Admin  = () => {
     let [check1, setCheck1] = useState(true)
+
+
     return(
     <ChakraProvider theme={theme}>
         <Flex h="100vh">
@@ -241,6 +249,7 @@ export const Admin  = () => {
                     TourOperator = 'Jhon Wayne'
                     Date = '10/10/21'
                     Status = '29'
+                    tourId = {1}
                     borderRadius="10px" />
                 </VStack>
             </VStack>
