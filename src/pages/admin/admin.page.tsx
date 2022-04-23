@@ -1,5 +1,6 @@
 import * as React from "react"
 import { useState } from "react"
+import {useNavigate} from 'react-router-dom'
 import { useDisclosure } from "@chakra-ui/react"
 import {
     ChakraProvider,
@@ -52,10 +53,15 @@ function StatusSlider(State:boolean){
 }
 
 
-function Feature({ Title, Destination, TourOperator, Date, Status, ...rest }:any) {
+function Feature({ Title, Destination, TourOperator, Date, Status, tourId, ...rest }:any) {
+    let navigate = useNavigate()
+    
+    function Change():void {
+        navigate (`AdminSummary/${tourId}`)
+    }
     return (
-        <Box p={5} shadow='md' borderWidth='1px' {...rest}   paddingLeft={10}>
-        <HStack justifyContent="space-between" fontSize="20" p="5" >
+        <Box p={5} shadow='md' borderWidth='1px' {...rest}   paddingLeft={10} onClick={Change}>
+        <HStack justifyContent="space-between" fontSize="20" p="5"  >
             <VStack h="full">
                 <Text >
                     {Title}
@@ -67,7 +73,7 @@ function Feature({ Title, Destination, TourOperator, Date, Status, ...rest }:any
 
             <Text mt={4}>{TourOperator}</Text>
             <Text mt={4}>{Date}</Text>
-            <Wrap spacing="10px" align ="center">
+            <Wrap spacing="{5}" align ="center">
                 <WrapItem >
                     <Text>{Status}%</Text>
                 </WrapItem>
@@ -83,17 +89,19 @@ function Feature({ Title, Destination, TourOperator, Date, Status, ...rest }:any
 
 export const Admin  = () => {
     let [check1, setCheck1] = useState(true)
+
+
     return(
     <ChakraProvider theme={theme}>
         <Flex h="100vh">
             <VStack w="full" h="full">
                 <TopMenu/>
 
-                <HStack w={"full"} justifyContent="flex-end" paddingRight={2}  color="red.500">
+                <HStack w={"80%"} justifyContent="flex-end" paddingRight={2}  color="red.500">
                     <Text>Clear all filters</Text>
                 </HStack>
 
-                <HStack w={"full"} justifyContent="space-between"  paddingRight={10} paddingLeft={10}>
+                <HStack w={"80%"} justifyContent="space-between"  paddingRight={10} paddingLeft={10}>
                     <Menu>
                         <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
                             Country
@@ -179,7 +187,7 @@ export const Admin  = () => {
                         </MenuButton>
                         <MenuList>
                             <RadioGroup >
-                                <Stack spacing={5}  direction='column'>
+                                <Stack spacing={5} p='1' direction='column'>
                                     <Radio value='1'>
                                         Water Activity
                                     </Radio>
@@ -212,7 +220,7 @@ export const Admin  = () => {
                 </HStack>
 
         
-                <Box bg='#3F6FE4' w='100%' p={3} paddingRight={20} paddingLeft={20} color='white'>
+                <Box bg='#3F6FE4' w='100%' p={3} paddingRight={'10%'} paddingLeft={'10%'} color='white'>
                     <HStack w={"full"} justifyContent="space-between">
                         <Text>
                             Name
@@ -234,14 +242,15 @@ export const Admin  = () => {
                     </HStack>
                 </Box>
         
-                <VStack p={5} direction='row' w="full">
+                <VStack p={5} direction='row' w="80%" >
                     <Feature w={"full"} 
                     Title='Snorkel'
                     Destination='Cancun, Mex'
                     TourOperator = 'Jhon Wayne'
                     Date = '10/10/21'
                     Status = '29'
-                    />
+                    tourId = {1}
+                    borderRadius="10px" />
                 </VStack>
             </VStack>
         </Flex>
