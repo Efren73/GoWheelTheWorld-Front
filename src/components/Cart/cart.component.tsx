@@ -19,6 +19,11 @@ import {
     ModalFooter,
 	ChakraProvider,
 	Stack,
+	NumberInput,
+  NumberInputField,
+  NumberInputStepper,
+  NumberIncrementStepper,
+  NumberDecrementStepper,
 } from "@chakra-ui/react"
 import { ICart } from "./cart.types";
 import { InfoIcon } from '@chakra-ui/icons';
@@ -67,7 +72,28 @@ const Cart: React.FC = () => {
 					required maxLength={80}
 					placeholder='Experience name'
 					/>
-					
+
+					<Heading fontSize='25px'>Trip duration</Heading>
+	
+					<Stack shouldWrapChildren direction='row'>
+					<Text fontSize='20px' color='#595959' paddingBottom='20px'>Hours</Text>
+					<NumberInput  size='md' maxW={40} min={0} max={23} variant='outline' h='40px' fontSize={'20px'} background={'white'} defaultValue={0}>
+						<NumberInputField />
+						<NumberInputStepper>
+							<NumberIncrementStepper />
+							<NumberDecrementStepper />
+						</NumberInputStepper>
+					</NumberInput>
+					<Text fontSize='20px' color='#595959' paddingBottom='20px'>Minutes</Text>
+					<NumberInput size='md' maxW={40}  min={15} max={59} variant='outline' h='40px' fontSize={'20px'} background={'white'} defaultValue={30} step={5}>
+						<NumberInputField />
+						<NumberInputStepper>
+							<NumberIncrementStepper />
+							<NumberDecrementStepper />
+						</NumberInputStepper>
+					</NumberInput>
+					</Stack>
+
 					<Box w='full'>
 					<HStack justifyContent='flex-end'>
 						<Button variant="link" onClick={onOpen}>
