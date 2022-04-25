@@ -1,6 +1,6 @@
 import * as React from "react"
 import { useState } from "react"
-import { useDisclosure } from "@chakra-ui/react"
+import { position, useDisclosure } from "@chakra-ui/react"
 import {
     Text,
     VStack,
@@ -26,6 +26,7 @@ const Faqs: React.FC = () => {
 
     //Definición de useState para que el usuario pueda ingresar varias preguntas
     let [questionAnswer, setQuestionAnswer]:any = useState([])
+
 
     //Definición de useState para que aparezca la primer pregunta del Checkbox
     let [check1, setCheck1] = useState(false)
@@ -124,9 +125,10 @@ const Faqs: React.FC = () => {
                 </Stack>
                 <form onSubmit={handleSubmit}>
                     {
-                        questionAnswer && questionAnswer.map(()=>(
+                        questionAnswer && questionAnswer.map((x: any, index: any)=>(
                             
-                            <Stack w='70%'>
+                            <Stack w='70%' marginBottom={4}>
+                                <Text> Hey{index}</Text>
                                 <HStack>
                                     <Input placeholder='Question' bg="#fff" />
                                     <Text >0/60</Text>
