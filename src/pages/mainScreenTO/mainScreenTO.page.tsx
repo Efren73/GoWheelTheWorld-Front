@@ -19,7 +19,7 @@ import { IMainScreenTO } from './mainScreenTO.types';
 import ImageInfoMSTO from './ImageInfoMSTO.png';
 import fondoMS from './FondoMS.png';
 import TopMenu from '../../components/TopMenu/topMenu.component';
-import {useNavigate} from 'react-router-dom'
+import {useNavigate} from  'react-router-dom'
 
 function MainScreenTO(props: IMainScreenTO): JSX.Element {
   const navigate = useNavigate()

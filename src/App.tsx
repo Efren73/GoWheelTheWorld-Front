@@ -28,7 +28,7 @@ export const App = () => (
       <Route path="tour-operator/:id" element={<MainScreenTO />} />
       <Route path="tour-operator/:id/tour-completed/:tourId" element={<TourCompleted />} />
 
-      <Route path="tour-operator/:id/question/:tourId/*" element={<Question />}>
+      <Route path="tour-operator/:id/question/:tourId/*" element={<Question />}> 
         <Route path="name-of-tour" element={<Cart />} />
         <Route path="type-of-tour" element={<Multiple />} />
         <Route path="group-private" element={<GroupPrivate />} />
