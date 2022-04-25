@@ -29,8 +29,6 @@ const GruoupPrivate: React.FC = () => {
             step: 1,
             defaultValue: 0,
             min: 1,
-            max: 20,
-            precision: 1,
             })
 
         const inc = getIncrementButtonProps()
