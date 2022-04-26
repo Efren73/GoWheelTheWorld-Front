@@ -87,18 +87,16 @@ const Faqs: React.FC = () => {
     
     return(
     <ChakraProvider>
-         <VStack
-        h='full'
-        w="880px"
-        padding='20px'
-        alignItems='flex-start'
-        background="#EBE9E9"
-        borderRadius="10px"
-        >
+         <Box boxShadow='2xl'
+              w="65%" 
+              h="full"
+              p={10}
+              background="#EBE9E9"
+              borderRadius="10px">
   
             <Stack spacing={2}>
                 <Text fontSize='20px' color='#3F6FE4'>FAQS</Text>
-                <Text fontSize='35px'>Add your Frequently Asked Questions.</Text>
+                <Text fontSize='35px'>Add your Frequently Asked Questions</Text>
             </Stack>
 
             <Stack overflowY='auto' w='full' justifyContent='flex-start'>
@@ -159,7 +157,7 @@ const Faqs: React.FC = () => {
                     </Button>
                 </HStack>
             </Box>
-        </VStack >
+        </Box >
 
         <Modal onClose={onClose} size='xl' isOpen={isOpen} scrollBehavior='inside'>
             <ModalOverlay />

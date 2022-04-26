@@ -1,4 +1,5 @@
 import * as React from "react"
+import { useState } from "react"
 import {
   Text,
   VStack,
@@ -31,6 +32,20 @@ import { InfoIcon } from '@chakra-ui/icons';
 const Cart: React.FC = () => {
 	const background = useBreakpointValue({ base: "blue.500", sm: "gray.200" });
 
+	//Elementos utilizados para limitar el numero de caracteres
+    let [value, setValue] = useState('')
+    let [characters, setCharacters] = useState(0)
+    let inputValue: any;
+
+	let handleInputChange = (e: any) => {
+        inputValue = e.target.value
+
+        if(inputValue.length<=50){
+            setValue(inputValue)
+            setCharacters(inputValue.length)
+        }
+    }
+
 	//Elementos utilizados para la ventana modal
     const { isOpen, onOpen, onClose } = useDisclosure()
 
@@ -50,6 +65,7 @@ const Cart: React.FC = () => {
 				p={10}
 				background="#EBE9E9"
 				borderRadius="10px">
+
 				<VStack alignItems='flex-start'>
 					<Text fontSize='20px' color='#3F6FE4'>Basic Information / Name of the tour</Text>
 					<HStack w="full">
@@ -62,45 +78,26 @@ const Cart: React.FC = () => {
 							h={6} />}
 						/>
 					</HStack>
-					<Text fontSize='25px' paddingBottom='20px'>Make sure it's descriptive and unique so travelers know what you offer.</Text>
-				
-					<Input
-					background={'white'}
-					variant='outline'
-					h='40px'
-					fontSize={'20px'}
-					required maxLength={80}
-					placeholder='Experience name'
-					/>
-
-					<Heading fontSize='25px'>Trip duration</Heading>
-	
-					<Stack shouldWrapChildren direction='row'>
-					<Text fontSize='20px' color='#595959' paddingBottom='20px'>Hours</Text>
-					<NumberInput  size='md' maxW={40} min={0} max={23} variant='outline' h='40px' fontSize={'20px'} background={'white'} defaultValue={0}>
-						<NumberInputField />
-						<NumberInputStepper>
-							<NumberIncrementStepper />
-							<NumberDecrementStepper />
-						</NumberInputStepper>
-					</NumberInput>
-					<Text fontSize='20px' color='#595959' paddingBottom='20px'>Minutes</Text>
-					<NumberInput size='md' maxW={40}  min={15} max={59} variant='outline' h='40px' fontSize={'20px'} background={'white'} defaultValue={30} step={5}>
-						<NumberInputField />
-						<NumberInputStepper>
-							<NumberIncrementStepper />
-							<NumberDecrementStepper />
-						</NumberInputStepper>
-					</NumberInput>
-					</Stack>
-
+					<Text fontSize='25px' paddingBottom='20px'>Make sure it's descriptive and unique so travelers know what you offer</Text>
 					<Box w='full'>
-					<HStack justifyContent='flex-end'>
-						<Button variant="link" onClick={onOpen}>
-							<Text color='#2F6FE4' as='u'>Show examples</Text>
-						</Button>
-					</HStack>
-				</Box>	
+						<Input
+						background={'white'}
+						variant='outline'
+						h='40px'
+						fontSize={'20px'}
+						required maxLength={80}
+						placeholder='Experience name'
+						onChange={handleInputChange}
+						value = {value}
+						/>
+
+						<HStack justifyContent='space-between' color='#2F6FE4' >
+							<Text>{characters}/50</Text>
+							<Button variant="link" onClick={onOpen}>
+								<Text color='#2F6FE4' as='u'>Show examples</Text>
+							</Button>
+						</HStack>
+					</Box>
 				</VStack>
 			</Box>
 
@@ -119,7 +116,7 @@ const Cart: React.FC = () => {
 					}
 				</ModalBody>
 				<ModalFooter>
-					<Button onClick={onClose}>Close</Button>
+					<Button onClick={onClose} background='#3F6FE4' color={'white'}>Close</Button>
 				</ModalFooter>
 				</ModalContent>
 			</Modal>

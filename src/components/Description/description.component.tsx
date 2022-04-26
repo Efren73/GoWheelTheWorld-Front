@@ -15,10 +15,10 @@ import {
     ModalHeader,
     ModalBody,
     ModalFooter,
-    useDisclosure
+    useDisclosure,
+    Link,
 } from "@chakra-ui/react"
-
-
+import { ExternalLinkIcon } from '@chakra-ui/icons'
 
 const Description: React.FC = () => {
 
@@ -61,10 +61,11 @@ const Description: React.FC = () => {
   
             <Stack spacing={2}>
                 <Text fontSize='20px' color='#3F6FE4'>Basic Information / Description</Text>
-                <Text fontSize='35px'>Description of the tour / activity.</Text>
+                <Text fontSize='35px'>Description of the tour / activity</Text>
             </Stack>
             <Box w='full'>
                 <Textarea 
+                    h='200px'
                     placeholder="Description of the tour"
                     background='#fff'
                     onChange={handleInputChange}
@@ -85,18 +86,20 @@ const Description: React.FC = () => {
             <ModalOverlay />
             <ModalContent background='#EBE9E9'>
             <ModalHeader color='#3F6FE4'>Examples</ModalHeader>
-            <ModalBody>
-                {
-                    descriptionExamples.map((descript) => (
-                        <Stack marginBottom='10px'paddingBottom='10px' borderBottom='2px solid #3F6FE4'>
-                            
-                            <Text fontSize='16px'>{descript}</Text>
-                        </Stack>
-                    ))
-                }
+            <ModalBody alignSelf={'center'}>
+                <Link href='https://wheeltheworld.com/destinations/accessible-travel-usa/new-york/things-to-do/downtown-manhattan-private-guided-tour' isExternal>
+                Example 1 <ExternalLinkIcon mx='2px' color='#3F6FE4'/>
+                </Link>
+                <Link marginLeft={'30px'} href='https://wheeltheworld.com/destinations/accessible-travel-mexico/playa-del-carmen/things-to-do/rio-secreto-dry-tour' isExternal>
+                Example 2 <ExternalLinkIcon mx='2px' color='#3F6FE4'/>
+                </Link>
+                <Link marginLeft={'30px'} href='https://wheeltheworld.com/destinations/accessible-travel-usa/maui/things-to-do/whale-watching-tour' isExternal>
+                Example 3 <ExternalLinkIcon mx='2px' color='#3F6FE4'/>
+                </Link>
+                
             </ModalBody>
             <ModalFooter>
-                <Button onClick={onClose}>Close</Button>
+                <Button onClick={onClose} background='#3F6FE4' color={'white'}>Close</Button>
             </ModalFooter>
             </ModalContent>
       </Modal>
