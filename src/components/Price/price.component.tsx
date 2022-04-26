@@ -26,7 +26,7 @@ const Price = () => (
   
         <Stack spacing={2}>
             <Text fontSize='20px' color='#3F6FE4'>Basic Information / Price</Text>
-            <Text fontSize='35px'>Price per person, based on 2 travelers.</Text>
+            <Text fontSize='35px'>Price per person, based on 2 travelers</Text>
         </Stack>
             
             <HStack paddingTop={'30px'} paddingBottom='50px' alignSelf={'center'}>
@@ -47,7 +47,7 @@ const Price = () => (
                 </Select>
             </HStack>
 
-            <Text fontSize='35px' paddingBottom='30px'>Please share any document related to the price.</Text>
+            <Text fontSize='35px' paddingBottom='30px'>Please share any document related to the price</Text>
 
             <div className='uploadBtn'>
                 <p className='textBtn'>Upload</p>

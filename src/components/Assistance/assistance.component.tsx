@@ -18,7 +18,7 @@ const Assistance = () => (
     <Box boxShadow='2xl'
     w="65%" 
     h="full"
-    p={10}
+    p={20}
     background="#EBE9E9"
     borderRadius="10px">
     <VStack alignItems='flex-start' w="full">
@@ -30,13 +30,13 @@ const Assistance = () => (
                 <Text color="#4F6FE4"> No </Text>
             </HStack>
         </HStack>
-        <TableContainer w="full" >
+        <TableContainer w="full">
             <Table bg="white" borderRadius={10}>
                 <Tbody>
-                    <Tr fontSize="16px">
-                        <Td >
-                            <Text>Guides / staff members have been trained by Wheel the World to provide assistance to people with disabilities during the tour/activity.
-                            </Text>
+                    <Tr>
+                        <Td>
+                            <Text>Guides / staff members have been trained by Wheel the World to provide </Text>
+                            assistance to people with disabilities during the tour/activity.
                         </Td>
                         <Td>
                             <RadioGroup>

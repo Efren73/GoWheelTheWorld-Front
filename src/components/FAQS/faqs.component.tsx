@@ -98,7 +98,7 @@ const Faqs: React.FC = () => {
   
             <Stack spacing={2}>
                 <Text fontSize='20px' color='#3F6FE4'>FAQS</Text>
-                <Text fontSize='35px'>Add your Frequently Asked Questions.</Text>
+                <Text fontSize='35px'>Add your Frequently Asked Questions</Text>
             </Stack>
 
             <Stack overflowY='auto' w='full' justifyContent='flex-start'>

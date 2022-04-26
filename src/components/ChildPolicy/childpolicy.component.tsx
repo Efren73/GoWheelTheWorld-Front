@@ -14,7 +14,6 @@ import {
     Center,
 } from "@chakra-ui/react"
 
-
 const ChildPolicy: React.FC = () => {
 
     const [valueQ1, setValueQ1] = React.useState('yes')
@@ -31,7 +30,6 @@ const ChildPolicy: React.FC = () => {
         }
     }
 
-    
     function addAnswer(RadioB:string){
         if (RadioB == 'yes')
         return(
@@ -107,10 +105,10 @@ const ChildPolicy: React.FC = () => {
   
             <Box>
                 <Text fontSize='20px' color='#3F6FE4'>Children Policy</Text>
-                <Text fontSize='35px'>Tell us about Children Policy.</Text>
+                <Text fontSize='35px'>Tell us about children Policy</Text>
                 <HStack>
                     <Box w='500px' paddingTop='20px' paddingBottom='5px'>
-                        <Text fontSize='20px'>Are Children allowed in this tour? </Text>
+                        <Text fontSize='20px'>Are children allowed in this tour? </Text>
                     </Box>
                     <RadioGroup onChange={setValueQ1} value={valueQ1} >
                         <Stack direction='row' paddingLeft={'10px'} spacing={'103px'}>

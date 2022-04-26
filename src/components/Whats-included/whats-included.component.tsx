@@ -89,7 +89,7 @@ const WhatsIncluded: React.FC = () => {
   
             <Stack spacing={2}>
                 <Text fontSize='20px' color='#3F6FE4'>What's included</Text>
-                <Text fontSize='35px'>Select what's included with your tour.</Text>
+                <Text fontSize='35px'>Select what's included with your tour</Text>
             </Stack>
             
             <Grid templateColumns='repeat(3, 7fr)' gap={15} paddingTop='50px' alignSelf={'center'} overflowY='auto'>

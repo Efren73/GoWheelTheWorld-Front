@@ -91,7 +91,7 @@ const GruoupPrivate: React.FC = () => {
                     </Button>
                 </HStack>
 
-                <Text fontSize='35px' paddingBottom='10px'>Please specify the minimum and maximum number of travelers.</Text>
+                <Text fontSize='35px' paddingBottom='10px'>Please specify the minimum and maximum number of travelers</Text>
 
                 <HStack w='55%' paddingBottom='10px' spacing='42%' justifyContent={'flex-start'}>
                     <Text fontSize='15px' >Minimum</Text>

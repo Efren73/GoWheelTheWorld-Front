@@ -13,7 +13,29 @@ import { ColorModeSwitcher } from "./ColorModeSwitcher"
 import { Logo } from "./Logo"
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom"
 import {Login, Signup, Admin, MainScreenTO, Question, TourCompleted} from './pages'
-import { Cart, Description, LateralMenu, Multiple, Price, Summary, GroupPrivate, UploadPhotos, Meeting, Stops, Languages, Restrictions, ChildPolicy, Assistance, Transportation, Restrooms, Places, Equipment, Faqs, WhatsIncluded, EndPoint } from "./components"
+import { 
+  Cart, 
+  Description, 
+  LateralMenu, 
+  Multiple, Price, 
+  Summary, 
+  GroupPrivate, 
+  UploadPhotos, 
+  Meeting, 
+  Stops, 
+  Languages, 
+  Restrictions, 
+  ChildPolicy, 
+  Assistance, 
+  Transportation, 
+  Restrooms, 
+  Places, 
+  Equipment, 
+  Faqs, 
+  WhatsIncluded, 
+  EndPoint,
+  CancelatioPolicy 
+} from "./components"
 import TopMenu from "./components/TopMenu"
 
 export const App = () => (
@@ -48,6 +70,7 @@ export const App = () => (
         <Route path="places" element={<Places />} />
         <Route path="equipment" element={<Equipment />} />
         <Route path="faqs" element={<Faqs />} />
+        <Route path="cancelation-policy" element={<CancelatioPolicy />} />
       </Route>
       <Route path="*" element={<div>Not found</div>} />
     </Routes>

@@ -11,9 +11,6 @@ import {
   useCheckboxGroup
 } from "@chakra-ui/react"
 
-
-
-
 const Languages = () => {
 //Customización del checkbox
 function CustomCheckbox(props: any) {
@@ -77,7 +74,7 @@ function CustomCheckbox(props: any) {
 
       <Stack spacing={2}>
         <Text fontSize='20px' color='#3F6FE4'>Itinerary / Languages</Text>
-        <Text fontSize='35px'>Select the spoken languages on this tour.</Text>
+        <Text fontSize='35px'>Select the spoken languages on this tour</Text>
       </Stack>
 
       <Grid templateColumns='repeat(2, 5fr)' gap={15} justifyItems='center' paddingTop='30px' h='80%' overflowY='auto'>
