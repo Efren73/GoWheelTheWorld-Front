@@ -20,6 +20,11 @@ import {
     ModalFooter,
 	ChakraProvider,
 	Stack,
+	NumberInput,
+  NumberInputField,
+  NumberInputStepper,
+  NumberIncrementStepper,
+  NumberDecrementStepper,
 } from "@chakra-ui/react"
 import { ICart } from "./cart.types";
 import { InfoIcon } from '@chakra-ui/icons';
