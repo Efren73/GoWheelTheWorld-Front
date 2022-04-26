@@ -35,11 +35,11 @@ function Equipment(props: IEquipment): JSX.Element {
                 <TableContainer w="full" h="80%" overflowY='auto'>
                     <Table bg="white" borderRadius={10} size="sm">
                         <Tbody>
-                            <Tr fontSize="16px">
+                            <Tr>
                                 <Td>Is adaptive equipment included in this tour/activity?</Td>
                                 <Td>
                                     <RadioGroup>
-                                        <HStack spacing={8}>
+                                        <HStack spacing={8} justifyContent='flex-end'>
                                             <Radio  value='yes'
                                                     border='1px'
                                                     borderColor='#2F6FE4'></Radio>
@@ -50,11 +50,11 @@ function Equipment(props: IEquipment): JSX.Element {
                                     </RadioGroup>
                                 </Td>
                             </Tr>
-                            <Tr fontSize="16px">
-                                <Td>Adaptive equipment is included and can be used independently.</Td>
+                            <Tr>
+                                <Td>Adaptive equipment is included and can be used independently</Td>
                                 <Td>
                                     <RadioGroup>
-                                        <HStack spacing={8}>
+                                        <HStack spacing={8} justifyContent='flex-end'>
                                             <Radio  value='yes'
                                                     border='1px'
                                                     borderColor='#2F6FE4'></Radio>
@@ -65,11 +65,11 @@ function Equipment(props: IEquipment): JSX.Element {
                                     </RadioGroup>
                                 </Td>
                             </Tr>
-                            <Tr fontSize="16px">
-                                <Td>Adaptive equipment is included and can be used independently or assisted.</Td>
+                            <Tr>
+                                <Td>Adaptive equipment is included and can be used independently or assisted</Td>
                                 <Td>
                                     <RadioGroup>
-                                        <HStack spacing={8}>
+                                        <HStack spacing={8} justifyContent='flex-end'>
                                             <Radio  value='yes'
                                                     border='1px'
                                                     borderColor='#2F6FE4'></Radio>
@@ -80,11 +80,11 @@ function Equipment(props: IEquipment): JSX.Element {
                                     </RadioGroup>
                                 </Td>
                             </Tr>
-                            <Tr fontSize="16px">
-                                <Td>Adaptive equipment is included and one person assisting is needed.</Td>
+                            <Tr>
+                                <Td>Adaptive equipment is included and one person assisting is needed</Td>
                                 <Td>
                                     <RadioGroup>
-                                        <HStack spacing={8}>
+                                        <HStack spacing={8} justifyContent='flex-end'>
                                             <Radio  value='yes'
                                                     border='1px'
                                                     borderColor='#2F6FE4'></Radio>
@@ -95,11 +95,11 @@ function Equipment(props: IEquipment): JSX.Element {
                                     </RadioGroup>
                                 </Td>
                             </Tr>
-                            <Tr fontSize="16px">
-                                <Td>Adaptive equipment is included and two people assisting are needed.</Td>
+                            <Tr>
+                                <Td>Adaptive equipment is included and two people assisting are needed</Td>
                                 <Td>
                                     <RadioGroup>
-                                        <HStack spacing={8}>
+                                        <HStack spacing={8} justifyContent='flex-end'>
                                             <Radio  value='yes'
                                                     border='1px'
                                                     borderColor='#2F6FE4'></Radio>
@@ -110,11 +110,11 @@ function Equipment(props: IEquipment): JSX.Element {
                                     </RadioGroup>
                                 </Td>
                             </Tr>
-                            <Tr fontSize="16px">
-                                <Td>Adaptive equipment is included and three or more people assisting are needed.</Td>
+                            <Tr>
+                                <Td>Adaptive equipment is included and three or more people assisting are needed</Td>
                                 <Td>
                                     <RadioGroup>
-                                        <HStack spacing={8}>
+                                        <HStack spacing={8} justifyContent='flex-end'>
                                             <Radio  value='yes'
                                                     border='1px'
                                                     borderColor='#2F6FE4'></Radio>
@@ -125,11 +125,11 @@ function Equipment(props: IEquipment): JSX.Element {
                                     </RadioGroup>
                                 </Td>
                             </Tr>
-                            <Tr fontSize="16px">
-                                <Td>Optional adaptive equipment is included and can be used independently.</Td>
+                            <Tr>
+                                <Td>Optional adaptive equipment is included and can be used independently</Td>
                                 <Td>
                                     <RadioGroup>
-                                        <HStack spacing={8}>
+                                        <HStack spacing={8} justifyContent='flex-end'>
                                             <Radio  value='yes'
                                                     border='1px'
                                                     borderColor='#2F6FE4'></Radio>
@@ -143,7 +143,6 @@ function Equipment(props: IEquipment): JSX.Element {
                         </Tbody>
                     </Table>
                 </TableContainer>
-                
             </VStack>
         </Box>
 	);

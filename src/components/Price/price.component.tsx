@@ -12,6 +12,9 @@ import {
   Box,
   Input,
   NumberInputField,
+  NumberInputStepper,
+  FormControl,
+  InputRightElement,
 } from "@chakra-ui/react"
 
 import '../Upload-Photos/upload-photos.modules.css';
@@ -29,30 +32,21 @@ const Price = () => (
             <Text fontSize='35px'>Price per person, based on 2 travelers</Text>
         </Stack>
             
-            <HStack paddingTop={'30px'} paddingBottom='50px' alignSelf={'center'}>
-                <InputGroup size={'lg'}>
-                    <InputLeftElement
-                        pointerEvents='none'
-                        fontSize='1.2em'
-                        children='$'
-                        />
-                    <Input placeholder='Enter amount' background='white'/>
-                    
-                </InputGroup>
-
-                <Select size={'lg'} background='white' placeholder='Select option'>
-                    <option value='MXN'>MXN</option>
-                    <option value='EUA'>EUA</option>
-                    <option value='EUR'>EUR</option>
-                </Select>
+            <HStack paddingTop={'30px'} paddingBottom='50px' justifySelf={'center'}>
+                <Text alignContent={'flex-start'}>$USD</Text>
+                <NumberInput background='white' borderRadius={10}>
+                    <NumberInputField/>
+                </NumberInput>
             </HStack>
 
             <Text fontSize='35px' paddingBottom='30px'>Please share any document related to the price</Text>
-
-            <div className='uploadBtn'>
-                <p className='textBtn'>Upload</p>
-                <input className="inputFile" type='file' accept='image/*, .pdf'/>
-            </div>
+            <Stack justifyItems={'center'}>
+                <div className='uploadBtn'>
+                    <p className='textBtn'>Upload</p>
+                    <input className="inputFile" type='file' accept='image/*, .pdf'/>
+                </div>
+            </Stack>
+           
             
     </Box>
 

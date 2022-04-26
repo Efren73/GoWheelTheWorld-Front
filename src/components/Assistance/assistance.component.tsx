@@ -12,7 +12,8 @@ import {
   Tr,
   RadioGroup,
   Radio,
-} from "@chakra-ui/react";
+  background,
+} from "@chakra-ui/react"
 
 const Assistance = () => (
     <Box boxShadow='2xl'
@@ -23,23 +24,21 @@ const Assistance = () => (
     borderRadius="10px">
     <VStack alignItems='flex-start' w="full">
         <Text fontSize='20px' color='#3F6FE4'> Accesibility / Assistance </Text>
-        <Heading fontSize='35px'> Assistance </Heading>
-        <HStack justifyContent="flex-end" w="full">
+        <Heading fontSize='35px'>Assistance</Heading>
+        
+        <HStack justifyContent="flex-end" w="95%">
             <HStack w="15%" spacing={31}>
                 <Text color="#4F6FE4"> Yes </Text>
                 <Text color="#4F6FE4"> No </Text>
             </HStack>
         </HStack>
-        <TableContainer w="full">
-            <Table bg="white" borderRadius={10}>
+        
+            <Table bg="white" borderRadius={10} w='90%'>
                 <Tbody>
                     <Tr>
+                        <Td>Guides / staff members have been trained by Wheel the World to provide assistance to people with disabilities during the tour/activity</Td>
                         <Td>
-                            <Text>Guides / staff members have been trained by Wheel the World to provide </Text>
-                            assistance to people with disabilities during the tour/activity.
-                        </Td>
-                        <Td>
-                            <RadioGroup>
+                        <RadioGroup>
                                 <HStack spacing={8}>
                                     <Radio  value='yes'
                                             border='1px'
@@ -52,9 +51,9 @@ const Assistance = () => (
                         </Td>
                     </Tr>
                     <Tr>
-                        <Td>Guides / staff members have experience assisting people with disabilities.</Td>
+                        <Td>Guides / staff members have experience assisting people with disabilities</Td>
                         <Td>
-                            <RadioGroup>
+                        <RadioGroup>
                                 <HStack spacing={8}>
                                     <Radio  value='yes'
                                             border='1px'
@@ -67,9 +66,9 @@ const Assistance = () => (
                         </Td>
                     </Tr>
                     <Tr>
-                        <Td>Guides / staff members will be available to assist.</Td>
+                        <Td>Guides / staff members will be available to assist</Td>
                         <Td>
-                            <RadioGroup>
+                        <RadioGroup>
                                 <HStack spacing={8}>
                                     <Radio  value='yes'
                                             border='1px'
@@ -81,9 +80,9 @@ const Assistance = () => (
                             </RadioGroup>
                         </Td>
                     </Tr>
-                </Tbody>
-            </Table>
-        </TableContainer>
+                    </Tbody>
+                    </Table>
+        
     </VStack>
 </Box>
 )

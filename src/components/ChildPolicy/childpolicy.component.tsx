@@ -1,6 +1,6 @@
 import * as React from "react"
 import { useState } from "react"
-import { useDisclosure } from "@chakra-ui/react"
+import { NumberInput, NumberInputField, useDisclosure } from "@chakra-ui/react"
 import {
     Text,
     VStack,
@@ -25,7 +25,9 @@ const ChildPolicy: React.FC = () => {
         if (answer == "no")
         {
             return(
-                <Input bg="white" htmlSize={5} width='auto' placeholder='10' />
+                <NumberInput background='white' borderRadius={10} width='10%'>
+                    <NumberInputField/>
+                </NumberInput>
                 )
         }
     }
@@ -40,7 +42,7 @@ const ChildPolicy: React.FC = () => {
                     </Box>
                         <RadioGroup onChange={setValueQ2} value={valueQ2}  >
                             <Stack direction='row' paddingLeft={'10px'} spacing={'50px'} >
-                                <Radio bg="white" value='yes' size='lg'>Every Age</Radio>
+                                <Radio bg="white" value='yes' size='lg'>Every age</Radio>
                                 <Radio bg="white" value='no' size='lg'>Other</Radio>
                             </Stack>
                         </RadioGroup>
@@ -55,7 +57,7 @@ const ChildPolicy: React.FC = () => {
                     </Box>
                     <RadioGroup onChange={setValueQ3} value={valueQ3} >
                         <Stack direction='row' paddingLeft={'10px'} spacing={'50px'}>
-                            <Radio bg="white" value='yes' size='lg'>Every Age</Radio>
+                            <Radio bg="white" value='yes' size='lg'>Every age</Radio>
                             <Radio bg="white" value='no' size='lg'>Other</Radio>
                         </Stack>
                     </RadioGroup>
@@ -70,7 +72,7 @@ const ChildPolicy: React.FC = () => {
                     </Box>
                     <RadioGroup onChange={setValueQ4} value={valueQ4} >
                         <Stack direction='row' paddingLeft={'10px'} spacing={'50px'}>
-                            <Radio bg="white" value='yes' size='lg'>Every Age</Radio>
+                            <Radio bg="white" value='yes' size='lg'>Every age</Radio>
                             <Radio bg="white" value='no' size='lg'>Other</Radio>
                         </Stack>
                     </RadioGroup>
@@ -90,8 +92,6 @@ const ChildPolicy: React.FC = () => {
                  </Center>
         )
     }
-
-
     
     return(
     <ChakraProvider>

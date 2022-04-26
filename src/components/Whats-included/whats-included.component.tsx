@@ -9,6 +9,7 @@ import {
   useCheckbox,
   chakra, 
   useCheckboxGroup,
+  Box,
 } from "@chakra-ui/react"
 
 const WhatsIncluded: React.FC = () => {
@@ -80,19 +81,19 @@ const WhatsIncluded: React.FC = () => {
 
     return(
     <ChakraProvider>
-         <VStack
-        h='full'
-        w="880px"
-        padding='20px'
-        alignItems='flex-start'
-        background="#EBE9E9">
+         <Box boxShadow='2xl'
+              w="65%" 
+              h="full"
+              p={10}
+              background="#EBE9E9"
+              borderRadius="10px">
   
             <Stack spacing={2}>
                 <Text fontSize='20px' color='#3F6FE4'>What's included</Text>
                 <Text fontSize='35px'>Select what's included with your tour</Text>
             </Stack>
             
-            <Grid templateColumns='repeat(3, 7fr)' gap={15} paddingTop='50px' alignSelf={'center'} overflowY='auto'>
+            <Grid h='80%' templateColumns='repeat(3, 7fr)' gap={15} paddingTop='30px' alignSelf={'center'} overflowY='auto'>
             {
                     included.map ((includes: string) =>(
                         <CustomCheckbox {...getCheckboxProps({value: `${includes}`})}/>
@@ -102,7 +103,7 @@ const WhatsIncluded: React.FC = () => {
         
       </Grid>
 
-        </VStack >
+        </Box >
     </ChakraProvider>
     )
 }
