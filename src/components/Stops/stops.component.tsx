@@ -1,4 +1,5 @@
 import * as React from "react"
+import { useState } from "react"
 import {
   Text,
   VStack,
@@ -11,15 +12,19 @@ import {
   useNumberInput,
 } from "@chakra-ui/react"
 
+import { DeleteIcon } from "@chakra-ui/icons"
+
 const Stops: React.FC = () => {
+
+  //Definición de useState para que el usuario pueda ingresar varias preguntas
+    let [questionAnswer, setQuestionAnswer]:any = useState([])
+
   function HookUsage() {
     const { getInputProps, getIncrementButtonProps, getDecrementButtonProps } =
         useNumberInput({
         step: 1,
         defaultValue: 0,
         min: 1,
-        max: 20,
-        precision: 1,
         })
 
     const inc = getIncrementButtonProps()
@@ -33,6 +38,16 @@ const Stops: React.FC = () => {
         <Button {...inc} background='#2F6FE4'>+</Button>
         </HStack>
     )
+  }
+
+  //Función para que cuando se de click a add, se agreguen elementos al arreglo con el fin de que se rendericen más componentes
+  const addQuestionAnswer = () => {
+    setQuestionAnswer([...questionAnswer, '']);
+  }
+
+  function handleSubmit(e: any){
+    e.preventDefault();
+    console.dir(e.target)
   }
   
   return(
@@ -50,8 +65,39 @@ const Stops: React.FC = () => {
           </Stack>
 
           <HStack spacing={0} paddingTop='30px'>
-            {HookUsage()}
+            
           </HStack>
+
+          <Stack>
+                    <Button bg='#3F6FE4' border=' 1px solid #000' color='#fff' borderRadius='20px' 
+                    onClick={addQuestionAnswer} w='10%' >
+                        + Add
+                    </Button>
+            </Stack>
+            <form onSubmit={handleSubmit}>
+                    {
+                        questionAnswer && questionAnswer.map(()=>(
+                            
+                            <Stack w='70%'>
+                                <HStack>
+                                    <Input placeholder='Name' bg="#fff" />
+                                </HStack>
+                                <HStack>
+                                    <Input placeholder='Duration' bg="#fff"/>
+                                </HStack>
+                                <HStack justifyContent='flex-end'>
+                                        <Button variant="link" marginBottom={'20px'}>
+                                            <DeleteIcon />
+                                        </Button>
+                                </HStack>
+                                
+                            </Stack>
+                        ))
+                    }
+                    {/*
+                    <Button type="submit">Type submit</Button>
+                */}
+                </form>
         </Box>
       </ChakraProvider>
   )
