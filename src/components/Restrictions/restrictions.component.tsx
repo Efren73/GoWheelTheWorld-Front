@@ -9,7 +9,6 @@ import {
 } from "@chakra-ui/react"
 
 const Restrictions: React.FC = () => {
-
   function SelectAll() {
     const [checkedItems, setCheckedItems] = React.useState([false, false])
   

@@ -29,20 +29,17 @@ const Price = () => (
   
         <Stack spacing={2}>
             <Text fontSize='20px' color='#3F6FE4'>Basic Information / Price</Text>
-            <Text fontSize='35px'>Price per person, based on 2 travelers.</Text>
+            <Text fontSize='35px'>Price per person, based on 2 travelers</Text>
         </Stack>
             
             <HStack paddingTop={'30px'} paddingBottom='50px' justifySelf={'center'}>
-
-                <NumberInput placeholder='Enter amount' background='white' borderRadius={10}>
-                            <NumberInputField id='amount' />
-                            <NumberInputStepper>
-                            </NumberInputStepper>
-                            <Text alignContent={'flex-start'}>$USD</Text>
-                    </NumberInput>
+                <Text alignContent={'flex-start'}>$USD</Text>
+                <NumberInput background='white' borderRadius={10}>
+                    <NumberInputField/>
+                </NumberInput>
             </HStack>
 
-            <Text fontSize='35px' paddingBottom='30px'>Please share any document related to the price.</Text>
+            <Text fontSize='35px' paddingBottom='30px'>Please share any document related to the price</Text>
             <Stack justifyItems={'center'}>
                 <div className='uploadBtn'>
                     <p className='textBtn'>Upload</p>

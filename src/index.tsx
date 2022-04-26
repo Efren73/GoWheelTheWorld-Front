@@ -24,6 +24,7 @@ import WhatsIncluded from "./components/Whats-included"
 import Faqs from './components/FAQS/faqs.component'
 import Transportation from "./components/Transportation"
 import ChildPolicy from "./components/ChildPolicy"
+import ProfileSettings from './pages/adminSummary/adminSummary.page'
 /*
   signup
   Login
