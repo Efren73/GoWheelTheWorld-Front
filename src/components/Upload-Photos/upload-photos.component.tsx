@@ -27,7 +27,7 @@ const UploadPhotos = () => (
     
                 <Stack spacing={2}>
                     <Text fontSize='20px' color='#3F6FE4'>Basic Information / Upload Photos</Text>
-                    <Text fontSize='35px'>Send us the best photos of your tour.</Text>
+                    <Text fontSize='35px'>Send us the best photos of your tour</Text>
                 </Stack>
                 <VStack>
 

@@ -13,6 +13,10 @@ import {
   Box,
   Image,
   ChakraProvider,
+  Grid,
+  useCheckbox,
+  chakra,
+  useCheckboxGroup,
 } from "@chakra-ui/react"
 
 import Group from './images/grupo.png';
@@ -29,8 +33,6 @@ const GruoupPrivate: React.FC = () => {
             step: 1,
             defaultValue: 0,
             min: 1,
-            max: 20,
-            precision: 1,
             })
 
         const inc = getIncrementButtonProps()
@@ -46,6 +48,50 @@ const GruoupPrivate: React.FC = () => {
         )
     }
 
+    //Customización del checkbox
+function CustomCheckbox(props: any) {
+    const { state, getCheckboxProps, getInputProps, getLabelProps } =
+      useCheckbox()
+    
+    let backgroundValue: string;
+    let colorValue: string;
+  
+      if(!state.isChecked){
+  
+        backgroundValue = '#fff'
+        colorValue = '#000'
+      }
+      else{
+        backgroundValue = '#3F6FE4'
+        colorValue='#fff'
+      }
+  
+      return (
+        <chakra.label
+            display='flex'
+            alignItems='center'
+            justifyContent='center'
+            height='80px'
+            width='200px'
+            bg={backgroundValue}
+            border='1px solid'
+            borderColor='#3F6FE4'
+            color={colorValue}
+            rounded='lg'
+            cursor='pointer'
+            {...getCheckboxProps()}
+            >
+            <input {...getInputProps()} hidden />
+            <Text {...getLabelProps()}>{props.value}</Text>
+         </chakra.label>
+      )
+    }
+    const { value, getCheckboxProps } = useCheckboxGroup()
+
+    const experiences: string[] = [
+        'Private',
+        'Group',
+      ]
     return(
         <ChakraProvider>
             <Box boxShadow='2xl'
@@ -59,41 +105,19 @@ const GruoupPrivate: React.FC = () => {
                 <Text fontSize='20px' color='#3F6FE4'>Basic Information / Travelers</Text>
             </Stack>
 
-            <VStack h='90%' overflowY='auto'>
+            <VStack>
                 <Text alignSelf={'flex-start'} fontSize='35px'>Is it a private or a group tour/activity?</Text>
-                <HStack spacing='24px' paddingTop={'20px'} paddingBottom='30px' justifyContent={'center'}>
-                
-                    <Button 
-                            variant='outline'
-                            height='80px'
-                            width='200px'
-                            borderColor='#3F6FE4'
-                            background='#FFFFFF'
-                            border-radius='5px'
-                            fontSize={'20px'}
-                            >
-                            <Image src={Private} alt='privateicon' w='50px' h='50px' paddingRight={'7px'}/>
+                <Grid templateColumns='repeat(2, 1fr)' gap={30} paddingTop='20px' paddingBottom='30px' alignSelf={'center'}>
+                    {
+                        experiences.map((experience: string) =>(
+                        <CustomCheckbox {...getCheckboxProps({value: `${experience}`})} />
+                        ))
+                    }
+                </Grid>
 
-                        Private
-                    </Button>
-                    <Button 
-                            variant='outline'
-                            height='80px'
-                            width='200px'
-                            borderColor='#3F6FE4'
-                            background='#FFFFFF'
-                            border-radius='5px'
-                            fontSize={'20px'}
-                            >
-                            <Image src={Group} alt='groupicon' w='50px' h='50px' paddingRight={'7px'}/>
+                <Text alignSelf={'flex-start'} fontSize='35px' paddingBottom='10px'>Please specify the minimum and maximum number of travelers</Text>
 
-                        Group
-                    </Button>
-                </HStack>
-
-                <Text fontSize='35px' paddingBottom='10px'>Please specify the minimum and maximum number of travelers.</Text>
-
-                <HStack w='55%' paddingBottom='10px' spacing='42%' justifyContent={'flex-start'}>
+                <HStack w='42%' paddingBottom='10px' spacing='42%' justifyContent={'flex-start'}>
                     <Text fontSize='15px' >Minimum</Text>
                     <Text fontSize='15px' >Maximum</Text>
                 </HStack>
