@@ -12,7 +12,7 @@ import {
 import { ColorModeSwitcher } from "./ColorModeSwitcher"
 import { Logo } from "./Logo"
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom"
-import {Login, Signup, Admin, MainScreenTO, Question, TourCompleted} from './pages'
+import {Login, Signup, Admin, MainScreenTO, Question, TourCompleted, AdminSummary} from './pages'
 import { Cart, Description, LateralMenu, Multiple, Price, Summary, GroupPrivate, UploadPhotos, Meeting, Stops, Languages, Restrictions, ChildPolicy, Assistance, Transportation, Restrooms, Places, Equipment, Faqs, WhatsIncluded, EndPoint } from "./components"
 import TopMenu from "./components/TopMenu"
 
@@ -27,6 +27,7 @@ export const App = () => (
       <Route path="admin" element={<Admin />} />
       <Route path="tour-operator/:id" element={<MainScreenTO />} />
       <Route path="tour-operator/:id/tour-completed/:tourId" element={<TourCompleted />} />
+      <Route path="admin/AdminSummary/:tourId" element={<AdminSummary/>} />
 
       <Route path="tour-operator/:id/question/:tourId/*" element={<Question />}> 
         <Route path="name-of-tour" element={<Cart />} />

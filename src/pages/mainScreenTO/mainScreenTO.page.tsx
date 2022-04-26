@@ -44,7 +44,7 @@ function MainScreenTO(props: IMainScreenTO): JSX.Element {
                     <HStack>
                       <VStack alignItems="flex-start">
                         <Heading fontSize='30px'> New tour </Heading>
-                        <Text fontSize='25px'> People with disabilities are already booking tours and activities through our platform. Become a certified partner! </Text>
+                        <Text  fontSize={{ base: '15px', md: '20px', lg: '24px' }}> People with disabilities are already booking tours and activities through our platform. Become a certified partner! </Text>
                       </VStack>
                       <Image src={ImageInfoMSTO} w="30%"/>
                     </HStack>
