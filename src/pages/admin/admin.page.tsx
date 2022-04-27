@@ -40,7 +40,7 @@ import {
   
 
 function StatusSlider(State:boolean){
-    
+
     if (State)
     return(
         <Slider aria-label='slider-ex-1' defaultValue={30}>
