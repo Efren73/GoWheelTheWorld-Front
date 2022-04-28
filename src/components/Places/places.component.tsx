@@ -20,28 +20,26 @@ function Places(props: IPlaces): JSX.Element {
         <Box boxShadow='2xl'
             w="65%" 
             h="full"
-            paddingLeft={20}
-            paddingRight={20}
-            paddingTop={59}
+            p={10}
             background="#EBE9E9"
             borderRadius="10px">
             <VStack alignItems='flex-start' w="full">
                 <Text fontSize='20px' color='#3F6FE4'> Accesibility / Places </Text>
                 <Heading fontSize='35px'>Places</Heading>
-                <HStack justifyContent="flex-end" w="full">
-                    <HStack w="12%" spacing={31}>
+                <HStack justifyContent="flex-end" w="95%">
+                    <HStack w="15%" spacing={31}>
                         <Text color="#4F6FE4"> Yes </Text>
                         <Text color="#4F6FE4"> No </Text>
                     </HStack>
                 </HStack>
-                <TableContainer w="full">
-                    <Table bg="white" borderRadius={10}>
+
+                    <Table bg="white" borderRadius={10} w='90%'>
                         <Tbody>
                             <Tr fontSize="16px">
-                                <Td>Places visited are all wheelchair accessible and can be navigated independently.</Td>
+                                <Td>Places visited are all wheelchair accessible and can be navigated independently</Td>
                                 <Td>
                                     <RadioGroup>
-                                        <HStack spacing={8}>
+                                        <HStack spacing={8} justifyContent='flex-end'>
                                             <Radio  value='yes'
                                                     border='1px'
                                                     borderColor='#2F6FE4'></Radio>
@@ -53,10 +51,10 @@ function Places(props: IPlaces): JSX.Element {
                                 </Td>
                             </Tr>
                             <Tr fontSize="16px">
-                                <Td>Places present some barriers and minimum assistance is needed.</Td>
+                                <Td>Places present some barriers and minimum assistance is needed</Td>
                                 <Td>
                                     <RadioGroup>
-                                        <HStack spacing={8}>
+                                        <HStack spacing={8} justifyContent='flex-end'>
                                             <Radio  value='yes'
                                                     border='1px'
                                                     borderColor='#2F6FE4'></Radio>
@@ -68,10 +66,10 @@ function Places(props: IPlaces): JSX.Element {
                                 </Td>
                             </Tr>
                             <Tr fontSize="16px">
-                                <Td>Few accessibility measures are in place and assistance is needed for the full experience.</Td>
+                                <Td>Few accessibility measures are in place and assistance is needed for the full experience</Td>
                                 <Td>
                                     <RadioGroup>
-                                        <HStack spacing={8}>
+                                        <HStack spacing={8} justifyContent='flex-end'>
                                             <Radio  value='yes'
                                                     border='1px'
                                                     borderColor='#2F6FE4'></Radio>
@@ -83,10 +81,10 @@ function Places(props: IPlaces): JSX.Element {
                                 </Td>
                             </Tr>
                             <Tr fontSize="16px">
-                                <Td>There are smooth floors and pathways.</Td>
+                                <Td>There are smooth floors and pathways</Td>
                                 <Td>
                                     <RadioGroup>
-                                        <HStack spacing={8}>
+                                        <HStack spacing={8} justifyContent='flex-end'>
                                             <Radio  value='yes'
                                                     border='1px'
                                                     borderColor='#2F6FE4'></Radio>
@@ -98,10 +96,10 @@ function Places(props: IPlaces): JSX.Element {
                                 </Td>
                             </Tr>
                             <Tr fontSize="16px">
-                                <Td>There are pathways with rocks, stones, or other terrain that makes them difficult to access.</Td>
+                                <Td>There are pathways with rocks, stones, or other terrain that makes them difficult to access</Td>
                                 <Td>
                                     <RadioGroup>
-                                        <HStack spacing={8}>
+                                        <HStack spacing={8} justifyContent='flex-end'>
                                             <Radio  value='yes'
                                                     border='1px'
                                                     borderColor='#2F6FE4'></Radio>
@@ -114,7 +112,6 @@ function Places(props: IPlaces): JSX.Element {
                             </Tr>
                         </Tbody>
                     </Table>
-                </TableContainer>
                 
             </VStack>
         </Box>

@@ -1,9 +1,13 @@
 import * as React from "react"
+import { useState } from "react"
+import {useNavigate} from 'react-router-dom'
+
 import {
     ChakraProvider,
     Box,
     HStack,
     Spacer,
+    Heading,
     theme,
     Text,
   } from "@chakra-ui/react"
@@ -13,6 +17,13 @@ import { Image } from '@chakra-ui/react'
 import { ITopMenu } from "./topMenu.types"
 
 function TopMenu(props: ITopMenu): JSX.Element {
+
+    let navigate = useNavigate()
+
+    function Change() {
+        navigate (`Settings`)
+    }
+
     return (
         <ChakraProvider theme={theme}>
 
@@ -20,10 +31,10 @@ function TopMenu(props: ITopMenu): JSX.Element {
                 <HStack paddingLeft={'10%'} paddingRight={'10%'} h="100%" w="100%" >
                     <Image height="100%"  src='https://pbs.twimg.com/profile_images/1027686473871577090/ti69qWgM_400x400.jpg' />
                     <Spacer />
-                    <Text fontSize='2xl'>
+                    <Text onClick={Change} fontSize={{ base: '20px', md: '25px', lg: '30px' }}>
                         Welcome, Carlos! 
                     </Text>
-                    <Avatar name='Ryan Florence' src='https://bit.ly/ryan-florence'  />
+                    <Avatar onClick={Change} name='Ryan Florence' src='https://bit.ly/ryan-florence'  />
                 </HStack>
             </Box>
         </ChakraProvider>
