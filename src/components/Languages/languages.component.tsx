@@ -11,9 +11,6 @@ import {
   useCheckboxGroup
 } from "@chakra-ui/react"
 
-
-
-
 const Languages = () => {
 //Customización del checkbox
 function CustomCheckbox(props: any) {

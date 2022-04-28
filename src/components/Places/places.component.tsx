@@ -20,7 +20,7 @@ function Places(props: IPlaces): JSX.Element {
         <Box boxShadow='2xl'
             w="65%" 
             h="full"
-            p={10}
+            p={20}
             background="#EBE9E9"
             borderRadius="10px">
             <VStack alignItems='flex-start' w="full">

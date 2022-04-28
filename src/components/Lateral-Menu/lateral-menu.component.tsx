@@ -193,6 +193,20 @@ const LateralMenu = (props: any) => {
                     </h2>
                   </AccordionItem>
 
+                  <AccordionItem >
+                    <h2>
+
+                      <Link to="cancelation-policy">
+                        <AccordionButton>
+                          <Box flex='1' textAlign='left'>
+                            Cancelation Policy
+                          </Box>
+                        </AccordionButton>
+                      </Link>
+
+                    </h2>
+                  </AccordionItem>
+
                 </Accordion>
 
             </DrawerBody>
