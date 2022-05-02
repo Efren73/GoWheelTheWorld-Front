@@ -14,7 +14,6 @@ import {
     Center,
 } from "@chakra-ui/react"
 
-
 const ChildPolicy: React.FC = () => {
 
     const [valueQ1, setValueQ1] = React.useState('yes')
@@ -33,7 +32,6 @@ const ChildPolicy: React.FC = () => {
         }
     }
 
-    
     function addAnswer(RadioB:string){
         if (RadioB == 'yes')
         return(

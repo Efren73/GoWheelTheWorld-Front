@@ -13,7 +13,8 @@ import {
   SliderTrack,
   Link,
 } from "@chakra-ui/react";
-import logo from '../../pages/login/images/logo.png'
+
+import logo from '../../pages/login/images/logo.png';
 import { IQuestion } from './question.types';
 import Summary from '../../components/summary/summary.component';
 import { 
@@ -47,7 +48,6 @@ function Question(props: IQuestion): JSX.Element {
         navigate('/tour-operator/1/tour-completed/1')
       }
 	return (
-	<ChakraProvider>
         <Flex h="100vh">
             <HStack w="full" h="full" >
                 <LateralMenu />
@@ -92,7 +92,6 @@ function Question(props: IQuestion): JSX.Element {
                 </VStack>
             </HStack>
         </Flex>
-	</ChakraProvider>
 	);
 }
 
