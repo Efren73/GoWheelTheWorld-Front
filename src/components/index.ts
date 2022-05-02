@@ -19,3 +19,4 @@ export {default as Places} from './Places/places.component';
 export { default as Equipment } from './Equipment/equipment.component';
 export { default as Faqs } from './FAQS/faqs.component';
 export {default as EndPoint} from './EndPoint/end-point.component';
+export {default as CancelatioPolicy} from './cancelationPolicy/cancelationPolicy.component';

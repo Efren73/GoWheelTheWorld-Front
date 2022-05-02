@@ -20,20 +20,20 @@ function Equipment(props: IEquipment): JSX.Element {
         <Box boxShadow='2xl'
             w="65%" 
             h="full"
-            p={10}
+            p={20}
             background="#EBE9E9"
             borderRadius="10px">
             <VStack alignItems='flex-start' w="full" h="full">
                 <Text fontSize='20px' color='#3F6FE4'> Accesibility / Equipment </Text>
                 <Heading fontSize='35px'>Equipment</Heading>
-                <HStack justifyContent="flex-end" w="95%">
-                    <HStack w="15%" spacing={31}>
+                <HStack justifyContent="flex-end" w="full">
+                    <HStack w="14%" spacing={31}>
                         <Text color="#4F6FE4"> Yes </Text>
                         <Text color="#4F6FE4"> No </Text>
                     </HStack>
                 </HStack>
-
-                    <Table bg="white" borderRadius={10} w='90%'>
+                <TableContainer w="full" h="80%" overflowY='auto'>
+                    <Table bg="white" borderRadius={10} size="sm">
                         <Tbody>
                             <Tr>
                                 <Td>Is adaptive equipment included in this tour/activity?</Td>
@@ -142,7 +142,7 @@ function Equipment(props: IEquipment): JSX.Element {
                             </Tr>
                         </Tbody>
                     </Table>
-                
+                </TableContainer>
             </VStack>
         </Box>
 	);

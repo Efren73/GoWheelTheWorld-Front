@@ -12,8 +12,8 @@ import {
 import { ColorModeSwitcher } from "./ColorModeSwitcher"
 import { Logo } from "./Logo"
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom"
-import {Login, Signup, Admin, MainScreenTO, Question, TourCompleted, AdminSummary} from './pages'
-import { Cart, Description, LateralMenu, Multiple, Price, Summary, GroupPrivate, UploadPhotos, Meeting, Stops, Languages, Restrictions, ChildPolicy, Assistance, Transportation, Restrooms, Places, Equipment, Faqs, WhatsIncluded, EndPoint } from "./components"
+import {Login, Signup, Admin, MainScreenTO, Question, TourCompleted, AdminSummary, UserSettings} from './pages'
+import { Cart, Description, LateralMenu, Multiple, Price, Summary, GroupPrivate, UploadPhotos, Meeting, Stops, Languages, Restrictions, ChildPolicy, Assistance, Transportation, Restrooms, Places, Equipment, Faqs, WhatsIncluded, EndPoint, CancelatioPolicy } from "./components"
 import TopMenu from "./components/TopMenu"
 
 export const App = () => (
@@ -28,6 +28,10 @@ export const App = () => (
       <Route path="tour-operator/:id" element={<MainScreenTO />} />
       <Route path="tour-operator/:id/tour-completed/:tourId" element={<TourCompleted />} />
       <Route path="admin/AdminSummary/:tourId" element={<AdminSummary/>} />
+
+      <Route path="admin/Settings" element={<UserSettings/>} />
+      <Route path="tour-operator/:id/Settings" element={<UserSettings/>} />
+
 
       <Route path="tour-operator/:id/question/:tourId/*" element={<Question />}>
         <Route path="name-of-tour" element={<Cart />} />
@@ -49,6 +53,7 @@ export const App = () => (
         <Route path="places" element={<Places />} />
         <Route path="equipment" element={<Equipment />} />
         <Route path="faqs" element={<Faqs />} />
+        <Route path="cancelation-policy" element={<CancelatioPolicy />} />
       </Route>
       <Route path="*" element={<div>Not found</div>} />
     </Routes>
