@@ -14,7 +14,8 @@ import {
   Link,
   Stack,
 } from "@chakra-ui/react";
-import logo from '../../pages/login/images/logo.png'
+
+import logo from '../../pages/login/images/logo.png';
 import { IQuestion } from './question.types';
 import Summary from '../../components/summary/summary.component';
 import { 

@@ -2,7 +2,6 @@ import * as React from "react"
 import { useState } from "react"
 import {
     Text,
-    VStack,
     HStack,
     Box,
     ChakraProvider,
@@ -21,7 +20,6 @@ import {
 import { ExternalLinkIcon } from '@chakra-ui/icons'
 
 const Description: React.FC = () => {
-
     //Elementos utilizados para limitar el numero de caracteres
     let [value, setValue] = useState('')
     let [characters, setCharacters] = useState(0)
@@ -36,6 +34,15 @@ const Description: React.FC = () => {
         }
     }
 
+    // Control de input para el link
+    let [value1, setValue1] = useState('')
+    let inputValue1: any;
+
+    let handleInputLink = (e: any) => {
+        inputValue1 = e.target.value
+        setValue1(inputValue1)
+    }
+
     //Elementos utilizados para la ventana modal
     const { isOpen, onOpen, onClose } = useDisclosure()
 
@@ -45,10 +52,9 @@ const Description: React.FC = () => {
 
         'Make your way to Rio Secreto. There, you will watch a short introduction video, presenting you with the caves and the safety measures. After a 10-minute ride through the jungle, onboard an accessible van, you will get next to the cave entrance, where the changing rooms and lockers are located. You will get into your wetsuit and transfer to a Joelette trekking wheelchair before the tour starts. Assistance will be provided, and you own wheelchair will be safely kept in the lockers. You will then make your way to the wet cave entrance during a short hike. As you get into the water, you will discover an unsuspected underwater network of rivers and narrow caves. Stalactites and stalagmites will make you feel like in a glass museum. Your guide will tell you more about the geological history of the Earth, as you move around the breathtaking rock formations and discover several chambers. Visitors will be able to swim at certain spots along the way. The tour provides a truly unique, epic atmosphere as you explore the cave in darkness, only lit up by your headlight. As the water is cold, travelers will spend no more than an hour in the wet cave.',
 
-        'This bus tour of Miami brings together some of the city’s best tourist highlights and takes place on a bus with a transparent roof, so you can admire the great views whilst being protected from the elements. Drivers are available to help people with reduced mobility to transfer into the bus and there is space to store one manual wheelchair onboard. Service animals are also welcome on this tour. The tour lasts for approximately 3 hours and has 3 pick-up/drop-off points, plus an extended stop in Little Havana and in Wynwood. Each meeting point is easy to find and is located close to a parking lot. You’ll get a chance to see the South Beach area of Miami, with its famous Art Deco-style buildings, and then you’ll cruise through downtown Miami. Next is Little Havana, the neighborhood where many Cuban migrants settled, and you’ll have approximately 20 minutes here if you wish to get off the bus and explore. Afterwards, you will head to Wynwood, the trendiest art district which is home to Wynwood Wall, a place to see the best urban street art. This stop is slightly longer, giving you time to explore the district by yourself, if you wish. The tour will then loop through to chic Miami Design District before returning to the first meeting point. The tour bus does not have accessible bathroom facilities, but the drivers are very familiar with the city and can recommend accessible public bathroom facilities in cafes or restaurants that are close to the stop-off points in Little Havana and Wynwood.'
+        'This bus tour of Miami brings together some of the city\'s best tourist highlights and takes place on a bus with a transparent roof, so you can admire the great views whilst being protected from the elements. Drivers are available to help people with reduced mobility to transfer into the bus and there is space to store one manual wheelchair onboard. Service animals are also welcome on this tour. The tour lasts for approximately 3 hours and has 3 pick-up/drop-off points, plus an extended stop in Little Havana and in Wynwood. Each meeting point is easy to find and is located close to a parking lot. You’ll get a chance to see the South Beach area of Miami, with its famous Art Deco-style buildings, and then you’ll cruise through downtown Miami. Next is Little Havana, the neighborhood where many Cuban migrants settled, and you’ll have approximately 20 minutes here if you wish to get off the bus and explore. Afterwards, you will head to Wynwood, the trendiest art district which is home to Wynwood Wall, a place to see the best urban street art. This stop is slightly longer, giving you time to explore the district by yourself, if you wish. The tour will then loop through to chic Miami Design District before returning to the first meeting point. The tour bus does not have accessible bathroom facilities, but the drivers are very familiar with the city and can recommend accessible public bathroom facilities in cafes or restaurants that are close to the stop-off points in Little Havana and Wynwood.'
     ];
 
-    console.log(value)
     return(
     <ChakraProvider>
         <Box
@@ -61,25 +67,36 @@ const Description: React.FC = () => {
   
             <Stack spacing={2}>
                 <Text fontSize='20px' color='#3F6FE4'>Basic Information / Description</Text>
+                <Text fontSize='35px'> Please share the link to your website or any another platform
+                                       where the tour/activity is displayed </Text>
+                <Box w="full">
+                    <Textarea 
+                            h='100px'
+                            placeholder="Link"
+                            background='#fff'
+                            onChange={handleInputLink}
+                            value = {value1}
+                            />
+                </Box>
                 <Text fontSize='35px'>Description of the tour / activity</Text>
+              
+                <Box w='full'>
+                    <Textarea 
+                        h='500px'
+                        placeholder="Description of the tour"
+                        background='#fff'
+                        onChange={handleInputChange}
+                        value = {value}
+                        />
+                  
+                    <HStack justifyContent='space-between' color='#2F6FE4' >
+                        <Text>{characters}/1600</Text>
+                        <Button variant="link" onClick={onOpen}>
+                            <Text color='#2F6FE4' as='u'>Show examples</Text>
+                        </Button>
+                    </HStack>
+                </Box>
             </Stack>
-            <Box w='full'>
-                <Textarea 
-                     h='500px'
-                    placeholder="Description of the tour"
-                    background='#fff'
-                    onChange={handleInputChange}
-                    value = {value}
-                    
-                    />
-
-                <HStack justifyContent='space-between' color='#2F6FE4' >
-                    <Text>{characters}/1600</Text>
-                    <Button variant="link" onClick={onOpen}>
-                        <Text color='#2F6FE4' as='u'>Show examples</Text>
-                    </Button>
-                </HStack>
-            </Box>
         </Box >
 
         <Modal onClose={onClose} size='xl' isOpen={isOpen} scrollBehavior='inside'>
