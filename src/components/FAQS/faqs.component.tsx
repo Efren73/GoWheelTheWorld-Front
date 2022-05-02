@@ -1,6 +1,6 @@
 import * as React from "react"
 import { useState } from "react"
-import { position, useDisclosure } from "@chakra-ui/react"
+import { Flex, position, useDisclosure } from "@chakra-ui/react"
 import {
     Text,
     VStack,
@@ -21,11 +21,12 @@ import {
 } from "@chakra-ui/react"
 
 import { DeleteIcon } from "@chakra-ui/icons"
+import { AnyRecord } from "dns"
 
 const Faqs: React.FC = () => {
 
     //Definición de useState para que el usuario pueda ingresar varias preguntas
-    let [questionAnswer, setQuestionAnswer]:any = useState([])
+    let [questionAnswer, setQuestionAnswer]:any = useState([[]])
 
 
     //Definición de useState para que aparezca la primer pregunta del Checkbox
@@ -87,15 +88,15 @@ const Faqs: React.FC = () => {
     }
 
 
-    function changeOneValue(e: any, index: any){
-        console.log(index)
-        let newArray:string[] = [...questionAnswer]
-        newArray[index] = e.target.value
+    function changeOneValue(e: any, index: any, index2: any){
+        console.log(index, index2)
+        let newArray:string[][] = [[...questionAnswer]]
+        newArray[index][index2] = e.target.value
         setQuestionAnswer(newArray)
     }
 
     function deleteQ (e: any, index: any){
-        let newArray:string[] = [...questionAnswer]
+        let newArray:string[][] = [[...questionAnswer]]
         newArray.splice(index, 1)
         setQuestionAnswer(newArray)
     }
@@ -142,19 +143,28 @@ const Faqs: React.FC = () => {
                             <Stack w='100%' marginBottom={4}>
                                 <HStack>
                                     <Stack w='70%'>
-                                        <Text> Hey{index}</Text>
-                                        <Input placeholder='Question' bg="#fff" value={x} onChange={(e) => changeOneValue(e, index)}/>
-                                        <Text >0/60</Text>
-                                        <Input placeholder='Answer' bg="#fff"/>
-                                        <Text>0/60</Text>
+                                        <Text>Question {index+1}</Text>
+                                        <Box>
+                                            <Box>
+                                                <Input placeholder='Question' bg="#fff" value={x[0]} onChange={(e) => changeOneValue(e, index, 0)}/>
+                                                <Text color='#2F6FE4'>0/60</Text>
+                                            </Box>
+                                            <Box>
+                                                <Input placeholder='Answer' value={x[1]} bg="#fff" onChange={(e) => changeOneValue(e, index, 1)}/>
+                                                <Text color='#2F6FE4'>0/60</Text>
+                                            </Box>
+                                        <Flex justifyContent='flex-end'>
+                                            <Button variant="link" onClick={(e) => deleteQ(e, index)} marginBottom='20px'>
+                                                <DeleteIcon />
+                                            </Button>
+                                        </Flex>
+                                        </Box>
                                     </Stack>
-                                    <Button variant="link" w='10%' h='100%' onClick={(e) => deleteQ(e, index)}>
-                                        <DeleteIcon boxSize={'70%'}/>
-                                    </Button>
-                                </HStack>x
+
+                                </HStack>
                             </Stack>
                         ))
-                        : <p>NO sirvio</p>
+                        : <p></p>
                     }
                     {/*
                     <Button type="submit">Type submit</Button>
