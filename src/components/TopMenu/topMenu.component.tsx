@@ -21,7 +21,7 @@ function TopMenu(props: ITopMenu): JSX.Element {
     let navigate = useNavigate()
 
     function Change() {
-        navigate (`Settings`)
+        navigate (`/admin/Settings`)
     }
 
     return (
