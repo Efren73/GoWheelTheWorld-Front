@@ -49,7 +49,7 @@ const Faqs: React.FC = () => {
         }
     }
 
-    
+
 
     //Funcion para que cuando se de click al checkbox, aparezca 
     function addAnswer(){
@@ -67,7 +67,7 @@ const Faqs: React.FC = () => {
 
     //Función para que cuando se de click a add, se agreguen elementos al arreglo con el fin de que se rendericen más componentes
     const addQuestionAnswer = () => {
-        setQuestionAnswer([...questionAnswer, '']);
+        setQuestionAnswer([[...questionAnswer], '']);
     }
 
 

@@ -19,7 +19,7 @@ import { IMainScreenTO } from './mainScreenTO.types';
 import ImageInfoMSTO from './ImageInfoMSTO.png';
 import fondoMS from './FondoMS.png';
 import TopMenu from '../../components/TopMenu/topMenu.component';
-import {useNavigate} from 'react-router-dom'
+import {useNavigate} from  'react-router-dom'
 
 function MainScreenTO(props: IMainScreenTO): JSX.Element {
   const navigate = useNavigate()
@@ -44,7 +44,7 @@ function MainScreenTO(props: IMainScreenTO): JSX.Element {
                     <HStack>
                       <VStack alignItems="flex-start">
                         <Heading fontSize='30px'> New tour </Heading>
-                        <Text fontSize='25px'> People with disabilities are already booking tours and activities through our platform. Become a certified partner! </Text>
+                        <Text  fontSize={{ base: '15px', md: '20px', lg: '24px' }}> People with disabilities are already booking tours and activities through our platform. Become a certified partner! </Text>
                       </VStack>
                       <Image src={ImageInfoMSTO} w="30%"/>
                     </HStack>

@@ -18,7 +18,7 @@ import {
 } from "@chakra-ui/react"
 import { HamburgerIcon } from "@chakra-ui/icons"
 
-import { BrowserRouter, Link, Route} from "react-router-dom"
+import { BrowserRouter, Link, Route} from  'react-router-dom'
 import Cart from '../Cart/cart.component'
 
 
