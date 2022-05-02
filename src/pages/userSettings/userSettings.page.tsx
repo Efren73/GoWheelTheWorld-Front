@@ -70,7 +70,7 @@ import {
                     <Heading as='h2'>
                         Profile Settings
                     </Heading>
-                    <Text color='gray.400' >
+                    <Text color='gray.400'>
                         Edit your profile
                     </Text>
                 </Box>
