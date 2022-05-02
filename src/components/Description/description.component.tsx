@@ -79,6 +79,7 @@ const Description: React.FC = () => {
                             />
                 </Box>
                 <Text fontSize='35px'>Description of the tour / activity</Text>
+              
                 <Box w='full'>
                     <Textarea 
                         h='500px'
@@ -88,7 +89,7 @@ const Description: React.FC = () => {
                         value = {value}
                         
                         />
-
+                  
                     <HStack justifyContent='space-between' color='#2F6FE4' >
                         <Text>{characters}/1600</Text>
                         <Button variant="link" onClick={onOpen}>

@@ -21,12 +21,11 @@ function TopMenu(props: ITopMenu): JSX.Element {
     let navigate = useNavigate()
 
     function Change() {
-        navigate (`Settings`)
+        navigate (`/admin/Settings`)
     }
 
     return (
         <ChakraProvider theme={theme}>
-
             <Box bg="black" w='100%' height="15%" color="white">
                 <HStack paddingLeft={'10%'} paddingRight={'10%'} h="100%" w="100%" >
                     <Image height="100%"  src='https://pbs.twimg.com/profile_images/1027686473871577090/ti69qWgM_400x400.jpg' />

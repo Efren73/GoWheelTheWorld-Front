@@ -1,6 +1,6 @@
 import * as React from "react"
 import { useState } from "react"
-import { useDisclosure } from "@chakra-ui/react"
+import { Flex, position, useDisclosure } from "@chakra-ui/react"
 import {
     Text,
     VStack,
@@ -21,11 +21,13 @@ import {
 } from "@chakra-ui/react"
 
 import { DeleteIcon } from "@chakra-ui/icons"
+import { AnyRecord } from "dns"
 
 const Faqs: React.FC = () => {
 
     //Definición de useState para que el usuario pueda ingresar varias preguntas
-    let [questionAnswer, setQuestionAnswer]:any = useState([])
+    let [questionAnswer, setQuestionAnswer]:any = useState([[]])
+
 
     //Definición de useState para que aparezca la primer pregunta del Checkbox
     let [check1, setCheck1] = useState(false)
@@ -40,13 +42,13 @@ const Faqs: React.FC = () => {
     //Función cada vez que el contenido del texto cambie
     let handleInputChange = (e: any) => {
         inputValue = e.target.value
-
         //Si la longitud es mayor que 60, entonces no podrán hacerse cambios, esta será la longitud máxima
         if(inputValue.length<=60){
             setText(inputValue)
             setCharacters(inputValue.length)
         }
     }
+
 
 
     //Funcion para que cuando se de click al checkbox, aparezca 
@@ -65,7 +67,7 @@ const Faqs: React.FC = () => {
 
     //Función para que cuando se de click a add, se agreguen elementos al arreglo con el fin de que se rendericen más componentes
     const addQuestionAnswer = () => {
-        setQuestionAnswer([...questionAnswer, '']);
+        setQuestionAnswer([[...questionAnswer], '']);
     }
 
 
@@ -83,6 +85,20 @@ const Faqs: React.FC = () => {
     function handleSubmit(e: any){
         e.preventDefault();
         console.dir(e.target)
+    }
+
+
+    function changeOneValue(e: any, index: any, index2: any){
+        console.log(index, index2)
+        let newArray:string[][] = [[...questionAnswer]]
+        newArray[index][index2] = e.target.value
+        setQuestionAnswer(newArray)
+    }
+
+    function deleteQ (e: any, index: any){
+        let newArray:string[][] = [[...questionAnswer]]
+        newArray.splice(index, 1)
+        setQuestionAnswer(newArray)
     }
     
     return(
@@ -122,19 +138,33 @@ const Faqs: React.FC = () => {
                 </Stack>
                 <form onSubmit={handleSubmit}>
                     {
-                        questionAnswer && questionAnswer.map(()=>(
+                        (questionAnswer && questionAnswer.length > 0) ? questionAnswer.map((x: any, index: any)=>(
                             
-                            <Stack w='70%'>
+                            <Stack w='100%' marginBottom={4}>
                                 <HStack>
-                                    <Input placeholder='Question' bg="#fff" />
-                                    <Text >0/60</Text>
-                                </HStack>
-                                <HStack>
-                                    <Input placeholder='Answer' bg="#fff"/>
-                                    <Text>0/60</Text>
+                                    <Stack w='70%'>
+                                        <Text>Question {index+1}</Text>
+                                        <Box>
+                                            <Box>
+                                                <Input placeholder='Question' bg="#fff" value={x[0]} onChange={(e) => changeOneValue(e, index, 0)}/>
+                                                <Text color='#2F6FE4'>0/60</Text>
+                                            </Box>
+                                            <Box>
+                                                <Input placeholder='Answer' value={x[1]} bg="#fff" onChange={(e) => changeOneValue(e, index, 1)}/>
+                                                <Text color='#2F6FE4'>0/60</Text>
+                                            </Box>
+                                        <Flex justifyContent='flex-end'>
+                                            <Button variant="link" onClick={(e) => deleteQ(e, index)} marginBottom='20px'>
+                                                <DeleteIcon />
+                                            </Button>
+                                        </Flex>
+                                        </Box>
+                                    </Stack>
+
                                 </HStack>
                             </Stack>
                         ))
+                        : <p></p>
                     }
                     {/*
                     <Button type="submit">Type submit</Button>
@@ -143,11 +173,7 @@ const Faqs: React.FC = () => {
             </Stack>
 
             <Box w='full'>
-                <HStack justifyContent='flex-end'>
-                    <Button variant="link" >
-                        <DeleteIcon />
-                    </Button>
-                </HStack>
+                
             </Box>
 
             <Box w='full' >

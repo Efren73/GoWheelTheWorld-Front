@@ -57,7 +57,7 @@ function Feature({ Title, Destination, TourOperator, Date, Status, tourId, ...re
     let navigate = useNavigate()
     
     function Change():void {
-        navigate (`AdminSummary/${tourId}`)
+        navigate (`/admin/AdminSummary/${tourId}`)
     }
     return (
         <Box p={5} shadow='md' borderWidth='1px' {...rest}   paddingLeft={10} onClick={Change}>
