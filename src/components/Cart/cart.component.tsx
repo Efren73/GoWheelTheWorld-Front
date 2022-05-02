@@ -13,23 +13,46 @@ import {
   Button,
   useDisclosure,
   Modal,
-	ModalOverlay,
-    ModalContent,
-    ModalHeader,
-    ModalBody,
-    ModalFooter,
-	ChakraProvider,
-	Stack,
-	NumberInput,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  ChakraProvider,
+  Stack,NumberInput,
   NumberInputField,
   NumberInputStepper,
   NumberIncrementStepper,
   NumberDecrementStepper,
+  useNumberInput
 } from "@chakra-ui/react"
 import { ICart } from "./cart.types";
 import { InfoIcon } from '@chakra-ui/icons';
 
+
 const Cart: React.FC = () => {
+
+	 function HookUsage() {
+        const { getInputProps, getIncrementButtonProps, getDecrementButtonProps } =
+            useNumberInput({
+            step: 1,
+            defaultValue: 0,
+            min: 1,
+            })
+
+        const inc = getIncrementButtonProps()
+        const dec = getDecrementButtonProps()
+        const input = getInputProps()
+
+        return (
+            <HStack maxW='200px'>
+            <Button {...dec} background='#2F6FE4'>-</Button>
+            <Input {...input} background='#white'/>
+            <Button {...inc} background='#2F6FE4'>+</Button>
+            </HStack>
+        )
+    }
+
 	const background = useBreakpointValue({ base: "blue.500", sm: "gray.200" });
 
 	//Elementos utilizados para limitar el numero de caracteres
@@ -91,12 +114,39 @@ const Cart: React.FC = () => {
 						value = {value}
 						/>
 
+					
 						<HStack justifyContent='space-between' color='#2F6FE4' >
 							<Text>{characters}/50</Text>
 							<Button variant="link" onClick={onOpen}>
 								<Text color='#2F6FE4' as='u'>Show examples</Text>
 							</Button>
 						</HStack>
+						</Box>
+						<Box w='full'>
+						<Heading fontSize='25px'>Trip duration</Heading>
+						</Box>
+						<Box>
+						<Stack shouldWrapChildren direction='row'>
+							<Text fontSize='20px' color='#595959' paddingBottom='20px'>Hours</Text>
+							<NumberInput  size='md' maxW={80} min={0} max={10} variant='outline' h='40px' fontSize={'20px'} background={'white'} defaultValue={0}>
+								<NumberInputField />
+								<NumberInputStepper>
+									<NumberIncrementStepper  bg='#2F6FE4' _active={{ bg: '#2558B6' }} children ='+'/>
+									<NumberDecrementStepper  bg='#2F6FE4' _active={{ bg: '#2558B6' }} children ='-'/>
+								</NumberInputStepper>
+							</NumberInput>
+							
+				<Text fontSize='20px' color='#595959' paddingBottom='20px'>Minutes</Text>
+				<NumberInput size='md' maxW={80}  min={15} max={59} variant='outline' h='40px' fontSize={'20px'} background={'white'} defaultValue={30} step={5}>
+					<NumberInputField />
+					<NumberInputStepper>
+					<NumberIncrementStepper  bg='#2F6FE4' _active={{ bg: '#2558B6' }} children ='+'/>
+					<NumberDecrementStepper bg='#2F6FE4' _active={{ bg: '#2558B6' }}  children ='-'/>
+					</NumberInputStepper>
+				</NumberInput>
+				</Stack>
+				
+
 					</Box>
 				</VStack>
 			</Box>
