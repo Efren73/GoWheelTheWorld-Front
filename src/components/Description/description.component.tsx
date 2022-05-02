@@ -79,15 +79,16 @@ const Description: React.FC = () => {
                             />
                 </Box>
                 <Text fontSize='35px'>Description of the tour / activity</Text>
+              
                 <Box w='full'>
                     <Textarea 
-                        h='100px'
+                        h='500px'
                         placeholder="Description of the tour"
                         background='#fff'
                         onChange={handleInputChange}
                         value = {value}
                         />
-
+                  
                     <HStack justifyContent='space-between' color='#2F6FE4' >
                         <Text>{characters}/1600</Text>
                         <Button variant="link" onClick={onOpen}>
