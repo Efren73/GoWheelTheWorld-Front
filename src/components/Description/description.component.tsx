@@ -65,7 +65,7 @@ const Description: React.FC = () => {
             </Stack>
             <Box w='full'>
                 <Textarea 
-                    h='200px'
+                     h='500px'
                     placeholder="Description of the tour"
                     background='#fff'
                     onChange={handleInputChange}

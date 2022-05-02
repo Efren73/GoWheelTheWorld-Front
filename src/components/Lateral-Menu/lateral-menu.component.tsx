@@ -29,7 +29,7 @@ const LateralMenu = (props: any) => {
   console.log(props)
   return (
     <ChakraProvider>
-      <Box h="full">
+      <Box h='full'>
         <Box h="full" alignItems="flex-start" background='#000' paddingTop={2}>
           <Button colorScheme='blackAlpha' onClick={onOpen} >
             <HamburgerIcon w={7} h={7} />
