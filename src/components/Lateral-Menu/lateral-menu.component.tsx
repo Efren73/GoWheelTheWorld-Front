@@ -29,7 +29,7 @@ const LateralMenu = (props: any) => {
   console.log(props)
   return (
     <ChakraProvider>
-      <Box h="full">
+      <Box h='full'>
         <Box h="full" alignItems="flex-start" background='#000' paddingTop={2}>
           <Button colorScheme='blackAlpha' onClick={onOpen} >
             <HamburgerIcon w={7} h={7} />
@@ -186,6 +186,20 @@ const LateralMenu = (props: any) => {
                         <AccordionButton>
                           <Box flex='1' textAlign='left'>
                             FAQ
+                          </Box>
+                        </AccordionButton>
+                      </Link>
+
+                    </h2>
+                  </AccordionItem>
+
+                  <AccordionItem >
+                    <h2>
+
+                      <Link to="cancelation-policy">
+                        <AccordionButton>
+                          <Box flex='1' textAlign='left'>
+                            Cancelation Policy
                           </Box>
                         </AccordionButton>
                       </Link>

@@ -52,8 +52,11 @@ function Transportation(props: ITransportation): JSX.Element {
                                     </RadioGroup>
                                 </Td>
                             </Tr>
-                            <Tr>
-                                <Td>Transportation is not wheelchair accessible but assistance will be provided for transfers</Td>
+                            <Tr fontSize="16px">
+                                <Td>
+                                    <Text>Transportation is not wheelchair accessible but assistance will be</Text>
+                                    provided for transfers.
+                                </Td>
                                 <Td>
                                     <RadioGroup>
                                         <HStack spacing={8} justifyContent='flex-end'>

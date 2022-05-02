@@ -12,8 +12,10 @@ import {
   SliderFilledTrack,
   SliderTrack,
   Link,
+  Stack,
 } from "@chakra-ui/react";
-import logo from '../../pages/login/images/logo.png'
+
+import logo from '../../pages/login/images/logo.png';
 import { IQuestion } from './question.types';
 import Summary from '../../components/summary/summary.component';
 import { 
@@ -37,6 +39,8 @@ import {
     Faqs
  } from '../../components';
 import { Routes, useNavigate, Outlet } from 'react-router-dom';
+import Header from './Header';
+import Footer from './Footer';
 
 
 function Question(props: IQuestion): JSX.Element {
@@ -48,51 +52,31 @@ function Question(props: IQuestion): JSX.Element {
       }
 	return (
 	<ChakraProvider>
-        <Flex h="100vh">
+        <Flex>
             <HStack w="full" h="full" >
-                <LateralMenu />
+                <Box  h='full' position='absolute'>
+                    <LateralMenu />
+                </Box>
+                
                 <VStack h="100%" w="100%">
-                    <Box w="100%" h="16%">
-                        <HStack justifyContent="space-between" w="full" h="full" paddingRight={55}>
-                            <Image src={logo} w="16%" h="80%"/>
-                            <VStack alignItems="flex-start" spacing="-2">
-                                <Text fontSize="30px" color="#3F6FE4"> Fernanda, let's start! </Text>
-                                <Link fontSize="25px"> Save and exit </Link>
-                            </VStack>
-                        </HStack>
+                    <Box w='92%' h="16%" marginLeft='2%'>
+                        <Header/>
                     </Box>
-                    <Box h="68%" w="100%" >
-                        <HStack justifyContent="center" h="full" w="full" spacing={51}>
+                    <Box h="68%" w="97%">
+                        <HStack justifyContent="center" h="full" w="full" spacing={51} alignItems='flex-start' marginLeft={'2%'}>
                             <Outlet />
                             <Summary />
                         </HStack>
                     </Box>
-                    <Box h="16%" w="100%" >
-                        <Slider defaultValue={10} isReadOnly={true} size="lg" w="full">
-                            <SliderTrack w="full" bg="#C9C9C9">
-                                <SliderFilledTrack w="full"/>
-                            </SliderTrack>
-                        </Slider>
-                        <HStack justifyContent="space-between" w="full" paddingRight={55} paddingLeft={55} paddingTop="3">
-                            <Button size='lg'
-                                    fontSize="20px"
-                                    borderRadius={10}
-                                    bg="white"
-                                    border='1px'
-                                    borderColor="#3F6FE4" > Back </Button>
-                            <Text fontSize="20px" color="#9B9B9B"> 1 of 19 items sent </Text>
-                            <Button size='lg'
-                                    fontSize="20px"
-                                    borderRadius={10}
-                                    bg="#3F6FE4"
-                                    color="white"
-                                    onClick={change}> Next </Button>
-                        </HStack>
+
+                    <Box w='96%'marginLeft={'5%'} alignSelf='end'>
+                        <Footer/>
                     </Box>
+                    
                 </VStack>
             </HStack>
         </Flex>
-	</ChakraProvider>
+    </ChakraProvider>
 	);
 }
 
