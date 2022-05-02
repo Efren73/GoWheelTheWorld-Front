@@ -85,6 +85,20 @@ const Faqs: React.FC = () => {
         e.preventDefault();
         console.dir(e.target)
     }
+
+
+    function changeOneValue(e: any, index: any){
+        console.log(index)
+        let newArray:string[] = [...questionAnswer]
+        newArray[index] = e.target.value
+        setQuestionAnswer(newArray)
+    }
+
+    function deleteQ (e: any, index: any){
+        let newArray:string[] = [...questionAnswer]
+        newArray.splice(index, 1)
+        setQuestionAnswer(newArray)
+    }
     
     return(
     <ChakraProvider>
@@ -123,20 +137,24 @@ const Faqs: React.FC = () => {
                 </Stack>
                 <form onSubmit={handleSubmit}>
                     {
-                        questionAnswer && questionAnswer.map((x: any, index: any)=>(
+                        (questionAnswer && questionAnswer.length > 0) ? questionAnswer.map((x: any, index: any)=>(
                             
-                            <Stack w='70%' marginBottom={4}>
-                                <Text> Hey{index}</Text>
+                            <Stack w='100%' marginBottom={4}>
                                 <HStack>
-                                    <Input placeholder='Question' bg="#fff" />
-                                    <Text >0/60</Text>
-                                </HStack>
-                                <HStack>
-                                    <Input placeholder='Answer' bg="#fff"/>
-                                    <Text>0/60</Text>
-                                </HStack>
+                                    <Stack w='70%'>
+                                        <Text> Hey{index}</Text>
+                                        <Input placeholder='Question' bg="#fff" value={x} onChange={(e) => changeOneValue(e, index)}/>
+                                        <Text >0/60</Text>
+                                        <Input placeholder='Answer' bg="#fff"/>
+                                        <Text>0/60</Text>
+                                    </Stack>
+                                    <Button variant="link" w='10%' h='100%' onClick={(e) => deleteQ(e, index)}>
+                                        <DeleteIcon boxSize={'70%'}/>
+                                    </Button>
+                                </HStack>x
                             </Stack>
                         ))
+                        : <p>NO sirvio</p>
                     }
                     {/*
                     <Button type="submit">Type submit</Button>
@@ -145,11 +163,7 @@ const Faqs: React.FC = () => {
             </Stack>
 
             <Box w='full'>
-                <HStack justifyContent='flex-end'>
-                    <Button variant="link" >
-                        <DeleteIcon />
-                    </Button>
-                </HStack>
+                
             </Box>
 
             <Box w='full' >
