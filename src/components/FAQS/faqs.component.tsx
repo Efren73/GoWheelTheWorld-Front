@@ -42,7 +42,6 @@ const Faqs: React.FC = () => {
     //Función cada vez que el contenido del texto cambie
     let handleInputChange = (e: any) => {
         inputValue = e.target.value
-
         //Si la longitud es mayor que 60, entonces no podrán hacerse cambios, esta será la longitud máxima
         if(inputValue.length<=60){
             setText(inputValue)
@@ -50,6 +49,7 @@ const Faqs: React.FC = () => {
         }
     }
 
+    
 
     //Funcion para que cuando se de click al checkbox, aparezca 
     function addAnswer(){
