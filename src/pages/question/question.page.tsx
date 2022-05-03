@@ -41,12 +41,11 @@ import { Routes, useNavigate, Outlet } from 'react-router-dom';
 
 
 function Question(props: IQuestion): JSX.Element {
-      const navigate = useNavigate();
-
-      function change(){
-        
+    const navigate = useNavigate();
+    function change() {
         navigate('/tour-operator/1/tour-completed/1')
-      }
+    }
+    
 	return (
         <Flex h="100vh">
             <HStack w="full" h="full" >
