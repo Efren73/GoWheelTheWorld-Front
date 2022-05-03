@@ -12,6 +12,8 @@ import {
   Box,
 } from "@chakra-ui/react"
 
+import { useParams } from "react-router-dom"
+
 const WhatsIncluded: React.FC = () => {
 
     //Customización del checkbox
@@ -31,7 +33,6 @@ const WhatsIncluded: React.FC = () => {
             backgroundValue = '#3F6FE4'
             colorValue='#fff'
           }
-
           return (
             <chakra.label
                 display='flex'
@@ -55,30 +56,39 @@ const WhatsIncluded: React.FC = () => {
         const { value, getCheckboxProps } = useCheckboxGroup()
 
 
-    const included: string[]=[
-        'Admission / ticket',
-        'Snacks',
-        'Instructors',
-        'Park entrance',
-        'Alcoholic beverages',
-        'Audio guides',
-        'Breakfast',
-        'Soft Drinks',
-        'Equipment rental',
-        'Lunch',
-        'Tour Guides',
-        'Gound transportation',
-        'Dinner',
-        'Assistants',
-        'Accessible transportation',
-        'Professional driver',
-        'Insurance',
-        'Gratuities',
-        'Parking',
-        'Tourist city taxes'
-    ];
 
+    const params = useParams()
+    console.log(params.category)
 
+    const included: string[]=[];
+    if(params.category === "General"){
+      included.push('Admission / ticket', 
+      'Park entrance',
+      'Audio guides',
+      'Tour Guides',
+      'Insurance',
+      'Gratuities',
+      'Tourist city taxes');
+    }
+    else if(params.category === "Food"){
+      included.push('Snacks',
+      'Alcoholic beverages',
+      'Breakfast',
+      'Soft Drinks',
+      'Lunch',
+      'Dinner')
+    }
+    else if(params.category === "Transport"){
+      included.push('Gound transportation',
+      'Accessible transportation',
+      'Professional driver',
+      'Parking')
+    }
+    else if(params.category === "Accessibility"){
+      included.push('Instructors',
+      'Equipment rental',
+      'Assistants')
+    }
     return(
     <ChakraProvider>
          <Box boxShadow='2xl'
@@ -99,8 +109,6 @@ const WhatsIncluded: React.FC = () => {
                         <CustomCheckbox {...getCheckboxProps({value: `${includes}`})}/>
                     ))
                 }
-                
-        
       </Grid>
 
         </Box >

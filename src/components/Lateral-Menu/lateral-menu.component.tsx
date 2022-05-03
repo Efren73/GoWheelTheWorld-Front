@@ -136,18 +136,34 @@ const LateralMenu = (props: any) => {
                     </h2>
                   </AccordionItem>
 
-                  <AccordionItem >
+                  <AccordionItem>
                     <h2>
-
-                      <Link to="whats-included">
-                        <AccordionButton>
-                          <Box flex='1' textAlign='left'>
-                          What's Included
-                          </Box>
-                        </AccordionButton>
+                      <AccordionButton>
+                      <AccordionIcon />
+                        <Box flex='1' textAlign='left'>
+                          Whats included
+                        </Box>
+                        
+                      </AccordionButton>
+                    </h2>
+                    <AccordionPanel pb={4}>
+                      <Link to="whats-included/General">
+                        <Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">General</Button>
+                      </Link>
+                      
+                      <Link to="whats-included/Food">
+                        <Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">Food</Button>
                       </Link>
 
-                    </h2>
+                      <Link to="whats-included/Transport">
+                        <Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">Transport</Button>
+                      </Link>
+                      
+                      <Link to="whats-included/Accessibility">
+                        <Button colorScheme='white' variant='ghost'height='30px' width='250px' justifyContent="flex-start">Accessibility</Button>
+                      </Link>
+
+                    </AccordionPanel>
                   </AccordionItem>
 
                   <AccordionItem >
