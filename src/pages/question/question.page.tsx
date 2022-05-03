@@ -25,7 +25,7 @@ import Footer from './Footer';
 function Question(props: IQuestion): JSX.Element {
       const navigate = useNavigate();
 
-      const screenSize = useBreakpointValue({ base: 'true', md: 'false', lg:'false' })
+      const git areenSize = useBreakpointValue({ base: 'true', md: 'false', lg:'false' })
       console.log(screenSize)
 
       function CheckSize(screenSize:any){
@@ -38,7 +38,8 @@ function Question(props: IQuestion): JSX.Element {
       function change(){
         
         navigate('/tour-operator/1/tour-completed/1')
-      }
+    }
+    
 	return (
 	<ChakraProvider>
         <Flex>
