@@ -41,7 +41,7 @@ import {
   } from "@chakra-ui/react"
 
 
-  import { ChevronDownIcon, ArrowDownIcon, WarningIcon } from '@chakra-ui/icons'
+  import { ArrowDownIcon, HamburgerIcon } from '@chakra-ui/icons'
   import { Avatar, AvatarBadge, AvatarGroup } from '@chakra-ui/react'
   import { Image } from '@chakra-ui/react'
 
@@ -142,7 +142,7 @@ import {
 
 
 
-                <HStack w={"full"} h={"full"} justifyContent="space-around">
+                <HStack w={"full"} h={"full"} justifyContent="space-around" paddingBottom={5}>
 
                     <Button size='lg'
                                             fontSize="20px"

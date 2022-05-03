@@ -1,6 +1,7 @@
 import * as React from "react"
 import {
   ChakraProvider,
+  useBreakpointValue,
   Box,
   Drawer,
   DrawerBody,
@@ -23,6 +24,9 @@ import Cart from '../Cart/cart.component'
 
 
 const LateralMenu = (props: any) => {
+
+  const screenSize = useBreakpointValue({ base: 'md', sm: 'full', lg:'sm' })
+
   const {isOpen,onOpen,onClose}= useDisclosure()
   const btnRef= React.useRef()
 
@@ -39,6 +43,7 @@ const LateralMenu = (props: any) => {
         isOpen={isOpen}
         placement="left"
         onClose={onClose}
+        size={screenSize}
         >
           <DrawerOverlay/>
           <DrawerContent bg="#000" color='#fff'>
