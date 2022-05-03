@@ -14,8 +14,37 @@ import {
   Radio
 } from "@chakra-ui/react"
 import { IRestrooms } from "./restrooms.types";
+import {useState} from 'react'
 
 function Restrooms(props: IRestrooms): JSX.Element {
+
+    const[restRoom, setRestRoom] = useState([
+        {
+            question: "Accessible restrooms available at every place of the tour/activity",
+            answer: ""
+        },
+        {
+            question: "Accessible restrooms available at multiple stops during the tour/activity.",
+            answer: ""
+        },
+        {
+            question: "Accessible restrooms available in only one stop of the tour/activity.",
+            answer: ""
+        },
+        {
+            question: "No accessible restrooms available for the tour/activity.",
+            answer: ""
+        }
+    ])
+
+    console.log(restRoom)
+
+    function changeValue(e:any, index: any){
+        let newArray: any[] = [...restRoom];
+        newArray[index].answer = e.target.value;
+        setRestRoom(newArray)
+    }
+
     return(
         <Box boxShadow='2xl'
             w="65%" 
@@ -38,14 +67,16 @@ function Restrooms(props: IRestrooms): JSX.Element {
                             <Tr fontSize="16px">
                                 <Td >Accessible restrooms available at every place of the tour/activity</Td>
                                 <Td>
-                                    <RadioGroup>
+                                    <RadioGroup value={restRoom[0].answer}>
                                         <HStack spacing={8} justifyContent='flex-end'>
                                             <Radio  value='yes'
                                                     border='1px'
-                                                    borderColor='#2F6FE4'></Radio>
+                                                    borderColor='#2F6FE4'
+                                                    onChange={(e) => changeValue(e, 0)}></Radio>
                                             <Radio  value='no'
                                                     border='1px'
-                                                    borderColor='#2F6FE4'></Radio>
+                                                    borderColor='#2F6FE4'
+                                                    onChange={(e) => changeValue(e, 0)}></Radio>
                                         </HStack>
                                     </RadioGroup>
                                 </Td>
@@ -53,14 +84,16 @@ function Restrooms(props: IRestrooms): JSX.Element {
                             <Tr fontSize="16px">
                                 <Td>Accessible restrooms available at multiple stops during the tour/activity.</Td>
                                 <Td>
-                                    <RadioGroup>
+                                    <RadioGroup value={restRoom[1].answer}>
                                         <HStack spacing={8} justifyContent='flex-end'>
                                             <Radio  value='yes'
                                                     border='1px'
-                                                    borderColor='#2F6FE4'></Radio>
+                                                    borderColor='#2F6FE4'
+                                                    onChange={(e) => changeValue(e, 1)}></Radio>
                                             <Radio  value='no'
                                                     border='1px'
-                                                    borderColor='#2F6FE4'></Radio>
+                                                    borderColor='#2F6FE4'
+                                                    onChange={(e) => changeValue(e, 1)}></Radio>
                                         </HStack>
                                     </RadioGroup>
                                 </Td>
@@ -68,14 +101,16 @@ function Restrooms(props: IRestrooms): JSX.Element {
                             <Tr fontSize="16px">
                                 <Td>Accessible restrooms available in only one stop of the tour/activity.</Td>
                                 <Td>
-                                    <RadioGroup>
+                                    <RadioGroup value={restRoom[2].answer}>
                                         <HStack spacing={8} justifyContent='flex-end'>
                                             <Radio  value='yes'
                                                     border='1px'
-                                                    borderColor='#2F6FE4'></Radio>
+                                                    borderColor='#2F6FE4'
+                                                    onChange={(e) => changeValue(e, 2)}></Radio>
                                             <Radio  value='no'
                                                     border='1px'
-                                                    borderColor='#2F6FE4'></Radio>
+                                                    borderColor='#2F6FE4'
+                                                    onChange={(e) => changeValue(e, 2)}></Radio>
                                         </HStack>
                                     </RadioGroup>
                                 </Td>
@@ -83,14 +118,16 @@ function Restrooms(props: IRestrooms): JSX.Element {
                             <Tr fontSize="16px">
                                 <Td>No accessible restrooms available for the tour/activity.</Td>
                                 <Td>
-                                    <RadioGroup>
+                                    <RadioGroup value={restRoom[3].answer}>
                                         <HStack spacing={8} justifyContent='flex-end'>
                                             <Radio  value='yes'
                                                     border='1px'
-                                                    borderColor='#2F6FE4'></Radio>
+                                                    borderColor='#2F6FE4'
+                                                    onChange={(e) => changeValue(e, 3)}></Radio>
                                             <Radio  value='no'
                                                     border='1px'
-                                                    borderColor='#2F6FE4'></Radio>
+                                                    borderColor='#2F6FE4'
+                                                    onChange={(e) => changeValue(e, 3)}></Radio>
                                         </HStack>
                                     </RadioGroup>
                                 </Td>
