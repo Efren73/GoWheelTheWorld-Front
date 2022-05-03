@@ -1,6 +1,7 @@
 import * as React from "react"
 import {
   ChakraProvider,
+  useBreakpointValue,
   Box,
   Drawer,
   DrawerBody,
@@ -18,18 +19,21 @@ import {
 } from "@chakra-ui/react"
 import { HamburgerIcon } from "@chakra-ui/icons"
 
-import { BrowserRouter, Link, Route} from "react-router-dom"
+import { BrowserRouter, Link, Route} from  'react-router-dom'
 import Cart from '../Cart/cart.component'
 
 
 const LateralMenu = (props: any) => {
+
+  const screenSize = useBreakpointValue({ base: 'md', sm: 'full', lg:'sm' })
+
   const {isOpen,onOpen,onClose}= useDisclosure()
   const btnRef= React.useRef()
 
   console.log(props)
   return (
     <ChakraProvider>
-      <Box h="full">
+      <Box h='full'>
         <Box h="full" alignItems="flex-start" background='#000' paddingTop={2}>
           <Button colorScheme='blackAlpha' onClick={onOpen} >
             <HamburgerIcon w={7} h={7} />
@@ -39,6 +43,7 @@ const LateralMenu = (props: any) => {
         isOpen={isOpen}
         placement="left"
         onClose={onClose}
+        size={screenSize}
         >
           <DrawerOverlay/>
           <DrawerContent bg="#000" color='#fff'>
@@ -131,18 +136,34 @@ const LateralMenu = (props: any) => {
                     </h2>
                   </AccordionItem>
 
-                  <AccordionItem >
+                  <AccordionItem>
                     <h2>
-
-                      <Link to="whats-included">
-                        <AccordionButton>
-                          <Box flex='1' textAlign='left'>
-                          What's Included
-                          </Box>
-                        </AccordionButton>
+                      <AccordionButton>
+                      <AccordionIcon />
+                        <Box flex='1' textAlign='left'>
+                          Whats included
+                        </Box>
+                        
+                      </AccordionButton>
+                    </h2>
+                    <AccordionPanel pb={4}>
+                      <Link to="whats-included/General">
+                        <Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">General</Button>
+                      </Link>
+                      
+                      <Link to="whats-included/Food">
+                        <Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">Food</Button>
                       </Link>
 
-                    </h2>
+                      <Link to="whats-included/Transport">
+                        <Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">Transport</Button>
+                      </Link>
+                      
+                      <Link to="whats-included/Accessibility">
+                        <Button colorScheme='white' variant='ghost'height='30px' width='250px' justifyContent="flex-start">Accessibility</Button>
+                      </Link>
+
+                    </AccordionPanel>
                   </AccordionItem>
 
                   <AccordionItem >

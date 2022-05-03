@@ -19,12 +19,12 @@ import Typetour from './images/type-of-tour.png';
 import price from './images/price.png';
 
 const Summary = () => (
-  <Box h='100%' w="25%" background="#000" borderRadius='10px' borderColor={'black'}>
+  <Box h ={{ base: '60%', md: '100%', sm:'100%' }} w={{ base: '25%', md: '25%', sm:'100%' }} background="#000" borderRadius='10px' borderColor={'black'} paddingBottom='20px'>
     <Heading paddingLeft={22} paddingTop={5} color="#fff">
       Summary
     </Heading>
 
-    <VStack h='80%' overflowY='auto' padding='20px' maxW="98%">
+    <VStack h='600px' padding='20px' overflowY='auto'>
       <VStack w="full" h="full" alignItems="flex-start" spacing="-0.4">
         <Text color='#2F6FE4'>
           Basic Information
@@ -138,6 +138,41 @@ const Summary = () => (
 
         <Box borderRadius='10px' borderColor='#2F6FE4' border='3px solid #2F6FE4'  w='98%' padding='10px'>
           <Text color="#fff">
+            Here are the things included on this tour
+            Here are the things included on this tour
+            Here are the things included on this tour
+            Here are the things included on this tour
+            Here are the things included on this tour
+            Here are the things included on this tour
+            Here are the things included on this tour
+            Here are the things included on this tour
+            Here are the things included on this tour
+            Here are the things included on this tour
+            Here are the things included on this tour
+            Here are the things included on this tour
+            Here are the things included on this tour
+            Here are the things included on this tour
+            Here are the things included on this tour
+            Here are the things included on this tour
+            Here are the things included on this tour
+            Here are the things included on this tour
+            Here are the things included on this tour
+            Here are the things included on this tour
+            Here are the things included on this tour
+            Here are the things included on this tour
+            Here are the things included on this tour
+            Here are the things included on this tour
+            Here are the things included on this tour
+            Here are the things included on this tour
+            Here are the things included on this tour
+            Here are the things included on this tour
+            Here are the things included on this tour
+            Here are the things included on this tour
+            Here are the things included on this tour
+            Here are the things included on this tour
+            Here are the things included on this tour
+            Here are the things included on this tour
+            Here are the things included on this tour
             Here are the things included on this tour
           </Text>
         </Box>

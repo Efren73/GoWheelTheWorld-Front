@@ -80,7 +80,7 @@ function CustomCheckbox(props: any) {
           <Text fontSize='35px'>What kind of experience would you like to offer?</Text>
         </Stack>
         
-        <Grid templateColumns='repeat(3, 5fr)' gap={15} paddingTop='25px' h='70%' overflowY='auto'  >
+        <Grid templateColumns='repeat(3, 5fr)' gap={15} paddingTop='25px' h='full'>
           {
             experiences.map((experience: string) =>(
               <CustomCheckbox {...getCheckboxProps({value: `${experience}`})} />

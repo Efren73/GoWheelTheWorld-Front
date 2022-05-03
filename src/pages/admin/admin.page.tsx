@@ -57,28 +57,28 @@ function Feature({ Title, Destination, TourOperator, Date, Status, tourId, ...re
     let navigate = useNavigate()
     
     function Change():void {
-        navigate (`AdminSummary/${tourId}`)
+        navigate (`/admin/AdminSummary/${tourId}`)
     }
     return (
-        <Box p={5} shadow='md' borderWidth='1px' {...rest}   paddingLeft={10} onClick={Change}>
-        <HStack justifyContent="space-between" fontSize="20" p="5"  >
+        <Box p={5} shadow='md' borderWidth='1px' {...rest}  borderRadius="6px"  onClick={Change}>
+        <HStack justifyContent="space-between"    >
             <VStack h="full">
-                <Text >
+                <Text fontSize="18px" >
                     {Title}
                 </Text>
-                <Text fontSize="15" color="blue" >
+                <Text fontSize="15px" color="blue" >
                     {Destination}
                 </Text>
             </VStack>
 
             <Text mt={4}>{TourOperator}</Text>
             <Text mt={4}>{Date}</Text>
-            <Wrap spacing="{5}" align ="center">
+            <Wrap align ="center">
                 <WrapItem >
                     <Text>{Status}%</Text>
                 </WrapItem>
-                <WrapItem >
-                    <Avatar size='lg' name='Dan Abrahmov' src='https://bit.ly/dan-abramov' />
+                <WrapItem  paddingLeft={1} paddingBottom={1} paddingRight={1}>
+                    <Avatar size='lg' src='http://t2.gstatic.com/licensed-image?q=tbn:ANd9GcS2YWLd02hXBD0xLRSWqzCKHpImAEQ_1BuQFhfZn8iNjvXFIFy9J_WOK2vFoiML' />
                 </WrapItem>
             </Wrap>
         </HStack>
@@ -152,35 +152,7 @@ export const Admin  = () => {
                         </MenuList>
                     </Menu>
 
-                    <Menu>
-                        <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
-                            Destinations
-                        </MenuButton>
-                        <MenuList>
-                            <MenuItem>
-                                <Checkbox>Cozumel</Checkbox>
-                            </MenuItem>
-
-                            <Divider />
-
-                            <MenuItem>
-                                <Checkbox>New York</Checkbox>
-                            </MenuItem>
-                            
-                            <Divider />
-
-                            <MenuItem>
-                                <Checkbox>Eiffel Tower</Checkbox>
-                            </MenuItem>
-
-                            <Divider />
-
-                            <MenuItem>
-                                <Checkbox>Rome</Checkbox>
-                            </MenuItem>
-                        </MenuList>
-                    </Menu>
-
+                    
                     <Menu>
                         <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
                             Type of Activty
@@ -242,7 +214,16 @@ export const Admin  = () => {
                     </HStack>
                 </Box>
         
-                <VStack p={5} direction='row' w="80%" >
+                <VStack paddingTop={5} direction='row' w="80%"  >
+                    <Feature w={"full"} 
+                    Title='Snorkel'
+                    Destination='Cancun, Mex'
+                    TourOperator = 'Jhon Wayne'
+                    Date = '10/10/21'
+                    Status = '80'
+                    tourId = {1}
+                    />
+
                     <Feature w={"full"} 
                     Title='Snorkel'
                     Destination='Cancun, Mex'
@@ -250,8 +231,19 @@ export const Admin  = () => {
                     Date = '10/10/21'
                     Status = '29'
                     tourId = {1}
-                    borderRadius="10px" />
+                     />
+
+                    <Feature w={"full"} 
+                    Title='Snorkel'
+                    Destination='Cancun, Mex'
+                    TourOperator = 'Jhon Wayne'
+                    Date = '10/10/21'
+                    Status = '60'
+                    tourId = {1}
+                    />
                 </VStack>
+                
+
             </VStack>
         </Flex>
     </ChakraProvider>
