@@ -44,12 +44,11 @@ import Footer from './Footer';
 
 
 function Question(props: IQuestion): JSX.Element {
-      const navigate = useNavigate();
-
-      function change(){
-        
+    const navigate = useNavigate();
+    function change() {
         navigate('/tour-operator/1/tour-completed/1')
-      }
+    }
+    
 	return (
 	<ChakraProvider>
         <Flex>
