@@ -25,7 +25,7 @@ import Footer from './Footer';
 function Question(props: IQuestion): JSX.Element {
       const navigate = useNavigate();
 
-      const git areenSize = useBreakpointValue({ base: 'true', md: 'false', lg:'false' })
+      const screenSize = useBreakpointValue({ base: 'true', md: 'false', lg:'false' })
       console.log(screenSize)
 
       function CheckSize(screenSize:any){
