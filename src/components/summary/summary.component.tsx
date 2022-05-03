@@ -19,7 +19,7 @@ import Typetour from './images/type-of-tour.png';
 import price from './images/price.png';
 
 const Summary = () => (
-  <Box h='60%' w="25%" background="#000" borderRadius='10px' borderColor={'black'} paddingBottom='20px'>
+  <Box h ={{ base: '60%', md: '100%', sm:'100%' }} w={{ base: '25%', md: '25%', sm:'100%' }} background="#000" borderRadius='10px' borderColor={'black'} paddingBottom='20px'>
     <Heading paddingLeft={22} paddingTop={5} color="#fff">
       Summary
     </Heading>
