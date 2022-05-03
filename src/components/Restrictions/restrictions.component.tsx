@@ -11,63 +11,71 @@ import {
   useCheckboxGroup,
 } from "@chakra-ui/react"
 
+import { useState } from "react"
+
+
 const Restrictions: React.FC = () => {
-
   function DisableCheckbox() {
+    
+      let [check1, setCheck1] = useState(true)
+      let [check2, setCheck2] = useState(false)
+      let [check3, setCheck3] = useState(false)
 
-      const [checkedItems, setCheckedItems] = React.useState([false, false, false, false, false])
-
-      const allChecked = checkedItems.every(Boolean)
-
-      const isIndeterminate = checkedItems.some(Boolean) && !allChecked
-
-      const disable = checkedItems.some(Boolean) && checkedItems[0] != false
       
   
       return (
         <>
-          <Checkbox
-            isChecked={allChecked}
-            isIndeterminate={isIndeterminate}
-            onChange={(e) => setCheckedItems([checkedItems[0], e.target.checked, e.target.checked, e.target.checked, e.target.checked])}
-          >
-            Parent Checkbox
-          </Checkbox>
-          <Stack pl={6} mt={1} spacing={1}>
+          <Stack pl={6} mt={1} spacing={2}>
             <Checkbox
-              isChecked={checkedItems[0]}
-              onChange={(e) => setCheckedItems([e.target.checked, checkedItems[1], checkedItems[2], checkedItems[3], checkedItems[4]])}
+              onChange={() => {
+                setCheck2(!check2)
+                setCheck1(false)
+                setCheck3(!check3)
+
+              }}
+
+              isChecked={check3}
             >
-              Child Checkbox 1
+              This tour is not recommended for people with a heart condition
             </Checkbox>
             <Checkbox
-              isChecked={checkedItems[1]}
-              isDisabled={disable}
+              isChecked={check1}
+              isDisabled={check2}
               defaultChecked={false}
-              onChange={(e) => setCheckedItems([checkedItems[0],e.target.checked, checkedItems[2], checkedItems[3], checkedItems[4]])}
             >
-              Child Checkbox 2
+              This tour is not recommended for pregnant travelers
             </Checkbox>
             <Checkbox
-              isChecked={checkedItems[2]}
-              isDisabled={disable}
-              onChange={(e) => setCheckedItems([checkedItems[0], checkedItems[1], e.target.checked, checkedItems[3], checkedItems[4]])}
+              isChecked={check1}
+              isDisabled={check2}
             >
-              Child Checkbox 3
+              This tour is not recommended for people with dietary restrictions
             </Checkbox>
             <Checkbox
-              isChecked={checkedItems[3]}
-              isDisabled={disable}
-              onChange={(e) => setCheckedItems([checkedItems[0], checkedItems[1], checkedItems[2], e.target.checked, checkedItems[4]])}
+              isChecked={check1}
+              isDisabled={check2}
             >
-              Child Checkbox 4
+              Special dietary needs and restrictions can be accommodated with prior notice
             </Checkbox>
             <Checkbox
-              isChecked={checkedItems[4]}
-              isDisabled={disable}
-              onChange={(e) => setCheckedItems([checkedItems[0], checkedItems[1], checkedItems[2], checkedItems[3], e.target.checked])}
+              isChecked={check1}
+              isDisabled={check2}
             >
-              Child Checkbox 5
+              This tour is not recommended for travelers using a power wheelchair
+            </Checkbox>
+            <Checkbox
+              isChecked={check1}
+              isDisabled={check2}
+            >
+              Travelers must be willing to self-transfer manually or be helped to do so,  in order to take part in this tour
+            </Checkbox>
+
+            <Checkbox
+              isChecked={check1}
+              isDisabled={check2}
+              onChange={() => setCheck1(!check1)}
+            >
+              Select all
             </Checkbox>
           </Stack>
         </>
