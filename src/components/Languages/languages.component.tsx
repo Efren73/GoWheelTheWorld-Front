@@ -79,14 +79,14 @@ const Languages = () => {
   ]
 
   const handleCheckedItems = (languageName:string, checkea:boolean) => {
-    // Agregando el nombre de la experiencia que se selccionó en el hijo CustomCheckbox
+    // Agregando el nombre de el lenguaje que se selccionó en el hijo CustomCheckbox
   
     //console.log('PADREisChecked', checkea)
     if(checkea === false){
       setCheckedItems([...checkedItems, languageName])
     }
     else {
-      // filter regresa una copia del arreglo original, pero ahora sin el expereinceName que indique
+      // filter regresa una copia del arreglo original, pero ahora sin el languageName que indique
       const result = checkedItems.filter(checkedItems => checkedItems != languageName)
       // actualizamos al arreglo original checkedItems con el arreglo de filter
       setCheckedItems(result)
