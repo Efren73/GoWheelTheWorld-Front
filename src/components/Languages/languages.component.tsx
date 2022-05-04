@@ -1,9 +1,7 @@
 import * as React from "react"
 import {
   Text,
-  VStack,
   Stack,
-  Button,
   Grid,
   Box,
   useCheckbox,
@@ -11,17 +9,20 @@ import {
   useCheckboxGroup
 } from "@chakra-ui/react"
 
-const Languages = () => {
-//Customización del checkbox
+import { useState } from "react"
+
 function CustomCheckbox(props: any) {
-  const { state, getCheckboxProps, getInputProps, getLabelProps } =
-    useCheckbox()
-  
+  const { state, getCheckboxProps, getInputProps, getLabelProps } = useCheckbox(props)
+  //console.log('HIJO ', props)
   let backgroundValue: string;
   let colorValue: string;
 
-    if(!state.isChecked){
+  // Para cambiar el estado de los checkbox checkeados
+  const [isCheckedItem, setisChecked] = useState(false)
+    //console.log('HIJOisChecked ', props.value, props.isChecked)
+    //console.log('isCheckedItem', props.value, isCheckedItem)
 
+    if(!isCheckedItem){
       backgroundValue = '#fff'
       colorValue = '#000'
     }
@@ -44,13 +45,26 @@ function CustomCheckbox(props: any) {
           rounded='lg'
           cursor='pointer'
           {...getCheckboxProps()}
+          onChange={() => {
+            // Función que en el Padre se llama handleCheckedItems, se pasó como onChange
+            // El hijo le pasa al Padre la experience selccionada y su estado
+            setisChecked(!isCheckedItem)
+            props.onChange(props.value, isCheckedItem)
+            
+            //console.log('HIJOisCheckedItem',isCheckedItem)
+          }}
           >
           <input {...getInputProps()} hidden />
           <Text {...getLabelProps()}>{props.value}</Text>
        </chakra.label>
     )
-  }
+}
+
+const Languages = () => {
   const { value, getCheckboxProps } = useCheckboxGroup()
+
+  // Arreglo de strings para guardar los checkboxes seleccionados
+  const [checkedItems, setCheckedItems] = useState<string[]>([])
 
   const languages: string[] = [
     'English',
@@ -63,6 +77,22 @@ function CustomCheckbox(props: any) {
     'Mandarin',
     'Japanese'
   ]
+
+  const handleCheckedItems = (languageName:string, checkea:boolean) => {
+    // Agregando el nombre de la experiencia que se selccionó en el hijo CustomCheckbox
+  
+    //console.log('PADREisChecked', checkea)
+    if(checkea === false){
+      setCheckedItems([...checkedItems, languageName])
+    }
+    else {
+      // filter regresa una copia del arreglo original, pero ahora sin el expereinceName que indique
+      const result = checkedItems.filter(checkedItems => checkedItems != languageName)
+      // actualizamos al arreglo original checkedItems con el arreglo de filter
+      setCheckedItems(result)
+    }
+    console.log('PADRE', checkedItems)
+  }
 
   return(
     <Box boxShadow='2xl'
@@ -80,7 +110,13 @@ function CustomCheckbox(props: any) {
       <Grid templateColumns='repeat(2, 5fr)' gap={15} justifyItems='center' paddingTop='30px' h='80%' overflowY='auto'>
         {
           languages.map((language: string) =>(
-            <CustomCheckbox {...getCheckboxProps({value: `${language}`})} />
+            <CustomCheckbox
+            // Llamando a función hijo CustomCheckbox, se le pasa el arreglo de experiences
+            {...getCheckboxProps({value: `${language}`})}
+            // Función que en el Padre se llama handleCheckedItems, se pasa como onChange
+            onChange={handleCheckedItems}
+            />
+
           ))
         }
       </Grid>
