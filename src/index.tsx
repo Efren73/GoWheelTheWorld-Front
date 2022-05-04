@@ -1,4 +1,4 @@
-import { ChakraProvider, ColorModeScript } from "@chakra-ui/react"
+import { ChakraProvider, ColorModeScript, CSSReset } from "@chakra-ui/react"
 import * as React from "react"
 import ReactDOM from "react-dom"
 import { App } from "./App"
@@ -26,6 +26,7 @@ import Transportation from "./components/Transportation"
 import ChildPolicy from "./components/ChildPolicy"
 import ProfileSettings from './pages/adminSummary/adminSummary.page'
 import UserSettings from './pages/userSettings/userSettings.page'
+import theme from "./theme"
 /*
   signup
   Login
@@ -38,7 +39,8 @@ import UserSettings from './pages/userSettings/userSettings.page'
 ReactDOM.render(
   <React.StrictMode>
     <ColorModeScript />
-    <ChakraProvider>
+    <ChakraProvider theme={theme}>
+      <CSSReset />
       <App />
     </ChakraProvider>
   </React.StrictMode>,
