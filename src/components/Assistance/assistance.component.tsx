@@ -1,4 +1,5 @@
 import * as React from "react"
+import { Stack, NumberInput, NumberInputField, useDisclosure } from "@chakra-ui/react"
 import {
   Text,
   VStack,
@@ -15,7 +16,8 @@ import {
   background,
 } from "@chakra-ui/react"
 
-const Assistance = () => (
+const Assistance:React.FC = () => (
+
     <Box boxShadow='2xl'
     w="65%" 
     h="full"
