@@ -69,7 +69,7 @@ function Question(props: IQuestion): JSX.Element {
                         </HStack>
                     </Box>
 
-                    <Box w='96%'marginLeft={'5%'} alignSelf='end'>
+                    <Box w='93%'marginLeft={'6%'}>
                         <Footer/>
                     </Box>
                     
