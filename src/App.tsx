@@ -46,7 +46,10 @@ export const App = () => (
         <Route path="languages" element={<Languages />} />
         <Route path="restrictions" element={<Restrictions />} />
         <Route path="children-policy" element={<ChildPolicy />} />
-        <Route path="whats-included/:category" element={<WhatsIncluded />} />
+        <Route path="whats-included-general" element={<WhatsIncluded />} />
+        <Route path="whats-included-food" element={<WhatsIncluded />} />
+        <Route path="whats-included-transport" element={<WhatsIncluded />} />
+        <Route path="whats-included-accessibility" element={<WhatsIncluded />} />
         <Route path="assistance" element={<Assistance />} />
         <Route path="transportation" element={<Transportation />} />
         <Route path="restrooms" element={<Restrooms />} />
