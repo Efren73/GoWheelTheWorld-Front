@@ -12,7 +12,7 @@ import {
   Box,
 } from "@chakra-ui/react"
 
-import { useParams } from "react-router-dom"
+import { useLocation } from "react-router-dom"
 
 const WhatsIncluded: React.FC = () => {
 
@@ -57,11 +57,13 @@ const WhatsIncluded: React.FC = () => {
 
 
 
-    const params = useParams()
-    console.log(params.category)
-
+    const location = useLocation();
+    
+    const link: string[] = location.pathname.split('/')
+    const route: string = link[link.length - 1]
+    
     const included: string[]=[];
-    if(params.category === "General"){
+    if(route === "whats-included-general"){
       included.push('Admission / ticket', 
       'Park entrance',
       'Audio guides',
@@ -70,7 +72,7 @@ const WhatsIncluded: React.FC = () => {
       'Gratuities',
       'Tourist city taxes');
     }
-    else if(params.category === "Food"){
+    else if(route === "whats-included-food"){
       included.push('Snacks',
       'Alcoholic beverages',
       'Breakfast',
@@ -78,17 +80,18 @@ const WhatsIncluded: React.FC = () => {
       'Lunch',
       'Dinner')
     }
-    else if(params.category === "Transport"){
+    else if(route === "whats-included-transport"){
       included.push('Gound transportation',
       'Accessible transportation',
       'Professional driver',
       'Parking')
     }
-    else if(params.category === "Accessibility"){
+    else if(route === "whats-included-accessibility"){
       included.push('Instructors',
       'Equipment rental',
       'Assistants')
     }
+
     return(
     <ChakraProvider>
          <Box boxShadow='2xl'
@@ -108,11 +111,12 @@ const WhatsIncluded: React.FC = () => {
                     included.map ((includes: string) =>(
                         <CustomCheckbox {...getCheckboxProps({value: `${includes}`})}/>
                     ))
-                }
+                    }
       </Grid>
 
         </Box >
     </ChakraProvider>
     )
 }
+
 export default WhatsIncluded;

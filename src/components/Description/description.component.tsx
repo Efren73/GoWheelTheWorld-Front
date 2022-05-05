@@ -56,7 +56,7 @@ const Description: React.FC = () => {
     ];
 
     return(
-    <ChakraProvider>
+<ChakraProvider>
         <Box
         boxShadow='2xl'
         w="65%" 
@@ -87,6 +87,7 @@ const Description: React.FC = () => {
                         background='#fff'
                         onChange={handleInputChange}
                         value = {value}
+                        
                         />
                   
                     <HStack justifyContent='space-between' color='#2F6FE4' >
