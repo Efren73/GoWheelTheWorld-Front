@@ -32,7 +32,7 @@ const LateralMenu = (props: any) => {
 
   console.log(props)
   return (
-    <ChakraProvider>
+    <React.Fragment>
       <Box h='full'>
         <Box h="full" alignItems="flex-start" background='#000' paddingTop={2}>
           <Button colorScheme='blackAlpha' onClick={onOpen} >
@@ -235,7 +235,7 @@ const LateralMenu = (props: any) => {
           </DrawerContent>
         </Drawer>
       </Box>
-    </ChakraProvider>
+    </React.Fragment>
  
       
   )

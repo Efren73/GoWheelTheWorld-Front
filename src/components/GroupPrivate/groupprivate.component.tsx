@@ -130,7 +130,7 @@ const GruoupPrivate: React.FC = () => {
       }
 
     return(
-        <ChakraProvider>
+        <React.Fragment>
             <Box boxShadow='2xl'
                 w="65%" 
                 h="full"
@@ -171,7 +171,7 @@ const GruoupPrivate: React.FC = () => {
             </VStack>
             
             </Box>
-        </ChakraProvider>
+        </React.Fragment>
 
     )
 }

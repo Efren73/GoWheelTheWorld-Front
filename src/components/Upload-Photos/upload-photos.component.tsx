@@ -15,7 +15,7 @@ import './upload-photos.modules.css'
 
 const arreglo: string[] = ['Photo 1', 'Photo 2']; 
 const UploadPhotos = () => (
-    <ChakraProvider>
+    <React.Fragment>
         <Box boxShadow='2xl'
 				w="65%" 
 				h="full"
@@ -53,6 +53,6 @@ const UploadPhotos = () => (
             
             </VStack >
         </Box>
-    </ChakraProvider>
+    </React.Fragment>
 ) 
 export default UploadPhotos;
