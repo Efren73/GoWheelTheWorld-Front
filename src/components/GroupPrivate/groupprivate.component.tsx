@@ -7,7 +7,6 @@ import {
   Input,
   useNumberInput,
   Stack,
-  WrapItem,
   Box,
   ChakraProvider,
   Grid,
@@ -17,110 +16,164 @@ import {
   useControllableState,
 } from "@chakra-ui/react"
 
-const GroupPrivate: React.FC = () => {
-    function HookUsage() {
-        const { getInputProps, getIncrementButtonProps, getDecrementButtonProps } =
-            useNumberInput({
-            step: 1,
-            defaultValue: 1,
-            min: 1,
-            })
+import { useState } from "react"
 
-        const inc = getIncrementButtonProps()
-        const dec = getDecrementButtonProps()
-        const input = getInputProps()
-
-        return (
-            <HStack maxW='200px'>
-            <Button {...dec} background='#2F6FE4'>-</Button>
-            <Input {...input} background='#white'/>
-            <Button {...inc} background='#2F6FE4'>+</Button>
-            </HStack>
-        )
-    }
-
-//Customización del checkbox
 function CustomCheckbox(props: any) {
-    const { state, getCheckboxProps, getInputProps, getLabelProps } =
-      useCheckbox()
-    
-    let backgroundValue: string;
-    let colorValue: string;
-  
-      if(!state.isChecked){
-  
-        backgroundValue = '#fff'
-        colorValue = '#000'
-      }
-      else{
-        backgroundValue = '#3F6FE4'
-        colorValue='#fff'
-      }
-  
-      return (
-        <chakra.label
-            display='flex'
-            alignItems='center'
-            justifyContent='center'
-            height='80px'
-            width='200px'
-            bg={backgroundValue}
-            border='1px solid'
-            borderColor='#3F6FE4'
-            color={colorValue}
-            rounded='lg'
-            cursor='pointer'
-            {...getCheckboxProps()}
-            >
-            <input {...getInputProps()} hidden />
-            <Text {...getLabelProps()}>{props.value}</Text>
-         </chakra.label>
-      )
+  const { state, getCheckboxProps, getInputProps, getLabelProps } = useCheckbox(props)
+  //console.log('HIJO ', props)
+  let backgroundValue: string;
+  let colorValue: string;
+  let srcValue: any;
+
+  // Para cambiar el estado de los checkbox checkeados
+  const [isCheckedItem, setisChecked] = useState(false)
+    //console.log('HIJOisChecked ', props.value, props.isChecked)
+    //console.log('isCheckedItem', props.value, isCheckedItem)
+
+    if(!isCheckedItem) {
+      backgroundValue = '#fff'
+      colorValue = '#000'
+    } else {
+      backgroundValue = '#3F6FE4'
+      colorValue='#fff'
     }
+
+    if(props.value == 'Private') {
+        srcValue = 'https://cdn-icons-png.flaticon.com/512/1077/1077114.png'
+    } else {
+        srcValue = 'https://cdn-icons-png.flaticon.com/512/681/681494.png'
+    }
+
+    return (
+      <chakra.label
+          display='flex'
+          alignItems='center'
+          justifyContent='center'
+          w='200px'
+          h='105px'
+          bg={backgroundValue}
+          border='1px solid'
+          borderColor='#3F6FE4'
+          color={colorValue}
+          rounded='lg'
+          cursor='pointer'
+          {...getCheckboxProps()}
+          onChange={() => {
+            // Función que en el Padre se llama handleCheckedItems, se pasó como onChange
+            // El hijo le pasa al Padre la experience selccionada y su estado
+            setisChecked(!isCheckedItem)
+            props.onChange(props.value, isCheckedItem)
+            
+            //console.log('HIJOisCheckedItem',isCheckedItem)
+          }}
+          >
+            <img src={srcValue} height ="50" width="50" />
+
+            <img {...getInputProps()} hidden />
+
+          <input {...getInputProps()} hidden />
+          <Text {...getLabelProps()}>{props.value}</Text>
+       </chakra.label>
+    )
+}
+
+const GroupPrivate: React.FC = () => {
 
     const { value, getCheckboxProps } = useCheckboxGroup()
+
+    // Arreglo de strings para guardar los checkboxes seleccionados
+    const [checkedItems, setCheckedItems] = useState<string[]>([])
+
     const experiences: string[] = [
         'Private',
         'Group',
-    ]
+      ]
 
-    // Control de Input
+      const handleCheckedItems = (typeExperience:string, checkea:boolean) => {
+        // Agregando el nombre de la experiencia que se selccionó en el hijo CustomCheckbox
+      
+        //console.log('PADREisChecked', checkea)
+        if(checkea === false){
+          setCheckedItems([...checkedItems, typeExperience])
+        }
+        else {
+          // filter regresa una copia del arreglo original, pero ahora sin el expereinceName que indique
+          const result = checkedItems.filter(checkedItems => checkedItems != typeExperience)
+          // actualizamos al arreglo original checkedItems con el arreglo de filter
+          setCheckedItems(result)
+        }
+        console.log('PADRE', checkedItems)
+      }
+
+    // SEGUNDA PREGUNTA
+    /* OPCIÓN 1 ---------------------------------------*/
+    // Control de objeto con máximo y mínimo
     const [ valueBotones, setValueBotones ] = React.useState({
         maximum: 1,
         minimum: 1,
-    });
+    })
 
-    let maximo: number;
-    let minimo: number;
-    maximo = valueBotones.maximum;
-
+    // Control de botones + y -
     const [ internalValue, setInternalValue ] = useControllableState({
         ...valueBotones,
         onChange: setValueBotones,
     })
 
-    let inputValue: number;
+    // Control de input
     const handleInputChange = (event: any) => {
-        inputValue = +event.target.value
-        console.log(inputValue)
         setValueBotones({
             ...valueBotones,
             [event.target.name]: event.target.value 
         })
-    }
 
-    console.log('HOLAA', valueBotones)
-    console.log('holaaa 2 ', internalValue)
-
-    {/*}
-    const handleInputChange = (event: any) => {
-        console.log(event.target.value)
-        setNumeroInput({
-            ...numeroInput,
+        setInternalValue({
+            ...valueBotones,
             [event.target.name]: event.target.value,
         })
+    }
+
+    /* OPCIÓN 2 ----------------------------------------- */
+    const [minimo, setMinimo] = React.useState(1)
+    const [maximo, setMaximo] = React.useState(1)
+    const buttonDisabledMinimo = minimo == 1;
+    const buttonDisabledMaximo = maximo == 1;
+
+    let inputValue: any;
+    function ChangeMinimo(e: any){
+        inputValue = +e.target.value;
+        if(inputValue > 1 || inputValue == '') setMinimo(inputValue)
+        else setMinimo(1)
+    }
+
+    let inputValue2: any;
+    function ChangeMaximo(e: any) {
+        inputValue2 = +e.target.value;
+        if(inputValue2 > 1 || inputValue2 == '') setMaximo(inputValue2)
+        else setMaximo(1)
+    }
+
+    function Decrease(valor: any) {
+        if(valor === 'minimo') {
+            if(minimo <= 1) setMinimo(1)
+            else setMinimo(+minimo-1)
+        } else {
+           if(maximo <= 1) setMaximo(1)
+            else setMaximo(+maximo-1)
         }
-    } */}
+        if(maximo < minimo) setMaximo(+minimo)
+    }
+
+    function Increase(valor: any) {
+        
+        
+        if(valor === 'minimo') setMinimo(+minimo+1)
+        else setMaximo(+maximo+1)
+        if(maximo < minimo) setMaximo(+minimo + 1)
+    }
+    // ----------------------------------------
+
+    console.log('Minimo', minimo)
+    console.log('Maximo', maximo)
 
     return(
         <ChakraProvider>
@@ -140,7 +193,12 @@ function CustomCheckbox(props: any) {
                 <Grid templateColumns='repeat(2, 1fr)' gap={30} paddingTop='20px' paddingBottom='30px' alignSelf={'center'}>
                     {
                         experiences.map((experience: string) =>(
-                        <CustomCheckbox {...getCheckboxProps({value: `${experience}`})} />
+                        <CustomCheckbox
+                        // Llamando a función hijo CustomCheckbox, se le pasa el arreglo de experiences
+                        {...getCheckboxProps({value: `${experience}`})}
+                        // Función que en el Padre se llama handleCheckedItems, se pasa como onChange
+                        onChange={handleCheckedItems}
+                        />
                         ))
                     }
                 </Grid>
@@ -156,23 +214,19 @@ function CustomCheckbox(props: any) {
 
                 <HStack justifyContent={'center'} spacing='50px'> 
                     <HStack maxW='200px'>
-                        <Button name="minimum" onClick={() => setValueBotones(valueBotones)} background='#2F6FE4'> - </Button>
-                        <Input name="minimum" onChange={handleInputChange} value={valueBotones.minimum}/>
-                        <Button name="minimum" onClick={() => setInternalValue(valueBotones)} background='#2F6FE4'> + </Button>
+                        <Button isDisabled={buttonDisabledMinimo} name="minimum" onClick={() => Decrease('minimo')} background='#2F6FE4'> - </Button>
+                        <Input  onChange={ChangeMinimo} 
+                                value={minimo}
+                                background='#white'/>
+                        <Button name="minimum" onClick={() => Increase('minimo')} background='#2F6FE4'> + </Button>
                     </HStack>
                     <HStack maxW='200px'>
-                        <Button name="maximum" onClick={() => setInternalValue(valueBotones)} background='#2F6FE4'> - </Button>
-                        <Input name="maximum" onChange={handleInputChange} value={valueBotones.maximum}/>
-                        <Button name="maximum" onClick={() => setInternalValue(valueBotones)} background='#2F6FE4'> + </Button>
+                        <Button isDisabled={buttonDisabledMaximo} name="maximum" onClick={() => Decrease('maximo')} background='#2F6FE4'> - </Button>
+                        <Input  onChange={ChangeMaximo} 
+                                value={maximo}
+                                background='#white' />
+                        <Button name="maximum" onClick={() => Increase('maximo')} background='#2F6FE4'> + </Button>
                     </HStack>
-                   
-                   {/*
-                <Button onClick={() => setCounter(counter - 1)}>-</Button>
-                <Input onChange={handleInputChange} name="maximum" defaultValue='1'/> 
-                <Button onClick={() => setCounter(counter + 1)}>+</Button>
-                
-                    <WrapItem>{HookUsage()}</WrapItem>
-                    <WrapItem>{HookUsage()}</WrapItem> */}
                 </HStack>
             </VStack>
             </Box>

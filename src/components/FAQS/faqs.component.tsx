@@ -117,6 +117,8 @@ const Faqs: React.FC = () => {
         newArray.splice(index, 1)
         setQuestionAnswer(newArray)
     }
+
+    const fontSizeResponsive = { base:'20px', sm:'15px'};
     
     return(
     <ChakraProvider>
@@ -128,8 +130,8 @@ const Faqs: React.FC = () => {
               borderRadius="10px">
   
             <Stack spacing={2}>
-                <Text fontSize='20px' color='#3F6FE4'>FAQS</Text>
-                <Text fontSize='35px'>Add your Frequently Asked Questions</Text>
+                <Text  color='#3F6FE4' fontSize={fontSizeResponsive}>FAQS</Text>
+                <Text fontSize={{base:'35px', sm:'20px'}}>Add your Frequently Asked Questions</Text>
             </Stack>
 
             <Stack overflowY='auto' w='full' justifyContent='flex-start'>
@@ -142,14 +144,14 @@ const Faqs: React.FC = () => {
                             size='lg' 
                             onChange={() => setCheck1(!check1)}
                             />
-                        <Text fontSize='25px'>Can I Park here?</Text>
+                        <Text fontSize={fontSizeResponsive}>Can I Park here?</Text>
                     </HStack>
                         {check1 && addAnswer()}
                     
                 </Stack>
                 <Stack>
                     <Button bg='#3F6FE4' border=' 1px solid #000' color='#fff' borderRadius='20px' 
-                    onClick={addQuestionAnswer} w='10%' >
+                    onClick={addQuestionAnswer} w='10%' fontSize={{base: '25px', sm: '10px', md:'15px'}} >
                         + Add
                     </Button>
                 </Stack>
@@ -168,7 +170,7 @@ const Faqs: React.FC = () => {
                                             </Box>
                                             <Box>
                                                 <Input placeholder='Answer' value={x[1]} bg="#fff" onChange={(e) => changeOneValue(e, index, 1)}/>
-                                                <Text color='#2F6FE4'>{x[3] ? x[3]: 0}/80</Text>
+                                                <Text color='#2F6FE4' fontSize={fontSizeResponsive}>{x[3] ? x[3]: 0}/80</Text>
                                             </Box>
                                         <Flex justifyContent='flex-end'>
                                             <Button variant="link" onClick={(e) => deleteQ(e, index)} marginBottom='20px'>
