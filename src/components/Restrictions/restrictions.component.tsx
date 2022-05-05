@@ -13,7 +13,6 @@ import {
 
 import { useState } from "react"
 
-
 const Restrictions: React.FC = () => {
   function DisableCheckbox() {
     
@@ -21,8 +20,6 @@ const Restrictions: React.FC = () => {
       let [check2, setCheck2] = useState(false)
       let [check3, setCheck3] = useState(false)
 
-      
-  
       return (
         <>
           <Stack pl={6} mt={1} spacing={2}>

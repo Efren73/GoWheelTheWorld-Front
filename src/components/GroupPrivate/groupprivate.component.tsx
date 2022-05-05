@@ -5,33 +5,24 @@ import {
   HStack,
   Button,
   Input,
-  Wrap,
   useNumberInput,
   Stack,
   WrapItem,
-  IconButton,
   Box,
-  Image,
   ChakraProvider,
   Grid,
   useCheckbox,
   chakra,
   useCheckboxGroup,
+  useControllableState,
 } from "@chakra-ui/react"
 
-import Group from './images/grupo.png';
-import Private from './images/usuario.png';
-import src from "@chakra-ui/visually-hidden/dist/declarations/src";
-import { InfoIcon } from "@chakra-ui/icons";
-
-
-const GruoupPrivate: React.FC = () => {
-
+const GroupPrivate: React.FC = () => {
     function HookUsage() {
         const { getInputProps, getIncrementButtonProps, getDecrementButtonProps } =
             useNumberInput({
             step: 1,
-            defaultValue: 0,
+            defaultValue: 1,
             min: 1,
             })
 
@@ -48,7 +39,7 @@ const GruoupPrivate: React.FC = () => {
         )
     }
 
-    //Customización del checkbox
+//Customización del checkbox
 function CustomCheckbox(props: any) {
     const { state, getCheckboxProps, getInputProps, getLabelProps } =
       useCheckbox()
@@ -86,12 +77,51 @@ function CustomCheckbox(props: any) {
          </chakra.label>
       )
     }
-    const { value, getCheckboxProps } = useCheckboxGroup()
 
+    const { value, getCheckboxProps } = useCheckboxGroup()
     const experiences: string[] = [
         'Private',
         'Group',
-      ]
+    ]
+
+    // Control de Input
+    const [ valueBotones, setValueBotones ] = React.useState({
+        maximum: 1,
+        minimum: 1,
+    });
+
+    let maximo: number;
+    let minimo: number;
+    maximo = valueBotones.maximum;
+
+    const [ internalValue, setInternalValue ] = useControllableState({
+        ...valueBotones,
+        onChange: setValueBotones,
+    })
+
+    let inputValue: number;
+    const handleInputChange = (event: any) => {
+        inputValue = +event.target.value
+        console.log(inputValue)
+        setValueBotones({
+            ...valueBotones,
+            [event.target.name]: event.target.value 
+        })
+    }
+
+    console.log('HOLAA', valueBotones)
+    console.log('holaaa 2 ', internalValue)
+
+    {/*}
+    const handleInputChange = (event: any) => {
+        console.log(event.target.value)
+        setNumeroInput({
+            ...numeroInput,
+            [event.target.name]: event.target.value,
+        })
+        }
+    } */}
+
     return(
         <ChakraProvider>
             <Box boxShadow='2xl'
@@ -115,23 +145,40 @@ function CustomCheckbox(props: any) {
                     }
                 </Grid>
 
-                <Text alignSelf={'flex-start'} fontSize='35px' paddingBottom='10px'>Please specify the minimum and maximum number of travelers</Text>
+                <Text alignSelf={'flex-start'} fontSize='35px' paddingBottom='10px'>
+                    Please specify the minimum and maximum number of travelers
+                </Text>
 
                 <HStack w='42%' paddingBottom='10px' spacing='42%' justifyContent={'flex-start'}>
-                    <Text fontSize='15px' >Minimum</Text>
-                    <Text fontSize='15px' >Maximum</Text>
+                    <Text fontSize='15px'>Minimum</Text>
+                    <Text fontSize='15px'>Maximum</Text>
                 </HStack>
 
-                <HStack justifyContent={'center'} spacing='50px'>
+                <HStack justifyContent={'center'} spacing='50px'> 
+                    <HStack maxW='200px'>
+                        <Button name="minimum" onClick={() => setValueBotones(valueBotones)} background='#2F6FE4'> - </Button>
+                        <Input name="minimum" onChange={handleInputChange} value={valueBotones.minimum}/>
+                        <Button name="minimum" onClick={() => setInternalValue(valueBotones)} background='#2F6FE4'> + </Button>
+                    </HStack>
+                    <HStack maxW='200px'>
+                        <Button name="maximum" onClick={() => setInternalValue(valueBotones)} background='#2F6FE4'> - </Button>
+                        <Input name="maximum" onChange={handleInputChange} value={valueBotones.maximum}/>
+                        <Button name="maximum" onClick={() => setInternalValue(valueBotones)} background='#2F6FE4'> + </Button>
+                    </HStack>
+                   
+                   {/*
+                <Button onClick={() => setCounter(counter - 1)}>-</Button>
+                <Input onChange={handleInputChange} name="maximum" defaultValue='1'/> 
+                <Button onClick={() => setCounter(counter + 1)}>+</Button>
+                
                     <WrapItem>{HookUsage()}</WrapItem>
-                    <WrapItem>{HookUsage()}</WrapItem>
+                    <WrapItem>{HookUsage()}</WrapItem> */}
                 </HStack>
             </VStack>
-            
             </Box>
         </ChakraProvider>
 
     )
 }
 
-export default GruoupPrivate;
+export default GroupPrivate;
