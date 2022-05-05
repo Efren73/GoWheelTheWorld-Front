@@ -46,7 +46,7 @@ function Login(props: ILogin): JSX.Element {
   }
 
 	return (
-		<ChakraProvider>
+		<React.Fragment>
       <Flex h="100vh">
         <Box bgImage={`url(${ImagenPrincipal})`} w="50%" h="full" bgSize={"cover"}>
           <VStack h="full"
@@ -118,7 +118,7 @@ function Login(props: ILogin): JSX.Element {
           </VStack>
         </Box>
       </Flex>
-		</ChakraProvider>
+		</React.Fragment>
 	);
 }
 

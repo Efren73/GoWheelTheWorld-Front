@@ -56,7 +56,7 @@ const Description: React.FC = () => {
     ];
 
     return(
-<ChakraProvider>
+<React.Fragment>
         <Box
         boxShadow='2xl'
         w="65%" 
@@ -121,7 +121,7 @@ const Description: React.FC = () => {
             </ModalFooter>
             </ModalContent>
       </Modal>
-    </ChakraProvider>
+    </React.Fragment>
     )
 }
 export default Description;

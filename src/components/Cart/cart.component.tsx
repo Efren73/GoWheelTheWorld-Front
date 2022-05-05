@@ -81,7 +81,7 @@ const Cart: React.FC = () => {
     ];
 
     return(
-		<ChakraProvider>
+		<React.Fragment>
 			<Box boxShadow='2xl'
 				w="65%" 
 				h="full"
@@ -170,7 +170,7 @@ const Cart: React.FC = () => {
 				</ModalFooter>
 				</ModalContent>
 			</Modal>
-		</ChakraProvider>
+		</React.Fragment>
 	)
 }
 export default Cart;

@@ -73,7 +73,7 @@ import {
         navigate (`/admin`)
     }
       return (
-    <ChakraProvider theme={theme}>
+    <React.Fragment>
          <Flex h="100vh">
             <VStack w="full" h="full">
                 <TopMenu />
@@ -166,7 +166,7 @@ import {
         </Flex>
 
     
-    </ChakraProvider>
+    </React.Fragment>
   )}
   export default AdminSummary
   

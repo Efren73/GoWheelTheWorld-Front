@@ -102,7 +102,7 @@ const ChildPolicy: React.FC = () => {
     }
     
     return(
-    <ChakraProvider>
+    <React.Fragment>
         <Box
         boxShadow='xl'
         w={{base:"65%", sm:'80%'}}
@@ -130,7 +130,7 @@ const ChildPolicy: React.FC = () => {
         </HStack>
 
         </Box >
-    </ChakraProvider>
+    </React.Fragment>
     )
 } 
 export default ChildPolicy;

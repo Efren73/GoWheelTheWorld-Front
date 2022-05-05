@@ -51,7 +51,7 @@ const Stops: React.FC = () => {
   }
   
   return(
-    <ChakraProvider>
+    <React.Fragment>
       <Box boxShadow='2xl'
         w="65%" 
         h="full"
@@ -99,7 +99,7 @@ const Stops: React.FC = () => {
                 */}
                 </form>
         </Box>
-      </ChakraProvider>
+      </React.Fragment>
   )
 }
 export default Stops;

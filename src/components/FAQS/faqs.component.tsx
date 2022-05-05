@@ -121,7 +121,7 @@ const Faqs: React.FC = () => {
     const fontSizeResponsive = { base:'20px', sm:'15px'};
     
     return(
-    <ChakraProvider>
+    <React.Fragment>
          <Box boxShadow='2xl'
               w="65%" 
               h="full"
@@ -170,7 +170,7 @@ const Faqs: React.FC = () => {
                                             </Box>
                                             <Box>
                                                 <Input placeholder='Answer' value={x[1]} bg="#fff" onChange={(e) => changeOneValue(e, index, 1)}/>
-                                                <Text color='#2F6FE4' fontSize={fontSizeResponsive}>{x[3] ? x[3]: 0}/80</Text>
+                                                <Text color='#2F6FE4'>{x[3] ? x[3]: 0}/80</Text>
                                             </Box>
                                         <Flex justifyContent='flex-end'>
                                             <Button variant="link" onClick={(e) => deleteQ(e, index)} marginBottom='20px'>
@@ -224,7 +224,7 @@ const Faqs: React.FC = () => {
             </ModalContent>
       </Modal>
 
-    </ChakraProvider>
+    </React.Fragment>
     )
 }
 export default Faqs;
