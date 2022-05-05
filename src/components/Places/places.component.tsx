@@ -14,8 +14,40 @@ import {
   Radio
 } from "@chakra-ui/react"
 import { IPlaces } from "./places.types";
-
+import {useState} from 'react'
 function Places(props: IPlaces): JSX.Element {
+
+    const [places, setPlaces] = useState<any>([
+        {
+            question: "Places visited are all wheelchair accessible and can be navigated independently",
+            answer: ""
+        },
+        {
+            question: "Places present some barriers and minimum assistance is needed",
+            answer: ""
+        },
+        {
+            question: "Few accessibility measures are in place and assistance is needed for the full experience",
+            answer: ""
+        },
+        {
+            question: "There are smooth floors and pathways",
+            answer: ""
+        },
+        {
+            question: "There are pathways with rocks, stones, or other terrain that makes them difficult to access",
+            answer: ""
+        },
+    ])
+
+    console.log(places)
+
+    function changeValue(e:any, index: any){
+        let newArray: any[] = [...places];
+        newArray[index].answer = e.target.value;
+        setPlaces(newArray)
+    }
+
     return(
         <Box boxShadow='2xl'
             w="65%" 
@@ -38,14 +70,16 @@ function Places(props: IPlaces): JSX.Element {
                             <Tr fontSize="16px">
                                 <Td>Places visited are all wheelchair accessible and can be navigated independently</Td>
                                 <Td>
-                                    <RadioGroup>
+                                    <RadioGroup value={places[0].answer}>
                                         <HStack spacing={8} justifyContent='flex-end'>
                                             <Radio  value='yes'
                                                     border='1px'
-                                                    borderColor='#2F6FE4'></Radio>
+                                                    borderColor='#2F6FE4'
+                                                    onChange = {(e) => changeValue(e, 0)}></Radio>
                                             <Radio  value='no'
                                                     border='1px'
-                                                    borderColor='#2F6FE4'></Radio>
+                                                    borderColor='#2F6FE4'
+                                                    onChange = {(e) => changeValue(e, 0)}></Radio>
                                         </HStack>
                                     </RadioGroup>
                                 </Td>
@@ -53,14 +87,16 @@ function Places(props: IPlaces): JSX.Element {
                             <Tr fontSize="16px">
                                 <Td>Places present some barriers and minimum assistance is needed</Td>
                                 <Td>
-                                    <RadioGroup>
+                                    <RadioGroup value={places[1].answer}>
                                         <HStack spacing={8} justifyContent='flex-end'>
                                             <Radio  value='yes'
                                                     border='1px'
-                                                    borderColor='#2F6FE4'></Radio>
+                                                    borderColor='#2F6FE4'
+                                                    onChange = {(e) => changeValue(e, 1)}></Radio>
                                             <Radio  value='no'
                                                     border='1px'
-                                                    borderColor='#2F6FE4'></Radio>
+                                                    borderColor='#2F6FE4'
+                                                    onChange = {(e) => changeValue(e, 1)}></Radio>
                                         </HStack>
                                     </RadioGroup>
                                 </Td>
@@ -68,14 +104,16 @@ function Places(props: IPlaces): JSX.Element {
                             <Tr fontSize="16px">
                                 <Td>Few accessibility measures are in place and assistance is needed for the full experience</Td>
                                 <Td>
-                                    <RadioGroup>
+                                    <RadioGroup value={places[2].answer}>
                                         <HStack spacing={8} justifyContent='flex-end'>
                                             <Radio  value='yes'
                                                     border='1px'
-                                                    borderColor='#2F6FE4'></Radio>
+                                                    borderColor='#2F6FE4'
+                                                    onChange = {(e) => changeValue(e, 2)}></Radio>
                                             <Radio  value='no'
                                                     border='1px'
-                                                    borderColor='#2F6FE4'></Radio>
+                                                    borderColor='#2F6FE4'
+                                                    onChange = {(e) => changeValue(e, 2)}></Radio>
                                         </HStack>
                                     </RadioGroup>
                                 </Td>
@@ -83,14 +121,16 @@ function Places(props: IPlaces): JSX.Element {
                             <Tr fontSize="16px">
                                 <Td>There are smooth floors and pathways</Td>
                                 <Td>
-                                    <RadioGroup>
+                                    <RadioGroup value={places[3].answer}>
                                         <HStack spacing={8} justifyContent='flex-end'>
                                             <Radio  value='yes'
                                                     border='1px'
-                                                    borderColor='#2F6FE4'></Radio>
+                                                    borderColor='#2F6FE4'
+                                                    onChange = {(e) => changeValue(e, 3)}></Radio>
                                             <Radio  value='no'
                                                     border='1px'
-                                                    borderColor='#2F6FE4'></Radio>
+                                                    borderColor='#2F6FE4'
+                                                    onChange = {(e) => changeValue(e, 3)}></Radio>
                                         </HStack>
                                     </RadioGroup>
                                 </Td>
@@ -98,14 +138,16 @@ function Places(props: IPlaces): JSX.Element {
                             <Tr fontSize="16px">
                                 <Td>There are pathways with rocks, stones, or other terrain that makes them difficult to access</Td>
                                 <Td>
-                                    <RadioGroup>
+                                    <RadioGroup value={places[4].answer}>
                                         <HStack spacing={8} justifyContent='flex-end'>
                                             <Radio  value='yes'
                                                     border='1px'
-                                                    borderColor='#2F6FE4'></Radio>
+                                                    borderColor='#2F6FE4'
+                                                    onChange = {(e) => changeValue(e, 4)}></Radio>
                                             <Radio  value='no'
                                                     border='1px'
-                                                    borderColor='#2F6FE4'></Radio>
+                                                    borderColor='#2F6FE4'
+                                                    onChange = {(e) => changeValue(e, 4)}></Radio>
                                         </HStack>
                                     </RadioGroup>
                                 </Td>
