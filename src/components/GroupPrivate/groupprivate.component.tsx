@@ -5,7 +5,6 @@ import {
   HStack,
   Button,
   Input,
-  useNumberInput,
   Stack,
   Box,
   ChakraProvider,
@@ -164,11 +163,9 @@ const GroupPrivate: React.FC = () => {
     }
 
     function Increase(valor: any) {
-        
-        
+        if(maximo < minimo) setMaximo(+minimo + 1)
         if(valor === 'minimo') setMinimo(+minimo+1)
         else setMaximo(+maximo+1)
-        if(maximo < minimo) setMaximo(+minimo + 1)
     }
     // ----------------------------------------
 

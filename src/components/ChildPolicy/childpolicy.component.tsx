@@ -3,14 +3,11 @@ import { useState } from "react"
 import { NumberInput, NumberInputField, useDisclosure } from "@chakra-ui/react"
 import {
     Text,
-    VStack,
     HStack,
     ChakraProvider,
     Stack,
     Grid, 
     GridItem,
-    Input, 
-    Container,
     RadioGroup,
     Radio,
     Box,
@@ -26,7 +23,6 @@ const ChildPolicy: React.FC = () => {
 
     const colSpan = { base: 2, md: 1 };
     const fontSizeResponsive = { base:'20px', sm:'15px'};
-
 
     const addQuestionAnswer = (answer:string) => {
         if (answer == "no")
@@ -113,7 +109,7 @@ const ChildPolicy: React.FC = () => {
   
 
         <Text fontSize={fontSizeResponsive} color='#3F6FE4'>Children Policy</Text>
-        <Text fontSize={{base:'35px', sm:'20px'}}>Tell us about children Policy</Text>
+        <Text fontSize={{base:'35px', sm:'20px'}}>Tell us about children policy</Text>
 
         <HStack w="full"  >
             <Text fontSize={fontSizeResponsive} >Are children allowed in this tour? </Text>

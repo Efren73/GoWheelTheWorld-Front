@@ -12,7 +12,6 @@ const CancelationPolicy: React.FC = () => {
     // Control de input para cancelation policy
     let [value1, setValue1] = useState('')
     let inputValue1: any;
-
     let handleInputLink = (e: any) => {
         inputValue1 = e.target.value
         setValue1(inputValue1)
