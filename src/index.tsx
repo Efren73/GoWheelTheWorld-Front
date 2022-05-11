@@ -27,6 +27,7 @@ import ChildPolicy from "./components/ChildPolicy"
 import ProfileSettings from './pages/adminSummary/adminSummary.page'
 import UserSettings from './pages/userSettings/userSettings.page'
 import theme from "./theme"
+import './styles.css'
 /*
   signup
   Login
@@ -35,7 +36,7 @@ import theme from "./theme"
   Question
   Tour completed
 */
-
+console.log(theme)
 ReactDOM.render(
   <React.StrictMode>
     <ColorModeScript />

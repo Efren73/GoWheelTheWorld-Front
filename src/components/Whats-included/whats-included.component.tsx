@@ -93,7 +93,7 @@ const WhatsIncluded: React.FC = () => {
     }
 
     return(
-    <ChakraProvider>
+    <React.Fragment>
          <Box boxShadow='2xl'
               w="65%" 
               h="full"
@@ -115,7 +115,7 @@ const WhatsIncluded: React.FC = () => {
       </Grid>
 
         </Box >
-    </ChakraProvider>
+    </React.Fragment>
     )
 }
 

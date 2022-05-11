@@ -17,8 +17,11 @@ const CancelationPolicy: React.FC = () => {
         setValue1(inputValue1)
     }
 
+    const fontSizee = { base:'20px', sm:'15px'};
+    const fontSizeTitle = {base: '35px', sm: '20px'}
+
     return(
-    <ChakraProvider>
+    <React.Fragment>
         <Box
         boxShadow='2xl'
         w="65%" 
@@ -39,7 +42,7 @@ const CancelationPolicy: React.FC = () => {
                 </Box>
             </Stack>
         </Box >
-    </ChakraProvider>
+    </React.Fragment>
     )
 }
 export default CancelationPolicy;

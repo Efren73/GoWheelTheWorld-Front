@@ -62,8 +62,8 @@ const Cart: React.FC = () => {
 	/* RESPONSIVE ------------------------------------- */
 	const fontSizeResponsive = { base:'20px', sm:'15px'};
 
-    return (
-		<ChakraProvider>
+    return(
+		<React.Fragment>
 			<Box boxShadow='2xl'
 				w="65%" 
 				h="full"
@@ -164,7 +164,7 @@ const Cart: React.FC = () => {
 					</ModalFooter>
 				</ModalContent>
 			</Modal>
-		</ChakraProvider>
+		</React.Fragment>
 	)
 }
 

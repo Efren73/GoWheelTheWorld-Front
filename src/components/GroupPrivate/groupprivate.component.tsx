@@ -173,7 +173,7 @@ const GroupPrivate: React.FC = () => {
     console.log('Maximo', maximo)
 
     return(
-        <ChakraProvider>
+        <React.Fragment>
             <Box boxShadow='2xl'
                 w="65%" 
                 h="full"
@@ -227,7 +227,7 @@ const GroupPrivate: React.FC = () => {
                 </HStack>
             </VStack>
             </Box>
-        </ChakraProvider>
+        </React.Fragment>
 
     )
 }
