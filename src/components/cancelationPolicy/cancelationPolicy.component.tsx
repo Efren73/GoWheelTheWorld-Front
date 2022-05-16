@@ -3,7 +3,7 @@ import { useState } from "react"
 import {
     Text,
     Box,
-    ChakraProvider,
+    Heading,
     Stack,
     Textarea,
 } from "@chakra-ui/react"
@@ -17,8 +17,8 @@ const CancelationPolicy: React.FC = () => {
         setValue1(inputValue1)
     }
 
-    const fontSizee = { base:'20px', sm:'15px'};
-    const fontSizeTitle = {base: '35px', sm: '20px'}
+    /* RESPONSIVE --------------------------------- */
+    const fontSizeResponsive = { base:'20px', sm:'15px'};
 
     return(
     <React.Fragment>
@@ -30,14 +30,15 @@ const CancelationPolicy: React.FC = () => {
         background="#EBE9E9"
         borderRadius="10px">
             <Stack spacing={2}>
-                <Text fontSize='20px' color='#3F6FE4'> Cancelation policy </Text>
-                <Text fontSize='35px'> Cancelation policy </Text>
+                <Text fontSize={fontSizeResponsive} color='#3F6FE4'> Cancelation policy </Text>
+                <Heading fontSize={fontSizeResponsive}> Cancelation policy </Heading>
                 <Box w='full'>
                     <Textarea 
                         placeholder="Cancelation policy"
                         background='#fff'
                         onChange={handleInputLink}
                         value = {value1}
+                        fontSize={fontSizeResponsive}
                         />
                 </Box>
             </Stack>

@@ -3,10 +3,8 @@ import { useState } from "react"
 import { Flex, position, useDisclosure } from "@chakra-ui/react"
 import {
     Text,
-    VStack,
     HStack,
     Box,
-    ChakraProvider,
     Button,
     Stack,
     Checkbox,
@@ -17,7 +15,7 @@ import {
     ModalHeader,
     ModalBody,
     ModalFooter,
-    FormControl,
+    Heading,
 } from "@chakra-ui/react"
 
 import { DeleteIcon } from "@chakra-ui/icons"
@@ -118,6 +116,7 @@ const Faqs: React.FC = () => {
         setQuestionAnswer(newArray)
     }
 
+    /* RESPONSIVE --------------------------------- */
     const fontSizeResponsive = { base:'20px', sm:'15px'};
     
     return(
@@ -131,7 +130,7 @@ const Faqs: React.FC = () => {
   
             <Stack spacing={2}>
                 <Text  color='#3F6FE4' fontSize={fontSizeResponsive}>FAQS</Text>
-                <Text fontSize={{base:'35px', sm:'20px'}}>Add your Frequently Asked Questions</Text>
+                <Heading fontSize={fontSizeResponsive}>Add your Frequently Asked Questions</Heading>
             </Stack>
 
             <Stack overflowY='auto' w='full' justifyContent='flex-start'>

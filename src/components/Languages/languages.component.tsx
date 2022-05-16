@@ -6,7 +6,8 @@ import {
   Box,
   useCheckbox,
   chakra,
-  useCheckboxGroup
+  useCheckboxGroup,
+  Heading,
 } from "@chakra-ui/react"
 
 import { useState } from "react"
@@ -94,6 +95,9 @@ const Languages = () => {
     console.log('PADRE', checkedItems)
   }
 
+  /* RESPONSIVE -------------------------------------------------------*/
+  const fontSizeResponsive = { base:'20px', sm:'15px'};
+
   return(
     <Box boxShadow='2xl'
       w="65%" 
@@ -103,11 +107,11 @@ const Languages = () => {
       borderRadius="10px">
 
       <Stack spacing={2}>
-        <Text fontSize='20px' color='#3F6FE4'>Itinerary / Languages</Text>
-        <Text fontSize='35px'>Select the spoken languages on this tour</Text>
+        <Text fontSize={fontSizeResponsive} color='#3F6FE4'> Itinerary / Languages </Text>
+        <Heading fontSize={fontSizeResponsive}> Select the spoken languages on this tour </Heading>
       </Stack>
 
-      <Grid templateColumns='repeat(2, 5fr)' gap={15} justifyItems='center' paddingTop='30px' h='80%' overflowY='auto'>
+      <Grid templateColumns='repeat(2, 5fr)' gap={15} justifyItems='center' paddingTop='30px' h='80%' overflowY='auto' fontSize={fontSizeResponsive}>
         {
           languages.map((language: string) =>(
             <CustomCheckbox

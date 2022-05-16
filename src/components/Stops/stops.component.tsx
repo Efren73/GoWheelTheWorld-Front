@@ -48,22 +48,22 @@ const Stops: React.FC = () => {
     console.dir(e.target)
   }
 
-   /* RESPONSIVE -------------------------------------------------------*/
-   const fontSizeResponsive = { base:'20px', sm:'15px'};
+  /* RESPONSIVE -------------------------------------------------------*/
+  const fontSizeResponsive = { base:'20px', sm:'15px'};
   
   return (
     <React.Fragment>
       <Box boxShadow='2xl'
-        w="65%" 
-        h="full"
-        p={10}
-        background="#EBE9E9"
-        borderRadius="10px">
-          
-          <Stack spacing={2}>
-            <Text fontSize={fontSizeResponsive} color='#3F6FE4'>Itinerary / Stops</Text>
-            <Heading fontSize={fontSizeResponsive}>Introduce the number of stops</Heading>
-          </Stack>
+           w="65%" 
+           h="full"
+           p={10}
+           background="#EBE9E9"
+           borderRadius="10px">
+        
+        <Stack spacing={2}>
+          <Text fontSize={fontSizeResponsive} color='#3F6FE4'> Itinerary / Stops </Text>
+          <Heading fontSize={fontSizeResponsive}>Introduce the number of stops</Heading>
+        </Stack>
 
           <HStack spacing={0} paddingTop='30px'>
             
@@ -71,7 +71,7 @@ const Stops: React.FC = () => {
 
           <Stack>
                     <Button bg='#3F6FE4' border=' 1px solid #000' color='#fff' borderRadius='20px' 
-                    onClick={addQuestionAnswer} w='10%' >
+                    onClick={addQuestionAnswer} w='10%' fontSize={fontSizeResponsive}>
                         + Add
                     </Button>
             </Stack>
