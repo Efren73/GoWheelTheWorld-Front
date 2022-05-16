@@ -2,20 +2,18 @@ import * as React from "react"
 import { useState } from "react"
 import {
   Text,
-  VStack,
   Stack,
   Input,
   Button,
   HStack,
   Box,
-  ChakraProvider,
   useNumberInput,
+  Heading,
 } from "@chakra-ui/react"
 
 import { DeleteIcon } from "@chakra-ui/icons"
 
 const Stops: React.FC = () => {
-
   //Definición de useState para que el usuario pueda ingresar varias preguntas
     let [questionAnswer, setQuestionAnswer]:any = useState([])
 
@@ -49,20 +47,23 @@ const Stops: React.FC = () => {
     e.preventDefault();
     console.dir(e.target)
   }
+
+  /* RESPONSIVE -------------------------------------------------------*/
+  const fontSizeResponsive = { base:'20px', sm:'15px'};
   
-  return(
+  return (
     <React.Fragment>
       <Box boxShadow='2xl'
-        w="65%" 
-        h="full"
-        p={10}
-        background="#EBE9E9"
-        borderRadius="10px">
-          
-          <Stack spacing={2}>
-            <Text fontSize='20px' color='#3F6FE4'>Itinerary / Stops</Text>
-            <Text fontSize='35px'>Introduce the number of stops</Text>
-          </Stack>
+           w="65%" 
+           h="full"
+           p={10}
+           background="#EBE9E9"
+           borderRadius="10px">
+        
+        <Stack spacing={2}>
+          <Text fontSize={fontSizeResponsive} color='#3F6FE4'> Itinerary / Stops </Text>
+          <Heading fontSize={fontSizeResponsive}>Introduce the number of stops</Heading>
+        </Stack>
 
           <HStack spacing={0} paddingTop='30px'>
             
@@ -70,7 +71,7 @@ const Stops: React.FC = () => {
 
           <Stack>
                     <Button bg='#3F6FE4' border=' 1px solid #000' color='#fff' borderRadius='20px' 
-                    onClick={addQuestionAnswer} w='10%' >
+                    onClick={addQuestionAnswer} w='10%' fontSize={fontSizeResponsive}>
                         + Add
                     </Button>
             </Stack>

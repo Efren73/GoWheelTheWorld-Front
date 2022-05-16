@@ -1,11 +1,9 @@
 import * as React from "react"
-import { useState } from "react"
 import {
   Text,
-  VStack,
-  ChakraProvider,
+  Heading,
   Stack,
-  Grid,
+  SimpleGrid,
   useCheckbox,
   chakra, 
   useCheckboxGroup,
@@ -15,7 +13,6 @@ import {
 import { useLocation } from "react-router-dom"
 
 const WhatsIncluded: React.FC = () => {
-
     //Customización del checkbox
     function CustomCheckbox(props: any) {
         const { state, getCheckboxProps, getInputProps, getLabelProps } =
@@ -55,10 +52,7 @@ const WhatsIncluded: React.FC = () => {
         }
         const { value, getCheckboxProps } = useCheckboxGroup()
 
-
-
     const location = useLocation();
-    
     const link: string[] = location.pathname.split('/')
     const route: string = link[link.length - 1]
     
@@ -92,6 +86,9 @@ const WhatsIncluded: React.FC = () => {
       'Assistants')
     }
 
+    /* RESPONSIVE --------------------------------- */
+    const fontSizeResponsive = { base:'20px', sm:'15px'};
+
     return(
     <React.Fragment>
          <Box boxShadow='2xl'
@@ -102,17 +99,17 @@ const WhatsIncluded: React.FC = () => {
               borderRadius="10px">
   
             <Stack spacing={2}>
-                <Text fontSize='20px' color='#3F6FE4'>What's included</Text>
-                <Text fontSize='35px'>Select what's included with your tour</Text>
+                <Text fontSize={fontSizeResponsive} color='#3F6FE4'> What's included </Text>
+                <Heading fontSize={fontSizeResponsive}> Select what's included with your tour </Heading>
             </Stack>
             
-            <Grid h='80%' templateColumns='repeat(3, 7fr)' gap={15} paddingTop='30px' alignSelf={'center'} overflowY='auto'>
-            {
-                    included.map ((includes: string) =>(
-                        <CustomCheckbox {...getCheckboxProps({value: `${includes}`})}/>
-                    ))
-                    }
-      </Grid>
+            <SimpleGrid h='80%' columns={[1, 1, 2, 2, 3]} spacing={15} paddingTop='30px' alignSelf={'center'} fontSize={fontSizeResponsive}>
+              {
+                included.map ((includes: string) =>(
+                  <CustomCheckbox {...getCheckboxProps({value: `${includes}`})}/>
+                ))
+              }
+            </SimpleGrid>
 
         </Box >
     </React.Fragment>

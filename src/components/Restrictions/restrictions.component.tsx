@@ -1,19 +1,14 @@
 import * as React from "react"
 import {
   Text,
-  VStack,
   Stack,
   Checkbox,
   Box,
-  HStack,
-  useCheckbox,
-  chakra,
-  useCheckboxGroup,
+  Heading,
 } from "@chakra-ui/react"
 
 import { useState } from "react"
 import { setConstantValue } from "typescript"
-
 
 const Restrictions: React.FC = () => {
   function DisableCheckbox() {
@@ -23,6 +18,9 @@ const Restrictions: React.FC = () => {
 
       // Arreglo de checkboxes
       const [checkedItems, setCheckedItems] = useState([false, false, false, false, false, false, false])
+
+       /* RESPONSIVE -------------------------------------------------------*/
+      const fontSizeResponsive = { base:'20px', sm:'15px'};
   
       return (
         <>
@@ -30,9 +28,6 @@ const Restrictions: React.FC = () => {
             <Checkbox
             onChange={(e) => {
               setCheckedItems([e.target.defaultChecked, !checkedItems[1], e.target.defaultChecked, e.target.defaultChecked, e.target.defaultChecked, e.target.defaultChecked, e.target.defaultChecked])
-              
-              console.log(checkedItems)
-              console.log(noRestrictCheck)
             }}
               isChecked={checkedItems[1]}
               isDisabled={noRestrictCheck}
@@ -42,9 +37,6 @@ const Restrictions: React.FC = () => {
             <Checkbox
             onChange={(e) => {
               setCheckedItems([e.target.defaultChecked, e.target.defaultChecked, !checkedItems[2], e.target.defaultChecked, e.target.defaultChecked, e.target.defaultChecked, e.target.defaultChecked])
-              
-              console.log(checkedItems)
-              console.log(noRestrictCheck)
             }}
               isChecked={checkedItems[2]}
               isDisabled={noRestrictCheck}
@@ -54,9 +46,6 @@ const Restrictions: React.FC = () => {
             <Checkbox
             onChange={(e) => {
               setCheckedItems([e.target.defaultChecked, e.target.defaultChecked, e.target.defaultChecked, !checkedItems[3], e.target.defaultChecked, e.target.defaultChecked, e.target.defaultChecked])
-              
-              console.log(checkedItems)
-              console.log(noRestrictCheck)
             }}
               isChecked={checkedItems[3]}
               isDisabled={noRestrictCheck}
@@ -66,9 +55,6 @@ const Restrictions: React.FC = () => {
             <Checkbox
             onChange={(e) => {
               setCheckedItems([e.target.defaultChecked, e.target.defaultChecked, e.target.defaultChecked, e.target.defaultChecked, !checkedItems[4], e.target.defaultChecked, e.target.defaultChecked])
-              
-              console.log(checkedItems)
-              console.log(noRestrictCheck)
             }}
               isChecked={checkedItems[4]}
               isDisabled={noRestrictCheck}
@@ -78,9 +64,6 @@ const Restrictions: React.FC = () => {
             <Checkbox
               onChange={(e) => {
                 setCheckedItems([e.target.defaultChecked, e.target.defaultChecked, e.target.defaultChecked, e.target.defaultChecked, e.target.defaultChecked, !checkedItems[5], e.target.defaultChecked])
-                
-                console.log(checkedItems)
-                console.log(noRestrictCheck)
               }}
               isChecked={checkedItems[5]}
               isDisabled={noRestrictCheck}
@@ -90,9 +73,6 @@ const Restrictions: React.FC = () => {
             <Checkbox
             onChange={(e) => {
               setCheckedItems([e.target.defaultChecked, e.target.defaultChecked, e.target.defaultChecked, e.target.defaultChecked, e.target.defaultChecked, e.target.defaultChecked, !checkedItems[6]])
-
-              console.log(checkedItems)
-              console.log(noRestrictCheck)
             }}
               isChecked={checkedItems[6]}
               isDisabled={noRestrictCheck}
@@ -102,9 +82,6 @@ const Restrictions: React.FC = () => {
             <Checkbox
               onChange={() => {
                 setCheckNo(!noRestrictCheck)
-                
-                console.log(checkedItems)
-                console.log(noRestrictCheck)
               }}
 
               isChecked={noRestrictCheck}
@@ -115,9 +92,6 @@ const Restrictions: React.FC = () => {
             <Checkbox
               onChange={(e) => {
                 setCheckedItems([e.target.checked, e.target.checked, e.target.checked, e.target.checked, e.target.checked, e.target.checked,])
-                
-                console.log(checkedItems)
-                console.log(noRestrictCheck)
               }}
 
               isChecked={checkedItems[0]}
@@ -131,8 +105,10 @@ const Restrictions: React.FC = () => {
       )
   }
   
-    
-  return(
+  /* RESPONSIVE -------------------------------------------------------*/
+  const fontSizeResponsive = { base:'20px', sm:'15px'};
+
+  return (
     <Box boxShadow='2xl'
       w="65%" 
       h="full"
@@ -141,15 +117,12 @@ const Restrictions: React.FC = () => {
       borderRadius="10px">
       
       <Stack spacing={2}>
-        <Text fontSize='20px' color='#3F6FE4'>Itinerary / Restrictions</Text>
-        <Text fontSize='35px'>Select the restrictions on this tour</Text>
+        <Text fontSize={fontSizeResponsive} color='#3F6FE4'> Itinerary / Restrictions </Text>
+        <Heading fontSize={fontSizeResponsive}> Select the restrictions on this tour </Heading>
       </Stack>
-    
-        <Stack spacing={5} direction='row'>
-          {DisableCheckbox()}
-        
-        </Stack>
-      
+      <Stack spacing={5} direction='row'>
+        {DisableCheckbox()}
+      </Stack>
     </Box>
 )
   }

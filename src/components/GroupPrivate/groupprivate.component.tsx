@@ -5,14 +5,8 @@ import {
   HStack,
   Button,
   Input,
-  Wrap,
-  useNumberInput,
   Stack,
-  WrapItem,
-  IconButton,
   Box,
-  Image,
-  ChakraProvider,
   Grid,
   useCheckbox,
   chakra,
@@ -80,28 +74,7 @@ function CustomCheckbox(props: any) {
     )
 }
 
-const GruoupPrivate: React.FC = () => {
-
-    function HookUsage() {
-        const { getInputProps, getIncrementButtonProps, getDecrementButtonProps } =
-            useNumberInput({
-            step: 1,
-            defaultValue: 0,
-            min: 1,
-            })
-
-        const inc = getIncrementButtonProps()
-        const dec = getDecrementButtonProps()
-        const input = getInputProps()
-
-        return (
-            <HStack maxW='200px'>
-            <Button {...dec} background='#2F6FE4'>-</Button>
-            <Input {...input} background='#white'/>
-            <Button {...inc} background='#2F6FE4'>+</Button>
-            </HStack>
-        )
-    }
+const GroupPrivate: React.FC = () => {
 
     const { value, getCheckboxProps } = useCheckboxGroup()
 
@@ -129,6 +102,49 @@ const GruoupPrivate: React.FC = () => {
         console.log('PADRE', checkedItems)
       }
 
+    /* LÓGICA SEGUNDA PREGUNTA ----------------------------------------- */
+    const [minimo, setMinimo] = React.useState(1)
+    const [maximo, setMaximo] = React.useState(1)
+    const buttonDisabledMinimo = minimo == 1;
+    const buttonDisabledMaximo = maximo == 1;
+
+    let inputValue: any;
+    function ChangeMinimo(e: any){
+        inputValue = +e.target.value;
+        if(inputValue > 1 || inputValue == '') setMinimo(inputValue)
+        else setMinimo(1)
+    }
+
+    let inputValue2: any;
+    function ChangeMaximo(e: any) {
+        inputValue2 = +e.target.value;
+        if(inputValue2 > 1 || inputValue2 == '') setMaximo(inputValue2)
+        else setMaximo(1)
+    }
+
+    function Decrease(valor: any) {
+        if(valor === 'minimo') {
+            if(minimo <= 1) setMinimo(1)
+            else setMinimo(+minimo-1)
+        } else {
+           if(maximo <= 1) setMaximo(1)
+            else setMaximo(+maximo-1)
+        }
+        if(maximo < minimo) setMaximo(+minimo)
+    }
+
+    function Increase(valor: any) {
+        if(maximo < minimo) setMaximo(+minimo + 1)
+        if(valor === 'minimo') setMinimo(+minimo+1)
+        else setMaximo(+maximo+1)
+    }
+
+    /* RESPONSIVE -------------------------------------- */
+    const fontSizeResponsive = { base:'20px', sm:'15px'};
+
+    console.log('Minimo', minimo)
+    console.log('Maximo', maximo)
+
     return(
         <React.Fragment>
             <Box boxShadow='2xl'
@@ -139,12 +155,12 @@ const GruoupPrivate: React.FC = () => {
                 borderRadius="10px">
         
             <Stack spacing={2}>
-                <Text fontSize='20px' color='#3F6FE4'>Basic Information / Travelers</Text>
+                <Text fontSize={fontSizeResponsive} color='#3F6FE4'>Basic Information / Travelers</Text>
             </Stack>
 
             <VStack>
-                <Text alignSelf={'flex-start'} fontSize='35px'>Is it a private or a group tour/activity?</Text>
-                <Grid templateColumns='repeat(2, 1fr)' gap={30} paddingTop='20px' paddingBottom='30px' alignSelf={'center'}>
+                <Text alignSelf={'flex-start'} fontSize={fontSizeResponsive}>Is it a private or a group tour/activity?</Text>
+                <Grid templateColumns='repeat(2, 1fr)' gap={30} paddingTop='20px' paddingBottom='30px' alignSelf={'center'} fontSize={fontSizeResponsive}>
                     {
                         experiences.map((experience: string) =>(
                         <CustomCheckbox
@@ -157,23 +173,36 @@ const GruoupPrivate: React.FC = () => {
                     }
                 </Grid>
 
-                <Text alignSelf={'flex-start'} fontSize='35px' paddingBottom='10px'>Please specify the minimum and maximum number of travelers</Text>
+                <Text alignSelf={'flex-start'} fontSize={fontSizeResponsive} paddingBottom='10px'>
+                    Please specify the minimum and maximum number of travelers
+                </Text>
 
                 <HStack w='42%' paddingBottom='10px' spacing='42%' justifyContent={'flex-start'}>
-                    <Text fontSize='15px' >Minimum</Text>
-                    <Text fontSize='15px' >Maximum</Text>
+                    <Text fontSize={fontSizeResponsive}>Minimum</Text>
+                    <Text fontSize={fontSizeResponsive}>Maximum</Text>
                 </HStack>
 
-                <HStack justifyContent={'center'} spacing='50px'>
-                    <WrapItem>{HookUsage()}</WrapItem>
-                    <WrapItem>{HookUsage()}</WrapItem>
+                <HStack justifyContent={'center'} spacing='50px'> 
+                    <HStack maxW='200px'>
+                        <Button isDisabled={buttonDisabledMinimo} name="minimum" onClick={() => Decrease('minimo')} background='#2F6FE4'> - </Button>
+                        <Input  onChange={ChangeMinimo} 
+                                value={minimo}
+                                background='#white'/>
+                        <Button name="minimum" onClick={() => Increase('minimo')} background='#2F6FE4'> + </Button>
+                    </HStack>
+                    <HStack maxW='200px'>
+                        <Button isDisabled={buttonDisabledMaximo} name="maximum" onClick={() => Decrease('maximo')} background='#2F6FE4'> - </Button>
+                        <Input  onChange={ChangeMaximo} 
+                                value={maximo}
+                                background='#white' />
+                        <Button name="maximum" onClick={() => Increase('maximo')} background='#2F6FE4'> + </Button>
+                    </HStack>
                 </HStack>
             </VStack>
-            
             </Box>
         </React.Fragment>
 
     )
 }
 
-export default GruoupPrivate;
+export default GroupPrivate;

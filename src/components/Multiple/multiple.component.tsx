@@ -7,6 +7,8 @@ import {
   chakra,
   useCheckbox,
   useCheckboxGroup,
+  Heading,
+  Input,
 } from "@chakra-ui/react"
 
 import { useState } from "react"
@@ -54,7 +56,7 @@ function CustomCheckbox(props: any) {
             //console.log('HIJOisCheckedItem',isCheckedItem)
           }}
           >
-          <input {...getInputProps()} hidden />
+          <Input {...getInputProps()} hidden />
           <Text {...getLabelProps()}>{props.value}</Text>
        </chakra.label>
     )
@@ -99,7 +101,10 @@ const Multiple = () => {
     console.log('PADRE', checkedItems)
   }
 
-  return(
+  /* RESPONSIVE -------------------------------------------------------*/
+  const fontSizeResponsive = { base:'20px', sm:'15px'};
+
+  return (
     <Box boxShadow='2xl'
         w="65%" 
         h="full"
@@ -108,11 +113,11 @@ const Multiple = () => {
         borderRadius="10px">
         
         <Stack spacing={2}>
-          <Text fontSize='20px' color='#3F6FE4'>Basic Information / Type of tour</Text>
-          <Text fontSize='35px'>What kind of experience would you like to offer?</Text>
+          <Text fontSize={fontSizeResponsive} color='#3F6FE4'> Basic Information / Type of tour </Text>
+          <Heading fontSize={fontSizeResponsive}> What kind of experience would you like to offer? </Heading>
         </Stack>
         
-        <Grid templateColumns='repeat(3, 5fr)' gap={15} paddingTop='25px' h='full'>
+        <Grid templateColumns='repeat(3, 5fr)' gap={15} paddingTop='25px' h='full' fontSize={fontSizeResponsive} >
           {
             experiences.map((experience: string) =>(
               <CustomCheckbox
