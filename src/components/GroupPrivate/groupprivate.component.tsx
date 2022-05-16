@@ -7,12 +7,10 @@ import {
   Input,
   Stack,
   Box,
-  ChakraProvider,
   Grid,
   useCheckbox,
   chakra,
   useCheckboxGroup,
-  useControllableState,
 } from "@chakra-ui/react"
 
 import { useState } from "react"
@@ -104,34 +102,7 @@ const GroupPrivate: React.FC = () => {
         console.log('PADRE', checkedItems)
       }
 
-    // SEGUNDA PREGUNTA
-    /* OPCIÓN 1 ---------------------------------------*/
-    // Control de objeto con máximo y mínimo
-    const [ valueBotones, setValueBotones ] = React.useState({
-        maximum: 1,
-        minimum: 1,
-    })
-
-    // Control de botones + y -
-    const [ internalValue, setInternalValue ] = useControllableState({
-        ...valueBotones,
-        onChange: setValueBotones,
-    })
-
-    // Control de input
-    const handleInputChange = (event: any) => {
-        setValueBotones({
-            ...valueBotones,
-            [event.target.name]: event.target.value 
-        })
-
-        setInternalValue({
-            ...valueBotones,
-            [event.target.name]: event.target.value,
-        })
-    }
-
-    /* OPCIÓN 2 ----------------------------------------- */
+    /* LÓGICA SEGUNDA PREGUNTA ----------------------------------------- */
     const [minimo, setMinimo] = React.useState(1)
     const [maximo, setMaximo] = React.useState(1)
     const buttonDisabledMinimo = minimo == 1;
@@ -167,7 +138,9 @@ const GroupPrivate: React.FC = () => {
         if(valor === 'minimo') setMinimo(+minimo+1)
         else setMaximo(+maximo+1)
     }
-    // ----------------------------------------
+
+    /* RESPONSIVE -------------------------------------- */
+    const fontSizeResponsive = { base:'20px', sm:'15px'};
 
     console.log('Minimo', minimo)
     console.log('Maximo', maximo)
@@ -182,12 +155,12 @@ const GroupPrivate: React.FC = () => {
                 borderRadius="10px">
         
             <Stack spacing={2}>
-                <Text fontSize='20px' color='#3F6FE4'>Basic Information / Travelers</Text>
+                <Text fontSize={fontSizeResponsive} color='#3F6FE4'>Basic Information / Travelers</Text>
             </Stack>
 
             <VStack>
-                <Text alignSelf={'flex-start'} fontSize='35px'>Is it a private or a group tour/activity?</Text>
-                <Grid templateColumns='repeat(2, 1fr)' gap={30} paddingTop='20px' paddingBottom='30px' alignSelf={'center'}>
+                <Text alignSelf={'flex-start'} fontSize={fontSizeResponsive}>Is it a private or a group tour/activity?</Text>
+                <Grid templateColumns='repeat(2, 1fr)' gap={30} paddingTop='20px' paddingBottom='30px' alignSelf={'center'} fontSize={fontSizeResponsive}>
                     {
                         experiences.map((experience: string) =>(
                         <CustomCheckbox
@@ -200,13 +173,13 @@ const GroupPrivate: React.FC = () => {
                     }
                 </Grid>
 
-                <Text alignSelf={'flex-start'} fontSize='35px' paddingBottom='10px'>
+                <Text alignSelf={'flex-start'} fontSize={fontSizeResponsive} paddingBottom='10px'>
                     Please specify the minimum and maximum number of travelers
                 </Text>
 
                 <HStack w='42%' paddingBottom='10px' spacing='42%' justifyContent={'flex-start'}>
-                    <Text fontSize='15px'>Minimum</Text>
-                    <Text fontSize='15px'>Maximum</Text>
+                    <Text fontSize={fontSizeResponsive}>Minimum</Text>
+                    <Text fontSize={fontSizeResponsive}>Maximum</Text>
                 </HStack>
 
                 <HStack justifyContent={'center'} spacing='50px'> 
