@@ -14,8 +14,7 @@ import {
 import { DeleteIcon } from "@chakra-ui/icons"
 
 const Stops: React.FC = () => {
-  //Definición de useState para que el usuario pueda ingresar varias preguntas
-    let [questionAnswer, setQuestionAnswer]:any = useState([])
+    let [stops, setStops] = useState<any>([])
 
   function HookUsage() {
     const { getInputProps, getIncrementButtonProps, getDecrementButtonProps } =
@@ -39,14 +38,38 @@ const Stops: React.FC = () => {
   }
 
   //Función para que cuando se de click a add, se agreguen elementos al arreglo con el fin de que se rendericen más componentes
-  const addQuestionAnswer = () => {
-    setQuestionAnswer([...questionAnswer, '']);
+  const addStop = () => {
+    setStops([...stops, {
+      stopName: "",
+      stopDuration: ""
+    }]);
   }
 
   function handleSubmit(e: any){
     e.preventDefault();
     console.dir(e.target)
   }
+
+  function change(e: any, index: any, type: string){
+    const newArr = [...stops];
+    if(type === "name"){
+      newArr[index].stopName = e.target.value;
+      setStops(newArr);
+    }
+
+    else{
+      newArr[index].stopDuration = e.target.value;
+      setStops(newArr);
+    }
+  }
+
+  function deleteStop(e: any, index: any){
+    const newArr = [...stops];
+    newArr.splice(index, 1);
+    setStops(newArr);
+  }
+
+  console.log(stops)
 
   /* RESPONSIVE -------------------------------------------------------*/
   const fontSizeResponsive = { base:'20px', sm:'15px'};
@@ -66,23 +89,24 @@ const Stops: React.FC = () => {
         </Stack>
         <Stack  paddingTop='20px'>
           <Button bg='#3F6FE4' border=' 1px solid #000' color='#fff' borderRadius='20px' 
-          onClick={addQuestionAnswer} w='10%' fontSize={fontSizeResponsive}>
+          onClick={addStop} w='10%' fontSize={fontSizeResponsive}>
               + Add
           </Button>
         </Stack>
             <form onSubmit={handleSubmit}>
                     {
-                        questionAnswer && questionAnswer.map(()=>(
+                        stops && stops.map((stop: any, index: any)=>(
                             
                             <Stack w='70%'>
                                 <HStack>
-                                    <Input placeholder='Name' bg="#fff" />
+                                    <Input placeholder='Name' bg="#fff" value={stop.stopName} 
+                                    onChange = {(e: any) => change(e, index, "name")}/>
                                 </HStack>
                                 <HStack>
-                                    <Input placeholder='Duration' bg="#fff"/>
+                                    <Input placeholder='Duration' bg="#fff" value={stop.stopDuration} onChange = {(e: any) => change(e, index, "duration")}/>
                                 </HStack>
                                 <HStack justifyContent='flex-end'>
-                                        <Button variant="link" marginBottom={'20px'}>
+                                        <Button variant="link" marginBottom={'20px'} onClick={(e: any) => deleteStop(e, index)}>
                                             <DeleteIcon />
                                         </Button>
                                 </HStack>
