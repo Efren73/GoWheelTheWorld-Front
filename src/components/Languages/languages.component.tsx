@@ -2,7 +2,7 @@ import * as React from "react"
 import {
   Text,
   Stack,
-  Grid,
+  SimpleGrid,
   Box,
   useCheckbox,
   chakra,
@@ -108,10 +108,10 @@ const Languages = () => {
 
       <Stack spacing={2}>
         <Text fontSize={fontSizeResponsive} color='#3F6FE4'> Itinerary / Languages </Text>
-        <Heading fontSize={fontSizeResponsive}> Select the spoken languages on this tour </Heading>
+        <Heading fontSize={{base:'35px', sm:'18px'}}> Select the spoken languages on this tour </Heading>
       </Stack>
 
-      <Grid templateColumns='repeat(2, 5fr)' gap={15} justifyItems='center' paddingTop='30px' h='80%' overflowY='auto' fontSize={fontSizeResponsive}>
+      <SimpleGrid columns={[1, 1, 1, 2, 3]} spacing={15} justifyItems='center' paddingTop='30px' h='80%' overflowY='auto' fontSize={fontSizeResponsive}>
         {
           languages.map((language: string) =>(
             <CustomCheckbox
@@ -123,7 +123,7 @@ const Languages = () => {
 
           ))
         }
-      </Grid>
+      </SimpleGrid>
     </Box>
   )
 }

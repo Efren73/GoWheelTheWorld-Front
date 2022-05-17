@@ -57,7 +57,7 @@ function Transportation(props: ITransportation): JSX.Element {
 
             <VStack alignItems='flex-start' w="full">
                 <Text fontSize={fontSizeResponsive} color='#3F6FE4'> Accesibility / Transportation </Text>
-                <Heading fontSize={fontSizeResponsive}> Transportation </Heading>
+                <Heading fontSize={{base:'35px', sm:'18px'}}> Transportation </Heading>
 
                 <HStack justifyContent="flex-end" w="93%">
                     <HStack w="15%" spacing={31}>
@@ -66,80 +66,78 @@ function Transportation(props: ITransportation): JSX.Element {
                     </HStack>
                 </HStack>
 
-                    <Table bg="white" borderRadius={10} w='90%'>
-                        <Tbody>
-                            <Tr fontSize={fontSizeResponsive}>
-                                <Td>Transportation is wheelchair accessible</Td>
-                                <Td>
-                                    <RadioGroup value = {transport[0].answer} >
-                                        <HStack spacing={8} justifyContent='flex-end'>
-                                            <Radio  value='yes'
-                                                    border='1px'
-                                                    borderColor='#2F6FE4' onChange={(e) => changeValue(e, 0)}></Radio>
-                                            <Radio  value='no'
-                                                    border='1px'
-                                                    borderColor='#2F6FE4' onChange={(e) => changeValue(e, 0)}></Radio>
-                                        </HStack>
-                                    </RadioGroup>
-                                </Td>
-                            </Tr>
-                            <Tr fontSize={fontSizeResponsive}>
-                                <Td>
-                                    <Text>Transportation is not wheelchair accessible but assistance will be</Text>
-                                    provided for transfers.
-                                </Td>
-                                <Td>
-                                    <RadioGroup value = {transport[1].answer}>
-                                        <HStack spacing={8} justifyContent='flex-end'>
-                                            <Radio  value='yes'
-                                                    border='1px'
-                                                    borderColor='#2F6FE4'
-                                                    onChange={(e) => changeValue(e, 1)}></Radio>
-                                            <Radio  value='no'
-                                                    border='1px'
-                                                    borderColor='#2F6FE4'
-                                                    onChange={(e) => changeValue(e, 1)}></Radio>
-                                        </HStack>
-                                    </RadioGroup>
-                                </Td>
-                            </Tr>
-                            <Tr fontSize={fontSizeResponsive}>
-                                <Td>If needed, your wheelchair can be stored safely inside the vehicle</Td>
-                                <Td>
-                                    <RadioGroup value = {transport[2].answer}>
-                                        <HStack spacing={8} justifyContent='flex-end'>
-                                            <Radio  value='yes'
-                                                    border='1px'
-                                                    borderColor='#2F6FE4'
-                                                    onChange={(e) => changeValue(e, 2)}></Radio>
-                                            <Radio  value='no'
-                                                    border='1px'
-                                                    borderColor='#2F6FE4'
-                                                    onChange={(e) => changeValue(e, 2)}></Radio>
-                                        </HStack>
-                                    </RadioGroup>
-                                </Td>
-                            </Tr>
-                            <Tr fontSize={fontSizeResponsive}>
-                                <Td>Is transportation included in this tour/activity?</Td>
-                                <Td>
-                                    <RadioGroup value = {transport[3].answer}>
-                                        <HStack spacing={8} justifyContent='flex-end'>
-                                            <Radio  value='yes'
-                                                    border='1px'
-                                                    borderColor='#2F6FE4'
-                                                    onChange={(e) => changeValue(e, 3)}></Radio>
-                                            <Radio  value='no'
-                                                    border='1px'
-                                                    borderColor='#2F6FE4'
-                                                    onChange={(e) => changeValue(e, 3)}></Radio>
-                                        </HStack>
-                                    </RadioGroup>
-                                </Td>
-                            </Tr>
-                        </Tbody>
-                    </Table>
-                
+                <Table bg="white" borderRadius={10}>
+                    <Tbody>
+                        <Tr fontSize={fontSizeResponsive}>
+                            <Td>Transportation is wheelchair accessible</Td>
+                            <Td>
+                                <RadioGroup value = {transport[0].answer} >
+                                    <HStack spacing={8} justifyContent='flex-end'>
+                                        <Radio  value='yes'
+                                                border='1px'
+                                                borderColor='#2F6FE4' onChange={(e) => changeValue(e, 0)}></Radio>
+                                        <Radio  value='no'
+                                                border='1px'
+                                                borderColor='#2F6FE4' onChange={(e) => changeValue(e, 0)}></Radio>
+                                    </HStack>
+                                </RadioGroup>
+                            </Td>
+                        </Tr>
+                        <Tr fontSize={fontSizeResponsive}>
+                            <Td>
+                                Transportation is not wheelchair accessible but assistance will be provided for transfers.
+                            </Td>
+                            <Td>
+                                <RadioGroup value = {transport[1].answer}>
+                                    <HStack spacing={8} justifyContent='flex-end'>
+                                        <Radio  value='yes'
+                                                border='1px'
+                                                borderColor='#2F6FE4'
+                                                onChange={(e) => changeValue(e, 1)}></Radio>
+                                        <Radio  value='no'
+                                                border='1px'
+                                                borderColor='#2F6FE4'
+                                                onChange={(e) => changeValue(e, 1)}></Radio>
+                                    </HStack>
+                                </RadioGroup>
+                            </Td>
+                        </Tr>
+                        <Tr fontSize={fontSizeResponsive}>
+                            <Td>If needed, your wheelchair can be stored safely inside the vehicle</Td>
+                            <Td>
+                                <RadioGroup value = {transport[2].answer}>
+                                    <HStack spacing={8} justifyContent='flex-end'>
+                                        <Radio  value='yes'
+                                                border='1px'
+                                                borderColor='#2F6FE4'
+                                                onChange={(e) => changeValue(e, 2)}></Radio>
+                                        <Radio  value='no'
+                                                border='1px'
+                                                borderColor='#2F6FE4'
+                                                onChange={(e) => changeValue(e, 2)}></Radio>
+                                    </HStack>
+                                </RadioGroup>
+                            </Td>
+                        </Tr>
+                        <Tr fontSize={fontSizeResponsive}>
+                            <Td>Is transportation included in this tour/activity?</Td>
+                            <Td>
+                                <RadioGroup value = {transport[3].answer}>
+                                    <HStack spacing={8} justifyContent='flex-end'>
+                                        <Radio  value='yes'
+                                                border='1px'
+                                                borderColor='#2F6FE4'
+                                                onChange={(e) => changeValue(e, 3)}></Radio>
+                                        <Radio  value='no'
+                                                border='1px'
+                                                borderColor='#2F6FE4'
+                                                onChange={(e) => changeValue(e, 3)}></Radio>
+                                    </HStack>
+                                </RadioGroup>
+                            </Td>
+                        </Tr>
+                    </Tbody>
+                </Table>
             </VStack>
         </Box>
 	);

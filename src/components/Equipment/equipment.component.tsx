@@ -69,7 +69,7 @@ function Equipment(props: IEquipment): JSX.Element {
             borderRadius="10px">
             <VStack alignItems='flex-start' w="full" h="full">
                 <Text fontSize={fontSizeResponsive} color='#3F6FE4'> Accesibility / Equipment </Text>
-                <Heading fontSize={fontSizeResponsive}>Equipment</Heading>
+                <Heading fontSize={{base:'35px', sm:'18px'}}>Equipment</Heading>
                 <HStack justifyContent="flex-end" w="full">
                     <HStack w="14%" spacing={31}>
                         <Text color="#4F6FE4" fontSize={fontSizeResponsive}> Yes </Text>
@@ -77,7 +77,7 @@ function Equipment(props: IEquipment): JSX.Element {
                     </HStack>
                 </HStack>
                 <TableContainer w="full" h="80%" overflowY='auto'>
-                    <Table bg="white" borderRadius={10} size="sm">
+                    <Table bg="white" borderRadius={10}>
                         <Tbody>
                             <Tr fontSize={fontSizeResponsive}>
                                 <Td>Is adaptive equipment included in this tour/activity?</Td>

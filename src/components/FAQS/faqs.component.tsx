@@ -128,13 +128,12 @@ const Faqs: React.FC = () => {
               background="#EBE9E9"
               borderRadius="10px">
   
-            <Stack spacing={2}>
+            <Stack spacing={2} marginBottom={15}>
                 <Text  color='#3F6FE4' fontSize={fontSizeResponsive}>FAQS</Text>
-                <Heading fontSize={fontSizeResponsive}>Add your Frequently Asked Questions</Heading>
+                <Heading fontSize={{base:'35px', sm:'18px'}}>Add your Frequently Asked Questions</Heading>
             </Stack>
 
             <Stack overflowY='auto' w='full' justifyContent='flex-start'>
-
                 <Stack w='85%' justifyContent='start'>
                     <HStack justifyContent='flex-start'>
                         <Checkbox 

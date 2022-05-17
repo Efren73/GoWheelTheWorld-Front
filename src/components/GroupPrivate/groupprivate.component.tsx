@@ -7,10 +7,11 @@ import {
   Input,
   Stack,
   Box,
-  Grid,
+  SimpleGrid,
   useCheckbox,
   chakra,
   useCheckboxGroup,
+  Heading,
 } from "@chakra-ui/react"
 
 import { useState } from "react"
@@ -99,20 +100,23 @@ const GroupPrivate: React.FC = () => {
           // actualizamos al arreglo original checkedItems con el arreglo de filter
           setCheckedItems(result)
         }
-        console.log('PADRE', checkedItems)
       }
 
     /* LÓGICA SEGUNDA PREGUNTA ----------------------------------------- */
     const [minimo, setMinimo] = React.useState(1)
     const [maximo, setMaximo] = React.useState(1)
-    const buttonDisabledMinimo = minimo == 1;
-    const buttonDisabledMaximo = maximo == 1;
+    const buttonDisabledMinimoMenos = minimo == 1;
+    const buttonDisabledMaximoMenos = maximo == 1 || minimo == maximo;
+    const buttonDisableMaximoMas = minimo > maximo;
+    const buttonDisableMinimoMas = minimo >= maximo;
 
     let inputValue: any;
     function ChangeMinimo(e: any){
         inputValue = +e.target.value;
         if(inputValue > 1 || inputValue == '') setMinimo(inputValue)
         else setMinimo(1)
+
+        if (inputValue > maximo) setMinimo(maximo)
     }
 
     let inputValue2: any;
@@ -122,19 +126,24 @@ const GroupPrivate: React.FC = () => {
         else setMaximo(1)
     }
 
+    let inputValue3: any;
+    function ChangeMaximo2(e: any) {
+        inputValue3 = +e.target.value;
+        if (inputValue3 < minimo) setMaximo(minimo)
+    }
+
+    // Botones
     function Decrease(valor: any) {
         if(valor === 'minimo') {
             if(minimo <= 1) setMinimo(1)
             else setMinimo(+minimo-1)
         } else {
-           if(maximo <= 1) setMaximo(1)
+            if(maximo <= 1) setMaximo(1)
             else setMaximo(+maximo-1)
         }
-        if(maximo < minimo) setMaximo(+minimo)
     }
 
     function Increase(valor: any) {
-        if(maximo < minimo) setMaximo(+minimo + 1)
         if(valor === 'minimo') setMinimo(+minimo+1)
         else setMaximo(+maximo+1)
     }
@@ -159,8 +168,8 @@ const GroupPrivate: React.FC = () => {
             </Stack>
 
             <VStack>
-                <Text alignSelf={'flex-start'} fontSize={fontSizeResponsive}>Is it a private or a group tour/activity?</Text>
-                <Grid templateColumns='repeat(2, 1fr)' gap={30} paddingTop='20px' paddingBottom='30px' alignSelf={'center'} fontSize={fontSizeResponsive}>
+                <Heading alignSelf={'flex-start'} fontSize={{base:'35px', sm:'18px'}}>Is it a private or a group tour/activity?</Heading>
+                <SimpleGrid columns={[1, 1, 2, 2, 2]} spacing={15} paddingTop='20px' paddingBottom='30px' alignSelf={'center'} fontSize={fontSizeResponsive}>
                     {
                         experiences.map((experience: string) =>(
                         <CustomCheckbox
@@ -171,33 +180,34 @@ const GroupPrivate: React.FC = () => {
                         />
                         ))
                     }
-                </Grid>
+                </SimpleGrid>
 
-                <Text alignSelf={'flex-start'} fontSize={fontSizeResponsive} paddingBottom='10px'>
+                <Heading alignSelf={'flex-start'} fontSize={{base:'35px', sm:'18px'}} paddingBottom='10px'>
                     Please specify the minimum and maximum number of travelers
-                </Text>
+                </Heading>
 
                 <HStack w='42%' paddingBottom='10px' spacing='42%' justifyContent={'flex-start'}>
                     <Text fontSize={fontSizeResponsive}>Minimum</Text>
                     <Text fontSize={fontSizeResponsive}>Maximum</Text>
                 </HStack>
 
-                <HStack justifyContent={'center'} spacing='50px'> 
+                <Stack justifyContent={'center'} spacing='50px' direction={['column', 'column', 'row', 'row']}> 
                     <HStack maxW='200px'>
-                        <Button isDisabled={buttonDisabledMinimo} name="minimum" onClick={() => Decrease('minimo')} background='#2F6FE4'> - </Button>
+                        <Button isDisabled={buttonDisabledMinimoMenos} name="minimum" onClick={() => Decrease('minimo')} background='#2F6FE4'> - </Button>
                         <Input  onChange={ChangeMinimo} 
                                 value={minimo}
                                 background='#white'/>
-                        <Button name="minimum" onClick={() => Increase('minimo')} background='#2F6FE4'> + </Button>
+                        <Button isDisabled={buttonDisableMinimoMas} onClick={() => Increase('minimo')} background='#2F6FE4'> + </Button>
                     </HStack>
                     <HStack maxW='200px'>
-                        <Button isDisabled={buttonDisabledMaximo} name="maximum" onClick={() => Decrease('maximo')} background='#2F6FE4'> - </Button>
+                        <Button isDisabled={buttonDisabledMaximoMenos} onClick={() => Decrease('maximo')} background='#2F6FE4'> - </Button>
                         <Input  onChange={ChangeMaximo} 
+                                onBlur={ChangeMaximo2}
                                 value={maximo}
                                 background='#white' />
-                        <Button name="maximum" onClick={() => Increase('maximo')} background='#2F6FE4'> + </Button>
+                        <Button isDisabled={buttonDisableMaximoMas} onClick={() => Increase('maximo')} background='#2F6FE4'> + </Button>
                     </HStack>
-                </HStack>
+                </Stack>
             </VStack>
             </Box>
         </React.Fragment>

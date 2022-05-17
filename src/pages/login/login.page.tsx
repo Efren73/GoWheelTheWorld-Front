@@ -47,7 +47,7 @@ function Login(props: ILogin): JSX.Element {
   /* RESPONSIVE ------------------------------------*/
   const fontSizeResponsive = { base:'20px', sm:'15px'};
   const [isLargerThan1280] = useMediaQuery('(min-width: 800px)')
-  const tamano = { base: "62%", sm: "90%" };
+  const tamano = { base: "62%", sm: "70%" };
 
 	return (
 		<React.Fragment>
@@ -111,7 +111,7 @@ function Login(props: ILogin): JSX.Element {
                   </FormControl>
                 </VStack>
                 <Button size='lg'
-                        width='62%'
+                        w={tamano}
                         fontSize={fontSizeResponsive}
                         bg="#2F6FE4"
                         color="white"
@@ -172,7 +172,7 @@ function Login(props: ILogin): JSX.Element {
                   </FormControl>
                 </VStack>
                 <Button size='lg'
-                        width='62%'
+                        width="100%"
                         fontSize={fontSizeResponsive}
                         bg="#2F6FE4"
                         color="white"

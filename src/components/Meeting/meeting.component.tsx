@@ -23,7 +23,7 @@ const Meeting: React.FC = () => {
       
       <Stack spacing={2}>
         <Text fontSize={fontSizeResponsive} color='#3F6FE4'> Itinerary / Meeting Point </Text>
-        <Heading fontSize={fontSizeResponsive}> Please introduce the meeting point </Heading>
+        <Heading fontSize={{base:'35px', sm:'18px'}}> Please introduce the meeting point </Heading>
       </Stack>
 
       <Input background={'white'}

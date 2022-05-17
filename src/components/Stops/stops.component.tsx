@@ -62,19 +62,14 @@ const Stops: React.FC = () => {
         
         <Stack spacing={2}>
           <Text fontSize={fontSizeResponsive} color='#3F6FE4'> Itinerary / Stops </Text>
-          <Heading fontSize={fontSizeResponsive}>Introduce the number of stops</Heading>
+          <Heading fontSize={{base:'35px', sm:'18px'}}>Introduce the number of stops</Heading>
         </Stack>
-
-          <HStack spacing={0} paddingTop='30px'>
-            
-          </HStack>
-
-          <Stack>
-                    <Button bg='#3F6FE4' border=' 1px solid #000' color='#fff' borderRadius='20px' 
-                    onClick={addQuestionAnswer} w='10%' fontSize={fontSizeResponsive}>
-                        + Add
-                    </Button>
-            </Stack>
+        <Stack  paddingTop='20px'>
+          <Button bg='#3F6FE4' border=' 1px solid #000' color='#fff' borderRadius='20px' 
+          onClick={addQuestionAnswer} w='10%' fontSize={fontSizeResponsive}>
+              + Add
+          </Button>
+        </Stack>
             <form onSubmit={handleSubmit}>
                     {
                         questionAnswer && questionAnswer.map(()=>(

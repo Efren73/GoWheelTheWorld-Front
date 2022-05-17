@@ -74,7 +74,7 @@ const Cart: React.FC = () => {
 				<VStack alignItems='flex-start'>
 					<Text fontSize={fontSizeResponsive} color='#3F6FE4'>Basic Information / Name of the tour</Text>
 					<HStack w="full">
-						<Heading fontSize={fontSizeResponsive}>Give your experience a name</Heading>
+						<Heading fontSize={{base:'35px', sm:'18px'}}>Give your experience a name</Heading>
 						<IconButton
 							variant='outline'
 							aria-label='Info'
@@ -101,7 +101,7 @@ const Cart: React.FC = () => {
 						</HStack>
 					</Box>
 						<Box w='full'>
-							<Heading fontSize={fontSizeResponsive}>Trip duration</Heading>
+							<Heading fontSize={{base:'35px', sm:'18px'}}>Trip duration</Heading>
 						</Box>
 						<Box>
 						<Stack shouldWrapChildren direction={['column', 'column', "column", 'row']} >

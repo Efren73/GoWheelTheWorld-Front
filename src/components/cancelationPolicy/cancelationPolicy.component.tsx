@@ -20,7 +20,7 @@ const CancelationPolicy: React.FC = () => {
     /* RESPONSIVE --------------------------------- */
     const fontSizeResponsive = { base:'20px', sm:'15px'};
 
-    return(
+    return (
     <React.Fragment>
         <Box
         boxShadow='2xl'
@@ -31,7 +31,7 @@ const CancelationPolicy: React.FC = () => {
         borderRadius="10px">
             <Stack spacing={2}>
                 <Text fontSize={fontSizeResponsive} color='#3F6FE4'> Cancelation policy </Text>
-                <Heading fontSize={fontSizeResponsive}> Cancelation policy </Heading>
+                <Heading fontSize={{base:'35px', sm:'18px'}}> Cancelation policy </Heading>
                 <Box w='full'>
                     <Textarea 
                         placeholder="Cancelation policy"
