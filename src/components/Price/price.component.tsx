@@ -15,7 +15,7 @@ const Price: React.FC = () => {
     /* RESPONSIVE -------------------------------------- */
     const fontSizeResponsive = { base:'20px', sm:'15px'};
     
-    return(
+    return (
     <Box boxShadow='2xl'
 			 w="65%" 
 			 h="full"
@@ -25,7 +25,7 @@ const Price: React.FC = () => {
   
         <Stack spacing={2}>
             <Text fontSize={fontSizeResponsive} color='#3F6FE4'> Basic Information / Price </Text>
-            <Heading fontSize={fontSizeResponsive}> Price per person, based on 2 travelers </Heading>
+            <Heading fontSize={{base:'35px', sm:'18px'}}> Price per person, based on 2 travelers </Heading>
         </Stack>
             
             <HStack paddingTop={'30px'} paddingBottom='50px' justifySelf={'center'}>
@@ -35,7 +35,7 @@ const Price: React.FC = () => {
                 </NumberInput>
             </HStack>
 
-            <Heading fontSize={fontSizeResponsive} paddingBottom='30px'>Please share any document related to the price</Heading>
+            <Heading fontSize={{base:'35px', sm:'18px'}} paddingBottom='30px'>Please share any document related to the price</Heading>
             <Stack justifyItems={'center'}>
                 <div className='uploadBtn'>
                     <p className='textBtn'> Upload </p>

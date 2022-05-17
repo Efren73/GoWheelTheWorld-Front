@@ -30,7 +30,7 @@ const UploadPhotos: React.FC = () => {
                 <VStack alignItems='flex-start'>
                     <Stack spacing={2}>
                         <Text fontSize={fontSizeResponsive} color='#3F6FE4'> Basic Information / Upload Photos </Text>
-                        <Heading fontSize={fontSizeResponsive}> Send us the best photos of your tour </Heading>
+                        <Heading fontSize={{base:'35px', sm:'18px'}}> Send us the best photos of your tour </Heading>
                     </Stack>
                     <VStack>
                         <HStack>

@@ -1,7 +1,7 @@
 import * as React from "react"
 import {
   Text,
-  VStack,
+  Heading,
   AspectRatio,
   Stack,
   Input,
@@ -22,7 +22,7 @@ const EndPoint: React.FC = () => {
       
       <Stack spacing={2}>
         <Text fontSize={fontSizeResponsive} color='#3F6FE4'> Itinerary / End Point </Text>
-        <Text fontSize={fontSizeResponsive}> Please introduce the end point </Text>
+        <Heading fontSize={{base:'35px', sm:'18px'}}> Please introduce the end point </Heading>
       </Stack>
 
       <Input  background={'white'}

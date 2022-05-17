@@ -90,17 +90,17 @@ const WhatsIncluded: React.FC = () => {
     const fontSizeResponsive = { base:'20px', sm:'15px'};
 
     return(
-    <React.Fragment>
-         <Box boxShadow='2xl'
-              w="65%" 
-              h="full"
-              p={10}
-              background="#EBE9E9"
-              borderRadius="10px">
+      <React.Fragment>
+        <Box boxShadow='2xl'
+             w="65%" 
+             h="full"
+             p={10}
+             background="#EBE9E9"
+             borderRadius="10px">
   
             <Stack spacing={2}>
                 <Text fontSize={fontSizeResponsive} color='#3F6FE4'> What's included </Text>
-                <Heading fontSize={fontSizeResponsive}> Select what's included with your tour </Heading>
+                <Heading fontSize={{base:'35px', sm:'18px'}}> Select what's included with your tour </Heading>
             </Stack>
             
             <SimpleGrid h='80%' columns={[1, 1, 2, 2, 3]} spacing={15} paddingTop='30px' alignSelf={'center'} fontSize={fontSizeResponsive}>
@@ -112,7 +112,7 @@ const WhatsIncluded: React.FC = () => {
             </SimpleGrid>
 
         </Box >
-    </React.Fragment>
+      </React.Fragment>
     )
 }
 

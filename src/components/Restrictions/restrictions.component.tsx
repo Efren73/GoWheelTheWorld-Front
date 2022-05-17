@@ -118,7 +118,7 @@ const Restrictions: React.FC = () => {
       
       <Stack spacing={2}>
         <Text fontSize={fontSizeResponsive} color='#3F6FE4'> Itinerary / Restrictions </Text>
-        <Heading fontSize={fontSizeResponsive}> Select the restrictions on this tour </Heading>
+        <Heading fontSize={{base:'35px', sm:'18px'}}> Select the restrictions on this tour </Heading>
       </Stack>
       <Stack spacing={5} direction='row'>
         {DisableCheckbox()}

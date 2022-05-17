@@ -111,7 +111,7 @@ function Login(props: ILogin): JSX.Element {
                   </FormControl>
                 </VStack>
                 <Button size='lg'
-                        width='62%'
+                        w={tamano}
                         fontSize={fontSizeResponsive}
                         bg="#2F6FE4"
                         color="white"
@@ -172,7 +172,7 @@ function Login(props: ILogin): JSX.Element {
                   </FormControl>
                 </VStack>
                 <Button size='lg'
-                        width='62%'
+                        width="100%"
                         fontSize={fontSizeResponsive}
                         bg="#2F6FE4"
                         color="white"

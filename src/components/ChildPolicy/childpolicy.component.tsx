@@ -36,7 +36,7 @@ const ChildPolicy: React.FC = () => {
     
     function addAnswer(RadioB:string){
         if (RadioB == 'yes')
-        return(
+        return (
             <Stack w="full" p={5}>
                 <Grid  column={2} columnGap={3} rowGap={6} w="full">
                     <GridItem colSpan = {2}>
@@ -89,10 +89,9 @@ const ChildPolicy: React.FC = () => {
         )
         else if(RadioB == 'no')
         return(
-
-                <Center  h='full' color='black' w="full">
-                        <Text fontSize={fontSizeResponsive} color='#black'>That's all from this part!</Text>
-                 </Center>
+            <Center  h='full' color='black' w="full">
+                <Text fontSize={fontSizeResponsive} color='#black'> That's all from this part! </Text>
+            </Center>
         )
     }
     
@@ -105,23 +104,24 @@ const ChildPolicy: React.FC = () => {
         p={10}
         background="#EBE9E9"
         borderRadius="10px">
+            <Stack spacing={2}>
+                <Text fontSize={fontSizeResponsive} color='#3F6FE4'>Children Policy</Text>
+                <Heading fontSize={{base:'35px', sm:'18px'}}>Tell us about children policy</Heading>
 
-        <Text fontSize={fontSizeResponsive} color='#3F6FE4'>Children Policy</Text>
-        <Heading fontSize={fontSizeResponsive}>Tell us about children policy</Heading>
-
-        <HStack w="full"  >
-            <Text fontSize={fontSizeResponsive} >Are children allowed in this tour? </Text>
-            <RadioGroup onChange={setValueQ1} value={valueQ1} >
-            <Stack direction='row'>
-                <Radio bg="white" value='yes' size='lg'>Yes</Radio>
-                <Radio bg="white" value='no' size='lg'>No</Radio>
+                <HStack w="full"  >
+                    <Text fontSize={fontSizeResponsive} >Are children allowed in this tour? </Text>
+                    <RadioGroup onChange={setValueQ1} value={valueQ1} >
+                    <Stack direction='row'>
+                        <Radio bg="white" value='yes' size='lg'>Yes</Radio>
+                        <Radio bg="white" value='no' size='lg'>No</Radio>
+                    </Stack>
+                </RadioGroup>
+                </HStack>
+                    
+                <HStack>
+                    {addAnswer(valueQ1)}
+                </HStack>
             </Stack>
-        </RadioGroup>
-        </HStack>
-            
-        <HStack>
-            {addAnswer(valueQ1)}
-        </HStack>
         </Box>
     </React.Fragment>
     )

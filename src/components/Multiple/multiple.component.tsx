@@ -1,6 +1,6 @@
 import * as React from "react"
 import {
-  Grid,
+  SimpleGrid,
   Stack,
   Text,
   Box,
@@ -114,10 +114,10 @@ const Multiple = () => {
         
         <Stack spacing={2}>
           <Text fontSize={fontSizeResponsive} color='#3F6FE4'> Basic Information / Type of tour </Text>
-          <Heading fontSize={fontSizeResponsive}> What kind of experience would you like to offer? </Heading>
+          <Heading fontSize={{base:'35px', sm:'18px'}}> What kind of experience would you like to offer? </Heading>
         </Stack>
         
-        <Grid templateColumns='repeat(3, 5fr)' gap={15} paddingTop='25px' h='full' fontSize={fontSizeResponsive} >
+        <SimpleGrid columns={[1, 1, 2, 2, 3]} spacing={15} paddingTop='25px' h='full' fontSize={fontSizeResponsive} >
           {
             experiences.map((experience: string) =>(
               <CustomCheckbox
@@ -128,7 +128,7 @@ const Multiple = () => {
               />
             ))
           }
-        </Grid>
+        </SimpleGrid>
     </Box>
   )
 }

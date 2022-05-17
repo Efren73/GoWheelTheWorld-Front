@@ -56,7 +56,7 @@ const Description: React.FC = () => {
     ];
 
     /* RESPONSIVE -------------------------------------- */
-    const fontSizeResponsive = { base:'20px', sm:'15px'};
+    const fontSizeResponsive = { base:'20px', sm:'15px' };
 
     return (
         <React.Fragment>
@@ -68,7 +68,7 @@ const Description: React.FC = () => {
                  borderRadius="10px">
                 <Stack spacing={2}>
                     <Text fontSize={fontSizeResponsive} color='#3F6FE4'> Basic Information / Description </Text>
-                    <Heading fontSize={fontSizeResponsive}> 
+                    <Heading fontSize={{base:'35px', sm:'18px'}}> 
                         Please share the link to your website or any another platform
                         where the tour/activity is displayed 
                     </Heading>
@@ -82,7 +82,7 @@ const Description: React.FC = () => {
                                 fontSize={fontSizeResponsive}
                                 />
                     </Box>
-                    <Heading fontSize={fontSizeResponsive}> Description of the tour / activity </Heading>
+                    <Heading fontSize={{base:'35px', sm:'18px'}}> Description of the tour / activity </Heading>
                 
                     <Box w='full'>
                         <Textarea 
