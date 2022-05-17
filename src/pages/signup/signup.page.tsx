@@ -27,7 +27,7 @@ function Signup(props: ISignup): JSX.Element {
   /* RESPONSIVE ------------------------------------*/
   const fontSizeResponsive = { base:'20px', sm:'15px'};
   const [isLargerThan1280] = useMediaQuery('(min-width: 800px)')
-  const tamano = { base: "62%", sm: "90%" };
+  const tamano = { base: "62%", sm: "70%" };
 
 	return (
     <React.Fragment>
@@ -52,7 +52,7 @@ function Signup(props: ISignup): JSX.Element {
               <VStack w="full" spacing={14}>
                 <Heading> Become a partner! </Heading>
                 <VStack w="full" spacing={4}>
-                  <FormControl w="62%">
+                  <FormControl w={tamano}>
                     <VStack alignItems="flex-start" spacing="-2.5">
                       <FormLabel fontSize={fontSizeResponsive}> Full name </FormLabel>
                       <Input  placeholder="What's your full name?" 
@@ -63,7 +63,7 @@ function Signup(props: ISignup): JSX.Element {
                               borderColor='#2F6FE4'/>
                     </VStack>
                   </FormControl>
-                  <FormControl w="62%">
+                  <FormControl w={tamano}>
                     <VStack alignItems="flex-start" spacing="-2.5">
                       <FormLabel fontSize={fontSizeResponsive}> Company name </FormLabel>
                       <Input  placeholder="What's your company name?" 
@@ -74,7 +74,7 @@ function Signup(props: ISignup): JSX.Element {
                               borderColor='#2F6FE4'/>
                     </VStack>
                   </FormControl>
-                  <FormControl w="62%">
+                  <FormControl w={tamano}>
                     <VStack alignItems="flex-start" spacing="-2.5">
                       <FormLabel fontSize={fontSizeResponsive}> Phone number </FormLabel>
                       <Input  placeholder="What's your phone number?" 
@@ -86,7 +86,7 @@ function Signup(props: ISignup): JSX.Element {
                               borderColor='#2F6FE4'/>
                     </VStack>
                   </FormControl>
-                  <FormControl w="62%">
+                  <FormControl w={tamano}>
                     <VStack alignItems="flex-start" spacing="-2.5">
                       <FormLabel fontSize={fontSizeResponsive}> Email address </FormLabel>
                       <Input  placeholder="What's your email address?" 
@@ -98,7 +98,7 @@ function Signup(props: ISignup): JSX.Element {
                               borderColor='#2F6FE4'/>
                     </VStack>
                   </FormControl>
-                  <FormControl w="62%">
+                  <FormControl w={tamano}>
                     <VStack alignItems="flex-start" spacing="-2.5">
                       <FormLabel fontSize={fontSizeResponsive}> Password </FormLabel>
                       <InputGroup size='md'>
@@ -121,7 +121,7 @@ function Signup(props: ISignup): JSX.Element {
                   </FormControl>
                 </VStack>
                 <Button size='lg'
-                        width='62%'
+                        width={tamano}
                         fontSize={fontSizeResponsive}
                         bg="#2F6FE4"
                         color="white"
@@ -138,7 +138,7 @@ function Signup(props: ISignup): JSX.Element {
               <VStack w="full" spacing={10}>
                 <Heading> Become a partner! </Heading>
                 <VStack w="full" spacing={4}>
-                  <FormControl w="62%">
+                  <FormControl w={tamano}>
                     <VStack alignItems="flex-start" spacing="-2.5">
                       <FormLabel fontSize={fontSizeResponsive}> Full name </FormLabel>
                       <Input  placeholder="What's your full name?" 
@@ -149,7 +149,7 @@ function Signup(props: ISignup): JSX.Element {
                               borderColor='#2F6FE4'/>
                     </VStack>
                   </FormControl>
-                  <FormControl w="62%">
+                  <FormControl w={tamano}>
                     <VStack alignItems="flex-start" spacing="-2.5">
                       <FormLabel fontSize={fontSizeResponsive}> Company name </FormLabel>
                       <Input  placeholder="What's your company name?" 
@@ -160,7 +160,7 @@ function Signup(props: ISignup): JSX.Element {
                               borderColor='#2F6FE4'/>
                     </VStack>
                   </FormControl>
-                  <FormControl w="62%">
+                  <FormControl w={tamano}>
                     <VStack alignItems="flex-start" spacing="-2.5">
                       <FormLabel fontSize={fontSizeResponsive}> Phone number </FormLabel>
                       <Input  placeholder="What's your phone number?" 
@@ -172,7 +172,7 @@ function Signup(props: ISignup): JSX.Element {
                               borderColor='#2F6FE4'/>
                     </VStack>
                   </FormControl>
-                  <FormControl w="62%">
+                  <FormControl w={tamano}>
                     <VStack alignItems="flex-start" spacing="-2.5">
                       <FormLabel fontSize={fontSizeResponsive}> Email address </FormLabel>
                       <Input  placeholder="What's your email address?" 
@@ -184,7 +184,7 @@ function Signup(props: ISignup): JSX.Element {
                               borderColor='#2F6FE4'/>
                     </VStack>
                   </FormControl>
-                  <FormControl w="62%">
+                  <FormControl w={tamano}>
                     <VStack alignItems="flex-start" spacing="-2.5">
                       <FormLabel fontSize={fontSizeResponsive}> Password </FormLabel>
                       <InputGroup size='md'>
@@ -207,7 +207,7 @@ function Signup(props: ISignup): JSX.Element {
                   </FormControl>
                 </VStack>
                 <Button size='lg'
-                        width='62%'
+                        width={tamano}
                         fontSize={fontSizeResponsive}
                         bg="#2F6FE4"
                         color="white"

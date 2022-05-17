@@ -47,7 +47,7 @@ function Login(props: ILogin): JSX.Element {
   /* RESPONSIVE ------------------------------------*/
   const fontSizeResponsive = { base:'20px', sm:'15px'};
   const [isLargerThan1280] = useMediaQuery('(min-width: 800px)')
-  const tamano = { base: "62%", sm: "90%" };
+  const tamano = { base: "62%", sm: "70%" };
 
 	return (
 		<React.Fragment>
