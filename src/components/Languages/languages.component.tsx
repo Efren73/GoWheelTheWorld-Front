@@ -92,8 +92,10 @@ const Languages = () => {
       // actualizamos al arreglo original checkedItems con el arreglo de filter
       setCheckedItems(result)
     }
-    console.log('PADRE', checkedItems)
+    
   }
+
+  console.log(checkedItems)
 
   /* RESPONSIVE -------------------------------------------------------*/
   const fontSizeResponsive = { base:'20px', sm:'15px'};

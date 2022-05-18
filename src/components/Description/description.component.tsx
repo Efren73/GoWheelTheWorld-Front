@@ -33,6 +33,7 @@ const Description: React.FC = () => {
             setCharacters(inputValue.length)
         }
     }
+    console.log('description', value)
 
     // Control de input para el link
     let [value1, setValue1] = useState('')
@@ -42,6 +43,7 @@ const Description: React.FC = () => {
         inputValue1 = e.target.value
         setValue1(inputValue1)
     }
+    console.log('link', value1)
 
     //Elementos utilizados para la ventana modal
     const { isOpen, onOpen, onClose } = useDisclosure()

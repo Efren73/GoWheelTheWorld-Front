@@ -101,6 +101,7 @@ const GroupPrivate: React.FC = () => {
           setCheckedItems(result)
         }
       }
+      console.log('Arreglo', checkedItems)
 
     /* LÓGICA SEGUNDA PREGUNTA ----------------------------------------- */
     const [minimo, setMinimo] = React.useState(1)
