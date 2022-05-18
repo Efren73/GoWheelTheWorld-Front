@@ -17,7 +17,7 @@ const Price: React.FC = () => {
     
     const [price, setPrice] = React.useState();
    
-    console.log('Hola',price)
+    console.log('value',price)
 
     return (
     <Box boxShadow='2xl'
