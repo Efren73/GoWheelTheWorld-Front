@@ -126,8 +126,9 @@ const GruoupPrivate: React.FC = () => {
           // actualizamos al arreglo original checkedItems con el arreglo de filter
           setCheckedItems(result)
         }
-        console.log('PADRE', checkedItems)
+       
       }
+      console.log('Arreglo', checkedItems)
 
     return(
         <ChakraProvider>

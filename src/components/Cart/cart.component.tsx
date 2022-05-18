@@ -67,17 +67,18 @@ const Cart: React.FC = () => {
             setValue(inputValue)
             setCharacters(inputValue.length)
         }
+		
     }
-
+	console.log('value', value)
 	//Elementos utilizados para la ventana modal
     const { isOpen, onOpen, onClose } = useDisclosure()
 
-	//Matriz en donde se guardan los ejemplos de faqs
-    const faqsExamples: string[][]=[
-        ['Downtown Manhattan Private Guided Tour'],
-        ['Boat Tour in Manhattan'],
-        ['DUMBO Tour, The New Brooklyn'],
-        ['Snorkel with whale sharks']
+	//Arreglo en donde se guardan los ejemplos de faqs
+    const faqsExamples: string[]=[
+        'Downtown Manhattan Private Guided Tour',
+        'Boat Tour in Manhattan',
+        'DUMBO Tour, The New Brooklyn',
+        'Snorkel with whale sharks'
     ];
 
     return(
@@ -122,8 +123,9 @@ const Cart: React.FC = () => {
 							</Button>
 						</HStack>
 						</Box>
+
 						<Box w='full'>
-						<Heading fontSize='25px'>Trip duration</Heading>
+							<Heading fontSize='25px'>Trip duration</Heading>
 						</Box>
 						<Box>
 						<Stack shouldWrapChildren direction='row'>
@@ -159,8 +161,7 @@ const Cart: React.FC = () => {
 					{
 						faqsExamples.map((faq) => (
 							<Stack marginBottom='10px'>
-								<Text color='#3F6FE4' fontSize='20px'>{faq[0]}</Text>
-								<Text fontSize='16px'>{faq[1]}</Text>
+								<Text fontSize='16px'>{faq}</Text>
 							</Stack>
 						))
 					}
