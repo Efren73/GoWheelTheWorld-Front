@@ -58,3 +58,5 @@ const childrenPolicyReducer = (
         }
     }
 };
+
+export default childrenPolicyReducer

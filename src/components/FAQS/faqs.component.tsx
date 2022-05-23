@@ -3,10 +3,8 @@ import { useState } from "react"
 import { Flex, position, useDisclosure } from "@chakra-ui/react"
 import {
     Text,
-    VStack,
     HStack,
     Box,
-    ChakraProvider,
     Button,
     Stack,
     Checkbox,
@@ -17,7 +15,7 @@ import {
     ModalHeader,
     ModalBody,
     ModalFooter,
-    FormControl,
+    Heading,
 } from "@chakra-ui/react"
 
 import { DeleteIcon } from "@chakra-ui/icons"
@@ -117,9 +115,12 @@ const Faqs: React.FC = () => {
         newArray.splice(index, 1)
         setQuestionAnswer(newArray)
     }
+
+    /* RESPONSIVE --------------------------------- */
+    const fontSizeResponsive = { base:'20px', sm:'15px'};
     
     return(
-    <ChakraProvider>
+    <React.Fragment>
          <Box boxShadow='2xl'
               w="65%" 
               h="full"
@@ -127,13 +128,12 @@ const Faqs: React.FC = () => {
               background="#EBE9E9"
               borderRadius="10px">
   
-            <Stack spacing={2}>
-                <Text fontSize='20px' color='#3F6FE4'>FAQS</Text>
-                <Text fontSize='35px'>Add your Frequently Asked Questions</Text>
+            <Stack spacing={2} marginBottom={15}>
+                <Text  color='#3F6FE4' fontSize={fontSizeResponsive}>FAQS</Text>
+                <Heading fontSize={{base:'35px', sm:'18px'}}>Add your Frequently Asked Questions</Heading>
             </Stack>
 
             <Stack overflowY='auto' w='full' justifyContent='flex-start'>
-
                 <Stack w='85%' justifyContent='start'>
                     <HStack justifyContent='flex-start'>
                         <Checkbox 
@@ -142,14 +142,14 @@ const Faqs: React.FC = () => {
                             size='lg' 
                             onChange={() => setCheck1(!check1)}
                             />
-                        <Text fontSize='25px'>Can I Park here?</Text>
+                        <Text fontSize={fontSizeResponsive}>Can I Park here?</Text>
                     </HStack>
                         {check1 && addAnswer()}
                     
                 </Stack>
                 <Stack>
                     <Button bg='#3F6FE4' border=' 1px solid #000' color='#fff' borderRadius='20px' 
-                    onClick={addQuestionAnswer} w='10%' >
+                    onClick={addQuestionAnswer} w='10%' fontSize={{base: '25px', sm: '10px', md:'15px'}} >
                         + Add
                     </Button>
                 </Stack>
@@ -222,7 +222,7 @@ const Faqs: React.FC = () => {
             </ModalContent>
       </Modal>
 
-    </ChakraProvider>
+    </React.Fragment>
     )
 }
 export default Faqs;

@@ -4,7 +4,6 @@ import {
     Text,
     HStack,
     Box,
-    ChakraProvider,
     Button,
     Stack,
     Textarea,
@@ -16,6 +15,7 @@ import {
     ModalFooter,
     useDisclosure,
     Link,
+    Heading,
 } from "@chakra-ui/react"
 import { ExternalLinkIcon } from '@chakra-ui/icons'
 
@@ -33,6 +33,7 @@ const Description: React.FC = () => {
             setCharacters(inputValue.length)
         }
     }
+    console.log('description', value)
 
     // Control de input para el link
     let [value1, setValue1] = useState('')
@@ -42,6 +43,7 @@ const Description: React.FC = () => {
         inputValue1 = e.target.value
         setValue1(inputValue1)
     }
+    console.log('link', value1)
 
     //Elementos utilizados para la ventana modal
     const { isOpen, onOpen, onClose } = useDisclosure()
@@ -55,72 +57,76 @@ const Description: React.FC = () => {
         'This bus tour of Miami brings together some of the city\'s best tourist highlights and takes place on a bus with a transparent roof, so you can admire the great views whilst being protected from the elements. Drivers are available to help people with reduced mobility to transfer into the bus and there is space to store one manual wheelchair onboard. Service animals are also welcome on this tour. The tour lasts for approximately 3 hours and has 3 pick-up/drop-off points, plus an extended stop in Little Havana and in Wynwood. Each meeting point is easy to find and is located close to a parking lot. You’ll get a chance to see the South Beach area of Miami, with its famous Art Deco-style buildings, and then you’ll cruise through downtown Miami. Next is Little Havana, the neighborhood where many Cuban migrants settled, and you’ll have approximately 20 minutes here if you wish to get off the bus and explore. Afterwards, you will head to Wynwood, the trendiest art district which is home to Wynwood Wall, a place to see the best urban street art. This stop is slightly longer, giving you time to explore the district by yourself, if you wish. The tour will then loop through to chic Miami Design District before returning to the first meeting point. The tour bus does not have accessible bathroom facilities, but the drivers are very familiar with the city and can recommend accessible public bathroom facilities in cafes or restaurants that are close to the stop-off points in Little Havana and Wynwood.'
     ];
 
-    return(
-    <ChakraProvider>
-        <Box
-        boxShadow='2xl'
-        w="65%" 
-        h="full"
-        p={10}
-        background="#EBE9E9"
-        borderRadius="10px">
-  
-            <Stack spacing={2}>
-                <Text fontSize='20px' color='#3F6FE4'>Basic Information / Description</Text>
-                <Text fontSize='35px'> Please share the link to your website or any another platform
-                                       where the tour/activity is displayed </Text>
-                <Box w="full">
-                    <Textarea 
-                            h='100px'
-                            placeholder="Link"
-                            background='#fff'
-                            onChange={handleInputLink}
-                            value = {value1}
-                            />
-                </Box>
-                <Text fontSize='35px'>Description of the tour / activity</Text>
-              
-                <Box w='full'>
-                    <Textarea 
-                        h='500px'
-                        placeholder="Description of the tour"
-                        background='#fff'
-                        onChange={handleInputChange}
-                        value = {value}
-                        />
-                  
-                    <HStack justifyContent='space-between' color='#2F6FE4' >
-                        <Text>{characters}/1600</Text>
-                        <Button variant="link" onClick={onOpen}>
-                            <Text color='#2F6FE4' as='u'>Show examples</Text>
-                        </Button>
-                    </HStack>
-                </Box>
-            </Stack>
-        </Box >
+    /* RESPONSIVE -------------------------------------- */
+    const fontSizeResponsive = { base:'20px', sm:'15px' };
 
-        <Modal onClose={onClose} size='xl' isOpen={isOpen} scrollBehavior='inside'>
-            <ModalOverlay />
-            <ModalContent background='#EBE9E9'>
-            <ModalHeader color='#3F6FE4'>Examples</ModalHeader>
-            <ModalBody alignSelf={'center'}>
-                <Link href='https://wheeltheworld.com/destinations/accessible-travel-usa/new-york/things-to-do/downtown-manhattan-private-guided-tour' isExternal>
-                Example 1 <ExternalLinkIcon mx='2px' color='#3F6FE4'/>
-                </Link>
-                <Link marginLeft={'30px'} href='https://wheeltheworld.com/destinations/accessible-travel-mexico/playa-del-carmen/things-to-do/rio-secreto-dry-tour' isExternal>
-                Example 2 <ExternalLinkIcon mx='2px' color='#3F6FE4'/>
-                </Link>
-                <Link marginLeft={'30px'} href='https://wheeltheworld.com/destinations/accessible-travel-usa/maui/things-to-do/whale-watching-tour' isExternal>
-                Example 3 <ExternalLinkIcon mx='2px' color='#3F6FE4'/>
-                </Link>
+    return (
+        <React.Fragment>
+            <Box boxShadow='2xl'
+                 w="65%" 
+                 h="full"
+                 p={10}
+                 background="#EBE9E9"
+                 borderRadius="10px">
+                <Stack spacing={2}>
+                    <Text fontSize={fontSizeResponsive} color='#3F6FE4'> Basic Information / Description </Text>
+                    <Heading fontSize={{base:'35px', sm:'18px'}}> 
+                        Please share the link to your website or any another platform
+                        where the tour/activity is displayed 
+                    </Heading>
+                    <Box w="full">
+                        <Textarea 
+                                h='100px'
+                                placeholder="Link"
+                                background='#fff'
+                                onChange={handleInputLink}
+                                value = {value1}
+                                fontSize={fontSizeResponsive}
+                                />
+                    </Box>
+                    <Heading fontSize={{base:'35px', sm:'18px'}}> Description of the tour / activity </Heading>
                 
-            </ModalBody>
-            <ModalFooter>
-                <Button onClick={onClose} background='#3F6FE4' color={'white'}>Close</Button>
-            </ModalFooter>
-            </ModalContent>
-      </Modal>
-    </ChakraProvider>
+                    <Box w='full'>
+                        <Textarea 
+                            h='500px'
+                            placeholder="Description of the tour"
+                            background='#fff'
+                            onChange={handleInputChange}
+                            value = {value}
+                            fontSize={fontSizeResponsive}
+                            />
+                    
+                        <HStack justifyContent='space-between' color='#2F6FE4' >
+                            <Text fontSize={fontSizeResponsive}>{characters}/1600</Text>
+                            <Button variant="link" onClick={onOpen}>
+                                <Text color='#2F6FE4' as='u' fontSize={fontSizeResponsive}> Show examples </Text>
+                            </Button>
+                        </HStack>
+                    </Box>
+                </Stack>
+            </Box >
+
+            <Modal onClose={onClose} size='xl' isOpen={isOpen} scrollBehavior='inside'>
+                <ModalOverlay />
+                <ModalContent background='#EBE9E9'>
+                <ModalHeader color='#3F6FE4' fontSize={fontSizeResponsive}>Examples</ModalHeader>
+                <ModalBody alignSelf={'center'}>
+                    <Link href='https://wheeltheworld.com/destinations/accessible-travel-usa/new-york/things-to-do/downtown-manhattan-private-guided-tour' isExternal fontSize={fontSizeResponsive}>
+                    Example 1 <ExternalLinkIcon mx='2px' color='#3F6FE4'/>
+                    </Link>
+                    <Link marginLeft={'30px'} href='https://wheeltheworld.com/destinations/accessible-travel-mexico/playa-del-carmen/things-to-do/rio-secreto-dry-tour' isExternal fontSize={fontSizeResponsive}>
+                    Example 2 <ExternalLinkIcon mx='2px' color='#3F6FE4'/>
+                    </Link>
+                    <Link marginLeft={'30px'} href='https://wheeltheworld.com/destinations/accessible-travel-usa/maui/things-to-do/whale-watching-tour' isExternal fontSize={fontSizeResponsive}>
+                    Example 3 <ExternalLinkIcon mx='2px' color='#3F6FE4'/>
+                    </Link>
+                </ModalBody>
+                <ModalFooter>
+                    <Button onClick={onClose} background='#3F6FE4' color={'white'} fontSize={fontSizeResponsive}>Close</Button>
+                </ModalFooter>
+                </ModalContent>
+            </Modal>
+        </React.Fragment>
     )
 }
 export default Description;

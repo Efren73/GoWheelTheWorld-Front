@@ -1,26 +1,30 @@
 import * as React from "react"
 import {
-  Grid,
+  SimpleGrid,
   Stack,
   Text,
   Box,
   chakra,
   useCheckbox,
-  useCheckboxGroup
+  useCheckboxGroup,
+  Heading,
+  Input,
 } from "@chakra-ui/react"
 
-const Multiple = () => {
+import { useState } from "react"
 
-  //Customización del checkbox
 function CustomCheckbox(props: any) {
-  const { state, getCheckboxProps, getInputProps, getLabelProps } =
-    useCheckbox()
-  
+  const { state, getCheckboxProps, getInputProps, getLabelProps } = useCheckbox(props)
+  //console.log('HIJO ', props)
   let backgroundValue: string;
   let colorValue: string;
 
-    if(!state.isChecked){
+  // Para cambiar el estado de los checkbox checkeados
+  const [isCheckedItem, setisChecked] = useState(false)
+    //console.log('HIJOisChecked ', props.value, props.isChecked)
+    //console.log('isCheckedItem', props.value, isCheckedItem)
 
+    if(!isCheckedItem){
       backgroundValue = '#fff'
       colorValue = '#000'
     }
@@ -43,31 +47,65 @@ function CustomCheckbox(props: any) {
           rounded='lg'
           cursor='pointer'
           {...getCheckboxProps()}
+          onChange={() => {
+            // Función que en el Padre se llama handleCheckedItems, se pasó como onChange
+            // El hijo le pasa al Padre la experience selccionada y su estado
+            setisChecked(!isCheckedItem)
+            props.onChange(props.value, isCheckedItem)
+            
+            //console.log('HIJOisCheckedItem',isCheckedItem)
+          }}
           >
-          <input {...getInputProps()} hidden />
+          <Input {...getInputProps()} hidden />
           <Text {...getLabelProps()}>{props.value}</Text>
        </chakra.label>
     )
-  }
+}
+
+const Multiple = () => {
   const { value, getCheckboxProps } = useCheckboxGroup()
+
+  // Arreglo de strings para guardar los checkboxes seleccionados
+  const [checkedItems, setCheckedItems] = useState<string[]>([])
 
   const experiences: string[] = [
     'Outdoor activity',
-'Hiking activity',
-'Snow activity',
-'Water activity',
-'Air activity',
-'Sports activity',
-'Ticket activity',
-'Attraction',
-'City tour',
-'Food tour',
-'Driving tour',
-'Riding tour',
-'Boat tour',
-'Air tour'
+    'Hiking activity',
+    'Snow activity',
+    'Water activity',
+    'Air activity',
+    'Sports activity',
+    'Ticket activity',
+    'Attraction',
+    'City tour',   
+    'Food tour',
+    'Driving tour',
+    'Riding tour',
+    'Boat tour',
+    'Air tour'
   ]
-  return(
+
+  const handleCheckedItems = (expereinceName:string, checkea:boolean) => {
+    // Agregando el nombre de la experiencia que se selccionó en el hijo CustomCheckbox
+  
+    //console.log('PADREisChecked', checkea)
+    if(checkea === false){
+      setCheckedItems([...checkedItems, expereinceName])
+    }
+    else {
+      // filter regresa una copia del arreglo original, pero ahora sin el expereinceName que indique
+      const result = checkedItems.filter(checkedItems => checkedItems != expereinceName)
+      // actualizamos al arreglo original checkedItems con el arreglo de filter
+      setCheckedItems(result)
+    }
+    
+  }
+  console.log('Arreglo', checkedItems)
+
+  /* RESPONSIVE -------------------------------------------------------*/
+  const fontSizeResponsive = { base:'20px', sm:'15px'};
+
+  return (
     <Box boxShadow='2xl'
         w="65%" 
         h="full"
@@ -76,17 +114,22 @@ function CustomCheckbox(props: any) {
         borderRadius="10px">
         
         <Stack spacing={2}>
-          <Text fontSize='20px' color='#3F6FE4'>Basic Information / Type of tour</Text>
-          <Text fontSize='35px'>What kind of experience would you like to offer?</Text>
+          <Text fontSize={fontSizeResponsive} color='#3F6FE4'> Basic Information / Type of tour </Text>
+          <Heading fontSize={{base:'35px', sm:'18px'}}> What kind of experience would you like to offer? </Heading>
         </Stack>
         
-        <Grid templateColumns='repeat(3, 5fr)' gap={15} paddingTop='25px' h='full'>
+        <SimpleGrid columns={[1, 1, 2, 2, 3]} spacing={15} paddingTop='25px' h='full' fontSize={fontSizeResponsive} >
           {
             experiences.map((experience: string) =>(
-              <CustomCheckbox {...getCheckboxProps({value: `${experience}`})} />
+              <CustomCheckbox
+              // Llamando a función hijo CustomCheckbox, se le pasa el arreglo de experiences
+              {...getCheckboxProps({value: `${experience}`})}
+              // Función que en el Padre se llama handleCheckedItems, se pasa como onChange
+              onChange={handleCheckedItems}
+              />
             ))
           }
-        </Grid>
+        </SimpleGrid>
     </Box>
   )
 }

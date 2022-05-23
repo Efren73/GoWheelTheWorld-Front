@@ -15,13 +15,10 @@ import {
   
 import logo from '../../login/images/logo.png'
 import { useNavigate, useLocation } from "react-router-dom";
-import { endPoint } from "../../../actions/intineraryAccion";
-import {useSelector, useDispatch} from 'react-redux'
 import { IFooter } from "./footer.types";
 
   function Footer ()  {
     let ProgressNav = ["name-of-tour", "type-of-tour", "group-private", "price","description","upload-photos","meeting-point","end-point","stops","languages", "restrictions","children-policy","General","Food","Transport", "assistance","transportation","restrooms","places","equipment","faqs","cancelation-policy","" ]
-    let dispatcher =  useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -35,7 +32,6 @@ import { IFooter } from "./footer.types";
         navigate('/tour-operator/1/tour-completed/1')
       else
         navigate(`/tour-operator/1/question/1/${ProgressNav[index+1]}`)
-        dispatcher(endPoint(""))
     }
 
     
@@ -44,7 +40,6 @@ import { IFooter } from "./footer.types";
         navigate(`/tour-operator/1`)
       else
         navigate(`/tour-operator/1/question/1/${ProgressNav[index-1]}`)
-      //dispatcher(moveNext(Position[Position.length-1]))
     }
     
     return(

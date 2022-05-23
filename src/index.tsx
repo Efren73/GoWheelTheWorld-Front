@@ -1,4 +1,4 @@
-import { ChakraProvider, ColorModeScript } from "@chakra-ui/react"
+import { ChakraProvider, ColorModeScript, CSSReset } from "@chakra-ui/react"
 import * as React from "react"
 import ReactDOM from "react-dom"
 import { App } from "./App"
@@ -28,14 +28,16 @@ import ProfileSettings from './pages/adminSummary/adminSummary.page'
 import UserSettings from './pages/userSettings/userSettings.page'
 import { Provider } from 'react-redux';
 import {createStore} from 'redux';
-import progressNavReducer from './reducers';
+import rootReducer from './reducers';
 
 /*
 const store = createStore  (
-  progressNavReducer,
+  rootReducer,
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );*/
 
+import theme from "./theme"
+import './styles.css'
 /*
   signup
   Login
@@ -44,14 +46,14 @@ const store = createStore  (
   Question
   Tour completed
 */
+console.log(theme)
 ReactDOM.render(
   <React.StrictMode>
     <ColorModeScript />
-    <Provider store={store}>
-    <ChakraProvider >
+    <ChakraProvider theme={theme}>
+      <CSSReset />
       <App />
     </ChakraProvider>
-    </Provider>
   </React.StrictMode>,
   document.getElementById("root"),
 )

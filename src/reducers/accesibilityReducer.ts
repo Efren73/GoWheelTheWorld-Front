@@ -92,3 +92,5 @@ const accesibilityReducer = (
         }
     }
 };
+
+export default accesibilityReducer

@@ -29,3 +29,5 @@ const faqsReducer = (
         }
     }
 };
+
+export default faqsReducer

@@ -92,7 +92,7 @@ export const Admin  = () => {
 
 
     return(
-    <ChakraProvider theme={theme}>
+    <React.Fragment>
         <Flex h="100vh">
             <VStack w="full" h="full">
                 <TopMenu/>
@@ -246,7 +246,7 @@ export const Admin  = () => {
 
             </VStack>
         </Flex>
-    </ChakraProvider>
+    </React.Fragment>
     )}
    
 export default Admin;

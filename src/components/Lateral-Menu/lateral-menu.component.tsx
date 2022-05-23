@@ -32,7 +32,7 @@ const LateralMenu = (props: any) => {
 
   console.log(props)
   return (
-    <ChakraProvider>
+    <React.Fragment>
       <Box h='full'>
         <Box h="full" alignItems="flex-start" background='#000' paddingTop={2}>
           <Button colorScheme='blackAlpha' onClick={onOpen} >
@@ -147,19 +147,19 @@ const LateralMenu = (props: any) => {
                       </AccordionButton>
                     </h2>
                     <AccordionPanel pb={4}>
-                      <Link to="whats-included/General">
+                      <Link to="whats-included-general">
                         <Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">General</Button>
                       </Link>
                       
-                      <Link to="whats-included/Food">
+                      <Link to="whats-included-food">
                         <Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">Food</Button>
                       </Link>
 
-                      <Link to="whats-included/Transport">
+                      <Link to="whats-included-transport">
                         <Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">Transport</Button>
                       </Link>
                       
-                      <Link to="whats-included/Accessibility">
+                      <Link to="whats-included-accessibility">
                         <Button colorScheme='white' variant='ghost'height='30px' width='250px' justifyContent="flex-start">Accessibility</Button>
                       </Link>
 
@@ -235,7 +235,7 @@ const LateralMenu = (props: any) => {
           </DrawerContent>
         </Drawer>
       </Box>
-    </ChakraProvider>
+    </React.Fragment>
  
       
   )

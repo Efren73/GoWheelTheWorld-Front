@@ -1,27 +1,29 @@
 import * as React from "react"
 import {
   Text,
-  VStack,
   Stack,
-  Button,
-  Grid,
+  SimpleGrid,
   Box,
   useCheckbox,
   chakra,
-  useCheckboxGroup
+  useCheckboxGroup,
+  Heading,
 } from "@chakra-ui/react"
 
-const Languages = () => {
-//Customización del checkbox
+import { useState } from "react"
+
 function CustomCheckbox(props: any) {
-  const { state, getCheckboxProps, getInputProps, getLabelProps } =
-    useCheckbox()
-  
+  const { state, getCheckboxProps, getInputProps, getLabelProps } = useCheckbox(props)
+  //console.log('HIJO ', props)
   let backgroundValue: string;
   let colorValue: string;
 
-    if(!state.isChecked){
+  // Para cambiar el estado de los checkbox checkeados
+  const [isCheckedItem, setisChecked] = useState(false)
+    //console.log('HIJOisChecked ', props.value, props.isChecked)
+    //console.log('isCheckedItem', props.value, isCheckedItem)
 
+    if(!isCheckedItem){
       backgroundValue = '#fff'
       colorValue = '#000'
     }
@@ -44,13 +46,26 @@ function CustomCheckbox(props: any) {
           rounded='lg'
           cursor='pointer'
           {...getCheckboxProps()}
+          onChange={() => {
+            // Función que en el Padre se llama handleCheckedItems, se pasó como onChange
+            // El hijo le pasa al Padre la experience selccionada y su estado
+            setisChecked(!isCheckedItem)
+            props.onChange(props.value, isCheckedItem)
+            
+            //console.log('HIJOisCheckedItem',isCheckedItem)
+          }}
           >
           <input {...getInputProps()} hidden />
           <Text {...getLabelProps()}>{props.value}</Text>
        </chakra.label>
     )
-  }
+}
+
+const Languages = () => {
   const { value, getCheckboxProps } = useCheckboxGroup()
+
+  // Arreglo de strings para guardar los checkboxes seleccionados
+  const [checkedItems, setCheckedItems] = useState<string[]>([])
 
   const languages: string[] = [
     'English',
@@ -64,6 +79,27 @@ function CustomCheckbox(props: any) {
     'Japanese'
   ]
 
+  const handleCheckedItems = (languageName:string, checkea:boolean) => {
+    // Agregando el nombre de el lenguaje que se selccionó en el hijo CustomCheckbox
+  
+    //console.log('PADREisChecked', checkea)
+    if(checkea === false){
+      setCheckedItems([...checkedItems, languageName])
+    }
+    else {
+      // filter regresa una copia del arreglo original, pero ahora sin el languageName que indique
+      const result = checkedItems.filter(checkedItems => checkedItems != languageName)
+      // actualizamos al arreglo original checkedItems con el arreglo de filter
+      setCheckedItems(result)
+    }
+    
+  }
+
+  console.log(checkedItems)
+
+  /* RESPONSIVE -------------------------------------------------------*/
+  const fontSizeResponsive = { base:'20px', sm:'15px'};
+
   return(
     <Box boxShadow='2xl'
       w="65%" 
@@ -73,17 +109,23 @@ function CustomCheckbox(props: any) {
       borderRadius="10px">
 
       <Stack spacing={2}>
-        <Text fontSize='20px' color='#3F6FE4'>Itinerary / Languages</Text>
-        <Text fontSize='35px'>Select the spoken languages on this tour</Text>
+        <Text fontSize={fontSizeResponsive} color='#3F6FE4'> Itinerary / Languages </Text>
+        <Heading fontSize={{base:'35px', sm:'18px'}}> Select the spoken languages on this tour </Heading>
       </Stack>
 
-      <Grid templateColumns='repeat(2, 5fr)' gap={15} justifyItems='center' paddingTop='30px' h='80%' overflowY='auto'>
+      <SimpleGrid columns={[1, 1, 1, 2, 3]} spacing={15} justifyItems='center' paddingTop='30px' h='80%' overflowY='auto' fontSize={fontSizeResponsive}>
         {
           languages.map((language: string) =>(
-            <CustomCheckbox {...getCheckboxProps({value: `${language}`})} />
+            <CustomCheckbox
+            // Llamando a función hijo CustomCheckbox, se le pasa el arreglo de experiences
+            {...getCheckboxProps({value: `${language}`})}
+            // Función que en el Padre se llama handleCheckedItems, se pasa como onChange
+            onChange={handleCheckedItems}
+            />
+
           ))
         }
-      </Grid>
+      </SimpleGrid>
     </Box>
   )
 }

@@ -41,9 +41,9 @@ function Question(props: IQuestion): JSX.Element {
     }
     
 	return (
-	<ChakraProvider>
-        <Flex  w="full">
-            <Box >
+	<React.Fragment>
+        <Flex>
+            <HStack w="full" h="full" >
                 <Box  h='full' position='absolute'>
                     <LateralMenu />
                 </Box>
@@ -59,15 +59,14 @@ function Question(props: IQuestion): JSX.Element {
                         </HStack>
                     </Box>
 
-                    <Box w='80%' alignSelf='center'>
-                    <Divider />
+                    <Box w='85%'marginLeft={'6%'}>
                         <Footer/>
                     </Box>
                     
                 </VStack>
-            </Box>
+            </HStack>
         </Flex>
-    </ChakraProvider>
+    </React.Fragment>
 	);
 }
 
