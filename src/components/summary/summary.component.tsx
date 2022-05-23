@@ -24,7 +24,7 @@ const Summary = () => (
       Summary
     </Heading>
 
-    <VStack h='600px' padding='20px' overflowY='auto'>
+    <VStack h="80vh" padding='20px' overflowY='auto'>
       <VStack w="full" h="full" alignItems="flex-start" spacing="-0.4">
         <Text color='#2F6FE4'>
           Basic Information

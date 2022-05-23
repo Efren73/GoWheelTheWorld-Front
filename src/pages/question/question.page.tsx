@@ -1,13 +1,15 @@
 import React from 'react';
-import { Routes, useNavigate, Outlet } from 'react-router-dom';
+import { Routes, useNavigate, Outlet, useLocation} from 'react-router-dom';
 
 import {
   VStack,
   Flex,
+  Stack,
   ChakraProvider,
   useBreakpointValue,
   HStack,
   Box,
+  Divider
 } from "@chakra-ui/react";
 
 import { IQuestion } from './question.types';
@@ -21,13 +23,11 @@ import {
 import Header from './Header';
 import Footer from './Footer';
 
-
 function Question(props: IQuestion): JSX.Element {
       const navigate = useNavigate();
 
-      const screenSize = useBreakpointValue({ base: 'true', md: 'false', lg:'false' })
-      console.log(screenSize)
 
+      const screenSize = useBreakpointValue({ base: 'true', md: 'false', lg:'false' })
       function CheckSize(screenSize:any){
           if (screenSize=='false')
               return (
@@ -42,8 +42,8 @@ function Question(props: IQuestion): JSX.Element {
     
 	return (
 	<ChakraProvider>
-        <Flex>
-            <HStack w="full" h="full" >
+        <Flex  w="full">
+            <Box >
                 <Box  h='full' position='absolute'>
                     <LateralMenu />
                 </Box>
@@ -52,19 +52,20 @@ function Question(props: IQuestion): JSX.Element {
                     <Box w='92%' h="16%" marginLeft='2%'>
                         <Header/>
                     </Box>
-                    <Box h="68%" w="97%">
-                        <HStack justifyContent="center" h="full" w="full" spacing={51} alignItems='flex-start' marginLeft={'2%'}>
+                    <Box  w="95%">
+                        <HStack   w="full" justifyContent={"space-around"} alignItems='flex-start' marginLeft={'2%'}>
                             <Outlet />
                             {CheckSize(screenSize)}
                         </HStack>
                     </Box>
 
-                    <Box w='96%'marginLeft={'5%'} alignSelf='end'>
+                    <Box w='80%' alignSelf='center'>
+                    <Divider />
                         <Footer/>
                     </Box>
                     
                 </VStack>
-            </HStack>
+            </Box>
         </Flex>
     </ChakraProvider>
 	);

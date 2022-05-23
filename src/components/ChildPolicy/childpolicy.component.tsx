@@ -105,7 +105,7 @@ const ChildPolicy: React.FC = () => {
     <ChakraProvider>
         <Box
         boxShadow='xl'
-        w={{base:"65%", sm:'80%'}}
+        w={{base:"65%", md:'70%', sm:'75%'}}
         h="full"
         p={10}
         background="#EBE9E9"

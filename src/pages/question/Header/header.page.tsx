@@ -57,7 +57,7 @@ import {
     }
 
     return (
-    <HStack w='full'  h={20} justifyContent='space-between' paddingRight='10%'>
+    <HStack w='full'  h={20} justifyContent='space-between' paddingRight='5%'>
         <Box paddingLeft={{sm:'5'}} w={{base: '10%', md: '15%', lg:'10%', sm: '30%'}}>
             <Image src={logo} />
         </Box>

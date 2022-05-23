@@ -26,6 +26,16 @@ import Transportation from "./components/Transportation"
 import ChildPolicy from "./components/ChildPolicy"
 import ProfileSettings from './pages/adminSummary/adminSummary.page'
 import UserSettings from './pages/userSettings/userSettings.page'
+import { Provider } from 'react-redux';
+import {createStore} from 'redux';
+import progressNavReducer from './reducers';
+
+/*
+const store = createStore  (
+  progressNavReducer,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);*/
+
 /*
   signup
   Login
@@ -34,13 +44,14 @@ import UserSettings from './pages/userSettings/userSettings.page'
   Question
   Tour completed
 */
-
 ReactDOM.render(
   <React.StrictMode>
     <ColorModeScript />
-    <ChakraProvider>
+    <Provider store={store}>
+    <ChakraProvider >
       <App />
     </ChakraProvider>
+    </Provider>
   </React.StrictMode>,
   document.getElementById("root"),
 )
