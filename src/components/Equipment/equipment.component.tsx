@@ -63,7 +63,6 @@ function Equipment(props: IEquipment): JSX.Element {
     return(
         <Box boxShadow='2xl'
             w="65%" 
-            h="full"
             p={20}
             background="#EBE9E9"
             borderRadius="10px">

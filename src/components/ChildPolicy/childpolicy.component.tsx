@@ -99,8 +99,7 @@ const ChildPolicy: React.FC = () => {
     <React.Fragment>
         <Box
         boxShadow='xl'
-        w={{base:"65%", sm:'80%'}}
-        h="full"
+        w="65%"
         p={10}
         background="#EBE9E9"
         borderRadius="10px">

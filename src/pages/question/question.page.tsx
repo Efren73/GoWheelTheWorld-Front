@@ -42,27 +42,32 @@ function Question(props: IQuestion): JSX.Element {
     
 	return (
 	<React.Fragment>
-        <Flex>
+        <Flex overflowX='hidden' h="100%">
             <HStack w="full" h="full" >
                 <Box  h='full' position='absolute'>
                     <LateralMenu />
                 </Box>
                 
-                <VStack h="100%" w="100%">
+                <VStack h="100%" w="100%" alignItems="flex-end">
                     <Box w='92%' h="16%" marginLeft='2%'>
                         <Header/>
                     </Box>
-                    <Box h="68%" w="97%">
-                        <HStack justifyContent="center" h="full" w="full" spacing={51} alignItems='flex-start' marginLeft={'2%'}>
+                    <Box h="68%" w="100%">
+                        <HStack justifyContent="center" 
+                                w="full" 
+                                spacing={51} 
+                                alignItems='flex-start' 
+                                marginLeft={'2%'} 
+                                height='calc(100vh - 190px)'
+                                overflowY='scroll'>
                             <Outlet />
                             {CheckSize(screenSize)}
                         </HStack>
                     </Box>
 
-                    <Box w='93%'marginLeft={'6%'}>
+                    <Box w={[ "90%", "90%", "92%", "94%", "96%", "96.8%"]} marginLeft={'6%'} justifyContent="flex-end">
                         <Footer/>
                     </Box>
-                    
                 </VStack>
             </HStack>
         </Flex>
