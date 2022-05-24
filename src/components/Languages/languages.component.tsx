@@ -101,7 +101,6 @@ const Languages = () => {
   return(
     <Box boxShadow='2xl'
       w="65%" 
-      h="full"
       p={10}
       background="#EBE9E9"
       borderRadius="10px">
