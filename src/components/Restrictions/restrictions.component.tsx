@@ -8,107 +8,168 @@ import {
 } from "@chakra-ui/react"
 
 import { useState } from "react"
-import { setConstantValue } from "typescript"
 
-const Restrictions: React.FC = () => {
-  function DisableCheckbox() {
+function DisableCheckbox() {
 
-      // controla el Checkbox independiente
-      const [noRestrictCheck, setCheckNo] = useState(false)
+  const restrictions: string[] = [
+    'This tour is not recommended for people with a heart condition',
+    'This tour is not recommended for pregnant travelers',
+    'This tour is not recommended for people with dietary restrictions',
+    'Special dietary needs and restrictions can be accommodated with prior notice',
+    'This tour is not recommended for travelers using a power wheelchair',
+    'Travelers must be willing to self-transfer manually or be helped to do so,  in order to take part in this tour',
+    'There is no restriction of any kind regarding this tour',
+    'Select all'
+  ];
 
-      // Arreglo de checkboxes
-      const [checkedItems, setCheckedItems] = useState([false, false, false, false, false, false, false])
+  // controla el Checkbox independiente
+  const [noRestrictCheck, setCheckNo] = useState(false)
+  const [allRestrictCheck, setCheckAll] = useState(false)
 
-       /* RESPONSIVE -------------------------------------------------------*/
-      const fontSizeResponsive = { base:'20px', sm:'15px'};
-  
-      return (
-        <>
-          <Stack pl={6} mt={1} spacing={2}>
-            <Checkbox
-            onChange={(e) => {
-              setCheckedItems([e.target.defaultChecked, !checkedItems[1], e.target.defaultChecked, e.target.defaultChecked, e.target.defaultChecked, e.target.defaultChecked, e.target.defaultChecked])
-            }}
-              isChecked={checkedItems[1]}
-              isDisabled={noRestrictCheck}
-            >
-              This tour is not recommended for people with a heart condition
-            </Checkbox>
-            <Checkbox
-            onChange={(e) => {
-              setCheckedItems([e.target.defaultChecked, e.target.defaultChecked, !checkedItems[2], e.target.defaultChecked, e.target.defaultChecked, e.target.defaultChecked, e.target.defaultChecked])
-            }}
-              isChecked={checkedItems[2]}
-              isDisabled={noRestrictCheck}
-            >
-              This tour is not recommended for pregnant travelers
-            </Checkbox>
-            <Checkbox
-            onChange={(e) => {
-              setCheckedItems([e.target.defaultChecked, e.target.defaultChecked, e.target.defaultChecked, !checkedItems[3], e.target.defaultChecked, e.target.defaultChecked, e.target.defaultChecked])
-            }}
-              isChecked={checkedItems[3]}
-              isDisabled={noRestrictCheck}
-            >
-              This tour is not recommended for people with dietary restrictions
-            </Checkbox>
-            <Checkbox
-            onChange={(e) => {
-              setCheckedItems([e.target.defaultChecked, e.target.defaultChecked, e.target.defaultChecked, e.target.defaultChecked, !checkedItems[4], e.target.defaultChecked, e.target.defaultChecked])
-            }}
-              isChecked={checkedItems[4]}
-              isDisabled={noRestrictCheck}
-            >
-              Special dietary needs and restrictions can be accommodated with prior notice
-            </Checkbox>
-            <Checkbox
-              onChange={(e) => {
-                setCheckedItems([e.target.defaultChecked, e.target.defaultChecked, e.target.defaultChecked, e.target.defaultChecked, e.target.defaultChecked, !checkedItems[5], e.target.defaultChecked])
-              }}
-              isChecked={checkedItems[5]}
-              isDisabled={noRestrictCheck}
-            >
-              This tour is not recommended for travelers using a power wheelchair
-            </Checkbox>
-            <Checkbox
-            onChange={(e) => {
-              setCheckedItems([e.target.defaultChecked, e.target.defaultChecked, e.target.defaultChecked, e.target.defaultChecked, e.target.defaultChecked, e.target.defaultChecked, !checkedItems[6]])
-            }}
-              isChecked={checkedItems[6]}
-              isDisabled={noRestrictCheck}
-            >
-              Travelers must be willing to self-transfer manually or be helped to do so,  in order to take part in this tour
-            </Checkbox>
-            <Checkbox
-              onChange={() => {
-                setCheckNo(!noRestrictCheck)
-              }}
+  // Arreglo de checkboxes
+  const [checkedItems, setCheckedItems] = useState([false, false, false, false, false, false])
 
-              isChecked={noRestrictCheck}
-              isDisabled={checkedItems.some(Boolean)}
-            >
-              There is no restriction of any kind regarding this tour
-            </Checkbox>
-            <Checkbox
-              onChange={(e) => {
-                setCheckedItems([e.target.checked, e.target.checked, e.target.checked, e.target.checked, e.target.checked, e.target.checked,])
-              }}
+  // Arreglo de strings para guardar los checkboxes seleccionados
+  const [arrayItems, setArrayItems] = useState<string[]>([])
 
-              isChecked={checkedItems[0]}
-              isDisabled={noRestrictCheck}
-            >
-              Select all
-            </Checkbox>
-            
-          </Stack>
-        </>
-      )
+  // Funcion para guardar los checkbox seleccionado
+  function Save(checkea:Boolean, i:number) {
+    //console.log('checkea', checkea)
+    if(checkea == false){ // Agrega
+      if(restrictions[i] == 'There is no restriction of any kind regarding this tour') { // NO
+        setArrayItems([restrictions[i]])
+      } else if (restrictions[i] == 'Select all'){ // All
+        setArrayItems([restrictions[0], restrictions[1], restrictions[2], restrictions[3], restrictions[4], restrictions[5]])
+      } else {
+        for(let x=0; x<restrictions.length; x++) {
+          if(arrayItems[x] != restrictions[i]) { // Si no existe
+            setArrayItems([...arrayItems, restrictions[i]]) // Agrega
+          } else{
+            setArrayItems([...arrayItems]) // Mánten
+          }
+        }
+        
+      }
+    }
+    else { // Elimina
+      if (restrictions[i] == 'Select all'){ // All
+        const result: string[] = []; 
+        setArrayItems(result) // Deja vacío el arreglo
+      } else{
+        // filter regresa una copia del arreglo original, pero ahora sin el restrictions que indique
+        const result = arrayItems.filter(arrayItem => arrayItem != restrictions[i])
+        // actualizamos al arreglo original checkedItems con el arreglo de filter
+        setArrayItems(result)
+      }
+    }
+    
   }
-  
-  /* RESPONSIVE -------------------------------------------------------*/
-  const fontSizeResponsive = { base:'20px', sm:'15px'};
+  console.log(arrayItems)
 
   return (
+    <>
+      <Stack pl={6} mt={1} spacing={2}>
+        <Checkbox id="1"
+        onChange={(e: any) => {
+          setCheckedItems([!checkedItems[0], checkedItems[1], checkedItems[2], checkedItems[3], checkedItems[4], checkedItems[5]])
+          Save(checkedItems[0], 0)
+        }}
+        
+          isChecked={checkedItems[0]}
+          isDisabled={noRestrictCheck}
+        >
+          {restrictions[0]}
+        </Checkbox>
+        <Checkbox
+        onChange={(e: any) => {
+          setCheckedItems([checkedItems[0], !checkedItems[1], checkedItems[2], checkedItems[3], checkedItems[4], checkedItems[5]])
+          Save(checkedItems[1], 1)
+        }}
+          isChecked={checkedItems[1]}
+          isDisabled={noRestrictCheck}
+        >
+          {restrictions[1]}
+        </Checkbox>
+        <Checkbox
+        onChange={(e: any) => {
+          setCheckedItems([checkedItems[0], checkedItems[1], !checkedItems[2], checkedItems[3], checkedItems[4], checkedItems[5]])
+          Save(checkedItems[2], 2)
+        }}
+          isChecked={checkedItems[2]}
+          isDisabled={noRestrictCheck}
+        >
+          {restrictions[2]}
+        </Checkbox>
+        <Checkbox
+        onChange={(e: any) => {
+          setCheckedItems([checkedItems[0], checkedItems[1], checkedItems[2], !checkedItems[3], checkedItems[4], checkedItems[5]])
+          Save(checkedItems[3], 3)
+        }}
+          isChecked={checkedItems[3]}
+          isDisabled={noRestrictCheck}
+        >
+          {restrictions[3]}
+        </Checkbox>
+        <Checkbox
+          onChange={(e: any) => {
+            setCheckedItems([checkedItems[0], checkedItems[1], checkedItems[2], checkedItems[3], !checkedItems[4], checkedItems[5]])
+            Save(checkedItems[4], 4)
+          }}
+          isChecked={checkedItems[4]}
+          isDisabled={noRestrictCheck}
+        >
+          {restrictions[4]}
+        </Checkbox>
+        <Checkbox
+        onChange={(e: any) => {
+          setCheckedItems([checkedItems[0], checkedItems[1], checkedItems[2], checkedItems[3], checkedItems[4], !checkedItems[5]])
+          Save(checkedItems[5], 5)
+        }}
+          isChecked={checkedItems[5]}
+          isDisabled={noRestrictCheck}
+        >
+          {restrictions[5]}
+        </Checkbox>
+        <Checkbox
+          onChange={(e: any) => {
+            setCheckNo(!noRestrictCheck)
+            Save(noRestrictCheck, 6)
+          }}
+
+          isChecked={noRestrictCheck}
+          isDisabled={checkedItems.some(Boolean)}
+        >
+          {restrictions[6]}
+        </Checkbox>
+        <Checkbox
+          onChange={(e: any) => {
+            setCheckedItems([e.target.checked, e.target.checked, e.target.checked, e.target.checked, e.target.checked, e.target.checked])
+            setCheckAll(!allRestrictCheck)
+
+            if(checkedItems.every(Boolean)){
+              Save(true, 7)
+            } else {
+              Save(false, 7)
+            }
+            
+          }}
+
+          isChecked={checkedItems.every(Boolean)}
+          isDisabled={noRestrictCheck}
+        >
+          {restrictions[7]}
+        </Checkbox>
+        
+      </Stack>
+    </>
+  )
+}
+
+/* RESPONSIVE -------------------------------------------------------*/
+const fontSizeResponsive = { base:'20px', sm:'15px'};
+
+const Restrictions: React.FC = () => {
+  return(
     <Box boxShadow='2xl'
       w="65%" 
       p={10}
@@ -119,10 +180,12 @@ const Restrictions: React.FC = () => {
         <Text fontSize={fontSizeResponsive} color='#3F6FE4'> Itinerary / Restrictions </Text>
         <Heading fontSize={{base:'35px', sm:'18px'}}> Select the restrictions on this tour </Heading>
       </Stack>
-      <Stack spacing={5} direction='row'>
-        {DisableCheckbox()}
-      </Stack>
+      
+        <Stack spacing={5} direction='column'>
+          {DisableCheckbox()}
+        </Stack>
+      
     </Box>
-)
-  }
+  )
+}
 export default Restrictions;

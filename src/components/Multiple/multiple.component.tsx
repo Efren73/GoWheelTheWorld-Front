@@ -77,7 +77,7 @@ const Multiple = () => {
     'Sports activity',
     'Ticket activity',
     'Attraction',
-    'City tour',
+    'City tour',   
     'Food tour',
     'Driving tour',
     'Riding tour',
@@ -98,8 +98,9 @@ const Multiple = () => {
       // actualizamos al arreglo original checkedItems con el arreglo de filter
       setCheckedItems(result)
     }
-    console.log('PADRE', checkedItems)
+    
   }
+  console.log('Arreglo', checkedItems)
 
   /* RESPONSIVE -------------------------------------------------------*/
   const fontSizeResponsive = { base:'20px', sm:'15px'};

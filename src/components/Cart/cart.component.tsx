@@ -39,18 +39,19 @@ const Cart: React.FC = () => {
             setValue(inputValue)
             setCharacters(inputValue.length)
         }
+		console.log('value', value)
     }
 
 	/* VENTANA MODAL -------------------------------------*/
     const { isOpen, onOpen, onClose } = useDisclosure()
 
-	// Matriz de ejemplos de FAQS
-    const faqsExamples: string[][]=[
-        ['Downtown Manhattan Private Guided Tour'],
-        ['Boat Tour in Manhattan'],
-        ['DUMBO Tour, The New Brooklyn'],
-        ['Snorkel with whale sharks']
-    ];
+    //Arreglo en donde se guardan los ejemplos de faqs
+    const faqsExamples: string[]=[
+        'Downtown Manhattan Private Guided Tour',
+        'Boat Tour in Manhattan',
+        'DUMBO Tour, The New Brooklyn',
+        'Snorkel with whale sharks'
+	];
 
 	/* TIEMPO DEL TOUR --------------------------------- */
 	const [ hours, setHours ] = React.useState("")
@@ -148,19 +149,18 @@ const Cart: React.FC = () => {
 				<ModalOverlay />
 				<ModalContent background='#EBE9E9'>
 					<ModalHeader color='#3F6FE4'>Examples</ModalHeader>
-					<ModalBody>
-						{
-							faqsExamples.map((faq) => (
-								<Stack marginBottom='10px'>
-									<Text color='#3F6FE4' fontSize='20px'>{faq[0]}</Text>
-									<Text fontSize='16px'>{faq[1]}</Text>
-								</Stack>
-							))
-						}
-					</ModalBody>
-					<ModalFooter>
-						<Button onClick={onClose} background='#3F6FE4' color={'white'}>Close</Button>
-					</ModalFooter>
+						<ModalBody>
+							{
+								faqsExamples.map((faq) => (
+									<Stack marginBottom='10px'>
+										<Text fontSize='16px'>{faq}</Text>
+									</Stack>
+								))
+							}
+						</ModalBody>
+						<ModalFooter>
+							<Button onClick={onClose} background='#3F6FE4' color={'white'}>Close</Button>
+						</ModalFooter>
 				</ModalContent>
 			</Modal>
 		</React.Fragment>

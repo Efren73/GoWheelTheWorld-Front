@@ -15,6 +15,10 @@ const Price: React.FC = () => {
     /* RESPONSIVE -------------------------------------- */
     const fontSizeResponsive = { base:'20px', sm:'15px'};
     
+    const [price, setPrice] = React.useState();
+   
+    console.log('value',price)
+
     return (
     <Box boxShadow='2xl'
 			 w="65%" 
@@ -29,8 +33,8 @@ const Price: React.FC = () => {
             
             <HStack paddingTop={'30px'} paddingBottom='50px' justifySelf={'center'}>
                 <Text fontSize={fontSizeResponsive} alignContent={'flex-start'}>$USD</Text>
-                <NumberInput background='white' borderRadius={10}>
-                    <NumberInputField/>
+                <NumberInput background='white' borderRadius={10} onChange={(cost: any) => setPrice(cost)} value={price}>
+                    <NumberInputField />
                 </NumberInput>
             </HStack>
 
