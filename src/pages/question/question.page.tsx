@@ -1,13 +1,15 @@
 import React from 'react';
-import { Routes, useNavigate, Outlet } from 'react-router-dom';
+import { Routes, useNavigate, Outlet, useLocation} from 'react-router-dom';
 
 import {
   VStack,
   Flex,
+  Stack,
   ChakraProvider,
   useBreakpointValue,
   HStack,
   Box,
+  Divider
 } from "@chakra-ui/react";
 
 import { IQuestion } from './question.types';
@@ -21,13 +23,11 @@ import {
 import Header from './Header';
 import Footer from './Footer';
 
-
 function Question(props: IQuestion): JSX.Element {
       const navigate = useNavigate();
 
-      const screenSize = useBreakpointValue({ base: 'true', md: 'false', lg:'false' })
-      console.log(screenSize)
 
+      const screenSize = useBreakpointValue({ base: 'true', md: 'false', lg:'false' })
       function CheckSize(screenSize:any){
           if (screenSize=='false')
               return (

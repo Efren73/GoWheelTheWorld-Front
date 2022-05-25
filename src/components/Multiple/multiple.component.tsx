@@ -11,7 +11,10 @@ import {
   Input,
 } from "@chakra-ui/react"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import {useSelector, useDispatch} from 'react-redux'
+import {typeOfActivity} from "../../actions/basicInformationAcction";
+
 
 function CustomCheckbox(props: any) {
   const { state, getCheckboxProps, getInputProps, getLabelProps } = useCheckbox(props)
@@ -63,6 +66,8 @@ function CustomCheckbox(props: any) {
 }
 
 const Multiple = () => {
+  const dispatcher = useDispatch();
+
   const { value, getCheckboxProps } = useCheckboxGroup()
 
   // Arreglo de strings para guardar los checkboxes seleccionados
@@ -97,11 +102,14 @@ const Multiple = () => {
       const result = checkedItems.filter(checkedItems => checkedItems != expereinceName)
       // actualizamos al arreglo original checkedItems con el arreglo de filter
       setCheckedItems(result)
-    }
-    
+    }  
   }
   console.log('Arreglo', checkedItems)
 
+  useEffect(() => {
+    dispatcher(typeOfActivity(checkedItems))	
+	},[checkedItems]);
+  
   /* RESPONSIVE -------------------------------------------------------*/
   const fontSizeResponsive = { base:'20px', sm:'15px'};
 
