@@ -1,6 +1,6 @@
 const basicInformation :
 {
-    tourName: string;
+    tourName: string | null;
     duration: string;
     typeOfActivity: string[];
     privateTour: boolean;
@@ -13,9 +13,9 @@ const basicInformation :
     link: string;
 
 } = {
-    tourName: "",
+    tourName: null,
     duration: "",
-    typeOfActivity: ["",""],
+    typeOfActivity: [""],
     privateTour: false,
     document: "",
     description: "",
@@ -33,107 +33,93 @@ const basicInformationReducer = (
     switch(action.type) {
         case 'TOURNAME': {
             return {
-                
+                ...state,
+                tourName:
+                action.payload,    
             }
         }
 
         case 'DURANTION': {
-            //navigate(`/tour-operator/1/tour-completed/1/${action.payload}`)
             return {
-                //...state.get(action.payload),
-                ...state
-                
+                ...state,
+                duration:
+                action.payload,   
             }
         }
 
         case 'TYPEOFACTIVITY': {
-            //navigate(`/tour-operator/1/tour-completed/1/${action.payload}`)
             return {
-                //...state.get(action.payload),
-                ...state
-                
+                ...state,
+                typeOfActivity: [
+                    action.payload
+                ]
             }
         }
 
         case 'PRIVATETOUR': {
-            //navigate(`/tour-operator/1/tour-completed/1/${action.payload}`)
             return {
-                //...state.get(action.payload),
-                ...state
-                
+                ...state,
+                privateTour:
+                action.payload,  
             }
         }
 
-        case 'PRIVATETOUR': {
-            //navigate(`/tour-operator/1/tour-completed/1/${action.payload}`)
+        case 'DOCUMENT': {
             return {
-                //...state.get(action.payload),
-                ...state
-                
+                ...state,
+                document:
+                action.payload,  
             }
         }
 
-        case 'PRIVATETOUR': {
-            //navigate(`/tour-operator/1/tour-completed/1/${action.payload}`)
+        case 'GROUPTOUR': {
             return {
-                //...state.get(action.payload),
-                ...state
-                
+                ...state,
+                groupTour:
+                action.payload,  
             }
         }
-        case 'PRIVATETOUR': {
-            //navigate(`/tour-operator/1/tour-completed/1/${action.payload}`)
+
+        case 'DESCRIPTION': {
             return {
-                //...state.get(action.payload),
-                ...state
-                
+                ...state,
+                description:
+                action.payload,  
             }
         }
-        case 'PRIVATETOUR': {
-            //navigate(`/tour-operator/1/tour-completed/1/${action.payload}`)
+        case 'NUMBERMAXTRAVELERES': {
             return {
-                //...state.get(action.payload),
-                ...state
-                
+                ...state,
+                numberMaxTravelers:
+                action.payload,  
             }
         }
-        case 'PRIVATETOUR': {
-            //navigate(`/tour-operator/1/tour-completed/1/${action.payload}`)
+        case 'NUMBERMINTRAVELERS': {
             return {
-                //...state.get(action.payload),
-                ...state
-                
+                ...state,
+                numberMinTravelers:
+                action.payload,   
             }
         }
-        case 'PRIVATETOUR': {
-            //navigate(`/tour-operator/1/tour-completed/1/${action.payload}`)
+        case 'PHOTOS': {
             return {
-                //...state.get(action.payload),
-                ...state
-                
+                ...state,
+                photos:
+                action.payload,    
             }
         }
-        case 'PRIVATETOUR': {
-            //navigate(`/tour-operator/1/tour-completed/1/${action.payload}`)
+        case 'TOURLINK': {
             return {
-                //...state.get(action.payload),
-                ...state
-                
-            }
-        }
-        case 'PRIVATETOUR': {
-            //navigate(`/tour-operator/1/tour-completed/1/${action.payload}`)
-            return {
-                //...state.get(action.payload),
-                ...state
-                
+                ...state,
+                tourLink:
+                action.payload, 
             }
         }
 
         default: {
             return {
-                ...state
-            }
+                ...state,
+         }
         }
     }
 };

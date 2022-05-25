@@ -18,7 +18,10 @@ const faqsReducer = (
     switch(action.type) {
         case 'FAQS': {
             return {
-                
+                ...state,
+                faqs:[
+                    action.payload
+                ]
             }
         }
 

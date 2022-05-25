@@ -13,16 +13,7 @@ const accesibility : {
     transportation: IQuestion[];
 
 } = {
-    assistance: [
-        {
-            question:"",
-            awnser: true,
-        },
-        {
-            question:"",
-            awnser: true,
-        },
-    ],
+    assistance: [],
     equipment: [
         {
             question:"",

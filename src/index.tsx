@@ -1,6 +1,7 @@
 import { ChakraProvider, ColorModeScript, CSSReset } from "@chakra-ui/react"
-import * as React from "react"
-import ReactDOM from "react-dom"
+import React from "react"
+import ReactDOM from 'react-dom'
+
 import { App } from "./App"
 import Login from "./pages/login"
 import MainScreenTO from "./pages/mainScreenTO"
@@ -26,15 +27,18 @@ import Transportation from "./components/Transportation"
 import ChildPolicy from "./components/ChildPolicy"
 import ProfileSettings from './pages/adminSummary/adminSummary.page'
 import UserSettings from './pages/userSettings/userSettings.page'
+
 import { Provider } from 'react-redux';
 import {createStore} from 'redux';
 import rootReducer from './reducers';
 
-/*
+
 const store = createStore  (
   rootReducer,
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-);*/
+);
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
 
 import theme from "./theme"
 import './styles.css'
@@ -47,13 +51,15 @@ import './styles.css'
   Tour completed
 */
 console.log(theme)
-ReactDOM.render(
+root.render(
   <React.StrictMode>
     <ColorModeScript />
+    <Provider store={store}>
     <ChakraProvider theme={theme}>
       <CSSReset />
       <App />
     </ChakraProvider>
+    </Provider>
   </React.StrictMode>,
   document.getElementById("root"),
 )

@@ -1,5 +1,5 @@
 import * as React from "react"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import {
   Text,
   VStack,
@@ -25,22 +25,43 @@ import {
 } from "@chakra-ui/react"
 import { ICart } from "./cart.types";
 import { InfoIcon } from '@chakra-ui/icons';
+import {useSelector, useDispatch} from 'react-redux'
+import { tourName, duration } from "../../actions/basicInformationAcction";
 
 const Cart: React.FC = () => {
+	const dispatcher = useDispatch();
+
+	const basicInfo = useSelector((state:any)=>{
+		return state.basicInformation;
+	})
+	console.log(basicInfo.tourName)
+
+	//REDUX
+
+
 	/* NÚMERO DE CARÁCTERES ------------------------------*/
     let [value, setValue] = useState('')
     let [characters, setCharacters] = useState(0)
     let inputValue: any;
 
+
 	let handleInputChange = (e: any) => {
         inputValue = e.target.value
-
+		
         if(inputValue.length<=50){
-            setValue(inputValue)
+			setValue(inputValue)
             setCharacters(inputValue.length)
         }
-		console.log('value', value)
     }
+
+	useEffect(() => {
+		/*if(basicInfo.tourName != null ) {
+			setValue(basicInfo.tourName)
+		}*/	
+		dispatcher(tourName(inputValue.toString()))
+	  },[value]);
+
+
 
 	/* VENTANA MODAL -------------------------------------*/
     const { isOpen, onOpen, onClose } = useDisclosure()
@@ -55,7 +76,7 @@ const Cart: React.FC = () => {
 
 	/* TIEMPO DEL TOUR --------------------------------- */
 	const [ hours, setHours ] = React.useState("")
-    const [ minutes, setMinutes ] = React.useState("")
+    const [ minutes, setMinutes ] = React.useState("30")
 
 	console.log(+hours)
 	console.log(+minutes)
@@ -89,7 +110,7 @@ const Cart: React.FC = () => {
 								h='40px'
 								fontSize={fontSizeResponsive}
 								required maxLength={80}
-								placeholder='Experience name'
+								placeholder= 'Experience name'
 								onChange={handleInputChange}
 								value = {value}
 						/>
@@ -116,7 +137,11 @@ const Cart: React.FC = () => {
 										 fontSize={'20px'} 
 										 background={'white'} 
 										 defaultValue={0}
-										 onChange={(valueString) => setHours(valueString)}>
+										 onChange={(valueString) => {
+											 setHours(valueString)
+											 dispatcher(duration(valueString+":"+minutes+ " horas"))
+											}
+										 }>
 								<NumberInputField />
 								<NumberInputStepper>
 									<NumberIncrementStepper bg='#2F6FE4' _active={{ bg: '#2558B6' }} children ='+'/>
@@ -134,7 +159,10 @@ const Cart: React.FC = () => {
 										 fontSize={fontSizeResponsive}
 										 background={'white'} 
 										 defaultValue={30}
-										 onChange={(value) => setMinutes(value)}>
+										 onChange={(value) => {
+											 setMinutes(value)
+											 dispatcher(duration(hours+":"+value+ " horas"))
+											}}>
 									<NumberInputField />
 									<NumberInputStepper>
 										<NumberIncrementStepper  bg='#2F6FE4' _active={{ bg: '#2558B6' }} children ='+'/>
