@@ -1,6 +1,7 @@
 import { ChakraProvider, ColorModeScript, CSSReset } from "@chakra-ui/react"
 import React from "react"
-import ReactDOM from 'react-dom'
+import ReactDOM from 'react-dom/client';
+
 
 import { App } from "./App"
 import Login from "./pages/login"
@@ -32,6 +33,8 @@ import { Provider } from 'react-redux';
 import {createStore} from 'redux';
 import rootReducer from './reducers';
 
+import theme from "./theme"
+import './styles.css'
 
 const store = createStore  (
   rootReducer,
@@ -40,8 +43,6 @@ const store = createStore  (
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-import theme from "./theme"
-import './styles.css'
 /*
   signup
   Login
@@ -55,10 +56,10 @@ root.render(
   <React.StrictMode>
     <ColorModeScript />
     <Provider store={store}>
-    <ChakraProvider theme={theme}>
-      <CSSReset />
-      <App />
-    </ChakraProvider>
+      <ChakraProvider theme={theme}>
+        <CSSReset />
+        <App />
+      </ChakraProvider>
     </Provider>
   </React.StrictMode>,
   document.getElementById("root"),

@@ -41,17 +41,20 @@ import { IFooter } from "./footer.types";
       else
         navigate(`/tour-operator/1/question/1/${ProgressNav[index-1]}`)
     }
+
+    /* RESPONSIVE ------------------------------------*/
+    const fontSizeResponsive = { base:'20px', sm:'15px'};
     
-    return(
+    return (
       <Box h="16%" w="full" marginBottom={'10px'}>
         <Slider defaultValue={10} isReadOnly={true} size="lg" w="full">
             <SliderTrack w="full" bg="#C9C9C9">
                 <SliderFilledTrack w="full"/>
             </SliderTrack>
         </Slider>
-        <HStack justifyContent="space-between" w="full" paddingRight={55} paddingLeft={55} paddingTop="3">
+        <HStack justifyContent="space-between" w="full" paddingRight={41} paddingLeft={41} paddingTop="3">
             <Button size='lg'
-                    fontSize="20px"
+                    fontSize={fontSizeResponsive}
                     borderRadius={10}
                     bg="white"
                     border='1px'
@@ -60,7 +63,7 @@ import { IFooter } from "./footer.types";
                     > Back </Button>
             <Text fontSize="20px" color="#9B9B9B"> 1 of 19 items sent </Text>
             <Button size='lg'
-                    fontSize="20px"
+                    fontSize={fontSizeResponsive}
                     borderRadius={10}
                     bg="#3F6FE4"
                     color="white"

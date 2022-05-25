@@ -55,10 +55,7 @@ const Cart: React.FC = () => {
     }
 
 	useEffect(() => {
-		/*if(basicInfo.tourName != null ) {
-			setValue(basicInfo.tourName)
-		}*/	
-		dispatcher(tourName(inputValue.toString()))
+		dispatcher(tourName(value))
 	  },[value]);
 
 
@@ -88,7 +85,6 @@ const Cart: React.FC = () => {
 		<React.Fragment>
 			<Box boxShadow='2xl'
 				w="65%" 
-				h="full"
 				p={10}
 				background="#EBE9E9"
 				borderRadius="10px">

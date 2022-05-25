@@ -25,7 +25,6 @@ const CancelationPolicy: React.FC = () => {
         <Box
         boxShadow='2xl'
         w="65%" 
-        h="full"
         p={10}
         background="#EBE9E9"
         borderRadius="10px">
@@ -34,6 +33,7 @@ const CancelationPolicy: React.FC = () => {
                 <Heading fontSize={{base:'35px', sm:'18px'}}> Cancelation policy </Heading>
                 <Box w='full'>
                     <Textarea 
+                        h="200px"
                         placeholder="Cancelation policy"
                         background='#fff'
                         onChange={handleInputLink}
