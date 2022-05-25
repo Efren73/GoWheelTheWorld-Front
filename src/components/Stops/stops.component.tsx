@@ -1,5 +1,5 @@
 import * as React from "react"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import {
   Text,
   Stack,
@@ -10,6 +10,12 @@ import {
   useNumberInput,
   ChakraProvider,
   Flex,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
+  NumberIncrementStepper,
+  NumberDecrementStepper,
+  Heading,
 } from "@chakra-ui/react"
 
 import { DeleteIcon } from "@chakra-ui/icons"
@@ -119,89 +125,13 @@ const Stops: React.FC = () => {
         </HStack>
     )
   }
-/*
-  //Función para que cuando se de click a add, se agreguen elementos al arreglo con el fin de que se rendericen más componentes
-  const addStop = () => {
-    setStops([...stops, {
-      stopName: "",
-      stopDuration: ""
-    }]);
-  }
 
-  function handleSubmit(e: any){
-    e.preventDefault();
-    console.dir(e.target)
-  }
+      	/* TIEMPO DEL TOUR --------------------------------- */
+	const [ hours, setHours ] = React.useState("")
+    const [ minutes, setMinutes ] = React.useState("30")
 
-  function change(e: any, index: any, type: string){
-    const newArr = [...stops];
-    if(type === "name"){
-      newArr[index].stopName = e.target.value;
-      setStops(newArr);
-    }
-
-    else{
-      newArr[index].stopDuration = e.target.value;
-      setStops(newArr);
-    }
-  }
-
-  function deleteStop(e: any, index: any){
-    const newArr = [...stops];
-    newArr.splice(index, 1);
-    setStops(newArr);
-  }
-
-  console.log(stops)
-
-  // RESPONSIVE -------------------------------------------------------
-  const fontSizeResponsive = { base:'20px', sm:'15px'};
-  
-  return (
-    <React.Fragment>
-      <Box boxShadow='2xl'
-           w="65%" 
-           p={10}
-           background="#EBE9E9"
-           borderRadius="10px">
-        
-        <Stack spacing={2}>
-          <Text fontSize={fontSizeResponsive} color='#3F6FE4'> Itinerary / Stops </Text>
-          <Heading fontSize={{base:'35px', sm:'18px'}}>Introduce the number of stops</Heading>
-        </Stack>
-        <Stack  paddingTop='20px'>
-          <Button bg='#3F6FE4' border=' 1px solid #000' color='#fff' borderRadius='20px' 
-          onClick={addStop} w='10%' fontSize={fontSizeResponsive}>
-              + Add
-          </Button>
-        </Stack>
-            <form onSubmit={handleSubmit}>
-                    {
-                        stops && stops.map((stop: any, index: any)=>(
-                            
-                            <Stack w='70%'>
-                                <HStack>
-                                    <Input placeholder='Name' bg="#fff" value={stop.stopName} 
-                                    onChange = {(e: any) => change(e, index, "name")}/>
-                                </HStack>
-                                <HStack>
-                                    <Input placeholder='Duration' bg="#fff" value={stop.stopDuration} onChange = {(e: any) => change(e, index, "duration")}/>
-                                </HStack>
-                                <HStack justifyContent='flex-end'>
-                                        <Button variant="link" marginBottom={'20px'} onClick={(e: any) => deleteStop(e, index)}>
-                                            <DeleteIcon />
-                                        </Button>
-                                </HStack>
-                                
-                            </Stack>
-                        ))
-                    }
-                    }
-                </form>
-        </Box>
-      </React.Fragment>
-
-      */
+	console.log(+hours)
+	console.log(+minutes)
 
       // RESPONSIVE -------------------------------------------------------
   const fontSizeResponsive = { base:'20px', sm:'15px'};
@@ -220,8 +150,7 @@ const Stops: React.FC = () => {
     
   <ChakraProvider>
        <Box boxShadow='2xl'
-            w="65%" 
-            h="full"
+            w="65%"
             p={10}
             background="#EBE9E9"
             borderRadius="10px">
@@ -253,28 +182,54 @@ const Stops: React.FC = () => {
                                               <Text color='#2F6FE4'>{x[2] ? x[2]: 0}/80</Text>
                                           </Box>
                                           <Box>
-                                          <Text>Duration</Text>
-
-                                            <HStack w='42%' paddingBottom='10px' spacing='42%' justifyContent={'flex-start'}>
-                                                <Text fontSize='15px' >Hours</Text>
-                                                <Text fontSize='15px' >Minutes</Text>
-                                            </HStack>
-
-                                            <HStack spacing='50px'>
-                                            
-                                              <HStack maxW='200px'>
-                                                <Button {...dec} background='#2F6FE4'>-</Button>
-                                                <Input {...input} background='#white' value={x[1]} onChange={(e: any) => changeOneValue(e, index, 1)}/>
-                                                <Button {...inc} background='#2F6FE4'>+</Button>
-                                              </HStack>
-
-                                              <HStack maxW='200px'>
-                                                <Button {...dec} background='#2F6FE4'>-</Button>
-                                                <Input {...input} background='#white' value={x[1]} onChange={(e: any) => changeOneValue(e, index, 1)}/>
-                                                <Button {...inc} background='#2F6FE4'>+</Button>
-                                              </HStack>
-
-                                            </HStack>
+                                          
+                                            <Box w='full'>
+                                                <Heading fontSize={{base:'35px', sm:'18px'}}>Duration</Heading>
+                                            </Box>
+                                            <Box>
+                                                <Stack shouldWrapChildren direction={['column', 'column', "column", 'row']} >
+                                                    <Text fontSize={fontSizeResponsive} color='#595959' paddingBottom='20px'>Hours</Text>
+                                                    <NumberInput size='md' 
+                                                                maxW={80} 
+                                                                min={0} 
+                                                                max={10} 
+                                                                variant='outline' 
+                                                                h='40px' 
+                                                                fontSize={'20px'} 
+                                                                background={'white'} 
+                                                                defaultValue={0}
+                                                                onChange={(valueString) => {
+                                                                    setHours(valueString)
+                                                                    }
+                                                                }>
+                                                        <NumberInputField />
+                                                        <NumberInputStepper>
+                                                            <NumberIncrementStepper bg='#2F6FE4' _active={{ bg: '#2558B6' }} children ='+'/>
+                                                            <NumberDecrementStepper bg='#2F6FE4' _active={{ bg: '#2558B6' }} children ='-'/>
+                                                        </NumberInputStepper>
+                                                    </NumberInput>
+                                                    
+                                                    <Text fontSize={fontSizeResponsive} color='#595959' paddingBottom='20px'>Minutes</Text>
+                                                    <NumberInput size='md' 
+                                                                maxW={80}  
+                                                                min={15} 
+                                                                max={59} 
+                                                                variant='outline' 
+                                                                h='40px' 
+                                                                fontSize={fontSizeResponsive}
+                                                                background={'white'} 
+                                                                defaultValue={30}
+                                                                onChange={(value) => {
+                                                                    setMinutes(value)
+                                                                    }}>
+                                                            <NumberInputField />
+                                                            <NumberInputStepper>
+                                                                <NumberIncrementStepper  bg='#2F6FE4' _active={{ bg: '#2558B6' }} children ='+'/>
+                                                                <NumberDecrementStepper bg='#2F6FE4' _active={{ bg: '#2558B6' }}  children ='-'/>
+                                                            </NumberInputStepper>
+                                                    </NumberInput>
+                                                </Stack>
+                                            </Box>
                                           
                                           </Box>
                                       <Flex justifyContent='flex-end'>
