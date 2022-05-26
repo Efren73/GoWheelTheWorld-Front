@@ -25,16 +25,17 @@ import {
 } from "@chakra-ui/react"
 import { ICart } from "./cart.types";
 import { InfoIcon } from '@chakra-ui/icons';
-import {useSelector, useDispatch} from 'react-redux'
-import { tourName, duration } from "../../actions/basicInformationAcction";
+import { useAppSelector, useAppDispatch } from '../../app/hooks';
+import { tourName, duration } from "../../reducers/basicInformationReducer";
 
 const Cart: React.FC = () => {
-	const dispatcher = useDispatch();
 
-	const basicInfo = useSelector((state:any)=>{
+	//const count = useAppSelector(tourName);
+	const dispatch = useAppDispatch();
+
+	const basicInfo = useAppSelector((state:any)=>{
 		return state.basicInformation;
 	})
-	console.log(basicInfo.tourName)
 
 	//REDUX
 
@@ -55,9 +56,8 @@ const Cart: React.FC = () => {
     }
 
 	useEffect(() => {
-		dispatcher(tourName(value))
+		dispatch(tourName(value))
 	  },[value]);
-
 
 
 	/* VENTANA MODAL -------------------------------------*/
@@ -135,7 +135,7 @@ const Cart: React.FC = () => {
 										 defaultValue={0}
 										 onChange={(valueString) => {
 											 setHours(valueString)
-											 dispatcher(duration(valueString+":"+minutes+ " horas"))
+											 dispatch(duration(valueString+":"+minutes+ " horas"))
 											}
 										 }>
 								<NumberInputField />
@@ -157,7 +157,7 @@ const Cart: React.FC = () => {
 										 defaultValue={30}
 										 onChange={(value) => {
 											 setMinutes(value)
-											 dispatcher(duration(hours+":"+value+ " horas"))
+											 dispatch(duration(hours+":"+value+ " horas"))
 											}}>
 									<NumberInputField />
 									<NumberInputStepper>
