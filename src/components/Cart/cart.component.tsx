@@ -25,7 +25,7 @@ import {
 } from "@chakra-ui/react"
 import { ICart } from "./cart.types";
 import { InfoIcon } from '@chakra-ui/icons';
-import {useSelector, useDispatch} from 'react-redux'
+import {useSelector, useDispatch } from 'react-redux';
 import { tourName, duration } from "../../actions/basicInformationAcction";
 
 const Cart: React.FC = () => {
