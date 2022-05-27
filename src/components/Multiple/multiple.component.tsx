@@ -14,7 +14,7 @@ import {
 import { useState, useEffect } from "react"
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { typeOfActivity } from "../../reducers/basicInformationReducer";
-
+import { Responsive } from "../generalTypes";
 
 function CustomCheckbox(props: any) {
   const { state, getCheckboxProps, getInputProps, getLabelProps } = useCheckbox(props)
@@ -111,7 +111,7 @@ const Multiple = () => {
 	},[checkedItems]);
   
   /* RESPONSIVE -------------------------------------------------------*/
-  const fontSizeResponsive = { base:'20px', sm:'15px'};
+
 
   return (
     <Box boxShadow='2xl'
@@ -121,11 +121,11 @@ const Multiple = () => {
         borderRadius="10px">
         
         <Stack spacing={2}>
-          <Text fontSize={fontSizeResponsive} color='#3F6FE4'> Basic Information / Type of tour </Text>
-          <Heading fontSize={{base:'35px', sm:'18px'}}> What kind of experience would you like to offer? </Heading>
+          <Text fontSize={Responsive.fontSizeResponsiveHead} color='#3F6FE4'> Basic Information / Type of tour </Text>
+          <Heading fontSize={Responsive.fontSizeResponsiveBody}> What kind of experience would you like to offer? </Heading>
         </Stack>
         
-        <SimpleGrid columns={[1, 1, 2, 2, 3]} spacing={15} paddingTop='25px' h='full' fontSize={fontSizeResponsive} >
+        <SimpleGrid columns={[1, 1, 2, 2, 3]} spacing={15} paddingTop='25px' h='full' fontSize={Responsive.fontSizeResponsiveHead} >
           {
             experiences.map((experience: string) =>(
               <CustomCheckbox

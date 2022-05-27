@@ -15,6 +15,8 @@ import {
 } from "@chakra-ui/react"
 import { IPlaces } from "./places.types";
 import {useState} from 'react'
+import { Responsive } from "../generalTypes";
+
 function Places(props: IPlaces): JSX.Element {
 
     const [places, setPlaces] = useState<any>([
@@ -49,7 +51,7 @@ function Places(props: IPlaces): JSX.Element {
     }
 
     /* RESPONSIVE --------------------------------- */
-    const fontSizeResponsive = { base:'20px', sm:'15px'};
+  
 
     return (
         <Box boxShadow='2xl'
@@ -58,18 +60,18 @@ function Places(props: IPlaces): JSX.Element {
             background="#EBE9E9"
             borderRadius="10px">
             <VStack alignItems='flex-start' w="full">
-                <Text fontSize={fontSizeResponsive} color='#3F6FE4'> Accesibility / Places </Text>
-                <Heading fontSize={{base:'35px', sm:'18px'}}>Places</Heading>
+                <Text fontSize={Responsive.fontSizeResponsiveHead} color='#3F6FE4'> Accesibility / Places </Text>
+                <Heading fontSize={Responsive.fontSizeResponsiveBody}>Places</Heading>
                 <HStack justifyContent="flex-end" w="95%">
                     <HStack w="15%" spacing={31}>
-                        <Text color="#4F6FE4" fontSize={fontSizeResponsive}> Yes </Text>
-                        <Text color="#4F6FE4" fontSize={fontSizeResponsive}> No </Text>
+                        <Text color="#4F6FE4" fontSize={Responsive.fontSizeResponsiveHead}> Yes </Text>
+                        <Text color="#4F6FE4" fontSize={Responsive.fontSizeResponsiveHead}> No </Text>
                     </HStack>
                 </HStack>
 
                 <Table bg="white" borderRadius={10}>
                     <Tbody>
-                        <Tr fontSize={fontSizeResponsive}>
+                        <Tr fontSize={Responsive.fontSizeResponsiveHead}>
                             <Td>Places visited are all wheelchair accessible and can be navigated independently</Td>
                             <Td>
                                 <RadioGroup value={places[0].answer}>
@@ -86,7 +88,7 @@ function Places(props: IPlaces): JSX.Element {
                                 </RadioGroup>
                             </Td>
                         </Tr>
-                        <Tr fontSize={fontSizeResponsive}>
+                        <Tr fontSize={Responsive.fontSizeResponsiveHead}>
                             <Td>Places present some barriers and minimum assistance is needed</Td>
                             <Td>
                                 <RadioGroup value={places[1].answer}>
@@ -103,7 +105,7 @@ function Places(props: IPlaces): JSX.Element {
                                 </RadioGroup>
                             </Td>
                         </Tr>
-                        <Tr fontSize={fontSizeResponsive}>
+                        <Tr fontSize={Responsive.fontSizeResponsiveHead}>
                             <Td>Few accessibility measures are in place and assistance is needed for the full experience</Td>
                             <Td>
                                 <RadioGroup value={places[2].answer}>
@@ -120,7 +122,7 @@ function Places(props: IPlaces): JSX.Element {
                                 </RadioGroup>
                             </Td>
                         </Tr>
-                        <Tr fontSize={fontSizeResponsive}>
+                        <Tr fontSize={Responsive.fontSizeResponsiveHead}>
                             <Td>There are smooth floors and pathways</Td>
                             <Td>
                                 <RadioGroup value={places[3].answer}>
@@ -137,7 +139,7 @@ function Places(props: IPlaces): JSX.Element {
                                 </RadioGroup>
                             </Td>
                         </Tr>
-                        <Tr fontSize={fontSizeResponsive}>
+                        <Tr fontSize={Responsive.fontSizeResponsiveHead}>
                             <Td>There are pathways with rocks, stones, or other terrain that makes them difficult to access</Td>
                             <Td>
                                 <RadioGroup value={places[4].answer}>

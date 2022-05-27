@@ -11,12 +11,12 @@ import {
 
 import Photo from './image.png';
 import './upload-photos.modules.css'
-
+import { Responsive } from "../generalTypes";
 const arreglo: string[] = ['Photo 1', 'Photo 2'];
  
 const UploadPhotos: React.FC = () => {
     /* RESPONSIVE -------------------------------------- */
-    const fontSizeResponsive = { base:'20px', sm:'15px'};
+   
 
     return (
         <React.Fragment>
@@ -28,17 +28,17 @@ const UploadPhotos: React.FC = () => {
 
                 <VStack alignItems='flex-start'>
                     <Stack spacing={2}>
-                        <Text fontSize={fontSizeResponsive} color='#3F6FE4'> Basic Information / Upload Photos </Text>
-                        <Heading fontSize={{base:'35px', sm:'18px'}}> Send us the best photos of your tour </Heading>
+                        <Text fontSize={Responsive.fontSizeResponsiveHead} color='#3F6FE4'> Basic Information / Upload Photos </Text>
+                        <Heading fontSize={Responsive.fontSizeResponsiveBody}> Send us the best photos of your tour </Heading>
                     </Stack>
                     <VStack>
                         <HStack>
                             <Image src={Photo} alt="Tour photo" w='40px' h = '40px'/>
-                            <Text fontSize={fontSizeResponsive}> Photo 1 </Text>
+                            <Text fontSize={Responsive.fontSizeResponsiveHead}> Photo 1 </Text>
                         </HStack>
                         <HStack>
                             <Image src={Photo} alt="Tour photo" w='40px' h = '40px'/>
-                            <Text fontSize={fontSizeResponsive}> Photo 2 </Text>
+                            <Text fontSize={Responsive.fontSizeResponsiveHead}> Photo 2 </Text>
                         </HStack>
                     </VStack>
                     <Box >

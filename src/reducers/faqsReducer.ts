@@ -28,5 +28,4 @@ export const faqs = createSlice({
 });
 
 export const {faqsR} = faqs.actions
-
 export default faqs.reducer;

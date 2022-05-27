@@ -8,10 +8,11 @@ import {
   Box,
   Heading,
 } from "@chakra-ui/react"
+import { Responsive } from "../generalTypes";
 
 const Meeting: React.FC = () => {
   /* RESPONSIVE -------------------------------------- */
-  const fontSizeResponsive = { base:'20px', sm:'15px'};
+  
 
   return (
     <Box boxShadow='2xl'
@@ -21,14 +22,14 @@ const Meeting: React.FC = () => {
          borderRadius="10px">
       
       <Stack spacing={2}>
-        <Text fontSize={fontSizeResponsive} color='#3F6FE4'> Itinerary / Meeting Point </Text>
-        <Heading fontSize={{base:'35px', sm:'18px'}}> Please introduce the meeting point </Heading>
+        <Text fontSize={Responsive.fontSizeResponsiveHead} color='#3F6FE4'> Itinerary / Meeting Point </Text>
+        <Heading fontSize={Responsive.fontSizeResponsiveBody}> Please introduce the meeting point </Heading>
       </Stack>
 
       <Input background={'white'}
 				     variant='outline'
 				     h='30px'
-				     fontSize={fontSizeResponsive}
+				     fontSize={Responsive.fontSizeResponsiveHead}
 				     required maxLength={80}
 				     placeholder='Street, number, City'
              marginBottom={'20px'}

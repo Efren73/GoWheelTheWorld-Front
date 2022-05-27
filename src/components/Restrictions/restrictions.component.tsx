@@ -8,7 +8,7 @@ import {
 } from "@chakra-ui/react"
 
 import { useState } from "react"
-
+import { Responsive } from "../generalTypes";
 function DisableCheckbox() {
 
   const restrictions: string[] = [
@@ -166,7 +166,7 @@ function DisableCheckbox() {
 }
 
 /* RESPONSIVE -------------------------------------------------------*/
-const fontSizeResponsive = { base:'20px', sm:'15px'};
+
 
 const Restrictions: React.FC = () => {
   return(
@@ -177,8 +177,8 @@ const Restrictions: React.FC = () => {
       borderRadius="10px">
       
       <Stack spacing={2}>
-        <Text fontSize={fontSizeResponsive} color='#3F6FE4'> Itinerary / Restrictions </Text>
-        <Heading fontSize={{base:'35px', sm:'18px'}}> Select the restrictions on this tour </Heading>
+        <Text fontSize={Responsive.fontSizeResponsiveHead} color='#3F6FE4'> Itinerary / Restrictions </Text>
+        <Heading fontSize={Responsive.fontSizeResponsiveBody}> Select the restrictions on this tour </Heading>
       </Stack>
       
         <Stack spacing={5} direction='column'>
