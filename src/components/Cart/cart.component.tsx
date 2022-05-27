@@ -16,7 +16,6 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
-  ChakraProvider,
   Stack,NumberInput,
   NumberInputField,
   NumberInputStepper,

@@ -29,14 +29,14 @@ const Summary = () => (
 
     <VStack h='88%' padding='20px' overflowY='auto'>
       <VStack w="full" h="full" alignItems="flex-start" spacing="-0.4">
-        <Text color='#2F6FE4' fontSize={fontSizeResponsive}>
+        <Text color='#89A1CD' fontSize={fontSizeResponsive}>
           Basic Information
         </Text>
 
-        <Box borderRadius='10px' borderColor='#2F6FE4' border='3px solid #2F6FE4' w='98%' padding='10px'>
+        <Box borderRadius='10px' border='3px solid #89A1CD' w='98%' padding='10px'>
             <HStack justifyContent='flex-start'>
               <Image src={photo} alt="default image" maxWidth={114} maxH={71}/>
-              <Text color='#2F6FE4' fontSize={fontSizeResponsive}>
+              <Text color='#89A1CD' fontSize={fontSizeResponsive}>
                 Name of the tour
               </Text>
             </HStack>
@@ -79,11 +79,11 @@ const Summary = () => (
       </VStack>
 
       <VStack w="full" h="full" alignItems="flex-start" spacing="-0.4">
-        <Text color='#2F6FE4' fontSize={fontSizeResponsive}>
+        <Text color='#89A1CD' fontSize={fontSizeResponsive}>
           Itinerary
         </Text>
 
-        <Box borderRadius='10px' borderColor='#2F6FE4' border='3px solid #2F6FE4'  w='98%' padding='10px'>
+        <Box borderRadius='10px' border='3px solid #89A1CD'  w='98%' padding='10px'>
             <HStack justifyContent="en" w="full">
                 <Image src={location} alt="Meeting point icon" w={25} h={25}/>
               <Text color="#fff" fontSize={fontSizeResponsive}>
@@ -107,11 +107,11 @@ const Summary = () => (
       </VStack>
 
       <VStack w="full" h="full" alignItems="flex-start" spacing="-0.4">
-        <Text color='#2F6FE4' fontSize={fontSizeResponsive}>
+        <Text color='#89A1CD' fontSize={fontSizeResponsive}>
           Children Policy
         </Text>
 
-        <Box borderRadius='10px' borderColor='#2F6FE4' border='3px solid #2F6FE4'  w='98%' padding='10px'>
+        <Box borderRadius='10px' border='3px solid #89A1CD'  w='98%' padding='10px'>
             <HStack justifyContent="en" w="full">
                 <Image src={child} alt="Child icon" w={25} h={25}/>
               <Text color="#fff" fontSize={fontSizeResponsive}>
@@ -135,11 +135,11 @@ const Summary = () => (
       </VStack>
 
       <VStack w="full" h="full" alignItems="flex-start" spacing="-0.4">
-        <Text color='#2F6FE4' fontSize={fontSizeResponsive}>
+        <Text color='#89A1CD' fontSize={fontSizeResponsive}>
           What's included?
         </Text>
 
-        <Box borderRadius='10px' borderColor='#2F6FE4' border='3px solid #2F6FE4'  w='98%' padding='10px'>
+        <Box borderRadius='10px'  border='3px solid #89A1CD'  w='98%' padding='10px'>
           <Text color="#fff" fontSize={fontSizeResponsive}>
             Here are the things included on this tour
             Here are the things included on this tour

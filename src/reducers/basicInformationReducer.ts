@@ -13,7 +13,7 @@ export interface  basicInformation
     numberMinTravelers: number | null;
     photos: string | null;
     link: string | null;
-
+    loading: 'idle' | 'pending' | 'succeeded' | 'failed'
 } 
 const initialState: basicInformation = {
     tourName: null,
@@ -26,8 +26,18 @@ const initialState: basicInformation = {
     numberMaxTravelers: null,
     numberMinTravelers: null,
     photos: null,
-    link: null
+    link: null,
+    loading: 'idle'
 };
+
+const fetchUserById = createAsyncThunk(
+  'users/fetchByIdStatus',
+  async (userId: number, thunkAPI) => {
+    //const response = await userAPI.fetchById(userId)
+    //return response.data
+  }
+)
+
 
 export const basicInformation = createSlice({
     name: 'basicInformation',
@@ -81,6 +91,5 @@ export const basicInformation = createSlice({
 
 export const { tourName, duration, typeOfActivity, privateTour, docuemnt, description, groupTour, numberMaxTravelers, numberMinTravelers, photos, link  } = basicInformation.actions;
 //export const tourName = (state: RootState) => state.tourN.tourName;
-
 
 export default basicInformation.reducer;
