@@ -16,16 +16,16 @@ const initialState: faqs = {
 };
 
 
-export const faqus = createSlice({
+export const faqs = createSlice({
     name: 'faqs',
     initialState,
     // The `reducers` field lets us define reducers and generate associated actions
     reducers: {
-      faqs: (state, action:PayloadAction<IQuestion[]>) => {
+      faqsR: (state, action:PayloadAction<IQuestion[]>) => {
         state.faqs = action.payload;
       },
     },
 });
 
-//export const {faqs} = faqs.actions
-export default faqus.reducer;
+export const {faqsR} = faqs.actions
+export default faqs.reducer;
