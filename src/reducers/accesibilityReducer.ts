@@ -1,87 +1,76 @@
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { RootState, AppThunk } from '../app/store';
 export type {IQuestion}
 
 type IQuestion = {
-    question: string;
-    awnser: boolean | string;
+    question: string | null;
+    awnser: boolean | string | null;
 }
 
-const accesibility : {
-    assistance: IQuestion[];
-    equipment: IQuestion[];
-    places: IQuestion[];
-    restrooms: IQuestion[];
-    transportation: IQuestion[];
+export interface accesibility {
+    assistance: IQuestion[] |null;
+    equipment: IQuestion[] | null;
+    places: IQuestion[] | null;
+    restrooms: IQuestion[] |null;
+    transportation: IQuestion[] | null;
 
-} = {
+} 
+const initialState: accesibility ={
     assistance: [],
     equipment: [
         {
-            question:"",
-            awnser: true,
+            question:null,
+            awnser: null,
         },
     ],
     places: [
         {
-            question:"",
-            awnser: true,
+            question:null,
+            awnser: null,
         },
     ],
     restrooms: [
         {
-            question:"",
-            awnser: true,
+            question:null,
+            awnser: null,
         },
     ],
     transportation: [
         {
-            question:"",
-            awnser: true,
+            question:null,
+            awnser: null,
         },
     ],
 
 }
 
-const accesibilityReducer = (
-    state = accesibility,
-    action:any,
-) => {
-    switch(action.type) {
-        case 'ASSISTANCE': {
-            return {
-                
-            }
-        }
+export const accesibility = createSlice({
+    name: 'accesibility',
+    initialState,
+    // The `reducers` field lets us define reducers and generate associated actions
+    reducers: {
+      assistance: (state, action:PayloadAction<IQuestion[]>) => {
+        state.assistance = action.payload;
+      },
 
-        case 'EQUIPMENT': {
-            return {
-                
-            }
-        }
+      equipment: (state, action:PayloadAction<IQuestion[]>) => {
+        state.equipment = action.payload;
+      },
+      places: (state, action: PayloadAction<IQuestion[]>) => {
+        state.places = action.payload;
+      },
 
-        case 'PLACES': {
-            return {
-                
-            }
-        }
+      restrooms: (state, action:PayloadAction<IQuestion[]>) => {
+        state.restrooms = action.payload;
+      },
 
-        case 'RESTROOMS': {
-            return {
-                
-            }
-        }
+      transportation: (state, action:PayloadAction<IQuestion[]>) => {
+        state.transportation = action.payload;
+      },
 
-        case 'TRANSPORTATION': {
-            return {
-                
-            }
-        }
+    },
+});
 
-        default: {
-            return {
-                ...state
-            }
-        }
-    }
-};
+export const {assistance,equipment,places,restrooms,transportation} = accesibility.actions;
 
-export default accesibilityReducer
+export default accesibility.reducer;

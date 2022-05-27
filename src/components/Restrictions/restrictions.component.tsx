@@ -69,7 +69,7 @@ function DisableCheckbox() {
   return (
     <>
       <Stack pl={6} mt={1} spacing={2}>
-        <Checkbox id="1"
+        <Checkbox borderColor={'#3F6FE4'}
         onChange={(e: any) => {
           setCheckedItems([!checkedItems[0], checkedItems[1], checkedItems[2], checkedItems[3], checkedItems[4], checkedItems[5]])
           Save(checkedItems[0], 0)
@@ -80,7 +80,7 @@ function DisableCheckbox() {
         >
           {restrictions[0]}
         </Checkbox>
-        <Checkbox
+        <Checkbox borderColor={'#3F6FE4'}
         onChange={(e: any) => {
           setCheckedItems([checkedItems[0], !checkedItems[1], checkedItems[2], checkedItems[3], checkedItems[4], checkedItems[5]])
           Save(checkedItems[1], 1)
@@ -90,7 +90,7 @@ function DisableCheckbox() {
         >
           {restrictions[1]}
         </Checkbox>
-        <Checkbox
+        <Checkbox borderColor={'#3F6FE4'}
         onChange={(e: any) => {
           setCheckedItems([checkedItems[0], checkedItems[1], !checkedItems[2], checkedItems[3], checkedItems[4], checkedItems[5]])
           Save(checkedItems[2], 2)
@@ -100,7 +100,7 @@ function DisableCheckbox() {
         >
           {restrictions[2]}
         </Checkbox>
-        <Checkbox
+        <Checkbox borderColor={'#3F6FE4'}
         onChange={(e: any) => {
           setCheckedItems([checkedItems[0], checkedItems[1], checkedItems[2], !checkedItems[3], checkedItems[4], checkedItems[5]])
           Save(checkedItems[3], 3)
@@ -110,7 +110,7 @@ function DisableCheckbox() {
         >
           {restrictions[3]}
         </Checkbox>
-        <Checkbox
+        <Checkbox borderColor={'#3F6FE4'}
           onChange={(e: any) => {
             setCheckedItems([checkedItems[0], checkedItems[1], checkedItems[2], checkedItems[3], !checkedItems[4], checkedItems[5]])
             Save(checkedItems[4], 4)
@@ -120,7 +120,7 @@ function DisableCheckbox() {
         >
           {restrictions[4]}
         </Checkbox>
-        <Checkbox
+        <Checkbox borderColor={'#3F6FE4'}
         onChange={(e: any) => {
           setCheckedItems([checkedItems[0], checkedItems[1], checkedItems[2], checkedItems[3], checkedItems[4], !checkedItems[5]])
           Save(checkedItems[5], 5)
@@ -130,7 +130,7 @@ function DisableCheckbox() {
         >
           {restrictions[5]}
         </Checkbox>
-        <Checkbox
+        <Checkbox borderColor={'#3F6FE4'}
           onChange={(e: any) => {
             setCheckNo(!noRestrictCheck)
             Save(noRestrictCheck, 6)
@@ -141,7 +141,7 @@ function DisableCheckbox() {
         >
           {restrictions[6]}
         </Checkbox>
-        <Checkbox
+        <Checkbox borderColor={'#3F6FE4'}
           onChange={(e: any) => {
             setCheckedItems([e.target.checked, e.target.checked, e.target.checked, e.target.checked, e.target.checked, e.target.checked])
             setCheckAll(!allRestrictCheck)

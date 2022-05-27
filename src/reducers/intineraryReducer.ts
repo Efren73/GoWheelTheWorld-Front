@@ -1,83 +1,61 @@
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { RootState, AppThunk } from '../app/store';
+
 type IStops = {
 
-    stopDuration: string;
-    stopName: string;
+    stopDuration: string|null;
+    stopName: string|null;
 }
 
-const intinerary : 
+export interface intinerary 
 {
-    endPoint: string;
-    languages: string[];
-    meetPoint: string;
-    restrictions: string[];
-    stops: IStops;
+    endPoint: string|null;
+    languages: string[]|null;
+    meetPoint: string|null;
+    restrictions: string[]|null;
+    stops: IStops|null;
     
-} = {
+}
 
-    endPoint:"",
-    languages:[""],
-    meetPoint: "",
-    restrictions:[""],
+const initialState: intinerary = {
+
+    endPoint: null,
+    languages:null,
+    meetPoint: null,
+    restrictions:null,
     stops:{
-        stopDuration:"",
-        stopName:""
+        stopDuration:null,
+        stopName:null
     }
 }
 
-const intineraryReducer = (
-    state = intinerary,
-    action:any,
-) => {
-    switch(action.type) {
-        case 'ENDPOINT': {
-            console.log(state)
-            return {
-                state,
-            }
-        }
+export const intinerary = createSlice({
+    name: 'intinerary',
+    initialState,
+    // The `reducers` field lets us define reducers and generate associated actions
+    reducers: {
+      endPoint: (state, action:PayloadAction<string>) => {
+        state.endPoint = action.payload;
+      },
 
-        case 'LANGUAGES': {
-            //navigate(`/tour-operator/1/tour-completed/1/${action.payload}`)
-            return {
-                //...state.get(action.payload),
-                ...state
-                
-            }
-        }
+      languages: (state, action:PayloadAction<string[]>) => {
+        state.languages = action.payload;
+      },
+      meetPoint: (state, action: PayloadAction<string>) => {
+        state.meetPoint = action.payload;
+      },
 
-        case 'MEETPOINT': {
-            //navigate(`/tour-operator/1/tour-completed/1/${action.payload}`)
-            return {
-                //...state.get(action.payload),
-                ...state
-                
-            }
-        }
+      restrictions: (state, action:PayloadAction<string[]>) => {
+        state.restrictions = action.payload;
+      },
 
-        case 'RESTRICTIONS': {
-            //navigate(`/tour-operator/1/tour-completed/1/${action.payload}`)
-            return {
-                //...state.get(action.payload),
-                ...state
-                
-            }
-        }
+      stops: (state, action:PayloadAction<IStops>) => {
+        state.stops = action.payload;
+      },
 
-        case 'STOPS': {
-            //navigate(`/tour-operator/1/tour-completed/1/${action.payload}`)
-            return {
-                //...state.get(action.payload),
-                ...state
-                
-            }
-        }
+      
+    },
+});
 
-        default: {
-            return {
-                ...state
-            }
-        }
-    }
-};
-
-export default intineraryReducer
+export const {endPoint,languages,meetPoint,restrictions,stops}= intinerary.actions;
+export default intinerary.reducer

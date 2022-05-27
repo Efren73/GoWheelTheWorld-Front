@@ -1,36 +1,31 @@
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { RootState, AppThunk } from '../app/store';
 import { IQuestion } from "./accesibilityReducer";
 
-const faqs: {
-    faqs: IQuestion[]
-} = {
+export interface  faqs {
+    faqs: IQuestion[] |null;
+}  
+
+const initialState: faqs = {
     faqs: [
         {
-            question:"",
-            awnser: "",
+            question:null,
+            awnser: null,
         }
     ]
-}
-
-const faqsReducer = (
-    state = faqs,
-    action:any,
-) => {
-    switch(action.type) {
-        case 'FAQS': {
-            return {
-                ...state,
-                faqs:[
-                    action.payload
-                ]
-            }
-        }
-
-        default: {
-            return {
-                ...state
-            }
-        }
-    }
 };
 
-export default faqsReducer
+
+export const faqs = createSlice({
+    name: 'faqs',
+    initialState,
+    // The `reducers` field lets us define reducers and generate associated actions
+    reducers: {
+      faqsR: (state, action:PayloadAction<IQuestion[]>) => {
+        state.faqs = action.payload;
+      },
+    },
+});
+
+export const {faqsR} = faqs.actions
+export default faqs.reducer;

@@ -1,128 +1,110 @@
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { RootState, AppThunk } from '../app/store';
 type Iaccesibility = {
 
-    assistants: boolean;
-    equipmentRental: boolean;
-    instructors: boolean
+    assistants: boolean|null;
+    equipmentRental: boolean|null;
+    instructors: boolean|null
 }
 
 type Ifood = {
 
-    alcoholicBeverages: boolean;
-    breakfast: boolean;
-    dinner: boolean;
-    lunch: boolean;
-    snacks: boolean;
-    softDrinks: boolean;
+    alcoholicBeverages: boolean|null;
+    breakfast: boolean|null;
+    dinner: boolean|null;
+    lunch: boolean|null;
+    snacks: boolean|null;
+    softDrinks: boolean|null;
 }
 
 type Igeneral = {
 
-    admission: boolean; 
-    audioGuides: boolean;
-    gratuities: boolean;
-    insurance: boolean;
-    parkEntrance: boolean;
-    tourGuides: boolean;
-    touristCityTaxes: boolean;
+    admission: boolean|null; 
+    audioGuides: boolean|null;
+    gratuities: boolean|null;
+    insurance: boolean|null;
+    parkEntrance: boolean|null;
+    tourGuides: boolean|null;
+    touristCityTaxes: boolean|null;
 }
 
 type Itransport = {
 
-    accessibleTransportation: boolean;
-    goundTransportation: boolean;
-    parking: boolean;
-    professionalDriver: boolean;
+    accessibleTransportation: boolean|null;
+    goundTransportation: boolean|null;
+    parking: boolean|null;
+    professionalDriver: boolean|null;
 }
 
-const whatsIncluded :
+export interface whatsIncluded 
 {
-    accesibility: Iaccesibility;
-    food: Ifood;
-    general: Igeneral;
-    transport: Itransport;
+    accesibility: Iaccesibility|null;
+    food: Ifood|null;
+    general: Igeneral|null;
+    transport: Itransport|null;
 
-} = {
+} 
+const initialState: whatsIncluded ={
 
     accesibility: {
-        assistants: false,
-        equipmentRental: false,
-        instructors: false  
+        assistants: null,
+        equipmentRental: null,
+        instructors: null  
     },
 
     food: {
-        alcoholicBeverages: false,
-        breakfast: false,
-        dinner: false,
-        lunch: false,
-        snacks: false,
-        softDrinks: false,
+        alcoholicBeverages: null,
+        breakfast: null,
+        dinner: null,
+        lunch: null,
+        snacks: null,
+        softDrinks: null,
     },
 
     general: {
-        admission: false,
-        audioGuides: false,
-        gratuities: false,
-        insurance: false,
-        parkEntrance: false,
-        tourGuides: false,
-        touristCityTaxes: false,
+        admission: null,
+        audioGuides: null,
+        gratuities: null,
+        insurance: null,
+        parkEntrance: null,
+        tourGuides: null,
+        touristCityTaxes: null,
 
     },
 
     transport:{
-        accessibleTransportation: false,
-        goundTransportation: false,
-        parking: false,
-        professionalDriver: false,
+        accessibleTransportation: null,
+        goundTransportation: null,
+        parking: null,
+        professionalDriver: null,
 
     },
 }
 
-const whatsIncludedReducer = (
-    state = whatsIncluded,
-    action:any,
-) => {
-    switch(action.type) {
-        case 'ACCESSIBILITY': {
-            console.log(state)
-            return {
-                state,
-            }
-        }
+export const whatsIncluded = createSlice({
+    name: 'whatsInclude',
+    initialState,
+    // The `reducers` field lets us define reducers and generate associated actions
+    reducers: {
+      accesibility: (state, action:PayloadAction<Iaccesibility>) => {
+        state.accesibility = action.payload;
+      },
 
-        case 'FOOD': {
-            //navigate(`/tour-operator/1/tour-completed/1/${action.payload}`)
-            return {
-                //...state.get(action.payload),
-                ...state
-                
-            }
-        }
+      food: (state, action:PayloadAction<Ifood>) => {
+        state.food = action.payload;
+      },
+      general: (state, action: PayloadAction<Igeneral>) => {
+        state.general = action.payload;
+      },
 
-        case 'GENERAL': {
-            //navigate(`/tour-operator/1/tour-completed/1/${action.payload}`)
-            return {
-                //...state.get(action.payload),
-                ...state
-                
-            }
-        }
+      transport: (state, action:PayloadAction<Itransport>) => {
+        state.transport = action.payload;
+      },
 
-        case 'TRANSPORT': {
-            //navigate(`/tour-operator/1/tour-completed/1/${action.payload}`)
-            return {
-                //...state.get(action.payload),
-                ...state
-                
-            }
-        }
+      
+    },
+});
 
-        default: {
-            return {
-                ...state
-            }
-        }
-    }
-};
+export const {accesibility,food,general,transport} = whatsIncluded.actions;
 
-export default whatsIncludedReducer
+export default whatsIncluded.reducer
