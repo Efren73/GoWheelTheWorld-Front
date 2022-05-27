@@ -12,6 +12,7 @@ import {
     Box,
     Center,
 } from "@chakra-ui/react"
+import { Responsive } from "../generalTypes";
 
 const ChildPolicy: React.FC = () => {
 
@@ -21,7 +22,6 @@ const ChildPolicy: React.FC = () => {
     const [valueQ4, setValueQ4] = React.useState('yes')
 
     const colSpan = { base: 2, md: 1 };
-    const fontSizeResponsive = { base:'20px', sm:'15px'};
 
     const addQuestionAnswer = (answer:string) => {
         if (answer == "no")
@@ -40,11 +40,11 @@ const ChildPolicy: React.FC = () => {
             <Stack w="full" p={5}>
                 <Grid  column={2} columnGap={3} rowGap={6} w="full">
                     <GridItem colSpan = {2}>
-                        <Heading fontSize={fontSizeResponsive}>Additional questions</Heading>
+                        <Heading fontSize={Responsive.fontSizeResponsiveHead}>Additional questions</Heading>
                     </GridItem>
 
                     <GridItem colSpan={colSpan}>
-                        <Text fontSize={fontSizeResponsive}>From what age are children allowed?</Text>
+                        <Text fontSize={Responsive.fontSizeResponsiveHead}>From what age are children allowed?</Text>
                     </GridItem>
 
                     <GridItem colSpan={colSpan}>
@@ -58,7 +58,7 @@ const ChildPolicy: React.FC = () => {
                     </GridItem>
 
                     <GridItem colSpan={colSpan}>
-                        <Text fontSize={fontSizeResponsive}>From what age does children pay for the tour/activity</Text>
+                        <Text fontSize={Responsive.fontSizeResponsiveHead}>From what age does children pay for the tour/activity</Text>
                     </GridItem>
 
                     <GridItem colSpan={colSpan}>
@@ -72,7 +72,7 @@ const ChildPolicy: React.FC = () => {
                     </GridItem>
 
                     <GridItem colSpan={colSpan}>
-                        <Text fontSize={fontSizeResponsive}>Is there height limit to this tour/activity?</Text>
+                        <Text fontSize={Responsive.fontSizeResponsiveHead}>Is there height limit to this tour/activity?</Text>
                     </GridItem>
                     
                     <GridItem colSpan={colSpan}>
@@ -90,7 +90,7 @@ const ChildPolicy: React.FC = () => {
         else if(RadioB == 'no')
         return(
             <Center  h='full' color='black' w="full">
-                <Text fontSize={fontSizeResponsive} color='#black'> That's all from this part! </Text>
+                <Text fontSize={Responsive.fontSizeResponsiveHead} color='#black'> That's all from this part! </Text>
             </Center>
         )
     }
@@ -105,11 +105,11 @@ const ChildPolicy: React.FC = () => {
         background="#EBE9E9"
         borderRadius="10px">
             <Stack spacing={2}>
-                <Text fontSize={fontSizeResponsive} color='#3F6FE4'>Children Policy</Text>
+                <Text fontSize={Responsive.fontSizeResponsiveHead} color='#3F6FE4'>Children Policy</Text>
                 <Heading fontSize={{base:'35px', sm:'18px'}}>Tell us about children policy</Heading>
 
                 <HStack w="full"  >
-                    <Text fontSize={fontSizeResponsive} >Are children allowed in this tour? </Text>
+                    <Text fontSize={Responsive.fontSizeResponsiveHead} >Are children allowed in this tour? </Text>
                     <RadioGroup onChange={setValueQ1} value={valueQ1} >
                     <Stack direction='row'>
                         <Radio bg="white" value='yes' size='lg'>Yes</Radio>

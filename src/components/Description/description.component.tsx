@@ -18,6 +18,7 @@ import {
     Heading,
 } from "@chakra-ui/react"
 import { ExternalLinkIcon } from '@chakra-ui/icons'
+import { Responsive } from "../generalTypes";
 
 const Description: React.FC = () => {
     //Elementos utilizados para limitar el numero de caracteres
@@ -58,7 +59,7 @@ const Description: React.FC = () => {
     ];
 
     /* RESPONSIVE -------------------------------------- */
-    const fontSizeResponsive = { base:'20px', sm:'15px' };
+  
 
     return (
         <React.Fragment>
@@ -68,8 +69,8 @@ const Description: React.FC = () => {
                  background="#EBE9E9"
                  borderRadius="10px">
                 <Stack spacing={2}>
-                    <Text fontSize={fontSizeResponsive} color='#3F6FE4'> Basic Information / Description </Text>
-                    <Heading fontSize={{base:'35px', sm:'18px'}}> 
+                    <Text fontSize={Responsive.fontSizeResponsiveHead} color='#3F6FE4'> Basic Information / Description </Text>
+                    <Heading fontSize={Responsive.fontSizeResponsiveBody}> 
                         Please share the link to your website or any another platform
                         where the tour/activity is displayed 
                     </Heading>
@@ -80,10 +81,10 @@ const Description: React.FC = () => {
                                 background='#fff'
                                 onChange={handleInputLink}
                                 value = {value1}
-                                fontSize={fontSizeResponsive}
+                                fontSize={Responsive.fontSizeResponsiveHead}
                                 />
                     </Box>
-                    <Heading fontSize={{base:'35px', sm:'18px'}}> Description of the tour / activity </Heading>
+                    <Heading fontSize={Responsive.fontSizeResponsiveBody}> Description of the tour / activity </Heading>
                 
                     <Box w='full'>
                         <Textarea 
@@ -92,13 +93,13 @@ const Description: React.FC = () => {
                             background='#fff'
                             onChange={handleInputChange}
                             value = {value}
-                            fontSize={fontSizeResponsive}
+                            fontSize={Responsive.fontSizeResponsiveHead}
                             />
                     
                         <HStack justifyContent='space-between' color='#2F6FE4' >
-                            <Text fontSize={fontSizeResponsive}>{characters}/1600</Text>
+                            <Text fontSize={Responsive.fontSizeResponsiveHead}>{characters}/1600</Text>
                             <Button variant="link" onClick={onOpen}>
-                                <Text color='#2F6FE4' as='u' fontSize={fontSizeResponsive}> Show examples </Text>
+                                <Text color='#2F6FE4' as='u' fontSize={Responsive.fontSizeResponsiveHead}> Show examples </Text>
                             </Button>
                         </HStack>
                     </Box>
@@ -108,20 +109,20 @@ const Description: React.FC = () => {
             <Modal onClose={onClose} size='xl' isOpen={isOpen} scrollBehavior='inside'>
                 <ModalOverlay />
                 <ModalContent background='#EBE9E9'>
-                <ModalHeader color='#3F6FE4' fontSize={fontSizeResponsive}>Examples</ModalHeader>
+                <ModalHeader color='#3F6FE4' fontSize={Responsive.fontSizeResponsiveHead}>Examples</ModalHeader>
                 <ModalBody alignSelf={'center'}>
-                    <Link href='https://wheeltheworld.com/destinations/accessible-travel-usa/new-york/things-to-do/downtown-manhattan-private-guided-tour' isExternal fontSize={fontSizeResponsive}>
+                    <Link href='https://wheeltheworld.com/destinations/accessible-travel-usa/new-york/things-to-do/downtown-manhattan-private-guided-tour' isExternal fontSize={Responsive.fontSizeResponsiveHead}>
                     Example 1 <ExternalLinkIcon mx='2px' color='#3F6FE4'/>
                     </Link>
-                    <Link marginLeft={'30px'} href='https://wheeltheworld.com/destinations/accessible-travel-mexico/playa-del-carmen/things-to-do/rio-secreto-dry-tour' isExternal fontSize={fontSizeResponsive}>
+                    <Link marginLeft={'30px'} href='https://wheeltheworld.com/destinations/accessible-travel-mexico/playa-del-carmen/things-to-do/rio-secreto-dry-tour' isExternal fontSize={Responsive.fontSizeResponsiveHead}>
                     Example 2 <ExternalLinkIcon mx='2px' color='#3F6FE4'/>
                     </Link>
-                    <Link marginLeft={'30px'} href='https://wheeltheworld.com/destinations/accessible-travel-usa/maui/things-to-do/whale-watching-tour' isExternal fontSize={fontSizeResponsive}>
+                    <Link marginLeft={'30px'} href='https://wheeltheworld.com/destinations/accessible-travel-usa/maui/things-to-do/whale-watching-tour' isExternal fontSize={Responsive.fontSizeResponsiveHead}>
                     Example 3 <ExternalLinkIcon mx='2px' color='#3F6FE4'/>
                     </Link>
                 </ModalBody>
                 <ModalFooter>
-                    <Button onClick={onClose} background='#3F6FE4' color={'white'} fontSize={fontSizeResponsive}>Close</Button>
+                    <Button onClick={onClose} background='#3F6FE4' color={'white'} fontSize={Responsive.fontSizeResponsiveHead}>Close</Button>
                 </ModalFooter>
                 </ModalContent>
             </Modal>

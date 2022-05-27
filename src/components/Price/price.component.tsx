@@ -10,10 +10,11 @@ import {
 } from "@chakra-ui/react"
 
 import '../Upload-Photos/upload-photos.modules.css';
+import { Responsive } from "../generalTypes";
 
 const Price: React.FC = () => {
     /* RESPONSIVE -------------------------------------- */
-    const fontSizeResponsive = { base:'20px', sm:'15px'};
+
     
     const [price, setPrice] = React.useState();
    
@@ -27,18 +28,18 @@ const Price: React.FC = () => {
 			 borderRadius="10px">
   
         <Stack spacing={2}>
-            <Text fontSize={fontSizeResponsive} color='#3F6FE4'> Basic Information / Price </Text>
-            <Heading fontSize={{base:'35px', sm:'18px'}}> Price per person, based on 2 travelers </Heading>
+            <Text fontSize={Responsive.fontSizeResponsiveHead} color='#3F6FE4'> Basic Information / Price </Text>
+            <Heading fontSize={Responsive.fontSizeResponsiveBody}> Price per person, based on 2 travelers </Heading>
         </Stack>
             
             <HStack paddingTop={'30px'} paddingBottom='50px' justifySelf={'center'}>
-                <Text fontSize={fontSizeResponsive} alignContent={'flex-start'}>$USD</Text>
+                <Text fontSize={Responsive.fontSizeResponsiveHead} alignContent={'flex-start'}>$USD</Text>
                 <NumberInput background='white' borderRadius={10} onChange={(cost: any) => setPrice(cost)} value={price}>
                     <NumberInputField />
                 </NumberInput>
             </HStack>
 
-            <Heading fontSize={{base:'35px', sm:'18px'}} paddingBottom='30px'>Please share any document related to the price</Heading>
+            <Heading fontSize={Responsive.fontSizeResponsiveBody} paddingBottom='30px'>Please share any document related to the price</Heading>
             <Stack justifyItems={'center'}>
                 <div className='uploadBtn'>
                     <p className='textBtn'> Upload </p>

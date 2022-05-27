@@ -20,7 +20,7 @@ import {
 
 import { DeleteIcon } from "@chakra-ui/icons"
 import { AnyRecord } from "dns"
-
+import { Responsive } from "../generalTypes";
 const Faqs: React.FC = () => {
 
     //Definición de useState para que el usuario pueda ingresar varias preguntas
@@ -117,7 +117,6 @@ const Faqs: React.FC = () => {
     }
 
     /* RESPONSIVE --------------------------------- */
-    const fontSizeResponsive = { base:'20px', sm:'15px'};
     
     return(
     <React.Fragment>
@@ -128,8 +127,8 @@ const Faqs: React.FC = () => {
               borderRadius="10px">
   
             <Stack spacing={2} marginBottom={15}>
-                <Text  color='#3F6FE4' fontSize={fontSizeResponsive}>FAQS</Text>
-                <Heading fontSize={{base:'35px', sm:'18px'}}>Add your Frequently Asked Questions</Heading>
+                <Text  color='#3F6FE4' fontSize={Responsive.fontSizeResponsiveHead}>FAQS</Text>
+                <Heading fontSize={Responsive.fontSizeResponsiveBody}>Add your Frequently Asked Questions</Heading>
             </Stack>
 
             <Stack overflowY='auto' w='full' justifyContent='flex-start'>
@@ -141,14 +140,14 @@ const Faqs: React.FC = () => {
                             size='lg' 
                             onChange={() => setCheck1(!check1)}
                             />
-                        <Text fontSize={fontSizeResponsive}>Can I Park here?</Text>
+                        <Text fontSize={Responsive.fontSizeResponsiveHead}>Can I Park here?</Text>
                     </HStack>
                         {check1 && addAnswer()}
                     
                 </Stack>
                 <Stack>
                     <Button bg='#3F6FE4' border=' 1px solid #000' color='#fff' borderRadius='20px' 
-                    onClick={addQuestionAnswer} w='10%' fontSize={{base: '25px', sm: '10px', md:'15px'}} >
+                    onClick={addQuestionAnswer} w='10%' fontSize={Responsive.fontSizeResponsiveBody} >
                         + Add
                     </Button>
                 </Stack>

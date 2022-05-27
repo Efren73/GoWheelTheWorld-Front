@@ -13,6 +13,7 @@ import {
 
 import { useLocation } from "react-router-dom"
 import { useState } from "react";
+import { Responsive } from "../generalTypes";
 
 function CustomCheckbox(props: any) {
   const { state, getCheckboxProps, getInputProps, getLabelProps } = useCheckbox(props)
@@ -128,7 +129,6 @@ const WhatsIncluded: React.FC = () => {
     }
 
     /* RESPONSIVE --------------------------------- */
-    const fontSizeResponsive = { base:'20px', sm:'15px'};
     const handleCheckedItems = (includesName:string, checkea:boolean) => {
       // Agregando el nombre de la experiencia que se selccionó en el hijo CustomCheckbox
         if(route === "whats-included-general"){
@@ -187,11 +187,11 @@ const WhatsIncluded: React.FC = () => {
              borderRadius="10px">
   
             <Stack spacing={2}>
-                <Text fontSize={fontSizeResponsive} color='#3F6FE4'> What's included </Text>
-                <Heading fontSize={{base:'35px', sm:'18px'}}> Select what's included with your tour </Heading>
+                <Text fontSize={Responsive.fontSizeResponsiveHead} color='#3F6FE4'> What's included </Text>
+                <Heading fontSize={Responsive.fontSizeResponsiveBody}> Select what's included with your tour </Heading>
             </Stack>
             
-            <SimpleGrid h='80%' columns={[1, 1, 2, 2, 3]} spacing={15} paddingTop='30px' alignSelf={'center'} fontSize={fontSizeResponsive}>
+            <SimpleGrid h='80%' columns={[1, 1, 2, 2, 3]} spacing={15} paddingTop='30px' alignSelf={'center'} fontSize={Responsive.fontSizeResponsiveHead}>
             {
             included.map ((includes: string) =>(
             <CustomCheckbox
