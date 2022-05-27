@@ -15,6 +15,7 @@ import {
 } from "@chakra-ui/react"
 import { IRestrooms } from "./restrooms.types";
 import {useState} from 'react'
+import { Responsive } from "../generalTypes";
 
 function Restrooms(props: IRestrooms): JSX.Element {
 
@@ -45,8 +46,6 @@ function Restrooms(props: IRestrooms): JSX.Element {
         setRestRoom(newArray)
     }
 
-    /* RESPONSIVE --------------------------------- */
-    const fontSizeResponsive = { base:'20px', sm:'15px'};
 
     return (
         <Box boxShadow='2xl'
@@ -55,18 +54,18 @@ function Restrooms(props: IRestrooms): JSX.Element {
             background="#EBE9E9"
             borderRadius="10px">
             <VStack alignItems='flex-start' w="full">
-                <Text fontSize={fontSizeResponsive} color='#3F6FE4'> Accesibility / Restrooms </Text>
-                <Heading fontSize={{base:'35px', sm:'18px'}}>Restrooms</Heading>
+                <Text fontSize={Responsive.fontSizeResponsiveHead} color='#3F6FE4'> Accesibility / Restrooms </Text>
+                <Heading fontSize={Responsive.fontSizeResponsiveBody}>Restrooms</Heading>
                 <HStack justifyContent="flex-end" w="95%">
                     <HStack w="15%" spacing={31}>
-                        <Text color="#4F6FE4" fontSize={fontSizeResponsive}> Yes </Text>
-                        <Text color="#4F6FE4" fontSize={fontSizeResponsive}> No </Text>
+                        <Text color="#4F6FE4" fontSize={Responsive.fontSizeResponsiveHead}> Yes </Text>
+                        <Text color="#4F6FE4" fontSize={Responsive.fontSizeResponsiveHead}> No </Text>
                     </HStack>
                 </HStack>
 
                 <Table bg="white" borderRadius={10}>
                     <Tbody>
-                        <Tr fontSize={fontSizeResponsive}>
+                        <Tr fontSize={Responsive.fontSizeResponsiveHead}>
                             <Td>Accessible restrooms available at every place of the tour/activity</Td>
                             <Td>
                                 <RadioGroup value={restRoom[0].answer}>
@@ -83,7 +82,7 @@ function Restrooms(props: IRestrooms): JSX.Element {
                                 </RadioGroup>
                             </Td>
                         </Tr>
-                        <Tr fontSize={fontSizeResponsive}>
+                        <Tr fontSize={Responsive.fontSizeResponsiveHead}>
                             <Td>Accessible restrooms available at multiple stops during the tour/activity.</Td>
                             <Td>
                                 <RadioGroup value={restRoom[1].answer}>
@@ -100,7 +99,7 @@ function Restrooms(props: IRestrooms): JSX.Element {
                                 </RadioGroup>
                             </Td>
                         </Tr>
-                        <Tr fontSize={fontSizeResponsive}>
+                        <Tr fontSize={Responsive.fontSizeResponsiveHead}>
                             <Td>Accessible restrooms available in only one stop of the tour/activity.</Td>
                             <Td>
                                 <RadioGroup value={restRoom[2].answer}>
@@ -117,7 +116,7 @@ function Restrooms(props: IRestrooms): JSX.Element {
                                 </RadioGroup>
                             </Td>
                         </Tr>
-                        <Tr fontSize={fontSizeResponsive}>
+                        <Tr fontSize={Responsive.fontSizeResponsiveHead}>
                             <Td>No accessible restrooms available for the tour/activity.</Td>
                             <Td>
                                 <RadioGroup value={restRoom[3].answer}>

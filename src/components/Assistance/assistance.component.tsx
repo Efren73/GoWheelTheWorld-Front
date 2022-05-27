@@ -15,6 +15,7 @@ import {
 } from "@chakra-ui/react"
 import { IAssistance} from "./assistance.types";
 import {useState} from 'react'
+import { Responsive } from "../generalTypes";
 
 function Assistance(props: IAssistance): JSX.Element {
 
@@ -40,7 +41,7 @@ function Assistance(props: IAssistance): JSX.Element {
     }
 
     /* RESPONSIVE --------------------------------- */
-    const fontSizeResponsive = { base:'20px', sm:'15px'};
+  
 
     return (
         <Box boxShadow='2xl'
@@ -49,18 +50,18 @@ function Assistance(props: IAssistance): JSX.Element {
         background="#EBE9E9"
         borderRadius="10px">
         <VStack alignItems='flex-start' w="full">
-            <Text fontSize={fontSizeResponsive} color='#3F6FE4'> Accesibility / Assistance </Text>
-            <Heading fontSize={{base:'35px', sm:'18px'}}>Assistance</Heading>
+            <Text fontSize={Responsive.fontSizeResponsiveHead} color='#3F6FE4'> Accesibility / Assistance </Text>
+            <Heading fontSize={Responsive.fontSizeResponsiveBody}>Assistance</Heading>
             
             <HStack justifyContent="flex-end" w="50%">
                 <HStack w="15%" spacing={31}>
-                    <Text color="#4F6FE4" fontSize={fontSizeResponsive}> Yes </Text>
-                    <Text color="#4F6FE4" fontSize={fontSizeResponsive}> No </Text>
+                    <Text color="#4F6FE4" fontSize={Responsive.fontSizeResponsiveHead}> Yes </Text>
+                    <Text color="#4F6FE4" fontSize={Responsive.fontSizeResponsiveHead}> No </Text>
                 </HStack>
             </HStack>
             <Table bg="white" borderRadius={10}>
                 <Tbody>
-                    <Tr fontSize={fontSizeResponsive}>
+                    <Tr fontSize={Responsive.fontSizeResponsiveHead}>
                         <Td>Guides / staff members have been trained by Wheel the World to provide assistance to people with disabilities during the tour/activity</Td>
                         <Td>
                             <RadioGroup>
@@ -77,7 +78,7 @@ function Assistance(props: IAssistance): JSX.Element {
                             </RadioGroup>
                         </Td>
                     </Tr>
-                    <Tr fontSize={fontSizeResponsive}>
+                    <Tr fontSize={Responsive.fontSizeResponsiveHead}>
                         <Td>Guides / staff members have experience assisting people with disabilities</Td>
                         <Td>
                             <RadioGroup>
@@ -94,7 +95,7 @@ function Assistance(props: IAssistance): JSX.Element {
                             </RadioGroup>
                         </Td>
                     </Tr>
-                    <Tr fontSize={fontSizeResponsive}>
+                    <Tr fontSize={Responsive.fontSizeResponsiveHead}>
                         <Td>Guides / staff members will be available to assist</Td>
                         <Td>
                             <RadioGroup>

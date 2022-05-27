@@ -19,6 +19,7 @@ import {
 } from "@chakra-ui/react"
 
 import { DeleteIcon } from "@chakra-ui/icons"
+import { Responsive } from "../generalTypes";
 
 const Stops: React.FC = () => {
    // let [stops, setStops] = useState<any>([])
@@ -134,7 +135,7 @@ const Stops: React.FC = () => {
 	console.log(+minutes)
 
       // RESPONSIVE -------------------------------------------------------
-  const fontSizeResponsive = { base:'20px', sm:'15px'};
+  
 
   const { getInputProps, getIncrementButtonProps, getDecrementButtonProps } =
         useNumberInput({
@@ -156,8 +157,8 @@ const Stops: React.FC = () => {
             borderRadius="10px">
 
           <Stack spacing={2}>
-              <Text  color='#3F6FE4' fontSize={fontSizeResponsive}>tinerary / Stops</Text>
-              <Text fontSize={{base:'35px', sm:'20px'}}>Introduce the stops</Text>
+              <Text  color='#3F6FE4' fontSize={Responsive.fontSizeResponsiveHead}>tinerary / Stops</Text>
+              <Text fontSize={Responsive.fontSizeResponsiveBody}>Introduce the stops</Text>
           </Stack>
 
           <Stack overflowY='auto' w='full' justifyContent='flex-start'>
@@ -184,11 +185,11 @@ const Stops: React.FC = () => {
                                           <Box>
                                           
                                             <Box w='full'>
-                                                <Heading fontSize={{base:'35px', sm:'18px'}}>Duration</Heading>
+                                                <Heading fontSize={Responsive.fontSizeResponsiveHead}>Duration</Heading>
                                             </Box>
                                             <Box>
                                                 <Stack shouldWrapChildren direction={['column', 'column', "column", 'row']} >
-                                                    <Text fontSize={fontSizeResponsive} color='#595959' paddingBottom='20px'>Hours</Text>
+                                                    <Text fontSize={Responsive.fontSizeResponsiveHead} color='#595959' paddingBottom='20px'>Hours</Text>
                                                     <NumberInput size='md' 
                                                                 maxW={80} 
                                                                 min={0} 
@@ -209,14 +210,14 @@ const Stops: React.FC = () => {
                                                         </NumberInputStepper>
                                                     </NumberInput>
                                                     
-                                                    <Text fontSize={fontSizeResponsive} color='#595959' paddingBottom='20px'>Minutes</Text>
+                                                    <Text fontSize={Responsive.fontSizeResponsiveHead} color='#595959' paddingBottom='20px'>Minutes</Text>
                                                     <NumberInput size='md' 
                                                                 maxW={80}  
                                                                 min={15} 
                                                                 max={59} 
                                                                 variant='outline' 
                                                                 h='40px' 
-                                                                fontSize={fontSizeResponsive}
+                                                                fontSize={Responsive.fontSizeResponsiveHead}
                                                                 background={'white'} 
                                                                 defaultValue={30}
                                                                 onChange={(value) => {

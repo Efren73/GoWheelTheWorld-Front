@@ -7,7 +7,7 @@ import {
     Stack,
     Textarea,
 } from "@chakra-ui/react"
-
+import { Responsive } from "../generalTypes";
 const CancelationPolicy: React.FC = () => {
     // Control de input para cancelation policy
     let [value1, setValue1] = useState('')
@@ -18,7 +18,7 @@ const CancelationPolicy: React.FC = () => {
     }
 
     /* RESPONSIVE --------------------------------- */
-    const fontSizeResponsive = { base:'20px', sm:'15px'};
+    
 
     return (
     <React.Fragment>
@@ -29,8 +29,8 @@ const CancelationPolicy: React.FC = () => {
         background="#EBE9E9"
         borderRadius="10px">
             <Stack spacing={2}>
-                <Text fontSize={fontSizeResponsive} color='#3F6FE4'> Cancelation policy </Text>
-                <Heading fontSize={{base:'35px', sm:'18px'}}> Cancelation policy </Heading>
+                <Text fontSize={Responsive.fontSizeResponsiveHead} color='#3F6FE4'> Cancelation policy </Text>
+                <Heading fontSize={Responsive.fontSizeResponsiveBody}> Cancelation policy </Heading>
                 <Box w='full'>
                     <Textarea 
                         h="200px"
@@ -38,7 +38,7 @@ const CancelationPolicy: React.FC = () => {
                         background='#fff'
                         onChange={handleInputLink}
                         value = {value1}
-                        fontSize={fontSizeResponsive}
+                        fontSize={Responsive.fontSizeResponsiveHead}
                         />
                 </Box>
             </Stack>

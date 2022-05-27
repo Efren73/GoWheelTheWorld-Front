@@ -15,6 +15,7 @@ import {
 } from "@chakra-ui/react"
 import { ITransportation } from "./transportation.types";
 import {useState} from 'react'
+import { Responsive } from "../generalTypes";
 
 function Transportation(props: ITransportation): JSX.Element {
 
@@ -45,7 +46,6 @@ function Transportation(props: ITransportation): JSX.Element {
     }
 
     /* RESPONSIVE --------------------------------- */
-    const fontSizeResponsive = { base:'20px', sm:'15px'};
 
     return (
         <Box boxShadow='2xl'
@@ -55,19 +55,19 @@ function Transportation(props: ITransportation): JSX.Element {
             borderRadius="10px">
 
             <VStack alignItems='flex-start' w="full">
-                <Text fontSize={fontSizeResponsive} color='#3F6FE4'> Accesibility / Transportation </Text>
-                <Heading fontSize={{base:'35px', sm:'18px'}}> Transportation </Heading>
+                <Text fontSize={Responsive.fontSizeResponsiveHead} color='#3F6FE4'> Accesibility / Transportation </Text>
+                <Heading fontSize={Responsive.fontSizeResponsiveBody}> Transportation </Heading>
 
                 <HStack justifyContent="flex-end" w="93%">
                     <HStack w="15%" spacing={31}>
-                        <Text color="#4F6FE4" fontSize={fontSizeResponsive}> Yes </Text>
-                        <Text color="#4F6FE4" fontSize={fontSizeResponsive}> No </Text>
+                        <Text color="#4F6FE4" fontSize={Responsive.fontSizeResponsiveHead}> Yes </Text>
+                        <Text color="#4F6FE4" fontSize={Responsive.fontSizeResponsiveHead}> No </Text>
                     </HStack>
                 </HStack>
 
                 <Table bg="white" borderRadius={10}>
                     <Tbody>
-                        <Tr fontSize={fontSizeResponsive}>
+                        <Tr fontSize={Responsive.fontSizeResponsiveHead}>
                             <Td>Transportation is wheelchair accessible</Td>
                             <Td>
                                 <RadioGroup value = {transport[0].answer} >
@@ -82,7 +82,7 @@ function Transportation(props: ITransportation): JSX.Element {
                                 </RadioGroup>
                             </Td>
                         </Tr>
-                        <Tr fontSize={fontSizeResponsive}>
+                        <Tr fontSize={Responsive.fontSizeResponsiveHead}>
                             <Td>
                                 Transportation is not wheelchair accessible but assistance will be provided for transfers.
                             </Td>
@@ -101,7 +101,7 @@ function Transportation(props: ITransportation): JSX.Element {
                                 </RadioGroup>
                             </Td>
                         </Tr>
-                        <Tr fontSize={fontSizeResponsive}>
+                        <Tr fontSize={Responsive.fontSizeResponsiveHead}>
                             <Td>If needed, your wheelchair can be stored safely inside the vehicle</Td>
                             <Td>
                                 <RadioGroup value = {transport[2].answer}>
@@ -118,7 +118,7 @@ function Transportation(props: ITransportation): JSX.Element {
                                 </RadioGroup>
                             </Td>
                         </Tr>
-                        <Tr fontSize={fontSizeResponsive}>
+                        <Tr fontSize={Responsive.fontSizeResponsiveHead}>
                             <Td>Is transportation included in this tour/activity?</Td>
                             <Td>
                                 <RadioGroup value = {transport[3].answer}>

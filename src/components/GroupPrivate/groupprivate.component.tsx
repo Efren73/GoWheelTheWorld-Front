@@ -13,7 +13,7 @@ import {
   useCheckboxGroup,
   Heading,
 } from "@chakra-ui/react"
-
+import { Responsive } from "../generalTypes";
 import { useState } from "react"
 
 function CustomCheckbox(props: any) {
@@ -150,7 +150,7 @@ const GroupPrivate: React.FC = () => {
     }
 
     /* RESPONSIVE -------------------------------------- */
-    const fontSizeResponsive = { base:'20px', sm:'15px'};
+   
 
     console.log('Minimo', minimo)
     console.log('Maximo', maximo)
@@ -164,12 +164,12 @@ const GroupPrivate: React.FC = () => {
                 borderRadius="10px">
         
             <Stack spacing={2}>
-                <Text fontSize={fontSizeResponsive} color='#3F6FE4'>Basic Information / Travelers</Text>
+                <Text fontSize={Responsive.fontSizeResponsiveHead} color='#3F6FE4'>Basic Information / Travelers</Text>
             </Stack>
 
             <VStack>
-                <Heading alignSelf={'flex-start'} fontSize={{base:'35px', sm:'18px'}}>Is it a private or a group tour/activity?</Heading>
-                <SimpleGrid columns={[1, 1, 2, 2, 2]} spacing={15} paddingTop='20px' paddingBottom='30px' alignSelf={'center'} fontSize={fontSizeResponsive}>
+                <Heading alignSelf={'flex-start'} fontSize={Responsive.fontSizeResponsiveBody}>Is it a private or a group tour/activity?</Heading>
+                <SimpleGrid columns={[1, 1, 2, 2, 2]} spacing={15} paddingTop='20px' paddingBottom='30px' alignSelf={'center'} fontSize={Responsive.fontSizeResponsiveHead}>
                     {
                         experiences.map((experience: string) =>(
                         <CustomCheckbox
@@ -182,13 +182,13 @@ const GroupPrivate: React.FC = () => {
                     }
                 </SimpleGrid>
 
-                <Heading alignSelf={'flex-start'} fontSize={{base:'35px', sm:'18px'}} paddingBottom='10px'>
+                <Heading alignSelf={'flex-start'} fontSize={Responsive.fontSizeResponsiveBody} paddingBottom='10px'>
                     Please specify the minimum and maximum number of travelers
                 </Heading>
 
                 <HStack w='42%' paddingBottom='10px' spacing='42%' justifyContent={'flex-start'}>
-                    <Text fontSize={fontSizeResponsive}>Minimum</Text>
-                    <Text fontSize={fontSizeResponsive}>Maximum</Text>
+                    <Text fontSize={Responsive.fontSizeResponsiveHead}>Minimum</Text>
+                    <Text fontSize={Responsive.fontSizeResponsiveHead}>Maximum</Text>
                 </HStack>
 
                 <Stack justifyContent={'center'} spacing='50px' direction={['column', 'column', 'row', 'row']}> 
