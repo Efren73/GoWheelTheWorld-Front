@@ -79,7 +79,10 @@ const Cart: React.FC = () => {
 	console.log(+minutes)
 
 	/* RESPONSIVE ------------------------------------- */
-	const fontSizeResponsive = { base:'20px', sm:'15px'};
+	const fontSizeResponsiveHead = { base:'20px', xsm:'10px', sm:'15px', md:'20px', lg:'22px'};
+	const fontSizeResponsiveBody = { base:'30px', xsm:'10px', sm:'15px', md:'20px', lg:'25px'}
+
+
 
     return(
 		<React.Fragment>
@@ -90,21 +93,21 @@ const Cart: React.FC = () => {
 				borderRadius="10px">
 
 				<VStack alignItems='flex-start'>
-					<Text fontSize={fontSizeResponsive} color='#3F6FE4'>Basic Information / Name of the tour</Text>
+					<Text fontSize={fontSizeResponsiveHead} color='#3F6FE4'>Basic Information / Name of the tour</Text>
 					<HStack w="full">
-						<Heading fontSize={{base:'35px', sm:'18px'}}>Give your experience a name</Heading>
+						<Heading fontSize={fontSizeResponsiveBody}>Give your experience a name</Heading>
 						<IconButton
 							variant='outline'
 							aria-label='Info'
 							icon={<InfoIcon w={6} h={6} />}
 						/>
 					</HStack>
-					<Text fontSize={fontSizeResponsive} paddingBottom='20px'> Make sure it's descriptive and unique so travelers know what you offer</Text>
+					<Text fontSize={fontSizeResponsiveHead} paddingBottom='20px'> Make sure it's descriptive and unique so travelers know what you offer</Text>
 					<Box w='full'>
 						<Input	background={'white'}
 								variant='outline'
 								h='40px'
-								fontSize={fontSizeResponsive}
+								fontSize={fontSizeResponsiveHead}
 								required maxLength={80}
 								placeholder= 'Experience name'
 								onChange={handleInputChange}
@@ -112,18 +115,18 @@ const Cart: React.FC = () => {
 						/>
 
 						<HStack justifyContent='space-between' color='#2F6FE4' >
-							<Text fontSize={fontSizeResponsive}> {characters}/50 </Text>
+							<Text fontSize={fontSizeResponsiveHead}> {characters}/50 </Text>
 							<Button variant="link" onClick={onOpen}>
-								<Text color='#2F6FE4' as='u' fontSize={fontSizeResponsive}> Show examples </Text>
+								<Text color='#2F6FE4' as='u' fontSize={fontSizeResponsiveHead}> Show examples </Text>
 							</Button>
 						</HStack>
 					</Box>
 						<Box w='full'>
-							<Heading fontSize={{base:'35px', sm:'18px'}}>Trip duration</Heading>
+							<Heading fontSize={fontSizeResponsiveHead}>Trip duration</Heading>
 						</Box>
 						<Box>
 						<Stack shouldWrapChildren direction={['column', 'column', "column", 'row']} >
-							<Text fontSize={fontSizeResponsive} color='#595959' paddingBottom='20px'>Hours</Text>
+							<Text fontSize={fontSizeResponsiveHead} color='#595959' paddingBottom='20px'>Hours</Text>
 							<NumberInput size='md' 
 										 maxW={80} 
 										 min={0} 
@@ -145,14 +148,14 @@ const Cart: React.FC = () => {
 								</NumberInputStepper>
 							</NumberInput>
 							
-							<Text fontSize={fontSizeResponsive} color='#595959' paddingBottom='20px'>Minutes</Text>
+							<Text fontSize={fontSizeResponsiveHead} color='#595959' paddingBottom='20px'>Minutes</Text>
 							<NumberInput size='md' 
 										 maxW={80}  
 										 min={15} 
 										 max={59} 
 										 variant='outline' 
 										 h='40px' 
-										 fontSize={fontSizeResponsive}
+										 fontSize={fontSizeResponsiveHead}
 										 background={'white'} 
 										 defaultValue={30}
 										 onChange={(value) => {

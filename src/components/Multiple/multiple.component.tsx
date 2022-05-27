@@ -12,8 +12,8 @@ import {
 } from "@chakra-ui/react"
 
 import { useState, useEffect } from "react"
-import {useSelector, useDispatch} from 'react-redux'
-import {typeOfActivity} from "../../actions/basicInformationAcction";
+import { useAppSelector, useAppDispatch } from '../../app/hooks';
+import { typeOfActivity } from "../../reducers/basicInformationReducer";
 
 
 function CustomCheckbox(props: any) {
@@ -66,7 +66,7 @@ function CustomCheckbox(props: any) {
 }
 
 const Multiple = () => {
-  const dispatcher = useDispatch();
+  const dispatch = useAppDispatch();
 
   const { value, getCheckboxProps } = useCheckboxGroup()
 
@@ -107,7 +107,7 @@ const Multiple = () => {
   console.log('Arreglo', checkedItems)
 
   useEffect(() => {
-    dispatcher(typeOfActivity(checkedItems))	
+    dispatch(typeOfActivity(checkedItems))	
 	},[checkedItems]);
   
   /* RESPONSIVE -------------------------------------------------------*/
