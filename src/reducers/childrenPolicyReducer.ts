@@ -1,62 +1,41 @@
-export{}
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { RootState, AppThunk } from '../app/store';
+export interface childrenPolicy {
+    childrenAge:number|null;
+    childrenAgePay: number|null;
+    childrenAllowed: boolean|null;
+    childrenHeight: number|null;
+}  
 
-const childrenPolicy: {
-    childrenAge:number;
-    childrenAgePay: number;
-    childrenAllowed: boolean;
-    childrenHeight: number;
-} = {
-    childrenAge:0,
-    childrenAgePay:3,
-    childrenAllowed: true,
-    childrenHeight: 1
+const initialState: childrenPolicy={
+    childrenAge:null,
+    childrenAgePay:null,
+    childrenAllowed: null,
+    childrenHeight: null
 }
 
+export const childrenPolicy = createSlice({
+    name: 'childrenPolicy',
+    initialState,
+    // The `reducers` field lets us define reducers and generate associated actions
+    reducers: {
+      childrenAge: (state, action:PayloadAction<number>) => {
+        state.childrenAge = action.payload;
+      },
 
-const childrenPolicyReducer = (
-    state = childrenPolicy,
-    action:any,
-) => {
-    switch(action.type) {
-        case 'CHILDRENAGE': {
-            return {
-                
-            }
-        }
+      childrenAgePay: (state, action:PayloadAction<number>) => {
+        state.childrenAgePay = action.payload;
+      },
+      childrenAllowed: (state, action: PayloadAction<boolean>) => {
+        state.childrenAllowed = action.payload;
+      },
 
-        case 'CHILDRENAGEPAY': {
-            //navigate(`/tour-operator/1/tour-completed/1/${action.payload}`)
-            return {
-                //...state.get(action.payload),
-                ...state
-                
-            }
-        }
+      childrenHeight: (state, action:PayloadAction<number>) => {
+        state.childrenHeight = action.payload;
+      },
 
-        case 'CHILDRENALLOWED': {
-            //navigate(`/tour-operator/1/tour-completed/1/${action.payload}`)
-            return {
-                //...state.get(action.payload),
-                ...state
-                
-            }
-        }
+    },
+});
 
-        case 'CHILDRENHEIGHT': {
-            //navigate(`/tour-operator/1/tour-completed/1/${action.payload}`)
-            return {
-                //...state.get(action.payload),
-                ...state
-                
-            }
-        }
-
-        default: {
-            return {
-                ...state
-            }
-        }
-    }
-};
-
-export default childrenPolicyReducer
+export const {childrenAge,childrenAllowed,childrenHeight,childrenAgePay} = childrenPolicy.actions;
+export default childrenPolicy.reducer;
