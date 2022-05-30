@@ -1,5 +1,5 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import  basicInformationReducer  from '../reducers/basicInformationReducer';
+import  basicInformationReducer  from '../reducers/appSlice';
 import  childrenPolicyReducer  from '../reducers/childrenPolicyReducer';
 import  faqsReducer  from '../reducers/faqsReducer';
 import  intineraryReducer  from '../reducers/intineraryReducer';
@@ -9,12 +9,12 @@ import  accesibilityReducer  from '../reducers/accesibilityReducer';
 
 export const store = configureStore({
   reducer: {
-    basicInformation: basicInformationReducer,
-    accesibility: accesibilityReducer,
-    childrenPolicy: childrenPolicyReducer,
-    faqs: faqsReducer,
-    intinerary:  intineraryReducer,
-    whatsIncluded: whatsIncludedReducer
+    appSlice: basicInformationReducer,
+    //accesibility: accesibilityReducer,
+    //childrenPolicy: childrenPolicyReducer,
+    //faqs: faqsReducer,
+    //intinerary:  intineraryReducer,
+    //whatsIncluded: whatsIncludedReducer
   },
 });
 

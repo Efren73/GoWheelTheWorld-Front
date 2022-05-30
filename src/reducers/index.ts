@@ -2,7 +2,7 @@ import {combineReducers} from 'redux';
 
 import intineraryReducer from './intineraryReducer'
 import  accesibilityReducer  from './accesibilityReducer';
-import basicInformationReducer from './basicInformationReducer';
+import basicInformationReducer from './appSlice';
 import childrenPolicyReducer from './childrenPolicyReducer';
 import faqsReducer from './faqsReducer';
 import whatsIncludedReducer from './whatsIncludedReducer';
