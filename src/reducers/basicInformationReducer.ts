@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState, AppThunk } from '../app/store';
-export interface  basicInformation 
+
+export interface basicInformation 
 {
     tourName: string | null;
     duration: string | null;
@@ -13,8 +14,10 @@ export interface  basicInformation
     numberMinTravelers: number | null;
     photos: string | null;
     link: string | null;
+    // status: 'IDLE' | 'READY' | 'LOADING' | 'ERROR'; // Agregue
+    // error: string | null; // Agregue
+};
 
-} 
 const initialState: basicInformation = {
     tourName: null,
     duration: null,
@@ -26,7 +29,9 @@ const initialState: basicInformation = {
     numberMaxTravelers: null,
     numberMinTravelers: null,
     photos: null,
-    link: null
+    link: null,
+    // status: 'IDLE', // Agregue
+    // error: null // Agregue
 };
 
 export const basicInformation = createSlice({
@@ -49,7 +54,7 @@ export const basicInformation = createSlice({
         state.privateTour = action.payload;
       },
 
-      docuemnt: (state, action:PayloadAction<string>) => {
+      document: (state, action:PayloadAction<string>) => {
         state.document = action.payload;
       },
 
@@ -77,10 +82,25 @@ export const basicInformation = createSlice({
         state.link = action.payload;
       },
     },
+    /*
+    extraReducers: (tourName) => {
+      tourName.addCase(apiUpdateTour.pending, (state) => {
+        state.status = 'LOADING'
+        state.error = null 
+      })
+      tourName.addCase(apiUpdateTour.fulfilled, (state, action: any) => {
+        state.status = 'READY'
+        state.error = null
+        state.tourName = action.payload
+      })
+      tourName.addCase(apiUpdateTour.rejected, (state, action: any) => {
+        state.status = 'ERROR'
+        state.error = action.payload.message
+      })
+    }*/
 });
 
-export const { tourName, duration, typeOfActivity, privateTour, docuemnt, description, groupTour, numberMaxTravelers, numberMinTravelers, photos, link  } = basicInformation.actions;
+export const { tourName, duration, typeOfActivity, privateTour, document, description, groupTour, numberMaxTravelers, numberMinTravelers, photos, link  } = basicInformation.actions;
 //export const tourName = (state: RootState) => state.tourN.tourName;
-
 
 export default basicInformation.reducer;

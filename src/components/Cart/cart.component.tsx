@@ -16,25 +16,21 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
-  ChakraProvider,
-  Stack,NumberInput,
+  Stack,
+  NumberInput,
   NumberInputField,
   NumberInputStepper,
   NumberIncrementStepper,
   NumberDecrementStepper,
 } from "@chakra-ui/react"
-import { ICart } from "./cart.types";
 import { InfoIcon } from '@chakra-ui/icons';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
-import { tourName, duration } from "../../reducers/basicInformationReducer";
+import { duration, tourName } from "../../reducers/basicInformationReducer";
 import { Responsive } from "../generalTypes";
 
 const Cart: React.FC = () => {
-
-	//const count = useAppSelector(tourName);
 	const dispatch = useAppDispatch();
-
-	const basicInfo = useAppSelector((state:any)=>{
+	const basicInformation = useAppSelector((state:any)=>{
 		return state.basicInformation;
 	})
 
@@ -58,6 +54,10 @@ const Cart: React.FC = () => {
 		dispatch(tourName(value))
 	  },[value]);
 
+	/*
+	const handleUpdate = (apiUpdateTour: any) => {
+		dispatch(apiUpdateTour(apiUpdateTour));
+	}*/
 
 	/* VENTANA MODAL -------------------------------------*/
     const { isOpen, onOpen, onClose } = useDisclosure()
@@ -73,12 +73,6 @@ const Cart: React.FC = () => {
 	/* TIEMPO DEL TOUR --------------------------------- */
 	const [ hours, setHours ] = React.useState("")
     const [ minutes, setMinutes ] = React.useState("30")
-
-	console.log(+hours)
-	console.log(+minutes)
-
-	/* RESPONSIVE ------------------------------------- */
-
 
     return(
 		<React.Fragment>
