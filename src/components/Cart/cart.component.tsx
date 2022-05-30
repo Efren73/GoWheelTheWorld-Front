@@ -25,28 +25,45 @@ import {
 import { ICart } from "./cart.types";
 import { InfoIcon } from '@chakra-ui/icons';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
-import { tourName, duration } from "../../reducers/basicInformationReducer";
+import { fetchTours, updateTour, selectAllTours, getTourStatus} from "../../reducers/appSlice";
 import { Responsive } from "../generalTypes";
 
 const Cart: React.FC = () => {
-
-	//const count = useAppSelector(tourName);
 	const dispatch = useAppDispatch();
+	const [addRequestStatus, setAddRequestStatus] = useState('idle')
+	const tour = useAppSelector(selectAllTours);
+	const status = useAppSelector(getTourStatus);
 
-	const basicInfo = useAppSelector((state:any)=>{
-		return state.basicInformation;
-	})
+	console.log(status)
 
-	//REDUX
 	/* NÚMERO DE CARÁCTERES ------------------------------*/
     let [value, setValue] = useState('')
     let [characters, setCharacters] = useState(0)
     let inputValue: any;
+	
+	/* TIEMPO DEL TOUR --------------------------------- */
+	const [ hours, setHours ] = React.useState("")
+	const [ minutes, setMinutes ] = React.useState("30")
 
+	const onSavePostClicked = () => {
+        {
+            try {
+                setAddRequestStatus('pending')
+                dispatch(updateTour({
+						description: "El Chaipis es el mas listo dr todos"
+					}
+				))
+            } catch (err) {
+                console.error('Failed to save the post', err)
+            } finally {
+                setAddRequestStatus('idle')
+            }
+        }
+    }
+	
 
 	let handleInputChange = (e: any) => {
         inputValue = e.target.value
-		
         if(inputValue.length<=50){
 			setValue(inputValue)
             setCharacters(inputValue.length)
@@ -54,8 +71,16 @@ const Cart: React.FC = () => {
     }
 
 	useEffect(() => {
-		dispatch(tourName(value))
-	  },[value]);
+		dispatch(fetchTours())
+	  }, []);
+
+
+
+	  useEffect(() => {
+		if (status === "succeeded" ) {
+			setValue(tour.basicInformation.tourName)
+		}
+	  }, [status]);
 
 
 	/* VENTANA MODAL -------------------------------------*/
@@ -69,9 +94,6 @@ const Cart: React.FC = () => {
         'Snorkel with whale sharks'
 	];
 
-	/* TIEMPO DEL TOUR --------------------------------- */
-	const [ hours, setHours ] = React.useState("")
-    const [ minutes, setMinutes ] = React.useState("30")
 
 	console.log(+hours)
 	console.log(+minutes)
@@ -133,7 +155,7 @@ const Cart: React.FC = () => {
 										 defaultValue={0}
 										 onChange={(valueString) => {
 											 setHours(valueString)
-											 dispatch(duration(valueString+":"+minutes+ " horas"))
+											 //dispatch(duration(valueString+":"+minutes+ " horas"))
 											}
 										 }>
 								<NumberInputField />
@@ -155,7 +177,7 @@ const Cart: React.FC = () => {
 										 defaultValue={30}
 										 onChange={(value) => {
 											 setMinutes(value)
-											 dispatch(duration(hours+":"+value+ " horas"))
+											 //dispatch(duration(hours+":"+value+ " horas"))
 											}}>
 									<NumberInputField />
 									<NumberInputStepper>
@@ -166,6 +188,7 @@ const Cart: React.FC = () => {
 						</Stack>
 					</Box>
 				</VStack>
+				<Button onClick={onSavePostClicked}>Click</Button>
 			</Box>
 
 			<Modal onClose={onClose} size='xl' isOpen={isOpen} scrollBehavior='inside'>
