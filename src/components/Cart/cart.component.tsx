@@ -50,7 +50,9 @@ const Cart: React.FC = () => {
             try {
                 setAddRequestStatus('pending')
                 dispatch(updateTour({
-						description: "El Chaipis es el mas listo dr todos"
+						BI: {
+							prueba1: "El Chaipis es el mas listo de todos"
+						}
 					}
 				))
             } catch (err) {
@@ -75,13 +77,13 @@ const Cart: React.FC = () => {
 	  }, []);
 
 
-
 	  useEffect(() => {
 		if (status === "succeeded" ) {
 			setValue(tour.basicInformation.tourName)
+			setHours(tour.basicInformation.duration.hours)
+			setMinutes(tour.basicInformation.duration.minutes)
 		}
 	  }, [status]);
-
 
 	/* VENTANA MODAL -------------------------------------*/
     const { isOpen, onOpen, onClose } = useDisclosure()
@@ -153,6 +155,7 @@ const Cart: React.FC = () => {
 										 fontSize={'20px'} 
 										 background={'white'} 
 										 defaultValue={0}
+										 value = {hours}
 										 onChange={(valueString) => {
 											 setHours(valueString)
 											 //dispatch(duration(valueString+":"+minutes+ " horas"))
@@ -174,7 +177,8 @@ const Cart: React.FC = () => {
 										 h='40px' 
 										 fontSize={Responsive.fontSizeResponsiveHead}
 										 background={'white'} 
-										 defaultValue={30}
+										 defaultValue={0}
+										 value = {minutes}
 										 onChange={(value) => {
 											 setMinutes(value)
 											 //dispatch(duration(hours+":"+value+ " horas"))

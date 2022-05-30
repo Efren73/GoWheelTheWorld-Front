@@ -88,8 +88,7 @@ export const appSlice = createSlice({
 
         .addCase(updateTour.fulfilled, (state, action) => {
           action.payload.description =  action.payload.description;
-          state.tour = action.payload
-          
+          state.tour = action.payload          
       });
     },
 });
