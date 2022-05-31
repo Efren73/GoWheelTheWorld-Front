@@ -14,10 +14,17 @@ import {
   Radio
 } from "@chakra-ui/react"
 import { IEquipment } from "./equipment.types";
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import { Responsive } from "../generalTypes";
+import { useAppSelector, useAppDispatch } from '../../app/hooks';
+import { fetchTours, updateTour, selectAllTours, getTourStatus} from "../../reducers/appSlice";
 
 function Equipment(props: IEquipment): JSX.Element {
+
+    const dispatch = useAppDispatch();
+    const [addRequestStatus, setAddRequestStatus] = useState('idle')
+    const tour = useAppSelector(selectAllTours);
+    const status = useAppSelector(getTourStatus);
 
     const [equipment, setEquipment] = useState([
         {
@@ -60,6 +67,16 @@ function Equipment(props: IEquipment): JSX.Element {
 
     /* RESPONSIVE --------------------------------- */
 
+    useEffect(() => {
+        dispatch(fetchTours())
+        }, []);
+      
+      useEffect(() => {
+        if (status === "succeeded" ) {
+          console.log("Wenas", tour.accesibility.equipment)
+          setEquipment(tour.accesibility.equipment)
+        }
+        },[status]);
     return(
         <Box boxShadow='2xl'
             w="65%" 

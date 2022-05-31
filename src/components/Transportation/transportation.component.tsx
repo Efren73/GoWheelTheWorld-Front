@@ -14,10 +14,16 @@ import {
   Radio
 } from "@chakra-ui/react"
 import { ITransportation } from "./transportation.types";
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import { Responsive } from "../generalTypes";
+import { useAppSelector, useAppDispatch } from '../../app/hooks';
+import { fetchTours, updateTour, selectAllTours, getTourStatus} from "../../reducers/appSlice";
 
 function Transportation(props: ITransportation): JSX.Element {
+    const dispatch = useAppDispatch();
+    const [addRequestStatus, setAddRequestStatus] = useState('idle')
+    const tour = useAppSelector(selectAllTours);
+    const status = useAppSelector(getTourStatus);
 
     const [transport, setTransport] = useState<any>([
     {
@@ -45,6 +51,16 @@ function Transportation(props: ITransportation): JSX.Element {
         setTransport(newArray)
     }
 
+    useEffect(() => {
+        dispatch(fetchTours())
+        }, []);
+      
+      useEffect(() => {
+        if (status === "succeeded" ) {
+          console.log("Wenas", tour.accesibility.transportation)
+          setTransport(tour.accesibility.transportation)
+        }
+        },[status]);
     /* RESPONSIVE --------------------------------- */
 
     return (
