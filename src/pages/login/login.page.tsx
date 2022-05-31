@@ -31,7 +31,7 @@ function Login(props: ILogin): JSX.Element {
 
   function change(){
     if(password === "tour")
-      navigate('/tour-operator/1')
+      navigate('/tour-operator/KQt7tDgPInW9txuxDXXl')
     else if(password==="admin")
       navigate('/admin')
   }

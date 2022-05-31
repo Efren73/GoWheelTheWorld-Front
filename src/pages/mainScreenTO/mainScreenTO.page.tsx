@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Text,
   VStack,
@@ -19,18 +19,46 @@ import { IMainScreenTO } from './mainScreenTO.types';
 import ImageInfoMSTO from './ImageInfoMSTO.png';
 import fondoMS from './FondoMS.png';
 import TopMenu from '../../components/TopMenu/topMenu.component';
-import {useNavigate} from  'react-router-dom'
+import {useNavigate, useLocation} from  'react-router-dom'
+import axios from 'axios';
+
 
 function MainScreenTO(props: IMainScreenTO): JSX.Element {
   const navigate = useNavigate()
   function change(){
-    navigate('/tour-operator/1/question/1/name-of-tour')
+    navigate(`/tour-operator/${idTourOperator}/question/1/name-of-tour`)
   }
   const tamanoBox = useBreakpointValue({ base: '', md: '80%', lg: '80%' })
   const spacing = useBreakpointValue({ base: '-4', md: '', lg: '-4' })
   const botonContinue = useBreakpointValue({ base: 'md', md: 'sm', lg: 'md'})
   const fSBContinue = useBreakpointValue({ base: '', md: '10px', lg: '14px'})
 
+  const location = useLocation();
+  const link: string[] = location.pathname.split('/')
+  const idTourOperator: string = link[link.length - 1]
+
+  console.log(idTourOperator)
+  const [tours, setTours] = useState<any>([])
+
+  const url = `https://api-things-to-do.herokuapp.com/tour-operator/all-tours/${idTourOperator}`
+  useEffect (() =>{
+    axios.get(url)
+        .then((result)=>{
+          console.log(result)
+          setTours(result.data)
+        })
+        .catch((error)=>{
+          console.log(error)
+        })
+      },[])
+
+      console.log(tours)
+
+    const goToTour = ((idTour: string) =>{
+      //AQUI PONER EL DISPATCH
+      navigate(`/tour-operator/${idTourOperator}/question/${idTour}/name-of-tour`)
+    })
+  
 	return (
     <Flex h="100vh">
       <VStack w="full" h="full">
@@ -94,8 +122,12 @@ function MainScreenTO(props: IMainScreenTO): JSX.Element {
                  marginTop={[ '0', '0', '20', '20']}
                  marginBottom={[ '10', '10', '20', '20']}>
               <Heading marginBottom={5}> Tour registered </Heading>
-              <VStack alignItems="flex-start" spacing={spacing}>
-                <Text> Bike ride in Manhattan </Text>
+              {
+                tours.map((tourInfo: any) => {
+                  console.log(tourInfo)
+                  return(
+                    <VStack alignItems="flex-start" spacing={spacing}>
+                       <Text>{tourInfo.basicInformation.tourName}</Text>
                 <HStack w="full" spacing={6}>
                   <HStack w="full">
                     <Slider defaultValue={30} isReadOnly={true}>
@@ -105,7 +137,7 @@ function MainScreenTO(props: IMainScreenTO): JSX.Element {
                     </Slider>
                     <Text color="#2F6FE4"> 30% </Text>
                   </HStack>
-                  <Button size={botonContinue} bg="#2F6FE4" color="white" fontSize={fSBContinue}> Continue </Button>
+                  <Button onClick = {() => goToTour(tourInfo.id)} size={botonContinue} bg="#2F6FE4" color="white" fontSize={fSBContinue}> Continue </Button>
                   <IconButton
                     variant='outline'
                     aria-label='eliminar'
@@ -114,26 +146,9 @@ function MainScreenTO(props: IMainScreenTO): JSX.Element {
                   />
                 </HStack>
               </VStack>
-              <VStack alignItems="flex-start" spacing={spacing}>
-                <Text> Snorkel with whale sharks </Text>
-                <HStack w="full" spacing={6}>
-                  <HStack w="full">
-                    <Slider defaultValue={70} isReadOnly={true}>
-                      <SliderTrack>
-                        <SliderFilledTrack />
-                      </SliderTrack>
-                    </Slider>
-                    <Text color="#2F6FE4"> 70% </Text>
-                  </HStack>
-                  <Button size={botonContinue} bg="#2F6FE4" color="white" fontSize={fSBContinue}> Continue </Button>
-                  <IconButton
-                    size={botonContinue}
-                    variant='outline'
-                    aria-label='eliminar'
-                    icon={<DeleteIcon w={6} h={6}/>}
-                  />
-                </HStack>
-              </VStack>
+                  )
+                })
+              }
             </Box>
           </Flex>
         </Box>
