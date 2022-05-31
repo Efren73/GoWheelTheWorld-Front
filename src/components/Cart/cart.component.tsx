@@ -50,9 +50,7 @@ const Cart: React.FC = () => {
             try {
                 setAddRequestStatus('pending')
                 dispatch(updateTour({
-						BI: {
-							prueba1: "El Chaipis es el mas listo de todos"
-						}
+						Editable: "New"
 					}
 				))
             } catch (err) {

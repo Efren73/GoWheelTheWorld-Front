@@ -2,12 +2,12 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState, AppThunk } from '../app/store';
 import axios from "axios";
 
-const url = `http://localhost:3000/tour-operator/one-tour/NoEditarEsteTour`;
-const url2 = `http://localhost:3000/tour-operator/update-tour/QCiQ9LuD6HRG6ALA5ZEV`;
+const url = `https://api-things-to-do.herokuapp.com/tour-operator/one-tour/NoEditarEsteTour`;
+const url2 = `https://api-things-to-do.herokuapp.com/tour-operator/update-tour/QCiQ9LuD6HRG6ALA5ZEV`;
 
 export interface  basicInformation 
 {
-    tour: [any],
+    tour: {},
     /*tourName: string | null;
     id: number;
     duration: string | null;
@@ -23,7 +23,7 @@ export interface  basicInformation
     status: 'idle' | 'loading' | 'succeeded' | 'failed'
 } 
 const initialState: basicInformation = {
-    tour: [{}],
+    tour: {},
     /*tourName: null,
     id: 1,
     duration: null,
@@ -58,7 +58,7 @@ export const appSlice = createSlice({
     reducers: {
       addTour: {
         reducer(state, action) {
-          state.tour?.push(action.payload)
+          //state.tour?.push(action.payload)
         },
         prepare (tourName,duration,typeOfActivity):any
         {
@@ -87,8 +87,11 @@ export const appSlice = createSlice({
         })
 
         .addCase(updateTour.fulfilled, (state, action) => {
-          action.payload.description =  action.payload.description;
-          state.tour = action.payload          
+  
+          state.tour = {
+            ...state.tour,
+            ...action.payload
+        }    
       });
     },
 });
