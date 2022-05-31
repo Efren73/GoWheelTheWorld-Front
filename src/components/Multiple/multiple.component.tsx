@@ -13,7 +13,7 @@ import {
 
 import { useState, useEffect } from "react"
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
-import { typeOfActivity } from "../../reducers/basicInformationReducer";
+//import { typeOfActivity } from "../../reducers/basicInformationReducer";
 import { Responsive } from "../generalTypes";
 
 function CustomCheckbox(props: any) {
@@ -107,7 +107,7 @@ const Multiple = () => {
   console.log('Arreglo', checkedItems)
 
   useEffect(() => {
-    dispatch(typeOfActivity(checkedItems))	
+    //dispatch(typeOfActivity(checkedItems))	
 	},[checkedItems]);
   
   /* RESPONSIVE -------------------------------------------------------*/

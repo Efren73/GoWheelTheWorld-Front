@@ -3,7 +3,7 @@ import { RootState, AppThunk } from '../app/store';
 import { IQuestion } from "./accesibilityReducer";
 
 export interface  faqs {
-    faqs: IQuestion[] |null;
+    faqs: IQuestion[] | null;
 }  
 
 const initialState: faqs = {

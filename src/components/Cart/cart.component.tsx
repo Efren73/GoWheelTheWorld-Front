@@ -25,25 +25,47 @@ import {
 } from "@chakra-ui/react"
 import { InfoIcon } from '@chakra-ui/icons';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
-import { duration, tourName } from "../../reducers/basicInformationReducer";
+import { fetchTours, updateTour, selectAllTours, getTourStatus} from "../../reducers/appSlice";
 import { Responsive } from "../generalTypes";
 
 const Cart: React.FC = () => {
 	const dispatch = useAppDispatch();
-	const basicInformation = useAppSelector((state:any)=>{
-		return state.basicInformation;
-	})
+	const [addRequestStatus, setAddRequestStatus] = useState('idle')
+	const tour = useAppSelector(selectAllTours);
+	const status = useAppSelector(getTourStatus);
 
-	//REDUX
+	console.log(status)
+
 	/* NÚMERO DE CARÁCTERES ------------------------------*/
     let [value, setValue] = useState('')
     let [characters, setCharacters] = useState(0)
     let inputValue: any;
+	
+	/* TIEMPO DEL TOUR --------------------------------- */
+	const [ hours, setHours ] = React.useState("")
+	const [ minutes, setMinutes ] = React.useState("30")
 
+	const onSavePostClicked = () => {
+        {
+            try {
+                setAddRequestStatus('pending')
+                dispatch(updateTour({
+						BI: {
+							prueba1: "El Chaipis es el mas listo de todos"
+						}
+					}
+				))
+            } catch (err) {
+                console.error('Failed to save the post', err)
+            } finally {
+                setAddRequestStatus('idle')
+            }
+        }
+    }
+	
 
 	let handleInputChange = (e: any) => {
         inputValue = e.target.value
-		
         if(inputValue.length<=50){
 			setValue(inputValue)
             setCharacters(inputValue.length)
@@ -51,13 +73,17 @@ const Cart: React.FC = () => {
     }
 
 	useEffect(() => {
-		dispatch(tourName(value))
-	  },[value]);
+		dispatch(fetchTours())
+	  }, []);
 
-	/*
-	const handleUpdate = (apiUpdateTour: any) => {
-		dispatch(apiUpdateTour(apiUpdateTour));
-	}*/
+
+	  useEffect(() => {
+		if (status === "succeeded" ) {
+			setValue(tour.basicInformation.tourName)
+			setHours(tour.basicInformation.duration.hours)
+			setMinutes(tour.basicInformation.duration.minutes)
+		}
+	  }, [status]);
 
 	/* VENTANA MODAL -------------------------------------*/
     const { isOpen, onOpen, onClose } = useDisclosure()
@@ -70,9 +96,6 @@ const Cart: React.FC = () => {
         'Snorkel with whale sharks'
 	];
 
-	/* TIEMPO DEL TOUR --------------------------------- */
-	const [ hours, setHours ] = React.useState("")
-    const [ minutes, setMinutes ] = React.useState("30")
 
     return(
 		<React.Fragment>
@@ -126,9 +149,10 @@ const Cart: React.FC = () => {
 										 fontSize={'20px'} 
 										 background={'white'} 
 										 defaultValue={0}
+										 value = {hours}
 										 onChange={(valueString) => {
 											 setHours(valueString)
-											 dispatch(duration(valueString+":"+minutes+ " horas"))
+											 //dispatch(duration(valueString+":"+minutes+ " horas"))
 											}
 										 }>
 								<NumberInputField />
@@ -147,10 +171,11 @@ const Cart: React.FC = () => {
 										 h='40px' 
 										 fontSize={Responsive.fontSizeResponsiveHead}
 										 background={'white'} 
-										 defaultValue={30}
+										 defaultValue={0}
+										 value = {minutes}
 										 onChange={(value) => {
 											 setMinutes(value)
-											 dispatch(duration(hours+":"+value+ " horas"))
+											 //dispatch(duration(hours+":"+value+ " horas"))
 											}}>
 									<NumberInputField />
 									<NumberInputStepper>
@@ -161,6 +186,7 @@ const Cart: React.FC = () => {
 						</Stack>
 					</Box>
 				</VStack>
+				<Button onClick={onSavePostClicked}>Click</Button>
 			</Box>
 
 			<Modal onClose={onClose} size='xl' isOpen={isOpen} scrollBehavior='inside'>

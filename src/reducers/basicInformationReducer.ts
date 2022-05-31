@@ -14,8 +14,6 @@ export interface basicInformation
     numberMinTravelers: number | null;
     photos: string | null;
     link: string | null;
-    // status: 'IDLE' | 'READY' | 'LOADING' | 'ERROR'; // Agregue
-    // error: string | null; // Agregue
 };
 
 const initialState: basicInformation = {
@@ -30,8 +28,6 @@ const initialState: basicInformation = {
     numberMinTravelers: null,
     photos: null,
     link: null,
-    // status: 'IDLE', // Agregue
-    // error: null // Agregue
 };
 
 export const basicInformation = createSlice({
@@ -81,23 +77,7 @@ export const basicInformation = createSlice({
       link: (state, action:PayloadAction<string>) => {
         state.link = action.payload;
       },
-    },
-    /*
-    extraReducers: (tourName) => {
-      tourName.addCase(apiUpdateTour.pending, (state) => {
-        state.status = 'LOADING'
-        state.error = null 
-      })
-      tourName.addCase(apiUpdateTour.fulfilled, (state, action: any) => {
-        state.status = 'READY'
-        state.error = null
-        state.tourName = action.payload
-      })
-      tourName.addCase(apiUpdateTour.rejected, (state, action: any) => {
-        state.status = 'ERROR'
-        state.error = action.payload.message
-      })
-    }*/
+    }
 });
 
 export const { tourName, duration, typeOfActivity, privateTour, document, description, groupTour, numberMaxTravelers, numberMinTravelers, photos, link  } = basicInformation.actions;
