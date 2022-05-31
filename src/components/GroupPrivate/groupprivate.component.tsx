@@ -1,4 +1,5 @@
-import * as React from "react"
+import * as React from "react";
+import { useEffect } from "react";
 import {
   Text,
   VStack,
@@ -12,21 +13,20 @@ import {
   chakra,
   useCheckboxGroup,
   Heading,
-} from "@chakra-ui/react"
+} from "@chakra-ui/react";
+import { useAppSelector, useAppDispatch } from '../../app/hooks';
+import { fetchTours, updateTour, selectAllTours, getTourStatus } from "../../reducers/appSlice";
 import { Responsive } from "../generalTypes";
-import { useState } from "react"
+import { useState } from "react";
 
 function CustomCheckbox(props: any) {
   const { state, getCheckboxProps, getInputProps, getLabelProps } = useCheckbox(props)
-  //console.log('HIJO ', props)
   let backgroundValue: string;
   let colorValue: string;
   let srcValue: any;
 
   // Para cambiar el estado de los checkbox checkeados
   const [isCheckedItem, setisChecked] = useState(false)
-    //console.log('HIJOisChecked ', props.value, props.isChecked)
-    //console.log('isCheckedItem', props.value, isCheckedItem)
 
     if(!isCheckedItem) {
       backgroundValue = '#fff'
@@ -76,8 +76,9 @@ function CustomCheckbox(props: any) {
 }
 
 const GroupPrivate: React.FC = () => {
-
-    const { value, getCheckboxProps } = useCheckboxGroup()
+    const { value, getCheckboxProps } = useCheckboxGroup();
+    const [ privado, setPrivado ] = React.useState(false);
+    const [ group, setGroup ] = React.useState(false);
 
     // Arreglo de strings para guardar los checkboxes seleccionados
     const [checkedItems, setCheckedItems] = useState<string[]>([])
@@ -101,7 +102,24 @@ const GroupPrivate: React.FC = () => {
           setCheckedItems(result)
         }
       }
-      console.log('Arreglo', checkedItems)
+      
+      console.log(checkedItems);
+
+    /* Redux ----------------------------------------------------------- */
+    const dispatch = useAppDispatch();
+	const tour = useAppSelector(selectAllTours);
+	const status = useAppSelector(getTourStatus);
+
+    useEffect(() => {
+	    dispatch(fetchTours())
+	}, []);
+
+    useEffect(() => {
+        if (status === "succeeded" ) {
+            setMinimo(tour.basicInformation.numberMinTravelers)
+            setMaximo(tour.basicInformation.numberMaxTravelers)
+        }
+    }, [status]);
 
     /* LÓGICA SEGUNDA PREGUNTA ----------------------------------------- */
     const [minimo, setMinimo] = React.useState(1)
@@ -148,12 +166,6 @@ const GroupPrivate: React.FC = () => {
         if(valor === 'minimo') setMinimo(+minimo+1)
         else setMaximo(+maximo+1)
     }
-
-    /* RESPONSIVE -------------------------------------- */
-   
-
-    console.log('Minimo', minimo)
-    console.log('Maximo', maximo)
 
     return(
         <React.Fragment>

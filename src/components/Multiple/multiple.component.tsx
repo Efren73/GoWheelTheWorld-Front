@@ -1,4 +1,5 @@
 import * as React from "react"
+import { useState, useEffect } from "react";
 import {
   SimpleGrid,
   Stack,
@@ -9,11 +10,9 @@ import {
   useCheckboxGroup,
   Heading,
   Input,
-} from "@chakra-ui/react"
-
-import { useState, useEffect } from "react"
+} from "@chakra-ui/react";
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
-//import { typeOfActivity } from "../../reducers/basicInformationReducer";
+import { fetchTours, updateTour, selectAllTours, getTourStatus } from "../../reducers/appSlice";
 import { Responsive } from "../generalTypes";
 
 function CustomCheckbox(props: any) {
@@ -25,7 +24,8 @@ function CustomCheckbox(props: any) {
   // Para cambiar el estado de los checkbox checkeados
   const [isCheckedItem, setisChecked] = useState(false)
     //console.log('HIJOisChecked ', props.value, props.isChecked)
-    //console.log('isCheckedItem', props.value, isCheckedItem)
+    console.log('isCheckedItem', props.value, isCheckedItem)
+    //console.log('isCheckedItem', props, isCheckedItem)
 
     if(!isCheckedItem){
       backgroundValue = '#fff'
@@ -66,9 +66,20 @@ function CustomCheckbox(props: any) {
 }
 
 const Multiple = () => {
+  /* Redux ----------------------------------------------------------- */
   const dispatch = useAppDispatch();
+	const tour = useAppSelector(selectAllTours);
+	const status = useAppSelector(getTourStatus);
 
-  const { value, getCheckboxProps } = useCheckboxGroup()
+  useEffect(() => {
+    dispatch(fetchTours())
+  }, []);
+
+  useEffect(() => {
+    if (status === "succeeded" ) {
+      setCheckedItems(tour.basicInformation.typeOfActivity)
+    }
+  }, [status]);
 
   // Arreglo de strings para guardar los checkboxes seleccionados
   const [checkedItems, setCheckedItems] = useState<string[]>([])
@@ -91,7 +102,7 @@ const Multiple = () => {
   ]
 
   const handleCheckedItems = (expereinceName:string, checkea:boolean) => {
-    // Agregando el nombre de la experiencia que se selccionó en el hijo CustomCheckbox
+    // Agregando el nombre de la experiencia que se seleccionó en el hijo CustomCheckbox
   
     //console.log('PADREisChecked', checkea)
     if(checkea === false){
@@ -104,14 +115,12 @@ const Multiple = () => {
       setCheckedItems(result)
     }  
   }
-  console.log('Arreglo', checkedItems)
+  //console.log('Arreglo', checkedItems)
+  //console.log('Arreglo', value)
 
-  useEffect(() => {
-    //dispatch(typeOfActivity(checkedItems))	
-	},[checkedItems]);
-  
-  /* RESPONSIVE -------------------------------------------------------*/
-
+  const { value, getCheckboxProps } = useCheckboxGroup({
+    defaultValue: ['Air tour'],
+  })
 
   return (
     <Box boxShadow='2xl'
