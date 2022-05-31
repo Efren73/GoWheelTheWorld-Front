@@ -3,7 +3,7 @@ import { RootState, AppThunk } from '../app/store';
 import axios from "axios";
 
 const url = `https://api-things-to-do.herokuapp.com/tour-operator/one-tour/NoEditarEsteTour`;
-const url2 = `https://api-things-to-do.herokuapp.com/tour-operator/update-tour/QCiQ9LuD6HRG6ALA5ZEV`;
+const url2 = `https://api-things-to-do.herokuapp.com/tour-operator/update-tour/NoEditarEsteTour`;
 
 export interface  basicInformation 
 {
@@ -56,22 +56,13 @@ export const appSlice = createSlice({
     initialState,
     // The `reducers` field lets us define reducers and generate associated actions
     reducers: {
-      addTour: {
-        reducer(state, action) {
-          //state.tour?.push(action.payload)
-        },
-        prepare (tourName,duration,typeOfActivity):any
-        {
-          return {
-            payload: {
-              tourName,
-              duration,
-              typeOfActivity
-            }
-          }
-        }
-      }
+      changeState : (state, action:PayloadAction<any>) => {
+        state.tour = {
+          ...state.tour,
+         ...action.payload
+        }    
     },
+  },
 
     extraReducers: (builder) => {
       builder
@@ -87,16 +78,15 @@ export const appSlice = createSlice({
         })
 
         .addCase(updateTour.fulfilled, (state, action) => {
-  
-          state.tour = {
-            ...state.tour,
-            ...action.payload
-        }    
+           state.tour = {
+           ...state.tour,
+          ...action.payload
+         }    
       });
     },
 });
 
-export const { addTour } = appSlice.actions;
+export const { changeState } = appSlice.actions;
 export const selectAllTours = (state:any) => state.appSlice.tour;
 export const getTourStatus = (state: any) => state.appSlice.status;
 
