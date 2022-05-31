@@ -21,13 +21,7 @@ function CustomCheckbox(props: any) {
   let backgroundValue: string;
   let colorValue: string;
 
-  // Para cambiar el estado de los checkbox checkeados
-  const [isCheckedItem, setisChecked] = useState(false)
-    //console.log('HIJOisChecked ', props.value, props.isChecked)
-    console.log('isCheckedItem', props.value, isCheckedItem)
-    //console.log('isCheckedItem', props, isCheckedItem)
-
-    if(!isCheckedItem){
+    if(props.isChecked === false){
       backgroundValue = '#fff'
       colorValue = '#000'
     }
@@ -50,6 +44,7 @@ function CustomCheckbox(props: any) {
           rounded='lg'
           cursor='pointer'
           {...getCheckboxProps()}
+          /*
           onChange={() => {
             // Función que en el Padre se llama handleCheckedItems, se pasó como onChange
             // El hijo le pasa al Padre la experience selccionada y su estado
@@ -57,7 +52,7 @@ function CustomCheckbox(props: any) {
             props.onChange(props.value, isCheckedItem)
             
             //console.log('HIJOisCheckedItem',isCheckedItem)
-          }}
+          }}*/
           >
           <Input {...getInputProps()} hidden />
           <Text {...getLabelProps()}>{props.value}</Text>
@@ -66,7 +61,7 @@ function CustomCheckbox(props: any) {
 }
 
 const Multiple = () => {
-  /* Redux ----------------------------------------------------------- */
+  /* REDUX -------------------------------------------------------- */
   const dispatch = useAppDispatch();
 	const tour = useAppSelector(selectAllTours);
 	const status = useAppSelector(getTourStatus);
@@ -82,8 +77,9 @@ const Multiple = () => {
   }, [status]);
 
   // Arreglo de strings para guardar los checkboxes seleccionados
-  const [checkedItems, setCheckedItems] = useState<string[]>([])
+  const [checkedItems, setCheckedItems] = useState<string[]>([]);
 
+  let seleccionado: any;
   const experiences: string[] = [
     'Outdoor activity',
     'Hiking activity',
@@ -100,27 +96,20 @@ const Multiple = () => {
     'Boat tour',
     'Air tour'
   ]
+  seleccionado = checkedItems;
 
   const handleCheckedItems = (expereinceName:string, checkea:boolean) => {
     // Agregando el nombre de la experiencia que se seleccionó en el hijo CustomCheckbox
-  
     //console.log('PADREisChecked', checkea)
     if(checkea === false){
       setCheckedItems([...checkedItems, expereinceName])
-    }
-    else {
+    } else {
       // filter regresa una copia del arreglo original, pero ahora sin el expereinceName que indique
       const result = checkedItems.filter(checkedItems => checkedItems != expereinceName)
       // actualizamos al arreglo original checkedItems con el arreglo de filter
       setCheckedItems(result)
     }  
   }
-  //console.log('Arreglo', checkedItems)
-  //console.log('Arreglo', value)
-
-  const { value, getCheckboxProps } = useCheckboxGroup({
-    defaultValue: ['Air tour'],
-  })
 
   return (
     <Box boxShadow='2xl'
@@ -136,13 +125,22 @@ const Multiple = () => {
         
         <SimpleGrid columns={[1, 1, 2, 2, 3]} spacing={15} paddingTop='25px' h='full' fontSize={Responsive.fontSizeResponsiveHead} >
           {
-            experiences.map((experience: string) =>(
-              <CustomCheckbox
-              // Llamando a función hijo CustomCheckbox, se le pasa el arreglo de experiences
-              {...getCheckboxProps({value: `${experience}`})}
-              // Función que en el Padre se llama handleCheckedItems, se pasa como onChange
-              onChange={handleCheckedItems}
-              />
+            experiences.map((experience: string) => (
+              <React.Fragment>
+                {seleccionado.includes(experience) ? 
+                <CustomCheckbox
+                  // Llamando a función hijo CustomCheckbox, se le pasa el arreglo de experiences
+                  {...{ value:`${experience}`, isChecked: true }}
+                  // Función que en el Padre se llama handleCheckedItems, se pasa como onChange
+                  onChange={()=> handleCheckedItems(experience, true)}
+                /> :
+                <CustomCheckbox
+                  // Llamando a función hijo CustomCheckbox, se le pasa el arreglo de experiences
+                  {...{ value:`${experience}`, isChecked: false }}
+                  // Función que en el Padre se llama handleCheckedItems, se pasa como onChange
+                  onChange={()=> handleCheckedItems(experience, false)}
+                /> }
+              </React.Fragment>
             ))
           }
         </SimpleGrid>
