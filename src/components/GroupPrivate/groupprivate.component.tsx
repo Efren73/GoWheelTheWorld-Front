@@ -1,4 +1,5 @@
-import * as React from "react"
+import * as React from "react";
+import { useEffect } from "react";
 import {
   Text,
   VStack,
@@ -12,23 +13,22 @@ import {
   chakra,
   useCheckboxGroup,
   Heading,
-} from "@chakra-ui/react"
+} from "@chakra-ui/react";
+import { useAppSelector, useAppDispatch } from '../../app/hooks';
+import { fetchTours, updateTour, selectAllTours, getTourStatus } from "../../reducers/appSlice";
 import { Responsive } from "../generalTypes";
-import { useState } from "react"
+import { useState } from "react";
 
 function CustomCheckbox(props: any) {
   const { state, getCheckboxProps, getInputProps, getLabelProps } = useCheckbox(props)
-  //console.log('HIJO ', props)
   let backgroundValue: string;
   let colorValue: string;
   let srcValue: any;
 
-  // Para cambiar el estado de los checkbox checkeados
-  const [isCheckedItem, setisChecked] = useState(false)
-    //console.log('HIJOisChecked ', props.value, props.isChecked)
-    //console.log('isCheckedItem', props.value, isCheckedItem)
+  /* Para cambiar el estado de los checkbox checkeados 
+  const [isCheckedItem, setisChecked] = useState(false)*/
 
-    if(!isCheckedItem) {
+    if(props.isChecked === false) {
       backgroundValue = '#fff'
       colorValue = '#000'
     } else {
@@ -43,65 +43,62 @@ function CustomCheckbox(props: any) {
     }
 
     return (
-      <chakra.label
-          display='flex'
-          alignItems='center'
-          justifyContent='center'
-          w='200px'
-          h='105px'
-          bg={backgroundValue}
-          border='1px solid'
-          borderColor='#3F6FE4'
-          color={colorValue}
-          rounded='lg'
-          cursor='pointer'
-          {...getCheckboxProps()}
-          onChange={() => {
-            // Función que en el Padre se llama handleCheckedItems, se pasó como onChange
-            // El hijo le pasa al Padre la experience selccionada y su estado
-            setisChecked(!isCheckedItem)
-            props.onChange(props.value, isCheckedItem)
-            
-            //console.log('HIJOisCheckedItem',isCheckedItem)
-          }}
-          >
+        <chakra.label
+            display='flex'
+            alignItems='center'
+            justifyContent='center'
+            w='200px'
+            h='105px'
+            bg={backgroundValue}
+            border='1px solid'
+            borderColor='#3F6FE4'
+            color={colorValue}
+            rounded='lg'
+            cursor='pointer'
+            {...getCheckboxProps()}
+          
+            /*
+            onChange={() => {
+                // Función que en el Padre se llama handleCheckedItems, se pasó como onChange
+                // El hijo le pasa al Padre la experience selccionada y su estado
+                setisChecked(!isCheckedItem)
+                props.onChange(props.value, isCheckedItem)
+                
+                //console.log('HIJOisCheckedItem',isCheckedItem)
+            }}*/
+        >
             <img src={srcValue} height ="50" width="50" />
-
             <img {...getInputProps()} hidden />
 
-          <input {...getInputProps()} hidden />
-          <Text {...getLabelProps()}>{props.value}</Text>
-       </chakra.label>
+            <input {...getInputProps()} hidden />
+            <Text {...getLabelProps()}>{props.value}</Text>
+        </chakra.label>
     )
 }
 
 const GroupPrivate: React.FC = () => {
+    /* REDUX ----------------------------------------------------------- */
+    const dispatch = useAppDispatch();
+	const tour = useAppSelector(selectAllTours);
+	const status = useAppSelector(getTourStatus);
 
-    const { value, getCheckboxProps } = useCheckboxGroup()
+    useEffect(() => {
+	    dispatch(fetchTours())
+	}, []);
 
-    // Arreglo de strings para guardar los checkboxes seleccionados
-    const [checkedItems, setCheckedItems] = useState<string[]>([])
+    const { value, getCheckboxProps } = useCheckboxGroup();
+    const [ privado, setPrivado ] = React.useState();
+    const [ group, setGroup ] = React.useState(false);
 
-    const experiences: string[] = [
-        'Private',
-        'Group',
-      ]
-
-      const handleCheckedItems = (typeExperience:string, checkea:boolean) => {
-        // Agregando el nombre de la experiencia que se selccionó en el hijo CustomCheckbox
-      
-        //console.log('PADREisChecked', checkea)
-        if(checkea === false){
-          setCheckedItems([...checkedItems, typeExperience])
+    useEffect(() => {
+        if (status === "succeeded" ) {
+            setMinimo(tour.basicInformation.numberMinTravelers)
+            setMaximo(tour.basicInformation.numberMaxTravelers)
+            setPrivado(tour.basicInformation.privateTour)
+            setGroup(tour.basicInformation.groupTour)
         }
-        else {
-          // filter regresa una copia del arreglo original, pero ahora sin el expereinceName que indique
-          const result = checkedItems.filter(checkedItems => checkedItems != typeExperience)
-          // actualizamos al arreglo original checkedItems con el arreglo de filter
-          setCheckedItems(result)
-        }
-      }
-      console.log('Arreglo', checkedItems)
+        
+    }, [status]);
 
     /* LÓGICA SEGUNDA PREGUNTA ----------------------------------------- */
     const [minimo, setMinimo] = React.useState(1)
@@ -149,12 +146,6 @@ const GroupPrivate: React.FC = () => {
         else setMaximo(+maximo+1)
     }
 
-    /* RESPONSIVE -------------------------------------- */
-   
-
-    console.log('Minimo', minimo)
-    console.log('Maximo', maximo)
-
     return(
         <React.Fragment>
             <Box boxShadow='2xl'
@@ -170,15 +161,15 @@ const GroupPrivate: React.FC = () => {
             <VStack>
                 <Heading alignSelf={'flex-start'} fontSize={Responsive.fontSizeResponsiveBody}>Is it a private or a group tour/activity?</Heading>
                 <SimpleGrid columns={[1, 1, 2, 2, 2]} spacing={15} paddingTop='20px' paddingBottom='30px' alignSelf={'center'} fontSize={Responsive.fontSizeResponsiveHead}>
-                    {
-                        experiences.map((experience: string) =>(
-                        <CustomCheckbox
-                        // Llamando a función hijo CustomCheckbox, se le pasa el arreglo de experiences
-                        {...getCheckboxProps({value: `${experience}`})}
-                        // Función que en el Padre se llama handleCheckedItems, se pasa como onChange
-                        onChange={handleCheckedItems}
-                        />
-                        ))
+                    {   privado === true ?
+                            <CustomCheckbox {...{ value: 'Private', isChecked: true }} /> 
+                        :
+                            <CustomCheckbox {...{ value: 'Private', isChecked: false }} /> 
+                    }
+                    {   group === true ?
+                            <CustomCheckbox {...{ value: 'Group', isChecked: true }} /> 
+                        :
+                            <CustomCheckbox {...{ value: 'Group', isChecked: false }} /> 
                     }
                 </SimpleGrid>
 

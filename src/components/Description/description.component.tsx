@@ -1,5 +1,5 @@
-import * as React from "react"
-import { useState } from "react"
+import * as React from "react";
+import { useState, useEffect } from "react";
 import {
     Text,
     HStack,
@@ -16,11 +16,29 @@ import {
     useDisclosure,
     Link,
     Heading,
-} from "@chakra-ui/react"
-import { ExternalLinkIcon } from '@chakra-ui/icons'
+} from "@chakra-ui/react";
+import { ExternalLinkIcon } from '@chakra-ui/icons';
 import { Responsive } from "../generalTypes";
+import { useAppSelector, useAppDispatch } from '../../app/hooks';
+import { fetchTours, updateTour, selectAllTours, getTourStatus } from "../../reducers/appSlice";
 
 const Description: React.FC = () => {
+    /* Redux ----------------------------------------- */
+    const dispatch = useAppDispatch();
+	const tour = useAppSelector(selectAllTours);
+	const status = useAppSelector(getTourStatus);
+
+    useEffect(() => {
+		dispatch(fetchTours())
+	  }, []);
+
+    useEffect(() => {
+    if (status === "succeeded" ) {
+        setValue(tour.basicInformation.description)
+        setValue1(tour.basicInformation.link)
+    }
+    }, [status]);
+
     //Elementos utilizados para limitar el numero de caracteres
     let [value, setValue] = useState('')
     let [characters, setCharacters] = useState(0)
@@ -34,7 +52,6 @@ const Description: React.FC = () => {
             setCharacters(inputValue.length)
         }
     }
-    console.log('description', value)
 
     // Control de input para el link
     let [value1, setValue1] = useState('')
@@ -44,7 +61,6 @@ const Description: React.FC = () => {
         inputValue1 = e.target.value
         setValue1(inputValue1)
     }
-    console.log('link', value1)
 
     //Elementos utilizados para la ventana modal
     const { isOpen, onOpen, onClose } = useDisclosure()
@@ -57,10 +73,7 @@ const Description: React.FC = () => {
 
         'This bus tour of Miami brings together some of the city\'s best tourist highlights and takes place on a bus with a transparent roof, so you can admire the great views whilst being protected from the elements. Drivers are available to help people with reduced mobility to transfer into the bus and there is space to store one manual wheelchair onboard. Service animals are also welcome on this tour. The tour lasts for approximately 3 hours and has 3 pick-up/drop-off points, plus an extended stop in Little Havana and in Wynwood. Each meeting point is easy to find and is located close to a parking lot. You’ll get a chance to see the South Beach area of Miami, with its famous Art Deco-style buildings, and then you’ll cruise through downtown Miami. Next is Little Havana, the neighborhood where many Cuban migrants settled, and you’ll have approximately 20 minutes here if you wish to get off the bus and explore. Afterwards, you will head to Wynwood, the trendiest art district which is home to Wynwood Wall, a place to see the best urban street art. This stop is slightly longer, giving you time to explore the district by yourself, if you wish. The tour will then loop through to chic Miami Design District before returning to the first meeting point. The tour bus does not have accessible bathroom facilities, but the drivers are very familiar with the city and can recommend accessible public bathroom facilities in cafes or restaurants that are close to the stop-off points in Little Havana and Wynwood.'
     ];
-
-    /* RESPONSIVE -------------------------------------- */
   
-
     return (
         <React.Fragment>
             <Box boxShadow='2xl'

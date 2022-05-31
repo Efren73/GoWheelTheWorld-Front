@@ -16,25 +16,26 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
-  Stack,NumberInput,
+  Stack,
+  NumberInput,
   NumberInputField,
   NumberInputStepper,
   NumberIncrementStepper,
   NumberDecrementStepper,
 } from "@chakra-ui/react"
-import { ICart } from "./cart.types";
 import { InfoIcon } from '@chakra-ui/icons';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
-import { fetchTours, updateTour, selectAllTours, getTourStatus} from "../../reducers/appSlice";
+import { fetchTours, updateTour, selectAllTours, getTourStatus, changeState } from "../../reducers/appSlice";
 import { Responsive } from "../generalTypes";
+import { ProgressNav } from "../../pages/question/Footer";
 
 const Cart: React.FC = () => {
 	const dispatch = useAppDispatch();
-	const [addRequestStatus, setAddRequestStatus] = useState('idle')
 	const tour = useAppSelector(selectAllTours);
 	const status = useAppSelector(getTourStatus);
 
 	console.log(status)
+	console.log(tour)
 
 	/* NÚMERO DE CARÁCTERES ------------------------------*/
     let [value, setValue] = useState('')
@@ -45,24 +46,6 @@ const Cart: React.FC = () => {
 	const [ hours, setHours ] = React.useState("")
 	const [ minutes, setMinutes ] = React.useState("30")
 
-	const onSavePostClicked = () => {
-        {
-            try {
-                setAddRequestStatus('pending')
-                dispatch(updateTour({
-						BI: {
-							prueba1: "El Chaipis es el mas listo de todos"
-						}
-					}
-				))
-            } catch (err) {
-                console.error('Failed to save the post', err)
-            } finally {
-                setAddRequestStatus('idle')
-            }
-        }
-    }
-	
 
 	let handleInputChange = (e: any) => {
         inputValue = e.target.value
@@ -74,7 +57,22 @@ const Cart: React.FC = () => {
 
 	useEffect(() => {
 		dispatch(fetchTours())
-	  }, []);
+	  },[]);
+
+	  useEffect(() => {
+		dispatch(changeState(
+			{
+				basicInformation : {
+					...tour.basicInformation,
+					tourName: value,
+					duration:
+					{	hours: hours,
+						minutes: minutes
+					}
+				}
+			}
+		))    
+	  },[value, hours, minutes]);
 
 
 	  useEffect(() => {
@@ -83,7 +81,7 @@ const Cart: React.FC = () => {
 			setHours(tour.basicInformation.duration.hours)
 			setMinutes(tour.basicInformation.duration.minutes)
 		}
-	  }, [status]);
+	  }, [status]); 
 
 	/* VENTANA MODAL -------------------------------------*/
     const { isOpen, onOpen, onClose } = useDisclosure()
@@ -95,13 +93,6 @@ const Cart: React.FC = () => {
         'DUMBO Tour, The New Brooklyn',
         'Snorkel with whale sharks'
 	];
-
-
-	console.log(+hours)
-	console.log(+minutes)
-
-	/* RESPONSIVE ------------------------------------- */
-
 
     return(
 		<React.Fragment>
@@ -192,7 +183,6 @@ const Cart: React.FC = () => {
 						</Stack>
 					</Box>
 				</VStack>
-				<Button onClick={onSavePostClicked}>Click</Button>
 			</Box>
 
 			<Modal onClose={onClose} size='xl' isOpen={isOpen} scrollBehavior='inside'>
