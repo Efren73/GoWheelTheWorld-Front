@@ -53,7 +53,7 @@ import {
 
 
     return(
-        <ChakraProvider>
+        <React.Fragment>
         <Flex h="100vh">
             <VStack w="full" h="full">
                 <TopMenu/>
@@ -111,7 +111,7 @@ import {
                </VStack>
             </VStack>
         </Flex>
-        </ChakraProvider>
+        </React.Fragment>
     )} 
 
     export default UserSettings;

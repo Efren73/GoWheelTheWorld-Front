@@ -1,21 +1,18 @@
 import * as React from "react"
-import { useState } from "react"
-import { NumberInput, NumberInputField, useDisclosure } from "@chakra-ui/react"
+import { NumberInput, NumberInputField } from "@chakra-ui/react"
 import {
     Text,
-    VStack,
     HStack,
-    ChakraProvider,
+    Heading,
     Stack,
     Grid, 
     GridItem,
-    Input, 
-    Container,
     RadioGroup,
     Radio,
     Box,
     Center,
 } from "@chakra-ui/react"
+import { Responsive } from "../generalTypes";
 
 const ChildPolicy: React.FC = () => {
 
@@ -25,13 +22,11 @@ const ChildPolicy: React.FC = () => {
     const [valueQ4, setValueQ4] = React.useState('yes')
 
     const colSpan = { base: 2, md: 1 };
-    const fontSizeResponsive = { base:'20px', sm:'15px'};
-
 
     const addQuestionAnswer = (answer:string) => {
         if (answer == "no")
         {
-            return(
+            return (
                 <NumberInput background='white' borderRadius={5} width='20%' >
                     <NumberInputField placeholder={'10'}/>
                 </NumberInput>
@@ -41,15 +36,15 @@ const ChildPolicy: React.FC = () => {
     
     function addAnswer(RadioB:string){
         if (RadioB == 'yes')
-        return(
+        return (
             <Stack w="full" p={5}>
                 <Grid  column={2} columnGap={3} rowGap={6} w="full">
                     <GridItem colSpan = {2}>
-                        <Text>Additional questions</Text>
+                        <Heading fontSize={Responsive.fontSizeResponsiveHead}>Additional questions</Heading>
                     </GridItem>
 
                     <GridItem colSpan={colSpan}>
-                        <Text fontSize={fontSizeResponsive}>From what age are children allowed?</Text>
+                        <Text fontSize={Responsive.fontSizeResponsiveHead}>From what age are children allowed?</Text>
                     </GridItem>
 
                     <GridItem colSpan={colSpan}>
@@ -63,7 +58,7 @@ const ChildPolicy: React.FC = () => {
                     </GridItem>
 
                     <GridItem colSpan={colSpan}>
-                        <Text fontSize={fontSizeResponsive}>From what age does children pay for the tour/activity</Text>
+                        <Text fontSize={Responsive.fontSizeResponsiveHead}>From what age does children pay for the tour/activity</Text>
                     </GridItem>
 
                     <GridItem colSpan={colSpan}>
@@ -77,7 +72,7 @@ const ChildPolicy: React.FC = () => {
                     </GridItem>
 
                     <GridItem colSpan={colSpan}>
-                        <Text fontSize={fontSizeResponsive}>Is there height limit to this tour/activity?</Text>
+                        <Text fontSize={Responsive.fontSizeResponsiveHead}>Is there height limit to this tour/activity?</Text>
                     </GridItem>
                     
                     <GridItem colSpan={colSpan}>
@@ -94,42 +89,42 @@ const ChildPolicy: React.FC = () => {
         )
         else if(RadioB == 'no')
         return(
-
-                <Center  h='full' color='black' w="full">
-                        <Text fontSize='20px' color='#black'>That's all from this part!</Text>
-                 </Center>
+            <Center  h='full' color='black' w="full">
+                <Text fontSize={Responsive.fontSizeResponsiveHead} color='#black'> That's all from this part! </Text>
+            </Center>
         )
     }
     
-    return(
-    <ChakraProvider>
+    return (
+    <React.Fragment>
         <Box
         boxShadow='xl'
-        w={{base:"65%", sm:'80%'}}
+        w={{base:"65%", md:'70%', sm:'75%'}}
         h="full"
         p={10}
         background="#EBE9E9"
         borderRadius="10px">
-  
+            <Stack spacing={2}>
+                <Text fontSize={Responsive.fontSizeResponsiveHead} color='#3F6FE4'>Children Policy</Text>
+                <Heading fontSize={{base:'35px', sm:'18px'}}>Tell us about children policy</Heading>
 
-        <Text fontSize={fontSizeResponsive} color='#3F6FE4'>Children Policy</Text>
-        <Text fontSize={{base:'35px', sm:'20px'}}>Tell us about children Policy</Text>
-
-        <HStack >
-            <Text fontSize={fontSizeResponsive} >Are children allowed in this tour? </Text>
-                <RadioGroup onChange={setValueQ1} value={valueQ1} >
-                    <Radio bg="white" value='yes' size='lg'>Yes</Radio>
-                    <Radio bg="white" value='no' size='lg'>No</Radio>
+                <HStack w="full"  >
+                    <Text fontSize={Responsive.fontSizeResponsiveHead} >Are children allowed in this tour? </Text>
+                    <RadioGroup onChange={setValueQ1} value={valueQ1} >
+                    <Stack direction='row'>
+                        <Radio bg="white" value='yes' size='lg'>Yes</Radio>
+                        <Radio bg="white" value='no' size='lg'>No</Radio>
+                    </Stack>
                 </RadioGroup>
-        </HStack>
-            
-
-        <HStack >
-            {addAnswer(valueQ1)}
-        </HStack>
-
-        </Box >
-    </ChakraProvider>
+                </HStack>
+                    
+                <HStack>
+                    {addAnswer(valueQ1)}
+                </HStack>
+            </Stack>
+        </Box>
+    </React.Fragment>
     )
 } 
+
 export default ChildPolicy;

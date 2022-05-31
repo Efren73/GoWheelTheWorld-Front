@@ -1,2 +1,2 @@
-export * from './fooer.page';
-export { default } from './fooer.page';
+export * from './footer.page';
+export { default } from './footer.page';

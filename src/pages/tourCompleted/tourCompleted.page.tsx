@@ -25,7 +25,7 @@ function TourCompleted(props: ITourCompleted): JSX.Element {
         navigate('/tour-operator/1')
     }
 	return (
-        <ChakraProvider>
+        <React.Fragment>
             <Flex h="100vh">
                 <VStack w="full" h="full">
                     <TopMenu />
@@ -55,7 +55,7 @@ function TourCompleted(props: ITourCompleted): JSX.Element {
                     </Box>
                 </VStack>
             </Flex>
-        </ChakraProvider>
+        </React.Fragment>
 	);
 }
 

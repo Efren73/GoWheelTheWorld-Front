@@ -57,14 +57,14 @@ import {
     }
 
     return (
-    <HStack w='full'  h={20} justifyContent='space-between' paddingRight='10%'>
-        <Box paddingLeft={{sm:'5'}} w={{base: '10%', md: '15%', lg:'10%', sm: '30%'}}>
+    <HStack w='full' h={20} justifyContent='space-between' paddingRight='3%'>
+        <Box  w={{base: '10%', md: '15%', lg:'10%', sm: '30%'}}>
             <Image src={logo} />
         </Box>
         <Box alignItems={'flex-end'}>
             <VStack alignItems="flex-start" spacing="-2">
-                <Text fontSize={['10px', '15px', '20px', '25px']} color="#3F6FE4"> Fernanda, let's start! </Text>
-                <Link fontSize={['10px', '10px', '15px', '20px']} > Save and exit </Link>
+                <Text fontSize={['10px', '15px', '20px', '20px']} color="#3F6FE4"> Fernanda, let's start! </Text>
+                <Link fontSize={['10px', '10px', '15px']} > Save and exit </Link>
             </VStack>
         </Box>
         { 
