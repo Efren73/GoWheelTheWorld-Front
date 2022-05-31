@@ -16,16 +16,16 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
-  Stack,NumberInput,
+  Stack,
+  NumberInput,
   NumberInputField,
   NumberInputStepper,
   NumberIncrementStepper,
   NumberDecrementStepper,
 } from "@chakra-ui/react"
-import { ICart } from "./cart.types";
 import { InfoIcon } from '@chakra-ui/icons';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
-import { fetchTours, updateTour, selectAllTours, getTourStatus, changeState} from "../../reducers/appSlice";
+import { fetchTours, updateTour, selectAllTours, getTourStatus, changeState } from "../../reducers/appSlice";
 import { Responsive } from "../generalTypes";
 import { ProgressNav } from "../../pages/question/Footer";
 
@@ -93,11 +93,6 @@ const Cart: React.FC = () => {
         'DUMBO Tour, The New Brooklyn',
         'Snorkel with whale sharks'
 	];
-
-	console.log(+hours)
-	console.log(+minutes)
-
-	/* RESPONSIVE ------------------------------------- */
 
     return(
 		<React.Fragment>

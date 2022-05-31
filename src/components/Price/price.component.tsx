@@ -1,4 +1,5 @@
-import * as React from "react"
+import * as React from "react";
+import { useState, useEffect } from "react";
 import {
   Text,
   HStack,
@@ -7,18 +8,29 @@ import {
   Box,
   NumberInputField,
   Heading,
-} from "@chakra-ui/react"
-
+} from "@chakra-ui/react";
+import { useAppSelector, useAppDispatch } from '../../app/hooks';
+import { fetchTours, updateTour, selectAllTours, getTourStatus } from "../../reducers/appSlice";
 import '../Upload-Photos/upload-photos.modules.css';
 import { Responsive } from "../generalTypes";
 
 const Price: React.FC = () => {
-    /* RESPONSIVE -------------------------------------- */
+    /* Redux --------------------------------- */
+    const dispatch = useAppDispatch();
+	const tour = useAppSelector(selectAllTours);
+	const status = useAppSelector(getTourStatus);
 
-    
+    useEffect(() => {
+		dispatch(fetchTours())
+	  }, []);
+
+    useEffect(() => {
+    if (status === "succeeded" ) {
+        setPrice(tour.basicInformation.price)
+    }
+    }, [status]);
+
     const [price, setPrice] = React.useState();
-   
-    console.log('value',price)
 
     return (
     <Box boxShadow='2xl'
