@@ -14,10 +14,23 @@ import {
   Radio,
 } from "@chakra-ui/react"
 import { IAssistance} from "./assistance.types";
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import { Responsive } from "../generalTypes";
 
+
+import { useAppSelector, useAppDispatch } from '../../app/hooks';
+import { fetchTours, updateTour, selectAllTours, getTourStatus} from "../../reducers/appSlice";
+
 function Assistance(props: IAssistance): JSX.Element {
+
+    const dispatch = useAppDispatch();
+    const [addRequestStatus, setAddRequestStatus] = useState('idle')
+    const tour = useAppSelector(selectAllTours);
+    const status = useAppSelector(getTourStatus);
+
+    
+
+
 
     const [assistan,setAssistan]= useState<any>([
         {
@@ -42,6 +55,16 @@ function Assistance(props: IAssistance): JSX.Element {
 
     /* RESPONSIVE --------------------------------- */
   
+    useEffect(() => {
+        dispatch(fetchTours())
+        }, []);
+      
+      useEffect(() => {
+        if (status === "succeeded" ) {
+          console.log("Wenas", tour.accesibility.assistance)
+          setAssistan(tour.accesibility.assistance)
+        }
+        },[status]);
 
     return (
         <Box boxShadow='2xl'
@@ -64,7 +87,7 @@ function Assistance(props: IAssistance): JSX.Element {
                     <Tr fontSize={Responsive.fontSizeResponsiveHead}>
                         <Td>Guides / staff members have been trained by Wheel the World to provide assistance to people with disabilities during the tour/activity</Td>
                         <Td>
-                            <RadioGroup>
+                            <RadioGroup value = {assistan[0].answer}>
                                 <HStack spacing={8}>
                                     <Radio  value='yes'
                                             border='1px'
@@ -81,7 +104,7 @@ function Assistance(props: IAssistance): JSX.Element {
                     <Tr fontSize={Responsive.fontSizeResponsiveHead}>
                         <Td>Guides / staff members have experience assisting people with disabilities</Td>
                         <Td>
-                            <RadioGroup>
+                            <RadioGroup value = {assistan[1].answer}>
                                 <HStack spacing={8}>
                                     <Radio  value='yes'
                                             border='1px'
@@ -98,7 +121,7 @@ function Assistance(props: IAssistance): JSX.Element {
                     <Tr fontSize={Responsive.fontSizeResponsiveHead}>
                         <Td>Guides / staff members will be available to assist</Td>
                         <Td>
-                            <RadioGroup>
+                            <RadioGroup value = {assistan[2].answer}>
                                 <HStack spacing={8}>
                                     <Radio  value='yes'
                                             border='1px'

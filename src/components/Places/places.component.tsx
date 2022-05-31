@@ -14,10 +14,17 @@ import {
   Radio
 } from "@chakra-ui/react"
 import { IPlaces } from "./places.types";
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import { Responsive } from "../generalTypes";
+import { useAppSelector, useAppDispatch } from '../../app/hooks';
+import { fetchTours, updateTour, selectAllTours, getTourStatus} from "../../reducers/appSlice";
 
 function Places(props: IPlaces): JSX.Element {
+
+    const dispatch = useAppDispatch();
+    const [addRequestStatus, setAddRequestStatus] = useState('idle')
+    const tour = useAppSelector(selectAllTours);
+    const status = useAppSelector(getTourStatus);
 
     const [places, setPlaces] = useState<any>([
         {
@@ -52,6 +59,16 @@ function Places(props: IPlaces): JSX.Element {
 
     /* RESPONSIVE --------------------------------- */
   
+    useEffect(() => {
+        dispatch(fetchTours())
+        }, []);
+      
+      useEffect(() => {
+        if (status === "succeeded" ) {
+          console.log("Wenas", tour.accesibility.places)
+          setPlaces(tour.accesibility.places)
+        }
+        },[status]);
 
     return (
         <Box boxShadow='2xl'

@@ -14,10 +14,17 @@ import {
   Radio
 } from "@chakra-ui/react"
 import { IRestrooms } from "./restrooms.types";
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import { Responsive } from "../generalTypes";
+import { useAppSelector, useAppDispatch } from '../../app/hooks';
+import { fetchTours, updateTour, selectAllTours, getTourStatus} from "../../reducers/appSlice";
 
 function Restrooms(props: IRestrooms): JSX.Element {
+
+    const dispatch = useAppDispatch();
+    const [addRequestStatus, setAddRequestStatus] = useState('idle')
+    const tour = useAppSelector(selectAllTours);
+    const status = useAppSelector(getTourStatus);
 
     const[restRoom, setRestRoom] = useState([
         {
@@ -45,6 +52,17 @@ function Restrooms(props: IRestrooms): JSX.Element {
         newArray[index].answer = e.target.value;
         setRestRoom(newArray)
     }
+
+    useEffect(() => {
+        dispatch(fetchTours())
+        }, []);
+      
+      useEffect(() => {
+        if (status === "succeeded" ) {
+          console.log("Wenas", tour.accesibility.restrooms)
+          setRestRoom(tour.accesibility.restrooms)
+        }
+        },[status]);
 
 
     return (
