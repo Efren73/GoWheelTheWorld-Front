@@ -115,16 +115,15 @@ const ChildPolicy: React.FC = () => {
         <Text fontSize={fontSizeResponsive} color='#3F6FE4'>Children Policy</Text>
         <Text fontSize={{base:'35px', sm:'20px'}}>Tell us about children Policy</Text>
 
-        <HStack w="full"  >
+        <HStack >
             <Text fontSize={fontSizeResponsive} >Are children allowed in this tour? </Text>
-            <RadioGroup onChange={setValueQ1} value={valueQ1} >
-            <Stack direction='row'>
-                <Radio bg="white" value='yes' size='lg'>Yes</Radio>
-                <Radio bg="white" value='no' size='lg'>No</Radio>
-            </Stack>
-        </RadioGroup>
+                <RadioGroup onChange={setValueQ1} value={valueQ1} >
+                    <Radio bg="white" value='yes' size='lg'>Yes</Radio>
+                    <Radio bg="white" value='no' size='lg'>No</Radio>
+                </RadioGroup>
         </HStack>
             
+
         <HStack >
             {addAnswer(valueQ1)}
         </HStack>

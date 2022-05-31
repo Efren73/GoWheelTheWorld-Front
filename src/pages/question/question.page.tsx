@@ -7,6 +7,7 @@ import {
   ChakraProvider,
   useBreakpointValue,
   HStack,
+  Container,
   Box,
 } from "@chakra-ui/react";
 
@@ -31,7 +32,7 @@ function Question(props: IQuestion): JSX.Element {
       function CheckSize(screenSize:any){
           if (screenSize=='false')
               return (
-                  <Summary/>
+                      <Summary />
                   )
       }
 
@@ -47,19 +48,18 @@ function Question(props: IQuestion): JSX.Element {
                 <Box  h='full' position='absolute'>
                     <LateralMenu />
                 </Box>
-                
                 <VStack h="100%" w="100%">
                     <Box w='92%' h="16%" marginLeft='2%'>
                         <Header/>
                     </Box>
-                    <Box h="68%" w="97%">
-                        <HStack justifyContent="center" h="full" w="full" spacing={51} alignItems='flex-start' marginLeft={'2%'}>
+                    <Box w="90%">
+                        <HStack justifyContent="center" h="full" w="full" spacing={50} alignItems='flex-start' marginLeft={'2%'} marginRight={'2%'}>
                             <Outlet />
                             {CheckSize(screenSize)}
                         </HStack>
                     </Box>
 
-                    <Box w='96%'marginLeft={'5%'} alignSelf='end'>
+                    <Box w='90%'marginLeft={'5%'} alignSelf='center'>
                         <Footer/>
                     </Box>
                     
