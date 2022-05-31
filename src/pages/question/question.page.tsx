@@ -8,6 +8,7 @@ import {
   ChakraProvider,
   useBreakpointValue,
   HStack,
+  Container,
   Box,
   Divider
 } from "@chakra-ui/react";
@@ -31,7 +32,7 @@ function Question(props: IQuestion): JSX.Element {
       function CheckSize(screenSize:any){
           if (screenSize=='false')
               return (
-                  <Summary/>
+                      <Summary />
                   )
       }
 

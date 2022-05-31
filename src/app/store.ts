@@ -1,10 +1,6 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import  basicInformationReducer  from '../reducers/appSlice';
-import  childrenPolicyReducer  from '../reducers/childrenPolicyReducer';
-import  faqsReducer  from '../reducers/faqsReducer';
-import  intineraryReducer  from '../reducers/intineraryReducer';
-import  whatsIncludedReducer  from '../reducers/whatsIncludedReducer';
-import  accesibilityReducer  from '../reducers/accesibilityReducer';
+
 
 
 export const store = configureStore({
