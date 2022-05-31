@@ -14,13 +14,20 @@ import {
   } from "@chakra-ui/react"
   
 import logo from '../../login/images/logo.png'
+import { useAppSelector, useAppDispatch } from '../../../app/hooks';
+import { fetchTours, updateTour, selectAllTours, getTourStatus, changeState} from "../../../reducers/appSlice";
 import { useNavigate, useLocation } from "react-router-dom";
 import { IFooter } from "./footer.types";
 
+export let ProgressNav = ["name-of-tour", "type-of-tour", "group-private", "price","description","upload-photos","meeting-point","end-point","stops","languages", "restrictions","children-policy","General","Food","Transport", "assistance","transportation","restrooms","places","equipment","faqs","cancelation-policy","" ]
   function Footer ()  {
-    let ProgressNav = ["name-of-tour", "type-of-tour", "group-private", "price","description","upload-photos","meeting-point","end-point","stops","languages", "restrictions","children-policy","General","Food","Transport", "assistance","transportation","restrooms","places","equipment","faqs","cancelation-policy","" ]
     const navigate = useNavigate();
     const location = useLocation();
+    const dispatch = useAppDispatch();
+    const tour = useAppSelector(selectAllTours);
+    const status = useAppSelector(getTourStatus);
+    const [addRequestStatus, setAddRequestStatus] = useState('idle')
+
 
 
     let Position = location.pathname.split('/');
@@ -28,6 +35,16 @@ import { IFooter } from "./footer.types";
     console.log(ProgressNav[index])
 
     function changeNext(){
+        try {
+          setAddRequestStatus('pending')
+          dispatch(updateTour(tour))
+
+        } catch (err) {
+            console.error('Failed to save the post', err)
+        } finally {
+            setAddRequestStatus('idle')
+        }
+      
       if (ProgressNav[index+1]=="")
         navigate('/tour-operator/1/tour-completed/1')
       else

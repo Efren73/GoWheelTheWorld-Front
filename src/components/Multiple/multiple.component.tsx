@@ -66,7 +66,6 @@ function CustomCheckbox(props: any) {
 }
 
 const Multiple = () => {
-  const dispatch = useAppDispatch();
 
   const { value, getCheckboxProps } = useCheckboxGroup()
 
