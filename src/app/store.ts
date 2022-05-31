@@ -12,6 +12,7 @@ export const store = configureStore({
     //intinerary:  intineraryReducer,
     //whatsIncluded: whatsIncludedReducer
   },
+  // middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
 });
 
 export type AppDispatch = typeof store.dispatch;

@@ -1,4 +1,5 @@
-import * as React from "react"
+import * as React from "react";
+import { useEffect } from "react";
 import {
   Text,
   VStack,
@@ -12,23 +13,19 @@ import {
   chakra,
   useCheckboxGroup,
   Heading,
-} from "@chakra-ui/react"
+} from "@chakra-ui/react";
+import { useAppSelector, useAppDispatch } from '../../app/hooks';
+import { fetchTours, selectAllTours, getTourStatus, changeState } from "../../reducers/appSlice";
 import { Responsive } from "../generalTypes";
-import { useState } from "react"
 
 function CustomCheckbox(props: any) {
-  const { state, getCheckboxProps, getInputProps, getLabelProps } = useCheckbox(props)
-  //console.log('HIJO ', props)
-  let backgroundValue: string;
-  let colorValue: string;
-  let srcValue: any;
+    
+    const { state, getCheckboxProps, getInputProps, getLabelProps } = useCheckbox(props)
+    let backgroundValue: string;
+    let colorValue: string;
+    let srcValue: any;
 
-  // Para cambiar el estado de los checkbox checkeados
-  const [isCheckedItem, setisChecked] = useState(false)
-    //console.log('HIJOisChecked ', props.value, props.isChecked)
-    //console.log('isCheckedItem', props.value, isCheckedItem)
-
-    if(!isCheckedItem) {
+    if(props.isChecked === false) {
       backgroundValue = '#fff'
       colorValue = '#000'
     } else {
@@ -36,72 +33,49 @@ function CustomCheckbox(props: any) {
       colorValue='#fff'
     }
 
-    if(props.value == 'Private') {
-        srcValue = 'https://cdn-icons-png.flaticon.com/512/1077/1077114.png'
-    } else {
-        srcValue = 'https://cdn-icons-png.flaticon.com/512/681/681494.png'
-    }
+    if(props.value == 'Private') srcValue = 'https://cdn-icons-png.flaticon.com/512/1077/1077114.png'
+    else srcValue = 'https://cdn-icons-png.flaticon.com/512/681/681494.png'
 
     return (
-      <chakra.label
-          display='flex'
-          alignItems='center'
-          justifyContent='center'
-          w='200px'
-          h='105px'
-          bg={backgroundValue}
-          border='1px solid'
-          borderColor='#3F6FE4'
-          color={colorValue}
-          rounded='lg'
-          cursor='pointer'
-          {...getCheckboxProps()}
-          onChange={() => {
-            // Función que en el Padre se llama handleCheckedItems, se pasó como onChange
-            // El hijo le pasa al Padre la experience selccionada y su estado
-            setisChecked(!isCheckedItem)
-            props.onChange(props.value, isCheckedItem)
-            
-            //console.log('HIJOisCheckedItem',isCheckedItem)
-          }}
-          >
-            <img src={srcValue} height ="50" width="50" />
+        <chakra.label
+            display='flex'
+            alignItems='center'
+            justifyContent='center'
+            w='200px'
+            h='105px'
+            bg={backgroundValue}
+            border='1px solid'
+            borderColor='#3F6FE4'
+            color={colorValue}
+            rounded='lg'
+            cursor='pointer'
+            {...getCheckboxProps()} >
+                <img src={srcValue} height ="50" width="50" />
+                <img {...getInputProps()} hidden />
 
-            <img {...getInputProps()} hidden />
-
-          <input {...getInputProps()} hidden />
-          <Text {...getLabelProps()}>{props.value}</Text>
-       </chakra.label>
+                <input {...getInputProps()} hidden />
+                <Text {...getLabelProps()}>{props.value}</Text>
+        </chakra.label>
     )
 }
 
 const GroupPrivate: React.FC = () => {
 
-    const { value, getCheckboxProps } = useCheckboxGroup()
+    const { value, getCheckboxProps } = useCheckboxGroup();
 
-    // Arreglo de strings para guardar los checkboxes seleccionados
-    const [checkedItems, setCheckedItems] = useState<string[]>([])
+    /* LÓGICA PRIMERA PREGUNTA ----------------------------------------- */
+    const [ privado, setPrivado ] = React.useState(false);
+    const [ group, setGroup ] = React.useState(false);
 
-    const experiences: string[] = [
-        'Private',
-        'Group',
-      ]
+    let handlePrivateChange = (e: any) => {
+        if(privado === true) setPrivado(false)
+        else setPrivado(true)
+    }
 
-      const handleCheckedItems = (typeExperience:string, checkea:boolean) => {
-        // Agregando el nombre de la experiencia que se selccionó en el hijo CustomCheckbox
-      
-        //console.log('PADREisChecked', checkea)
-        if(checkea === false){
-          setCheckedItems([...checkedItems, typeExperience])
-        }
-        else {
-          // filter regresa una copia del arreglo original, pero ahora sin el expereinceName que indique
-          const result = checkedItems.filter(checkedItems => checkedItems != typeExperience)
-          // actualizamos al arreglo original checkedItems con el arreglo de filter
-          setCheckedItems(result)
-        }
-      }
-      console.log('Arreglo', checkedItems)
+    let handleGroupChange = (e: any) => {
+        if(group === true) setGroup(false)
+        else setGroup(true)
+    }
 
     /* LÓGICA SEGUNDA PREGUNTA ----------------------------------------- */
     const [minimo, setMinimo] = React.useState(1)
@@ -133,7 +107,7 @@ const GroupPrivate: React.FC = () => {
         if (inputValue3 < minimo) setMaximo(minimo)
     }
 
-    // Botones
+    /* botones --------- */
     function Decrease(valor: any) {
         if(valor === 'minimo') {
             if(minimo <= 1) setMinimo(1)
@@ -149,69 +123,101 @@ const GroupPrivate: React.FC = () => {
         else setMaximo(+maximo+1)
     }
 
-    /* RESPONSIVE -------------------------------------- */
-   
+    /* REDUX ----------------------------------------------- */
+    const dispatch = useAppDispatch();
+	const tour = useAppSelector(selectAllTours);
+	const status = useAppSelector(getTourStatus);
 
-    console.log('Minimo', minimo)
-    console.log('Maximo', maximo)
+    /* get --------- */
+    useEffect(() => {
+	    dispatch(fetchTours())
+	}, []);
 
-    return(
+    useEffect(() => {
+        if (status === "succeeded" ) {
+            setMinimo(tour.basicInformation.numberMinTravelers)
+            setMaximo(tour.basicInformation.numberMaxTravelers)
+            setPrivado(tour.basicInformation.privateTour)
+            setGroup(tour.basicInformation.groupTour)
+        }
+        
+    }, [status]);
+
+    /* update --------- */
+    useEffect(() => {
+		dispatch(changeState(
+			{
+				basicInformation : {
+					...tour.basicInformation,
+					numberMinTravelers: minimo,
+                    numberMaxTravelers: maximo,
+                    privateTour: privado,
+                    groupTour: group,
+				}
+			}
+		))    
+	} , [maximo, minimo, privado, group]);
+
+    return (
         <React.Fragment>
             <Box boxShadow='2xl'
                 w="65%" 
                 p={10}
                 background="#EBE9E9"
-                borderRadius="10px">
+                borderRadius="10px" >
         
-            <Stack spacing={2}>
-                <Text fontSize={Responsive.fontSizeResponsiveHead} color='#3F6FE4'>Basic Information / Travelers</Text>
-            </Stack>
-
-            <VStack>
-                <Heading alignSelf={'flex-start'} fontSize={Responsive.fontSizeResponsiveBody}>Is it a private or a group tour/activity?</Heading>
-                <SimpleGrid columns={[1, 1, 2, 2, 2]} spacing={15} paddingTop='20px' paddingBottom='30px' alignSelf={'center'} fontSize={Responsive.fontSizeResponsiveHead}>
-                    {
-                        experiences.map((experience: string) =>(
-                        <CustomCheckbox
-                        // Llamando a función hijo CustomCheckbox, se le pasa el arreglo de experiences
-                        {...getCheckboxProps({value: `${experience}`})}
-                        // Función que en el Padre se llama handleCheckedItems, se pasa como onChange
-                        onChange={handleCheckedItems}
-                        />
-                        ))
-                    }
-                </SimpleGrid>
-
-                <Heading alignSelf={'flex-start'} fontSize={Responsive.fontSizeResponsiveBody} paddingBottom='10px'>
-                    Please specify the minimum and maximum number of travelers
-                </Heading>
-
-                <HStack w='42%' paddingBottom='10px' spacing='42%' justifyContent={'flex-start'}>
-                    <Text fontSize={Responsive.fontSizeResponsiveHead}>Minimum</Text>
-                    <Text fontSize={Responsive.fontSizeResponsiveHead}>Maximum</Text>
-                </HStack>
-
-                <Stack justifyContent={'center'} spacing='50px' direction={['column', 'column', 'row', 'row']}> 
-                    <HStack maxW='200px'>
-                        <Button isDisabled={buttonDisabledMinimoMenos} name="minimum" onClick={() => Decrease('minimo')} background='#2F6FE4'> - </Button>
-                        <Input  onChange={ChangeMinimo} 
-                                value={minimo}
-                                background='#white'/>
-                        <Button isDisabled={buttonDisableMinimoMas} onClick={() => Increase('minimo')} background='#2F6FE4'> + </Button>
-                    </HStack>
-                    <HStack maxW='200px'>
-                        <Button isDisabled={buttonDisabledMaximoMenos} onClick={() => Decrease('maximo')} background='#2F6FE4'> - </Button>
-                        <Input  onChange={ChangeMaximo} 
-                                onBlur={ChangeMaximo2}
-                                value={maximo}
-                                background='#white' />
-                        <Button isDisabled={buttonDisableMaximoMas} onClick={() => Increase('maximo')} background='#2F6FE4'> + </Button>
-                    </HStack>
+                <Stack spacing={2}>
+                    <Text fontSize={Responsive.fontSizeResponsiveHead} color='#3F6FE4'>Basic Information / Travelers</Text>
                 </Stack>
-            </VStack>
+
+                <VStack>
+                    <Heading alignSelf={'flex-start'} fontSize={Responsive.fontSizeResponsiveBody}>Is it a private or a group tour/activity?</Heading>
+                    <SimpleGrid columns={[1, 1, 2, 2, 2]} spacing={15} paddingTop='20px' paddingBottom='30px' alignSelf={'center'} fontSize={Responsive.fontSizeResponsiveHead}>
+                        {   privado === true ?
+                                <CustomCheckbox {...{ value: 'Private', isChecked: true }} 
+                                                onChange = {handlePrivateChange} /> 
+                            :
+                                <CustomCheckbox {...{ value: 'Private', isChecked: false }} 
+                                                onChange = {handlePrivateChange} /> 
+                        }
+                        {   group === true ?
+                                <CustomCheckbox {...{ value: 'Group', isChecked: true }} 
+                                                onChange = {handleGroupChange} /> 
+                            :
+                                <CustomCheckbox {...{ value: 'Group', isChecked: false }} 
+                                                onChange = {handleGroupChange} /> 
+                        }
+                    </SimpleGrid>
+
+                    <Heading alignSelf={'flex-start'} fontSize={Responsive.fontSizeResponsiveBody} paddingBottom='10px'>
+                        Please specify the minimum and maximum number of travelers
+                    </Heading>
+
+                    <HStack w='42%' paddingBottom='10px' spacing='42%' justifyContent={'flex-start'}>
+                        <Text fontSize={Responsive.fontSizeResponsiveHead}>Minimum</Text>
+                        <Text fontSize={Responsive.fontSizeResponsiveHead}>Maximum</Text>
+                    </HStack>
+
+                    <Stack justifyContent={'center'} spacing='50px' direction={['column', 'column', 'row', 'row']}> 
+                        <HStack maxW='200px'>
+                            <Button isDisabled={buttonDisabledMinimoMenos} name="minimum" onClick={() => Decrease('minimo')} background='#2F6FE4'> - </Button>
+                            <Input  onChange={ChangeMinimo} 
+                                    value={minimo}
+                                    background='#white'/>
+                            <Button isDisabled={buttonDisableMinimoMas} onClick={() => Increase('minimo')} background='#2F6FE4'> + </Button>
+                        </HStack>
+                        <HStack maxW='200px'>
+                            <Button isDisabled={buttonDisabledMaximoMenos} onClick={() => Decrease('maximo')} background='#2F6FE4'> - </Button>
+                            <Input  onChange={ChangeMaximo} 
+                                    onBlur={ChangeMaximo2}
+                                    value={maximo}
+                                    background='#white' />
+                            <Button isDisabled={buttonDisableMaximoMas} onClick={() => Increase('maximo')} background='#2F6FE4'> + </Button>
+                        </HStack>
+                    </Stack>
+                </VStack>
             </Box>
         </React.Fragment>
-
     )
 }
 
