@@ -24,7 +24,6 @@ import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { changeUrl } from '../../reducers/appSlice';
 import axios from 'axios';
 
-
 function MainScreenTO(props: IMainScreenTO): JSX.Element {
   const navigate = useNavigate()
   const dispatch = useAppDispatch();
@@ -58,11 +57,11 @@ function MainScreenTO(props: IMainScreenTO): JSX.Element {
 
       console.log(tours)
 
-    const goToTour = ((idTour: string) =>{
-      //AQUI PONER EL DISPATCH
+      const goToTour = ((idTour: string) =>{
+      dispatch(changeUrl(idTour))
       navigate(`/tour-operator/${idTourOperator}/question/${idTour}/name-of-tour`)
-      //dispatch(changeUrl(idTour))
     })
+
   
 	return (
     <Flex h="100vh">

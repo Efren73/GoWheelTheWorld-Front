@@ -1,11 +1,8 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState, AppThunk } from '../app/store';
-import axios from "axios";
+import { useAppSelector, useAppDispatch } from '../app/hooks';
 
-const url = `https://api-things-to-do.herokuapp.com/tour-operator/one-tour/
-QCiQ9LuD6HRG6ALA5ZEV`;
-const url2 = `https://api-things-to-do.herokuapp.com/tour-operator/update-tour/
-QCiQ9LuD6HRG6ALA5ZEV`;
+import axios from "axios";
 
 export interface  basicInformation 
 {
@@ -44,13 +41,13 @@ const initialState: basicInformation = {
 };
 
 export const fetchTours = createAsyncThunk('tour/fetchTours', async () => {
-  const response = await axios.get(url)
+  const response = await axios.get()
   return response.data
 })
 
 export const updateTour = createAsyncThunk('tour/updateTour', async (initialPost:any) => {
   console.log(initialPost)
-  const response = await axios.put(url2, initialPost)
+  const response = await axios.put(, initialPost)
   return response.data
 })
 
@@ -78,8 +75,10 @@ export const appSlice = createSlice({
           state.status = 'loading';
         })
         .addCase(fetchTours.fulfilled, (state, action) => {
-          state.status = 'succeeded';
+          state.status = 'succeeded'
           state.tour = action.payload
+          state.url = state.url
+
         })
         .addCase(fetchTours.rejected, (state) => {
           state.status = 'failed';

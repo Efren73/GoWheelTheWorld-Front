@@ -25,7 +25,7 @@ import {
 } from "@chakra-ui/react"
 import { InfoIcon } from '@chakra-ui/icons';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
-import { fetchTours, updateTour, selectAllTours, getTourStatus, changeState } from "../../reducers/appSlice";
+import { fetchTours, changeState,selectAllTours, getTourStatus } from "../../reducers/appSlice";
 import { Responsive } from "../generalTypes";
 import { ProgressNav } from "../../pages/question/Footer";
 
