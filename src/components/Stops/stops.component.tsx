@@ -155,7 +155,7 @@ const Stops: React.FC = () => {
             borderRadius="10px">
 
           <Stack spacing={2}>
-              <Text  color='#3F6FE4' fontSize={Responsive.fontSizeResponsiveHead}>tinerary / Stops</Text>
+              <Text  color='#3F6FE4' fontSize={Responsive.fontSizeResponsiveHead}>Itinerary / Stops</Text>
               <Text fontSize={Responsive.fontSizeResponsiveBody}>Introduce the stops</Text>
           </Stack>
 
