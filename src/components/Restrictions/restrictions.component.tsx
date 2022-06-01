@@ -13,18 +13,15 @@ import { useState, useEffect } from "react"
 import { Responsive } from "../generalTypes";
 
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
-import { fetchTours, updateTour, selectAllTours, getTourStatus} from "../../reducers/appSlice";
+import { fetchTours, updateTour, selectAllTours, getTourStatus, changeState} from "../../reducers/appSlice";
 
 function CustomCheckbox(props: any) {
   const { state, getCheckboxProps, getInputProps, getLabelProps } = useCheckbox(props)
 
-  // controla el Checkbox independiente
-  const [noRestrictCheck, setCheckNo] = useState(false)
-  const [allRestrictCheck, setCheckAll] = useState(false)
-
   // Arreglo de strings para guardar los checkboxes seleccionados
   const [checkedItems, setCheckedItems] = useState<boolean>(props.isChecked)
 
+  //console.log(state)
   return (
     <chakra.label
       display='flex'
@@ -42,7 +39,7 @@ function CustomCheckbox(props: any) {
           
         }}
         isChecked={props.isChecked}
-        //isDisabled={props.isDisabled}
+        //isDisabled={props.isChecked}
         >
       </Checkbox>
       
@@ -84,12 +81,11 @@ const Restrictions: React.FC = () => {
         if(restrictionName == 'There is no restriction of any kind regarding this tour') { // NO
           setCheckedItems([restrictionName])
         } else if (restrictionName == 'Select all') { // All
-          // filter regresa una copia del arreglo original, pero ahora sin el languageName que indique
           const result = restrictions.filter(restrictions => restrictions != 'There is no restriction of any kind regarding this tour')
-          // actualizamos al arreglo original checkedItems con el arreglo de filter
           setCheckedItems(result)
-        } else {
-          setCheckedItems([...checkedItems, restrictionName])
+        } else { // CUALQUIER OTRO
+          const result = checkedItems.filter(restrictions => restrictions != 'There is no restriction of any kind regarding this tour')
+          setCheckedItems([...result, restrictionName])
         }
       }
       else { // ELIMINA
@@ -98,13 +94,28 @@ const Restrictions: React.FC = () => {
           setCheckedItems(result) // Deja vacío el arreglo
         } else {
           // filter regresa una copia del arreglo original, pero ahora sin el languageName que indique
-          const result = checkedItems.filter(checkedItems => checkedItems != restrictionName)
+          const result = checkedItems.filter(checkedItems => 
+            (checkedItems != restrictionName) && checkedItems != 'Select all')
           // actualizamos al arreglo original checkedItems con el arreglo de filter
           setCheckedItems(result)
         }
       }
-      
     }
+    // console.log(checkedItems.length)
+    if(checkedItems.length == 6) { // Trae todas las respuestas
+      setCheckedItems([...checkedItems, 'Select all'])
+    }
+
+    useEffect(() => {
+      dispatch(changeState(
+        {
+          intinerary : {
+            ...tour.intinerary,
+            restrictions: checkedItems
+          }
+        }
+      ))    
+      },[checkedItems]);
 
     useEffect(() => {
       if (status === "succeeded" ) {   
@@ -127,30 +138,25 @@ const Restrictions: React.FC = () => {
       </Stack>
       
         <Stack pl={6} mt={1} spacing={2}>
-        {
-          restrictions.map((restriction: string) =>(
-            <React.Fragment>
-              {
-                checkedItems.includes(restriction) ?
-                    
-              <CustomCheckbox
-              {...{value: `${restriction}`, isChecked: true, isDisabled: false}}
-              // Función que en el Padre se llama handleCheckedItems, se pasa como onChange
-              onChange={()=> handleCheckedItems(restriction, true)}
-              />
-              :
-              <CustomCheckbox
-              {...{value: `${restriction}`, isChecked: false, isDisabled: true}}
-              onChange={()=> handleCheckedItems(restriction, false)}
-
-              />
-              }
-          </React.Fragment>
+          {
+            restrictions.map((restriction: string) =>(
+              <React.Fragment>
+                { 
+                  checkedItems.includes(restriction) ? //GET REGRESA ALGO
+                    <CustomCheckbox
+                    {...{value: `${restriction}`, isChecked: true, isDisabled: false}}
+                    onChange={()=> handleCheckedItems(restriction, true)}
+                    />
+                  : // GET NO REGRESA NADA
+                    <CustomCheckbox
+                    {...{value: `${restriction}`, isChecked: false, isDisabled: false}}
+                    onChange={()=> handleCheckedItems(restriction, false)}
+                    />
+                }
+              </React.Fragment>
+            ))
             
-          ))
-          
-        }
-        
+          }
         </Stack>
       
     </Box>

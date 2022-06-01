@@ -13,7 +13,7 @@ import { Responsive } from "../generalTypes";
 import { useState, useEffect } from "react"
 
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
-import { fetchTours, updateTour, selectAllTours, getTourStatus} from "../../reducers/appSlice";
+import { fetchTours, updateTour, selectAllTours, getTourStatus, changeState} from "../../reducers/appSlice";
 
 function CustomCheckbox(props: any) {
   const { state, getCheckboxProps, getInputProps, getLabelProps } = useCheckbox(props)
@@ -101,6 +101,17 @@ const Languages: React.FC = () => {
   }
 
   console.log(checkedItems)
+
+  useEffect(() => {
+    dispatch(changeState(
+      {
+        intinerary : {
+          ...tour.intinerary,
+          languages: checkedItems
+        }
+      }
+    ))    
+    },[checkedItems]);
 
   useEffect(() => {
     if (status === "succeeded" ) {   

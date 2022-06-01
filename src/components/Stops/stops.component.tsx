@@ -21,121 +21,81 @@ import {
 import { DeleteIcon } from "@chakra-ui/icons"
 import { Responsive } from "../generalTypes";
 
+import { useAppSelector, useAppDispatch } from '../../app/hooks';
+import { fetchTours, selectAllTours, getTourStatus, changeState } from "../../reducers/appSlice";
+
 const Stops: React.FC = () => {
-   // let [stops, setStops] = useState<any>([])
 
-  //Definición de useState para que el usuario pueda ingresar varias preguntas
-  let [questionAnswer, setQuestionAnswer] = useState<any>([])
+  const dispatch = useAppDispatch();
+	const tour = useAppSelector(selectAllTours);
+	const status = useAppSelector(getTourStatus);
 
-  //Definición de useState para que aparezca la primer pregunta del Checkbox
-  let [check1, setCheck1] = useState(false)
+	/* NÚMERO DE CARÁCTERES ------------------------------*/
+    let [value, setValue] = useState([''])
+    let [characters, setCharacters] = useState(0)
+    let inputValue: any;
 
-  //Definicion de useState para encontrar el valor que se encuentra en el input
-  let [text, setText] = useState('')
-  //UseState para contar los caracteres
-  let [characters, setCharacters] = useState(0)
-  //Valor que se encuentra en el input para contar caracteres
-  let inputValue: any;
+    let [myStop, setMyStop] = useState<any[]>([])
 
-  //Función cada vez que el contenido del texto cambie
-  let handleInputChange = (e: any) => {
-      inputValue = e.target.value
-      //Si la longitud es mayor que 60, entonces no podrán hacerse cambios, esta será la longitud máxima
-      if(inputValue.length<=80){
-          setText(inputValue)
-          setCharacters(inputValue.length)
-      }
-  }
-
-
-
-  //Funcion para que cuando se de click al checkbox, aparezca 
-  function addAnswer(){
-      return(
-          <Box>
-              <Input 
-                  placeholder='Answer' 
-                  bg="#fff" 
-                  onChange={handleInputChange}
-                  value={text}/>
-              <Text color='#2F6FE4'>{characters}/80</Text>
-          </Box>
-      )
-  }
+	let handleInputChange = (e: any) => {
+        inputValue = e.target.value
+        if(inputValue.length<=80){
+			setValue(inputValue)
+            setCharacters(inputValue.length)
+        }
+    }
 
   //Función para que cuando se de click a add, se agreguen elementos al arreglo con el fin de que se rendericen más componentes
   const addQuestionAnswer = () => {
-      setQuestionAnswer([...questionAnswer, []]);
+    setMyStop([...myStop, {
+        stopName: "",
+        hours: 0,
+        minutes: 0
+    }]);
   }
-
-
 
   function handleSubmit(e: any){
       e.preventDefault();
-      console.dir(e.target)
+      //console.dir(e.target)
   }
 
+    function changeOneValue(e: any, index: any, value: any){
+        let newArray:any[] = [...myStop]
 
-
-  //En este Change se manejan varios valores del new array
-  //El valor newArray[0] hace referencia a la pregunta que se introduce
-  //El valor newArray[1] hace referencia a la respuesta que se introduce
-  //El valor newArray[2] hace referencia a la cantidad de caracteres de la pregunta
-  //El valor newArray[3] hace referencia a la cantidad de caracteres de la respuesta
-  function changeOneValue(e: any, index: any, index2: any){
-      console.log(index, index2)
-      console.log(e.target.value)
-      let newArray:string[][] = [...questionAnswer]
-      console.log(e.target.value.length)
-      if(e.target.value.length <= 80){
-          if(index2 === 0){
-              newArray[index][2] = e.target.value.length
-          }
-          else if(index2 === 1){
-              newArray[index][3] = e.target.value.length
-          }
-
-          newArray[index][index2] = e.target.value
-          setQuestionAnswer(newArray)
-      }
-  }
+        console.log('value-------', value)
+        if(value === "name") {
+            newArray[index] = {
+                ...myStop[index],
+                stopName: e.target.value
+            }
+            setMyStop(newArray)
+        } else if(value === "minutes") {
+            console.log('hola', e)
+            newArray[index] = {
+                ...myStop[index],
+                minutes: e
+            }
+            setMyStop(newArray)
+            
+        } else if(value === "hours"){
+            newArray[index] = {
+                ...myStop[index],
+                hours: e
+            }
+            setMyStop(newArray)
+            
+        }
+    
+    }
 
   function deleteQ (e: any, index: any){
-      let newArray:string[][] = [...questionAnswer]
+      let newArray:string[] = [...myStop]
       newArray.splice(index, 1)
-      setQuestionAnswer(newArray)
+      setMyStop(newArray)
   }
 
-  function HookUsage() {
-    const { getInputProps, getIncrementButtonProps, getDecrementButtonProps } =
-        useNumberInput({
-        step: 1,
-        defaultValue: 0,
-        min: 1,
-        })
 
-    const inc = getIncrementButtonProps()
-    const dec = getDecrementButtonProps()
-    const input = getInputProps()
-
-    return (
-        <HStack maxW='200px'>
-        <Button {...dec} background='#2F6FE4'>-</Button>
-        <Input {...input} background='#white'/>
-        <Button {...inc} background='#2F6FE4'>+</Button>
-        </HStack>
-    )
-  }
-
-      	/* TIEMPO DEL TOUR --------------------------------- */
-	const [ hours, setHours ] = React.useState("")
-    const [ minutes, setMinutes ] = React.useState("30")
-
-	console.log(+hours)
-	console.log(+minutes)
-
-      // RESPONSIVE -------------------------------------------------------
-  
+   console.log(myStop)
 
   const { getInputProps, getIncrementButtonProps, getDecrementButtonProps } =
         useNumberInput({
@@ -147,6 +107,44 @@ const Stops: React.FC = () => {
         const inc = getIncrementButtonProps()
         const dec = getDecrementButtonProps()
         const input = getInputProps()
+
+    
+    
+    console.log(status)
+
+    useEffect(() => {
+        dispatch(fetchTours())
+    }, []);
+
+     useEffect(() => {
+	 	dispatch(changeState(
+	 		{
+	 			intinerary : {
+ 				...tour.intinerary,
+	 				stops: myStop
+                 }
+			}
+	 	))    
+	   },[myStop]);
+
+
+	  useEffect(() => {
+		if (status === "succeeded" ) {
+            if(tour.intinerary != undefined) {
+                setMyStop(tour.intinerary.stops)
+            }
+			
+		}
+	  }, [status]);
+
+    //    console.log(hours)
+    //   console.log(minutes)
+    //   console.log(value)
+
+    //   console.log('---------',questionAnswer)
+
+
+
   return(
     
   <ChakraProvider>
@@ -171,7 +169,7 @@ const Stops: React.FC = () => {
               </Stack>
               <form onSubmit={handleSubmit}>
                   {
-                      (questionAnswer && questionAnswer.length > 0) ? questionAnswer.map((x: any, index: any)=>(
+                      (myStop && myStop.length > 0) ? myStop.map((theStop: any, index: number)=>(
                           
                           <Stack w='100%' marginBottom={4}>
                               <HStack>
@@ -179,8 +177,9 @@ const Stops: React.FC = () => {
                                       <Text>Stop {index+1}</Text>
                                       <Box>
                                           <Box>
-                                              <Input placeholder='Name' bg="#fff" value={x[0]} onChange={(e: any) => changeOneValue(e, index, 0)}/>
-                                              <Text color='#2F6FE4'>{x[2] ? x[2]: 0}/80</Text>
+                                              
+                                              <Input placeholder='Name' bg="#fff" value={theStop.stopName} onChange={(e: any) => changeOneValue(e, index, "name")}/>
+                                              <Text color='#2F6FE4'>0/80</Text>
                                           </Box>
                                           <Box>
                                           
@@ -199,10 +198,9 @@ const Stops: React.FC = () => {
                                                                 fontSize={'20px'} 
                                                                 background={'white'} 
                                                                 defaultValue={0}
-                                                                onChange={(valueString) => {
-                                                                    setHours(valueString)
-                                                                    }
-                                                                }>
+                                                                value={+theStop.hours}
+                                                                onChange={(e: any) => changeOneValue(e, index, "hours")}
+                                                                >
                                                         <NumberInputField />
                                                         <NumberInputStepper>
                                                             <NumberIncrementStepper bg='#2F6FE4' _active={{ bg: '#2558B6' }} children ='+'/>
@@ -220,9 +218,12 @@ const Stops: React.FC = () => {
                                                                 fontSize={Responsive.fontSizeResponsiveHead}
                                                                 background={'white'} 
                                                                 defaultValue={30}
-                                                                onChange={(value) => {
-                                                                    setMinutes(value)
-                                                                    }}>
+                                                                value={theStop.minutes}
+                                                                onChange={(e: any) => {
+                                                                    changeOneValue(e, index, "minutes")
+                                                                   }
+                                                                }
+                                                                >
                                                             <NumberInputField />
                                                             <NumberInputStepper>
                                                                 <NumberIncrementStepper  bg='#2F6FE4' _active={{ bg: '#2558B6' }} children ='+'/>

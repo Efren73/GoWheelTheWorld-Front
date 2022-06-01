@@ -9,7 +9,7 @@ import {
   Heading,
 } from "@chakra-ui/react"
 import { Responsive } from "../generalTypes";
-import { fetchTours, selectAllTours, getTourStatus} from "../../reducers/appSlice";
+import { fetchTours, selectAllTours, getTourStatus, changeState} from "../../reducers/appSlice";
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 
 const Meeting: React.FC = () => {
@@ -35,6 +35,17 @@ const Meeting: React.FC = () => {
   useEffect(() => {
 		dispatch(fetchTours())
 	  }, []);
+
+    useEffect(() => {
+      dispatch(changeState(
+        {
+          intinerary : {
+            ...tour.intinerary,
+            meetPoint: value
+          }
+        }
+      ))    
+      },[value]);
 
 	  useEffect(() => {
 		if (status === "succeeded" ) {
