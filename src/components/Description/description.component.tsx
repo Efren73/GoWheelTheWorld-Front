@@ -59,10 +59,11 @@ const Description: React.FC = () => {
 
     useEffect(() => {
     if (status === "succeeded" ) {
-        setValue(tour.basicInformation.description)
-        setValue1(tour.basicInformation.link)
-    }
-    }, [status]);
+        if(tour.basicInformation!= undefined) {
+            setValue(tour.basicInformation.description)
+            setValue1(tour.basicInformation.link)
+        }
+    } }, [status]);
 
     /* update --------- */
     useEffect(() => {

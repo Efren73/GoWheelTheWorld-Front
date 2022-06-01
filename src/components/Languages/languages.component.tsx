@@ -10,26 +10,24 @@ import {
   Heading,
 } from "@chakra-ui/react"
 import { Responsive } from "../generalTypes";
-import { useState } from "react"
+import { useState, useEffect } from "react"
+
+import { useAppSelector, useAppDispatch } from '../../app/hooks';
+import { fetchTours, updateTour, selectAllTours, getTourStatus, changeState} from "../../reducers/appSlice";
 
 function CustomCheckbox(props: any) {
   const { state, getCheckboxProps, getInputProps, getLabelProps } = useCheckbox(props)
-  //console.log('HIJO ', props)
+  
   let backgroundValue: string;
   let colorValue: string;
 
-  // Para cambiar el estado de los checkbox checkeados
-  const [isCheckedItem, setisChecked] = useState(false)
-    //console.log('HIJOisChecked ', props.value, props.isChecked)
-    //console.log('isCheckedItem', props.value, isCheckedItem)
-
-    if(!isCheckedItem){
-      backgroundValue = '#fff'
-      colorValue = '#000'
+    if(props.isChecked === true){
+      backgroundValue = "#3F6FE4"
+      colorValue = "#fff"
     }
     else{
-      backgroundValue = '#3F6FE4'
-      colorValue='#fff'
+      backgroundValue = '#fff'
+      colorValue = '#000'
     }
 
     return (
@@ -46,14 +44,14 @@ function CustomCheckbox(props: any) {
           rounded='lg'
           cursor='pointer'
           {...getCheckboxProps()}
-          onChange={() => {
+          //onChange={() => {
             // Función que en el Padre se llama handleCheckedItems, se pasó como onChange
             // El hijo le pasa al Padre la experience selccionada y su estado
-            setisChecked(!isCheckedItem)
-            props.onChange(props.value, isCheckedItem)
+            //setisChecked(!isCheckedItem)
+           // props.onChange(props.value, isCheckedItem)
             
             //console.log('HIJOisCheckedItem',isCheckedItem)
-          }}
+          //}}
           >
           <input {...getInputProps()} hidden />
           <Text {...getLabelProps()}>{props.value}</Text>
@@ -61,8 +59,15 @@ function CustomCheckbox(props: any) {
     )
 }
 
-const Languages = () => {
-  const { value, getCheckboxProps } = useCheckboxGroup()
+const Languages: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const [addRequestStatus, setAddRequestStatus] = useState('idle')
+  const tour = useAppSelector(selectAllTours);
+  const status = useAppSelector(getTourStatus);
+
+  useEffect(() => {
+    dispatch(fetchTours())
+    }, []);
 
   // Arreglo de strings para guardar los checkboxes seleccionados
   const [checkedItems, setCheckedItems] = useState<string[]>([])
@@ -97,7 +102,24 @@ const Languages = () => {
 
   console.log(checkedItems)
 
-  /* RESPONSIVE -------------------------------------------------------*/
+  useEffect(() => {
+    dispatch(changeState(
+      {
+        intinerary : {
+          ...tour.intinerary,
+          languages: checkedItems
+        }
+      }
+    ))    
+    },[checkedItems]);
+
+  useEffect(() => {
+    if (status === "succeeded" ) {   
+      setCheckedItems(tour.intinerary.languages)
+    } 
+    }, [status]);
+
+  console.log('checkedItems', checkedItems)
  
 
   return(
@@ -115,12 +137,19 @@ const Languages = () => {
       <SimpleGrid columns={[1, 1, 1, 2, 3]} spacing={15} justifyItems='center' paddingTop='30px' h='80%' overflowY='auto' fontSize={Responsive.fontSizeResponsiveHead}>
         {
           languages.map((language: string) =>(
-            <CustomCheckbox
-            // Llamando a función hijo CustomCheckbox, se le pasa el arreglo de experiences
-            {...getCheckboxProps({value: `${language}`})}
-            // Función que en el Padre se llama handleCheckedItems, se pasa como onChange
-            onChange={handleCheckedItems}
-            />
+            <React.Fragment>
+              {checkedItems.includes(language) ? 
+              <CustomCheckbox
+              // Llamando a función hijo CustomCheckbox, se le pasa el arreglo de experiences
+              {...{value: `${language}`, isChecked: true}}
+              // Función que en el Padre se llama handleCheckedItems, se pasa como onChange
+              onChange={()=> handleCheckedItems(language, true)}
+              /> :
+              <CustomCheckbox
+              {...{value: `${language}`, isChecked: false}}
+              onChange={()=> handleCheckedItems(language, false)}
+              />}
+            </React.Fragment>
 
           ))
         }

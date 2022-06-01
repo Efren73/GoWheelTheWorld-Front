@@ -1,7 +1,7 @@
 import * as React from "react"
+import { useState, useEffect } from "react"
 import {
   Text,
-  VStack,
   AspectRatio,
   Stack,
   Input,
@@ -9,10 +9,49 @@ import {
   Heading,
 } from "@chakra-ui/react"
 import { Responsive } from "../generalTypes";
+import { fetchTours, selectAllTours, getTourStatus, changeState} from "../../reducers/appSlice";
+import { useAppSelector, useAppDispatch } from '../../app/hooks';
 
 const Meeting: React.FC = () => {
   /* RESPONSIVE -------------------------------------- */
+
+  const dispatch = useAppDispatch();
+	const tour = useAppSelector(selectAllTours);
+	const status = useAppSelector(getTourStatus);
   
+  console.log(status)
+
+  /* NÚMERO DE CARÁCTERES ------------------------------*/
+  let [value, setValue] = useState('')
+  let [characters, setCharacters] = useState(0)
+  let inputValue: any;
+
+  let handleInputChange = (e: any) => {
+    inputValue = e.target.value
+    setValue(inputValue)
+    setCharacters(inputValue.length)
+  }
+
+  useEffect(() => {
+		dispatch(fetchTours())
+	  }, []);
+
+    useEffect(() => {
+      dispatch(changeState(
+        {
+          intinerary : {
+            ...tour.intinerary,
+            meetPoint: value
+          }
+        }
+      ))    
+      },[value]);
+
+	  useEffect(() => {
+		if (status === "succeeded" ) {
+			setValue(tour.intinerary.meetPoint)
+		}
+	  }, [status]);
 
   return (
     <Box boxShadow='2xl'
@@ -34,8 +73,10 @@ const Meeting: React.FC = () => {
 				     placeholder='Street, number, City'
              marginBottom={'20px'}
              marginTop={'10px'}
+             onChange={handleInputChange}
+             value = {value}
 				/>
-
+        
       <Box h='70%' overflowY='auto'>
         <AspectRatio ratio={17 / 8} >
         <iframe
