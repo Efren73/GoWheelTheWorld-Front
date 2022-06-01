@@ -67,7 +67,7 @@ function Assistance(props: IAssistance): JSX.Element {
       useEffect(() => {
         if (status === "succeeded" ) {
             
-            if(tour.accessibility != undefined){
+            if(tour.accessibility.assistance != undefined && tour.accessibility != undefined){
                 setAssistan(tour.accessibility.assistance)
             }
         }
