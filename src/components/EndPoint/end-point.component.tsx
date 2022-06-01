@@ -1,4 +1,5 @@
 import * as React from "react"
+import { useState, useEffect } from "react"
 import {
   Text,
   Heading,
@@ -8,10 +9,49 @@ import {
   Box,
 } from "@chakra-ui/react"
 import { Responsive } from "../generalTypes";
+import { fetchTours, selectAllTours, getTourStatus, changeState} from "../../reducers/appSlice";
+import { useAppSelector, useAppDispatch } from '../../app/hooks';
 
 const EndPoint: React.FC = () => {
-  /* RESPONSIVE ------------------------------------- */
- 
+  /* GET ------------------------------------- */
+
+  const dispatch = useAppDispatch();
+	const tour = useAppSelector(selectAllTours);
+	const status = useAppSelector(getTourStatus);
+  
+  console.log(status)
+
+  /* NÚMERO DE CARÁCTERES ------------------------------*/
+  let [value, setValue] = useState('')
+  let [characters, setCharacters] = useState(0)
+  let inputValue: any;
+
+  let handleInputChange = (e: any) => {
+    inputValue = e.target.value
+    setValue(inputValue)
+    setCharacters(inputValue.length)
+  }
+
+  useEffect(() => {
+		dispatch(fetchTours())
+	}, []);
+
+    useEffect(() => {
+      dispatch(changeState(
+        {
+          intinerary : {
+            ...tour.intinerary,
+            endPoint: value
+          }
+        }
+      ))    
+      },[value]);
+
+	  useEffect(() => {
+      if (status === "succeeded" ) {
+        setValue(tour.intinerary.endPoint)
+      }
+	  }, [status]);
 
   return (
     <Box  boxShadow='2xl'
@@ -33,6 +73,8 @@ const EndPoint: React.FC = () => {
 				      placeholder='Street, number, City'
               marginBottom={'20px'}
               marginTop={'10px'}
+              onChange={handleInputChange}
+              value = {value}
 				/>
 
         <Box h='70%' overflowY='auto'>
