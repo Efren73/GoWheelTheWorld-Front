@@ -64,7 +64,7 @@ export let ProgressNav = ["name-of-tour", "type-of-tour", "group-private", "pric
     
     return (
       <Box h="16%" w="full" marginBottom={'10px'}>
-        <Slider defaultValue={10} isReadOnly={true} size="lg" w="full">
+        <Slider defaultValue={0} isReadOnly={true} size="lg" w="full">
             <SliderTrack w="full" bg="#C9C9C9">
                 <SliderFilledTrack w="full"/>
             </SliderTrack>
@@ -78,7 +78,7 @@ export let ProgressNav = ["name-of-tour", "type-of-tour", "group-private", "pric
                     borderColor="#3F6FE4" 
                     onClick={changeBack}
                     > Back </Button>
-            <Text fontSize="20px" color="#9B9B9B"> 1 of 19 items sent </Text>
+            {/*<Text fontSize="20px" color="#9B9B9B"> 1 of 19 items sent </Text>*/}
             <Button size='lg'
                     fontSize={fontSizeResponsive}
                     borderRadius={10}
