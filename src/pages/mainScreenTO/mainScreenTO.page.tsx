@@ -20,6 +20,8 @@ import ImageInfoMSTO from './ImageInfoMSTO.png';
 import fondoMS from './FondoMS.png';
 import TopMenu from '../../components/TopMenu/topMenu.component';
 import {useNavigate, useLocation} from  'react-router-dom'
+import { useAppSelector, useAppDispatch } from '../../app/hooks';
+import { changeState, updateTour, fetchTours,selectAllTours } from '../../reducers/appSlice';
 import axios from 'axios';
 import {links} from '../../reducers/appSlice'
 
@@ -74,6 +76,7 @@ function MainScreenTO(props: IMainScreenTO): JSX.Element {
   const idTourOperator: string = link[link.length - 1]
 
   console.log(idTourOperator)
+  
   const [tours, setTours] = useState<any>([])
 
   const url = `https://api-things-to-do.herokuapp.com/tour-operator/all-tours/${idTourOperator}`
@@ -93,10 +96,10 @@ function MainScreenTO(props: IMainScreenTO): JSX.Element {
       console.log(tours)
 
     const goToTour = ((idTour: string) =>{
-      //AQUI PONER EL DISPATCH
       links(idTour)
       navigate(`/tour-operator/${idTourOperator}/question/${idTour}/name-of-tour`)
     })
+
   
 	return (
     <Flex h="100vh">
@@ -163,7 +166,6 @@ function MainScreenTO(props: IMainScreenTO): JSX.Element {
               <Heading marginBottom={5}> Tour registered </Heading>
               {
                 tours.map((tourInfo: any) => {
-                  console.log(tourInfo)
                   return(
                     <VStack alignItems="flex-start" spacing={spacing}>
                        <Text>{tourInfo.basicInformation.tourName}</Text>

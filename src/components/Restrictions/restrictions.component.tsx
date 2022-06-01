@@ -118,7 +118,8 @@ const Restrictions: React.FC = () => {
       },[checkedItems]);
 
     useEffect(() => {
-      if (status === "succeeded" ) {   
+      if (status === "succeeded" ) { 
+        if(tour.intinerary != undefined && tour.intinerary.restrictions != undefined)  
         setCheckedItems(tour.intinerary.restrictions)
       } 
       }, [status]);

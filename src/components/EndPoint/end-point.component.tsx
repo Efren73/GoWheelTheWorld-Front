@@ -49,6 +49,7 @@ const EndPoint: React.FC = () => {
 
 	  useEffect(() => {
       if (status === "succeeded" ) {
+        if(tour.intinerary != undefined && tour.intinerary.endPoint != undefined)
         setValue(tour.intinerary.endPoint)
       }
 	  }, [status]);

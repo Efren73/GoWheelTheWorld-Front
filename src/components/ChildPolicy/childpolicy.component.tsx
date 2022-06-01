@@ -30,19 +30,20 @@ const ChildPolicy: React.FC = () => {
 
     useEffect(() => {
         if (status === "succeeded" ) {
-            setValueQ1((tour.childrenPolicy.childrenAllowed).toString())
-            setValueAge(tour.childrenPolicy.childrenAge)
-            setValuePay(tour.childrenPolicy.childrenAgePay)
-            setValueH(tour.childrenPolicy.childrenHeight)
-            
-            if(valueAge === 0) setValueQ2('yes')
-            else setValueQ2('no')
+            if (tour.childernPolicy != undefined && [...tour.basicInformation.childrenPolicy] != undefined)
+{                setValueQ1((tour.childrenPolicy.childrenAllowed).toString())
+                setValueAge(tour.childrenPolicy.childrenAge)
+                setValuePay(tour.childrenPolicy.childrenAgePay)
+                setValueH(tour.childrenPolicy.childrenHeight)
+                
+                if(valueAge === 0) setValueQ2('yes')
+                else setValueQ2('no')
 
-            if(valuePay === 0) setValueQ3('yes')
-            else setValueQ3('no')
+                if(valuePay === 0) setValueQ3('yes')
+                else setValueQ3('no')
 
-            if(valueH === 0) setValueQ4('yes')
-            else setValueQ4('no')
+                if(valueH === 0) setValueQ4('yes')
+                else setValueQ4('no')}
         }
     }, [status]);
 
@@ -55,7 +56,8 @@ const ChildPolicy: React.FC = () => {
     const [valueH, setValueH] = React.useState();
 
     useEffect(() => {
-		dispatch(changeState(
+        if (valueQ1=='true')
+		{dispatch(changeState(
 			{
 				childrenPolicy : {
 					...tour.childrenPolicy,
@@ -66,7 +68,16 @@ const ChildPolicy: React.FC = () => {
 
 				}
 			}
-		))    
+		))}
+        else {
+            dispatch(changeState(
+                {
+                    childrenPolicy : {
+                        childrenAllowed: valueQ1,
+                    }
+                }
+            ))
+        }
 	  },[valueQ1, valueAge, valueH, valuePay]);
 
 

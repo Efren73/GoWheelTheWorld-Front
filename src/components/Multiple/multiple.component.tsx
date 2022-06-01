@@ -96,7 +96,7 @@ const Multiple = () => {
 
   useEffect(() => {
     if (status === "succeeded" ) {
-      if(tour.basicInformation!= undefined) {
+      if(tour.basicInformation!= undefined && tour.basicInformation.typeOfActivity != undefined) {
         setCheckedItems(tour.basicInformation.typeOfActivity)
       }
     }
