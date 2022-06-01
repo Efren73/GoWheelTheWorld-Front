@@ -1,5 +1,5 @@
 import * as React from "react"
-import { useState } from "react"
+import { useState, useEffect} from "react"
 import { Flex, position, useDisclosure } from "@chakra-ui/react"
 import {
     Text,
@@ -21,8 +21,15 @@ import {
 import { DeleteIcon } from "@chakra-ui/icons"
 import { AnyRecord } from "dns"
 import { Responsive } from "../generalTypes";
+import { useAppSelector, useAppDispatch } from '../../app/hooks';
+import { fetchTours, selectAllTours, getTourStatus, changeState } from "../../reducers/appSlice";
+
+
 const Faqs: React.FC = () => {
 
+    const dispatch = useAppDispatch();
+    const tour = useAppSelector(selectAllTours);
+	const status = useAppSelector(getTourStatus);
     //Definición de useState para que el usuario pueda ingresar varias preguntas
     let [questionAnswer, setQuestionAnswer] = useState<any>([])
 
@@ -65,7 +72,10 @@ const Faqs: React.FC = () => {
 
     //Función para que cuando se de click a add, se agreguen elementos al arreglo con el fin de que se rendericen más componentes
     const addQuestionAnswer = () => {
-        setQuestionAnswer([...questionAnswer, []]);
+        setQuestionAnswer([...questionAnswer, {
+            question: "",
+            answer: ""
+        }]);
     }
 
 
@@ -92,32 +102,55 @@ const Faqs: React.FC = () => {
     //El valor newArray[1] hace referencia a la respuesta que se introduce
     //El valor newArray[2] hace referencia a la cantidad de caracteres de la pregunta
     //El valor newArray[3] hace referencia a la cantidad de caracteres de la respuesta
-    function changeOneValue(e: any, index: any, index2: any){
-        console.log(index, index2)
-        console.log(e.target.value)
-        let newArray:string[][] = [...questionAnswer]
-        console.log(e.target.value.length)
+    function changeOneValue(e: any, index: any, type: any){
+        let newArray = [...questionAnswer]
         if(e.target.value.length <= 80){
-            if(index2 === 0){
-                newArray[index][2] = e.target.value.length
+            if(type === "question"){
+                newArray[index] = {
+                    ...questionAnswer[index],
+                    question: e.target.value
+                }
             }
-            else if(index2 === 1){
-                newArray[index][3] = e.target.value.length
+            else if(type === "answer"){
+                newArray[index] = {
+                    ...questionAnswer[index],
+                    answer: e.target.value
+                }
             }
-
-            newArray[index][index2] = e.target.value
-            setQuestionAnswer(newArray)
         }
+        setQuestionAnswer(newArray)
     }
 
     function deleteQ (e: any, index: any){
-        let newArray:string[][] = [...questionAnswer]
+        let newArray = [...questionAnswer]
         newArray.splice(index, 1)
         setQuestionAnswer(newArray)
     }
 
+    console.log("Faqs", questionAnswer)
     /* RESPONSIVE --------------------------------- */
     
+    useEffect(() => {
+        dispatch(fetchTours())
+    }, []);
+
+     useEffect(() => {
+	 	dispatch(changeState(
+	 		{
+	 			faqs : questionAnswer
+			}
+	 	))    
+	   },[questionAnswer]);
+
+
+	  useEffect(() => {
+		if (status === "succeeded" ) {
+            if(tour.faqs != undefined) {
+                setQuestionAnswer(tour.faqs)
+            }
+		}
+	  }, [status]);
+
     return(
     <React.Fragment>
          <Box boxShadow='2xl'
@@ -161,12 +194,12 @@ const Faqs: React.FC = () => {
                                         <Text>Question {index+1}</Text>
                                         <Box>
                                             <Box>
-                                                <Input placeholder='Question' bg="#fff" value={x[0]} onChange={(e) => changeOneValue(e, index, 0)}/>
-                                                <Text color='#2F6FE4'>{x[2] ? x[2]: 0}/80</Text>
+                                                <Input placeholder='Question' bg="#fff" value={x.question} onChange={(e) => changeOneValue(e, index, "question")}/>
+                                                <Text color='#2F6FE4'>{x.question ? x.question.length: 0}/80</Text>
                                             </Box>
                                             <Box>
-                                                <Input placeholder='Answer' value={x[1]} bg="#fff" onChange={(e) => changeOneValue(e, index, 1)}/>
-                                                <Text color='#2F6FE4'>{x[3] ? x[3]: 0}/80</Text>
+                                                <Input placeholder='Answer' value={x.answer} bg="#fff" onChange={(e) => changeOneValue(e, index, "answer")}/>
+                                                <Text color='#2F6FE4'>{x.answer ? x.answer.length: 0}/80</Text>
                                             </Box>
                                         <Flex justifyContent='flex-end'>
                                             <Button variant="link" onClick={(e) => deleteQ(e, index)} marginBottom='20px'>
