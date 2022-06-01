@@ -62,7 +62,7 @@ function Login(props: ILogin): JSX.Element {
                       paddingRight={5}
                       alignItems="flex-start">
                 <Heading fontSize="50px"> HELLO! </Heading>
-                <Text fontSize="25px"> Empower people with disabilities to travel the world without limits </Text>
+                <Text fontSize="25px"> Empowering people with disabilities to travel the world without limits </Text>
               </VStack>
             </Box>
             <Box w="50%">
