@@ -61,13 +61,13 @@ function Assistance(props: IAssistance): JSX.Element {
     /* RESPONSIVE --------------------------------- */
   
     useEffect(() => {
-        dispatch(fetchTours())
+        dispatch(fetchTours())  
         }, []);
       
       useEffect(() => {
         if (status === "succeeded" ) {
             
-            if(tour.accessibility.assistance != undefined && tour.accessibility != undefined){
+            if(tour.accessibility != undefined && tour.accessibility.assistance != undefined ) {
                 setAssistan(tour.accessibility.assistance)
             }
         }
