@@ -56,9 +56,9 @@ function Question(props: IQuestion): JSX.Element {
                     <Box h="68%" w="100%">
                         <HStack justifyContent="center" 
                                 w="full" 
-                                spacing='calc(100vh - 760px)' 
+                                spacing={47} 
                                 alignItems='flex-start' 
-                                marginLeft='calc(100vh - 770px)'
+                                marginLeft='3.5%'
                                 height='calc(100vh - 190px)'
                                 overflowY='scroll'>
                             <Outlet />
