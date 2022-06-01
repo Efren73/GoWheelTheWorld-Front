@@ -101,7 +101,7 @@ const Summary: React.FC = () => {
               <Image src={person} alt="Number of members icon" w={25} h={25} m={0.5}/>
               <Text color="#fff" fontSize={Responsive.fontSizeResponsiveHead}>
                 { status === "succeeded" && tour.basicInformation != undefined ? 
-                  ( 'Min: ' + tour.basicInformation.numberMaxTravelers + " / " + 'Max: ' + tour.basicInformation. numberMinTravelers) 
+                  ( 'Min: ' + tour.basicInformation.numberMinTravelers + " / " + 'Max: ' + tour.basicInformation.numberMaxTravelers) 
                   : 
                   'Number of traveleres' }
               </Text>
