@@ -21,12 +21,14 @@ import fondoMS from './FondoMS.png';
 import TopMenu from '../../components/TopMenu/topMenu.component';
 import {useNavigate, useLocation} from  'react-router-dom'
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
-import { changeUrl } from '../../reducers/appSlice';
+import { changeState, updateTour, fetchTours,selectAllTours } from '../../reducers/appSlice';
 import axios from 'axios';
+import {links} from '../../reducers/appSlice'
 
 function MainScreenTO(props: IMainScreenTO): JSX.Element {
   const navigate = useNavigate()
   const dispatch = useAppDispatch();
+  const tour = useAppSelector(selectAllTours);
 
   function change(){
     navigate(`/tour-operator/${idTourOperator}/question/1/name-of-tour`)
@@ -57,9 +59,16 @@ function MainScreenTO(props: IMainScreenTO): JSX.Element {
 
       console.log(tours)
 
-      const goToTour = ((idTour: string) =>{
-      dispatch(changeUrl(idTour))
+    const goToTour = ((idTour: string) =>{
+      links(idTour)
       navigate(`/tour-operator/${idTourOperator}/question/${idTour}/name-of-tour`)
+    })
+
+    const DeleteTour = ((idTour: string) =>{
+      links(idTour)
+      dispatch(fetchTours())
+      dispatch(changeState({deletedAt: ""}))
+     // dispatch(updateTour(tour))
     })
 
   
@@ -128,7 +137,6 @@ function MainScreenTO(props: IMainScreenTO): JSX.Element {
               <Heading marginBottom={5}> Tour registered </Heading>
               {
                 tours.map((tourInfo: any) => {
-                  console.log(tourInfo)
                   return(
                     <VStack alignItems="flex-start" spacing={spacing}>
                        <Text>{tourInfo.basicInformation.tourName}</Text>
@@ -146,6 +154,7 @@ function MainScreenTO(props: IMainScreenTO): JSX.Element {
                     variant='outline'
                     aria-label='eliminar'
                     size={botonContinue}
+                    onClick = {() => DeleteTour(tourInfo.id)}
                     icon={<DeleteIcon w={6} h={6}/>}
                   />
                 </HStack>

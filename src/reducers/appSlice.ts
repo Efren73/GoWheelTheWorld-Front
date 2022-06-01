@@ -1,8 +1,16 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState, AppThunk } from '../app/store';
 import { useAppSelector, useAppDispatch } from '../app/hooks';
-
 import axios from "axios";
+
+
+let url = '';
+let url2 = '';
+
+export const links = ((data: any) =>{
+  url = `https://api-things-to-do.herokuapp.com/tour-operator/one-tour/${data}`
+  url2 =`https://api-things-to-do.herokuapp.com/tour-operator/update-tour/${data}`
+})
 
 export interface  basicInformation 
 {
@@ -41,13 +49,13 @@ const initialState: basicInformation = {
 };
 
 export const fetchTours = createAsyncThunk('tour/fetchTours', async () => {
-  const response = await axios.get()
+  const response = await axios.get(url)
   return response.data
 })
 
 export const updateTour = createAsyncThunk('tour/updateTour', async (initialPost:any) => {
   console.log(initialPost)
-  const response = await axios.put(, initialPost)
+  const response = await axios.put(url2, initialPost)
   return response.data
 })
 

@@ -5,7 +5,6 @@ import {
     VStack,
     Box,
     HStack,
-    Link,
     Image,
     Slider,
     SliderTrack,
@@ -16,17 +15,21 @@ import {
 import logo from '../../login/images/logo.png'
 import { useAppSelector, useAppDispatch } from '../../../app/hooks';
 import { fetchTours, updateTour, selectAllTours, getTourStatus, changeState} from "../../../reducers/appSlice";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import { IFooter } from "./footer.types";
 
 export let ProgressNav = ["name-of-tour", "type-of-tour", "group-private", "price","description","upload-photos","meeting-point","end-point","stops","languages", "restrictions","children-policy","General","Food","Transport", "assistance","transportation","restrooms","places","equipment","faqs","cancelation-policy","" ]
-  function Footer ()  {
+  function Footer (props:any)  {
+    console.log("Checa esto ->", props)
     const navigate = useNavigate();
-    const location = useLocation();
     const dispatch = useAppDispatch();
     const tour = useAppSelector(selectAllTours);
     const status = useAppSelector(getTourStatus);
     const [addRequestStatus, setAddRequestStatus] = useState('idle')
+
+    const location = useLocation();
+    const link: string[] = location.pathname.split('/')
+    const idTourOperator: string = link[link.length - 1]
 
 
 
@@ -35,28 +38,28 @@ export let ProgressNav = ["name-of-tour", "type-of-tour", "group-private", "pric
     console.log(ProgressNav[index])
 
     function changeNext(){
-        try {
-          setAddRequestStatus('pending')
-          dispatch(updateTour(tour))
-
-        } catch (err) {
-            console.error('Failed to save the post', err)
-        } finally {
-            setAddRequestStatus('idle')
-        }
-      
-      if (ProgressNav[index+1]=="")
-        navigate('/tour-operator/1/tour-completed/1')
-      else
-        navigate(`/tour-operator/1/question/1/${ProgressNav[index+1]}`)
+      try {
+        setAddRequestStatus('pending')
+        dispatch(updateTour(tour))
+        
+      } catch (err) {
+        console.error('Failed to save the post', err)
+      } finally {
+        setAddRequestStatus('idle')
+      }
     }
 
     
     function changeBack(){
-      if (index===0)
-        navigate(`/tour-operator/1`)
-      else
-        navigate(`/tour-operator/1/question/1/${ProgressNav[index-1]}`)
+      try {
+        setAddRequestStatus('pending')
+        dispatch(updateTour(tour))
+        
+      } catch (err) {
+        console.error('Failed to save the post', err)
+      } finally {
+        setAddRequestStatus('idle')
+      }
     }
 
     /* RESPONSIVE ------------------------------------*/
@@ -70,6 +73,7 @@ export let ProgressNav = ["name-of-tour", "type-of-tour", "group-private", "pric
             </SliderTrack>
         </Slider>
         <HStack justifyContent="space-between" w="full" paddingRight={41} paddingLeft={41} paddingTop="3">
+        <Link to = { ProgressNav[index-1]}>
             <Button size='lg'
                     fontSize={fontSizeResponsive}
                     borderRadius={10}
@@ -78,16 +82,19 @@ export let ProgressNav = ["name-of-tour", "type-of-tour", "group-private", "pric
                     borderColor="#3F6FE4" 
                     onClick={changeBack}
                     > Back </Button>
+          </Link>
             {/*<Text fontSize="20px" color="#9B9B9B"> 1 of 19 items sent </Text>*/}
+            <Link to = { ProgressNav[index+1]}>
             <Button size='lg'
                     fontSize={fontSizeResponsive}
                     borderRadius={10}
                     bg="#3F6FE4"
                     color="white"
                     onClick={changeNext}> Next </Button>
+            </Link>
         </HStack>
     </Box>
     
     )
-    }
+  }
   export default Footer;
