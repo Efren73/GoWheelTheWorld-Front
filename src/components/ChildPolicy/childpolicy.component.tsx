@@ -16,7 +16,7 @@ import {
 } from "@chakra-ui/react";
 import { Responsive } from "../generalTypes";
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
-import { fetchTours, updateTour, selectAllTours, getTourStatus } from "../../reducers/appSlice";
+import { fetchTours, selectAllTours, getTourStatus, changeState } from "../../reducers/appSlice";
 
 const ChildPolicy: React.FC = () => {
     /* REDUX -------------------------------------------------------- */
@@ -53,6 +53,22 @@ const ChildPolicy: React.FC = () => {
     const [valueAge, setValueAge] = React.useState();
     const [valuePay, setValuePay] = React.useState();
     const [valueH, setValueH] = React.useState();
+
+    useEffect(() => {
+		dispatch(changeState(
+			{
+				childrenPolicy : {
+					...tour.childrenPolicy,
+					childrenAllowed: valueQ1,
+                    childrenAgePay: valuePay,
+                    childrenAge: valueAge,
+                    childrenHeight: valueH
+
+				}
+			}
+		))    
+	  },[valueQ1, valueAge, valueH, valuePay]);
+
 
     const colSpan = { base: 2, md: 1 };
 

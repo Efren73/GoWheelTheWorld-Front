@@ -2,8 +2,8 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState, AppThunk } from '../app/store';
 import axios from "axios";
 
-const url = `https://api-things-to-do.herokuapp.com/tour-operator/one-tour/NoEditarEsteTour`;
-const url2 = `https://api-things-to-do.herokuapp.com/tour-operator/update-tour/NoEditarEsteTour`;
+const url = `https://api-things-to-do.herokuapp.com/tour-operator/one-tour/prueba`;
+const url2 = `https://api-things-to-do.herokuapp.com/tour-operator/update-tour/prueba`;
 
 export interface  basicInformation 
 {

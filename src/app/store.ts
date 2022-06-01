@@ -1,11 +1,11 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import  basicInformationReducer  from '../reducers/appSlice';
+import  Reducer  from '../reducers/appSlice';
 
 
 
 export const store = configureStore({
   reducer: {
-    appSlice: basicInformationReducer,
+    appSlice: Reducer,
     //accesibility: accesibilityReducer,
     //childrenPolicy: childrenPolicyReducer,
     //faqs: faqsReducer,
