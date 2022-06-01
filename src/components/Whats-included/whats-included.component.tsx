@@ -16,7 +16,7 @@ import { useState, useEffect } from "react";
 import { Responsive } from "../generalTypes";
 
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
-import { fetchTours, updateTour, selectAllTours, getTourStatus} from "../../reducers/appSlice";
+import { fetchTours, updateTour, selectAllTours, getTourStatus, changeState} from "../../reducers/appSlice";
 
 function CustomCheckbox(props: any) {
   const { state, getCheckboxProps, getInputProps, getLabelProps } = useCheckbox(props)
@@ -207,14 +207,33 @@ const WhatsIncluded: React.FC = () => {
     }
         
         
-        useEffect(() => {
-          if (status === "succeeded" ) {   
-            setCheckedItems1(tour.whatsIncluded.general)
-            setCheckedItems2(tour.whatsIncluded.food)
-            setCheckedItems3(tour.whatsIncluded.transport)
-            setCheckedItems4(tour.whatsIncluded.accessibility)
-          } 
-          }, [status]);
+  useEffect(() => {
+    if (status === "succeeded" ) {  
+      if(tour.whatsIncluded != undefined){
+        setCheckedItems1(tour.whatsIncluded.general)
+        setCheckedItems2(tour.whatsIncluded.food)
+        setCheckedItems3(tour.whatsIncluded.transport)
+        setCheckedItems4(tour.whatsIncluded.accessibility)
+      } 
+    } 
+    }, [status]);
+
+
+    useEffect(() => {
+      dispatch(changeState(
+        {
+          whatsIncluded : {
+            ...tour.whatsIncluded,
+            general: checkedItemsGeneral,
+            food: checkedItemsFood,
+            transport: checkedItemsTransport,
+            accessibility: checkedItemsAccessibility
+          }
+        }
+      ))    
+      },[checkedItemsGeneral, checkedItemsFood, checkedItemsTransport, checkedItemsAccessibility ]);
+
+
 
         console.log('General', checkedItemsGeneral)
         console.log('Food', checkedItemsFood)

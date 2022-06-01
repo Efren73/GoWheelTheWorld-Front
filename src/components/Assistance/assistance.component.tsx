@@ -19,7 +19,7 @@ import { Responsive } from "../generalTypes";
 
 
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
-import { fetchTours, updateTour, selectAllTours, getTourStatus} from "../../reducers/appSlice";
+import { fetchTours, updateTour, selectAllTours, getTourStatus, changeState} from "../../reducers/appSlice";
 
 function Assistance(props: IAssistance): JSX.Element {
 
@@ -32,7 +32,7 @@ function Assistance(props: IAssistance): JSX.Element {
 
 
 
-    const [assistan,setAssistan]= useState<any>([
+    const [assistan,setAssistan]= useState([
         {
             question:"Guides / staff members have been trained by Wheel the World to provide assistance to people with disabilities during the tour/activity",
             answer:""
@@ -48,23 +48,41 @@ function Assistance(props: IAssistance): JSX.Element {
     ])
 
     function changeValue(e:any, index: any){
-        let newArray: any[] = [...assistan];
-        newArray[index].answer=e.target.value;
+        
+        let newArray: any = [...assistan];
+
+        newArray[index] = {
+            ...assistan[index],
+            answer: e.target.value
+        }
         setAssistan(newArray)
     }
 
     /* RESPONSIVE --------------------------------- */
   
     useEffect(() => {
-        dispatch(fetchTours())
+        dispatch(fetchTours())  
         }, []);
       
       useEffect(() => {
         if (status === "succeeded" ) {
-          console.log("Wenas", tour.accesibility.assistance)
-          setAssistan(tour.accesibility.assistance)
+            
+            if(tour.accessibility != undefined && tour.accessibility.assistance != undefined ) {
+                setAssistan(tour.accessibility.assistance)
+            }
         }
         },[status]);
+
+        useEffect(() => {
+            dispatch(changeState(
+              {
+                accessibility : {
+                  ...tour.accessibility,
+                  assistance: assistan
+                }
+              }
+            ))    
+            },[assistan]);
 
     return (
         <Box boxShadow='2xl'
@@ -73,7 +91,7 @@ function Assistance(props: IAssistance): JSX.Element {
         background="#EBE9E9"
         borderRadius="10px">
         <VStack alignItems='flex-start' w="full">
-            <Text fontSize={Responsive.fontSizeResponsiveHead} color='#3F6FE4'> Accesibility / Assistance </Text>
+            <Text fontSize={Responsive.fontSizeResponsiveHead} color='#3F6FE4'> Accessibility / Assistance </Text>
             <Heading fontSize={Responsive.fontSizeResponsiveBody}>Assistance</Heading>
             
             <HStack justifyContent="flex-end" w="50%">

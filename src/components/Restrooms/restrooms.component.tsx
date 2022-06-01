@@ -17,7 +17,7 @@ import { IRestrooms } from "./restrooms.types";
 import {useState, useEffect} from 'react'
 import { Responsive } from "../generalTypes";
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
-import { fetchTours, updateTour, selectAllTours, getTourStatus} from "../../reducers/appSlice";
+import { fetchTours, updateTour, selectAllTours, getTourStatus, changeState} from "../../reducers/appSlice";
 
 function Restrooms(props: IRestrooms): JSX.Element {
 
@@ -49,7 +49,10 @@ function Restrooms(props: IRestrooms): JSX.Element {
 
     function changeValue(e:any, index: any){
         let newArray: any[] = [...restRoom];
-        newArray[index].answer = e.target.value;
+        newArray[index] = {
+            ...restRoom[index],
+            answer: e.target.value
+        }
         setRestRoom(newArray)
     }
 
@@ -59,10 +62,22 @@ function Restrooms(props: IRestrooms): JSX.Element {
       
       useEffect(() => {
         if (status === "succeeded" ) {
-          console.log("Wenas", tour.accesibility.restrooms)
-          setRestRoom(tour.accesibility.restrooms)
+            if(tour.accessibility != undefined && tour.accessibility.restrooms != undefined){
+                setRestRoom(tour.accessibility.restrooms)
+            }
         }
         },[status]);
+
+        useEffect(() => {
+            dispatch(changeState(
+              {
+                accessibility : {
+                  ...tour.accessibility,
+                  restrooms: restRoom
+                }
+              }
+            ))    
+            },[restRoom]);
 
 
     return (
@@ -72,7 +87,7 @@ function Restrooms(props: IRestrooms): JSX.Element {
             background="#EBE9E9"
             borderRadius="10px">
             <VStack alignItems='flex-start' w="full">
-                <Text fontSize={Responsive.fontSizeResponsiveHead} color='#3F6FE4'> Accesibility / Restrooms </Text>
+                <Text fontSize={Responsive.fontSizeResponsiveHead} color='#3F6FE4'> Accessibility / Restrooms </Text>
                 <Heading fontSize={Responsive.fontSizeResponsiveBody}>Restrooms</Heading>
                 <HStack justifyContent="flex-end" w="95%">
                     <HStack w="15%" spacing={31}>
