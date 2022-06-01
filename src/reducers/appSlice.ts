@@ -2,10 +2,14 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState, AppThunk } from '../app/store';
 import axios from "axios";
 
-const url = `https://api-things-to-do.herokuapp.com/tour-operator/one-tour/
-QCiQ9LuD6HRG6ALA5ZEV`;
-const url2 = `https://api-things-to-do.herokuapp.com/tour-operator/update-tour/
-QCiQ9LuD6HRG6ALA5ZEV`;
+
+let url = '';
+let url2 = '';
+
+export const links = ((data: any) =>{
+  url = `https://api-things-to-do.herokuapp.com/tour-operator/one-tour/${data}`
+  url2 =`https://api-things-to-do.herokuapp.com/tour-operator/update-tour/${data}`
+})
 
 export interface  basicInformation 
 {
