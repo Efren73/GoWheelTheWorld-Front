@@ -147,6 +147,7 @@ const Cart: React.FC = () => {
 										 background={'white'} 
 										 defaultValue={0}
 										 value = {hours}
+										 borderRadius='10px'
 										 onChange={(valueString) => {
 											 setHours(valueString)
 											 //dispatch(duration(valueString+":"+minutes+ " horas"))
@@ -170,13 +171,14 @@ const Cart: React.FC = () => {
 										 background={'white'} 
 										 defaultValue={0}
 										 value = {minutes}
+										 borderRadius='10px'
 										 onChange={(value) => {
 											 setMinutes(value)
 											 //dispatch(duration(hours+":"+value+ " horas"))
 											}}>
 									<NumberInputField />
 									<NumberInputStepper>
-										<NumberIncrementStepper  bg='#2F6FE4' _active={{ bg: '#2558B6' }} children ='+'/>
+										<NumberIncrementStepper  bg='#2F6FE4' _active={{ bg: '#00000' }} children ='+'/>
 										<NumberDecrementStepper bg='#2F6FE4' _active={{ bg: '#2558B6' }}  children ='-'/>
 									</NumberInputStepper>
 							</NumberInput>
