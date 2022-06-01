@@ -21,7 +21,7 @@ import fondoMS from './FondoMS.png';
 import TopMenu from '../../components/TopMenu/topMenu.component';
 import {useNavigate, useLocation} from  'react-router-dom'
 import axios from 'axios';
-
+import {links} from '../../reducers/appSlice'
 
 function MainScreenTO(props: IMainScreenTO): JSX.Element {
   const navigate = useNavigate()
@@ -56,6 +56,7 @@ function MainScreenTO(props: IMainScreenTO): JSX.Element {
 
     const goToTour = ((idTour: string) =>{
       //AQUI PONER EL DISPATCH
+      links(idTour)
       navigate(`/tour-operator/${idTourOperator}/question/${idTour}/name-of-tour`)
     })
   

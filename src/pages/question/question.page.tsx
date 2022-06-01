@@ -24,6 +24,8 @@ import {
 import Header from './Header';
 import Footer from './Footer';
 
+import {links} from '../../reducers/appSlice'
+
 function Question(props: IQuestion): JSX.Element {
       const navigate = useNavigate();
 
@@ -40,7 +42,11 @@ function Question(props: IQuestion): JSX.Element {
         
         navigate('/tour-operator/1/tour-completed/1')
     }
-    
+
+    const location = useLocation();
+    const link: string[] = location.pathname.split('/')
+    const idTourOperator: string = link[link.length - 2]
+    links(idTourOperator)
 	return (
 	<React.Fragment>
         <Flex overflowX='hidden' h="100%">
