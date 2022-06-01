@@ -20,11 +20,15 @@ import ImageInfoMSTO from './ImageInfoMSTO.png';
 import fondoMS from './FondoMS.png';
 import TopMenu from '../../components/TopMenu/topMenu.component';
 import {useNavigate, useLocation} from  'react-router-dom'
+import { useAppSelector, useAppDispatch } from '../../app/hooks';
+import { changeUrl } from '../../reducers/appSlice';
 import axios from 'axios';
 
 
 function MainScreenTO(props: IMainScreenTO): JSX.Element {
   const navigate = useNavigate()
+  const dispatch = useAppDispatch();
+
   function change(){
     navigate(`/tour-operator/${idTourOperator}/question/1/name-of-tour`)
   }
@@ -57,6 +61,7 @@ function MainScreenTO(props: IMainScreenTO): JSX.Element {
     const goToTour = ((idTour: string) =>{
       //AQUI PONER EL DISPATCH
       navigate(`/tour-operator/${idTourOperator}/question/${idTour}/name-of-tour`)
+      //dispatch(changeUrl(idTour))
     })
   
 	return (

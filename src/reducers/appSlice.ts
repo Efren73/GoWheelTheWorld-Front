@@ -20,7 +20,8 @@ export interface  basicInformation
     numberMinTravelers: number | null;
     photos: string | null;
     link: string | null;*/
-    status: 'idle' | 'loading' | 'succeeded' | 'failed'
+    status: 'idle' | 'loading' | 'succeeded' | 'failed',
+    url: string
 } 
 const initialState: basicInformation = {
     tour: {},
@@ -36,7 +37,8 @@ const initialState: basicInformation = {
     numberMinTravelers: null,
     photos: null,
     link: null,*/
-    status: 'idle'
+    status: 'idle',
+    url : ""
 };
 
 export const fetchTours = createAsyncThunk('tour/fetchTours', async () => {
@@ -62,6 +64,10 @@ export const appSlice = createSlice({
          ...action.payload
         }    
     },
+    changeUrl : (state, action:PayloadAction<string>) => {
+      state.url = action.payload
+  },
+
   },
 
     extraReducers: (builder) => {
@@ -86,7 +92,7 @@ export const appSlice = createSlice({
     },
 });
 
-export const { changeState } = appSlice.actions;
+export const { changeState, changeUrl } = appSlice.actions;
 export const selectAllTours = (state:any) => state.appSlice.tour;
 export const getTourStatus = (state: any) => state.appSlice.status;
 
