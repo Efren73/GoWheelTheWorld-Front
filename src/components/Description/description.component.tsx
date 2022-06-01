@@ -20,26 +20,11 @@ import {
 import { ExternalLinkIcon } from '@chakra-ui/icons';
 import { Responsive } from "../generalTypes";
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
-import { fetchTours, updateTour, selectAllTours, getTourStatus } from "../../reducers/appSlice";
+import { fetchTours, selectAllTours, getTourStatus, changeState } from "../../reducers/appSlice";
 
 const Description: React.FC = () => {
-    /* Redux ----------------------------------------- */
-    const dispatch = useAppDispatch();
-	const tour = useAppSelector(selectAllTours);
-	const status = useAppSelector(getTourStatus);
 
-    useEffect(() => {
-		dispatch(fetchTours())
-	  }, []);
-
-    useEffect(() => {
-    if (status === "succeeded" ) {
-        setValue(tour.basicInformation.description)
-        setValue1(tour.basicInformation.link)
-    }
-    }, [status]);
-
-    //Elementos utilizados para limitar el numero de caracteres
+    /* NÚMERO DE CARÁCTERES Y CONTROL DESCRIPTION --- */
     let [value, setValue] = useState('')
     let [characters, setCharacters] = useState(0)
     let inputValue: any;
@@ -53,7 +38,7 @@ const Description: React.FC = () => {
         }
     }
 
-    // Control de input para el link
+    /* CONTROL INPUT LINK ---------------------------- */
     let [value1, setValue1] = useState('')
     let inputValue1: any;
 
@@ -62,10 +47,41 @@ const Description: React.FC = () => {
         setValue1(inputValue1)
     }
 
-    //Elementos utilizados para la ventana modal
+    /* REDUX ----------------------------------------- */
+    const dispatch = useAppDispatch();
+	const tour = useAppSelector(selectAllTours);
+	const status = useAppSelector(getTourStatus);
+
+    /* get --------- */
+    useEffect(() => {
+	    dispatch(fetchTours())
+	}, []);
+
+    useEffect(() => {
+    if (status === "succeeded" ) {
+        if(tour.basicInformation!= undefined) {
+            setValue(tour.basicInformation.description)
+            setValue1(tour.basicInformation.link)
+        }
+    } }, [status]);
+
+    /* update --------- */
+    useEffect(() => {
+		dispatch(changeState(
+			{
+				basicInformation : {
+					...tour.basicInformation,
+					description: value,
+					link: value1
+				}
+			}
+		))    
+	} , [value, value1]);
+
+    /* VENTANA MODAL -------------------------------- */
     const { isOpen, onOpen, onClose } = useDisclosure()
 
-    //Array en donde se guardan los ejemplos de descripciones
+    /* array de ejemplos de descripciones -- */
     const descriptionExamples: string[]=[
         'This accessible, 3-hour tour of downtown Manhattan is led by a knowledgeable local guide who will show you some of the highlights and hidden gems of the Big Apple. You will meet your guide at City Hall and explore the city together. Some of the travel between stops will take place on the subway; metro cards are not provided but your guide can help you to purchase one, if necessary. After a brief tour of City Hall Park, you will catch a glimpse of the Statue of Liberty before heading to Wall Street, in the heart of the Financial District. Here, you can admire the Charging Bull statue, a symbol of financial optimism and prosperity. This is a popular photo stop and your guide can snap pictures of you next to the 3.4 meter tall (11 feet) bull. The tour will also include other famous landmarks in the Financial District such as the New York Stock Exchange and Federal Hall. The tour will then move on to Trinity Church and Saint Paul’s Chapel, both of which are recognized as historic New York monuments. You will also get a chance to visit the World Trade Center Memorial, commemorating the victims of the 9/11 terror attack. Throughout the tour, your guide will tell you about the history of Manhattan and can answer your questions and give you tips on other places to visit or restaurants to try out in the city. The ground is mostly level and smooth so you can navigate independently, but your guide will be available to assist you as necessary. The tour will end in the Five Points neighborhood in Chinatown, where you can go off and explore other areas of the city at your own pace.',
 

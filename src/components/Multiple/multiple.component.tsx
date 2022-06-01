@@ -7,77 +7,51 @@ import {
   Box,
   chakra,
   useCheckbox,
-  useCheckboxGroup,
   Heading,
   Input,
 } from "@chakra-ui/react";
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
-import { fetchTours, updateTour, selectAllTours, getTourStatus } from "../../reducers/appSlice";
+import { fetchTours, selectAllTours, getTourStatus, changeState } from "../../reducers/appSlice";
 import { Responsive } from "../generalTypes";
 
 function CustomCheckbox(props: any) {
+
   const { state, getCheckboxProps, getInputProps, getLabelProps } = useCheckbox(props)
-  //console.log('HIJO ', props)
   let backgroundValue: string;
   let colorValue: string;
 
-    if(props.isChecked === false){
-      backgroundValue = '#fff'
-      colorValue = '#000'
-    }
-    else{
-      backgroundValue = '#3F6FE4'
-      colorValue='#fff'
-    }
+  if(props.isChecked === false) {
+    backgroundValue = '#fff'
+    colorValue = '#000'
+  } else {
+    backgroundValue = '#3F6FE4'
+    colorValue='#fff'
+  }
 
-    return (
-      <chakra.label
-          display='flex'
-          alignItems='center'
-          justifyContent='center'
-          w='200px'
-          h='48px'
-          bg={backgroundValue}
-          border='1px solid'
-          borderColor='#3F6FE4'
-          color={colorValue}
-          rounded='lg'
-          cursor='pointer'
-          {...getCheckboxProps()}
-          /*
-          onChange={() => {
-            // Función que en el Padre se llama handleCheckedItems, se pasó como onChange
-            // El hijo le pasa al Padre la experience selccionada y su estado
-            setisChecked(!isCheckedItem)
-            props.onChange(props.value, isCheckedItem)
-            
-            //console.log('HIJOisCheckedItem',isCheckedItem)
-          }}*/
-          >
+  return (
+    <chakra.label
+        display='flex'
+        alignItems='center'
+        justifyContent='center'
+        w='200px'
+        h='48px'
+        bg={backgroundValue}
+        border='1px solid'
+        borderColor='#3F6FE4'
+        color={colorValue}
+        rounded='lg'
+        cursor='pointer'
+        {...getCheckboxProps()} >
           <Input {...getInputProps()} hidden />
           <Text {...getLabelProps()}>{props.value}</Text>
-       </chakra.label>
-    )
+      </chakra.label>
+  )
 }
 
 const Multiple = () => {
-  /* REDUX -------------------------------------------------------- */
-  const dispatch = useAppDispatch();
-	const tour = useAppSelector(selectAllTours);
-	const status = useAppSelector(getTourStatus);
 
-  useEffect(() => {
-    dispatch(fetchTours())
-  }, []);
-
-  useEffect(() => {
-    if (status === "succeeded" ) {
-      setCheckedItems(tour.basicInformation.typeOfActivity)
-    }
-  }, [status]);
-
-  // Arreglo de strings para guardar los checkboxes seleccionados
-  const [checkedItems, setCheckedItems] = useState<string[]>([]);
+  /* LÓGICA ------------------------------------ */
+  const [checkedItems, setCheckedItems] = useState<string[]>([]); /* arreglo con checkboxes seleccionados ---- */
 
   let seleccionado: any;
   const experiences: string[] = [
@@ -99,17 +73,46 @@ const Multiple = () => {
   seleccionado = checkedItems;
 
   const handleCheckedItems = (expereinceName:string, checkea:boolean) => {
-    // Agregando el nombre de la experiencia que se seleccionó en el hijo CustomCheckbox
-    //console.log('PADREisChecked', checkea)
+    /* agregando el nombre de la experiencia que se seleccionó en el hijo CustomCheckbox */
     if(checkea === false){
       setCheckedItems([...checkedItems, expereinceName])
     } else {
-      // filter regresa una copia del arreglo original, pero ahora sin el expereinceName que indique
+      /* filter regresa una copia del arreglo original, pero ahora sin el expereinceName que indique */
       const result = checkedItems.filter(checkedItems => checkedItems != expereinceName)
-      // actualizamos al arreglo original checkedItems con el arreglo de filter
+      /* actualizamos al arreglo original checkedItems con el arreglo de filter */
       setCheckedItems(result)
     }  
   }
+
+  /* REDUX ----------------------------------- */
+  const dispatch = useAppDispatch();
+	const tour = useAppSelector(selectAllTours);
+	const status = useAppSelector(getTourStatus);
+
+  /* get --------- */
+  useEffect(() => {
+    dispatch(fetchTours())
+  }, []);
+
+  useEffect(() => {
+    if (status === "succeeded" ) {
+      if(tour.basicInformation!= undefined) {
+        setCheckedItems(tour.basicInformation.typeOfActivity)
+      }
+    }
+  }, [status]);
+
+  /* update --------- */
+  useEffect(() => {
+		dispatch(changeState(
+			{
+				basicInformation : {
+					...tour.basicInformation,
+					typeOfActivity: checkedItems,
+				}
+			}
+		))    
+	} , [checkedItems]);
 
   return (
     <Box boxShadow='2xl'
@@ -129,15 +132,13 @@ const Multiple = () => {
               <React.Fragment>
                 {seleccionado.includes(experience) ? 
                 <CustomCheckbox
-                  // Llamando a función hijo CustomCheckbox, se le pasa el arreglo de experiences
+                  /* llamando a función hijo CustomCheckbox, se le pasa el arreglo de experiences */
                   {...{ value:`${experience}`, isChecked: true }}
-                  // Función que en el Padre se llama handleCheckedItems, se pasa como onChange
+                  /* función que en el Padre se llama handleCheckedItems, se pasa como onChange */
                   onChange={()=> handleCheckedItems(experience, true)}
                 /> :
                 <CustomCheckbox
-                  // Llamando a función hijo CustomCheckbox, se le pasa el arreglo de experiences
                   {...{ value:`${experience}`, isChecked: false }}
-                  // Función que en el Padre se llama handleCheckedItems, se pasa como onChange
                   onChange={()=> handleCheckedItems(experience, false)}
                 /> }
               </React.Fragment>
