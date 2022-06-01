@@ -29,8 +29,6 @@ export let ProgressNav = ["name-of-tour", "type-of-tour", "group-private", "pric
 
     const location = useLocation();
     const link: string[] = location.pathname.split('/')
-    const idTourOperator: string = link[link.length - 1]
-
 
 
     let Position = location.pathname.split('/');
@@ -73,7 +71,7 @@ export let ProgressNav = ["name-of-tour", "type-of-tour", "group-private", "pric
             </SliderTrack>
         </Slider>
         <HStack justifyContent="space-between" w="full" paddingRight={41} paddingLeft={41} paddingTop="3">
-        <Link to = { ProgressNav[index-1]}>
+        <Link to = { index == 0 ? `/tour-operator/${props}` : ProgressNav[index-1] }>
             <Button size='lg'
                     fontSize={fontSizeResponsive}
                     borderRadius={10}

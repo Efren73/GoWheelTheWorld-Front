@@ -45,7 +45,7 @@ function Question(props: any): JSX.Element {
 
     const location = useLocation();
     const link: string[] = location.pathname.split('/')
-    const idTourOperator: string = link[link.length - 2]
+    const idTourOperator: string = link[link.length - 4]
     links(idTourOperator)
 	return (
 	<React.Fragment>

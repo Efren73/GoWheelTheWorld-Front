@@ -43,6 +43,7 @@ function MainScreenTO(props: IMainScreenTO): JSX.Element {
   const idTourOperator: string = link[link.length - 1]
 
   console.log(idTourOperator)
+  
   const [tours, setTours] = useState<any>([])
 
   const url = `https://api-things-to-do.herokuapp.com/tour-operator/all-tours/${idTourOperator}`
