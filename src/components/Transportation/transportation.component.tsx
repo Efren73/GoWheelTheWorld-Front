@@ -17,7 +17,7 @@ import { ITransportation } from "./transportation.types";
 import {useState, useEffect} from 'react'
 import { Responsive } from "../generalTypes";
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
-import { fetchTours, updateTour, selectAllTours, getTourStatus} from "../../reducers/appSlice";
+import { fetchTours, updateTour, selectAllTours, getTourStatus, changeState} from "../../reducers/appSlice";
 
 function Transportation(props: ITransportation): JSX.Element {
     const dispatch = useAppDispatch();
@@ -47,7 +47,10 @@ function Transportation(props: ITransportation): JSX.Element {
 
     function changeValue(e: any, index: any){
         let newArray: any[] = [...transport];
-        newArray[index].answer = e.target.value;
+        newArray[index] = {
+            ...transport[index],
+            answer: e.target.value
+        }
         setTransport(newArray)
     }
 
@@ -57,10 +60,24 @@ function Transportation(props: ITransportation): JSX.Element {
       
       useEffect(() => {
         if (status === "succeeded" ) {
-          console.log("Wenas", tour.accesibility.transportation)
-          setTransport(tour.accesibility.transportation)
+            if(tour.accessibility != undefined){
+                if(tour.accessibility.transportation != undefined)
+                    setTransport(tour.accessibility.transportation)
+            }
         }
         },[status]);
+
+        useEffect(() => {
+            dispatch(changeState(
+              {
+                accessibility : {
+                  ...tour.accessibility,
+                  transportation: transport
+                }
+              }
+            ))    
+            },[transport]);
+        
     /* RESPONSIVE --------------------------------- */
 
     return (
@@ -71,7 +88,7 @@ function Transportation(props: ITransportation): JSX.Element {
             borderRadius="10px">
 
             <VStack alignItems='flex-start' w="full">
-                <Text fontSize={Responsive.fontSizeResponsiveHead} color='#3F6FE4'> Accesibility / Transportation </Text>
+                <Text fontSize={Responsive.fontSizeResponsiveHead} color='#3F6FE4'> Accessibility / Transportation </Text>
                 <Heading fontSize={Responsive.fontSizeResponsiveBody}> Transportation </Heading>
 
                 <HStack justifyContent="flex-end" w="93%">

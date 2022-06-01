@@ -17,7 +17,7 @@ import { IPlaces } from "./places.types";
 import {useState, useEffect} from 'react'
 import { Responsive } from "../generalTypes";
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
-import { fetchTours, updateTour, selectAllTours, getTourStatus} from "../../reducers/appSlice";
+import { fetchTours, updateTour, selectAllTours, getTourStatus, changeState} from "../../reducers/appSlice";
 
 function Places(props: IPlaces): JSX.Element {
 
@@ -53,7 +53,10 @@ function Places(props: IPlaces): JSX.Element {
 
     function changeValue(e:any, index: any){
         let newArray: any[] = [...places];
-        newArray[index].answer = e.target.value;
+        newArray[index] = {
+            ...places[index],
+            answer: e.target.value
+        }
         setPlaces(newArray)
     }
 
@@ -65,10 +68,22 @@ function Places(props: IPlaces): JSX.Element {
       
       useEffect(() => {
         if (status === "succeeded" ) {
-          console.log("Wenas", tour.accesibility.places)
-          setPlaces(tour.accesibility.places)
+            if(tour.accessibility != undefined && tour.accessibility.places != undefined){
+                setPlaces(tour.accessibility.places)
+            }
         }
         },[status]);
+
+        useEffect(() => {
+            dispatch(changeState(
+              {
+                accessibility : {
+                  ...tour.accessibility,
+                  places: places
+                }
+              }
+            ))    
+            },[places]);
 
     return (
         <Box boxShadow='2xl'
@@ -77,7 +92,7 @@ function Places(props: IPlaces): JSX.Element {
             background="#EBE9E9"
             borderRadius="10px">
             <VStack alignItems='flex-start' w="full">
-                <Text fontSize={Responsive.fontSizeResponsiveHead} color='#3F6FE4'> Accesibility / Places </Text>
+                <Text fontSize={Responsive.fontSizeResponsiveHead} color='#3F6FE4'> Accessibility / Places </Text>
                 <Heading fontSize={Responsive.fontSizeResponsiveBody}>Places</Heading>
                 <HStack justifyContent="flex-end" w="95%">
                     <HStack w="15%" spacing={31}>
