@@ -31,6 +31,11 @@ function MainScreenTO(props: IMainScreenTO): JSX.Element {
   function cambiarPag(idTour: string){
     navigate(`/tour-operator/${idTourOperator}/question/${idTour}/name-of-tour`)
   }
+
+  function refresh(){
+    navigate(`/tour-operator/${idTourOperator}`)
+  }
+
   function createTour(event: any){
     event.preventDefault()
     const url = `https://api-things-to-do.herokuapp.com/tour-operator/create-tour/${idTourOperator}`
@@ -40,6 +45,20 @@ function MainScreenTO(props: IMainScreenTO): JSX.Element {
             let value = result.data.id
             console.log("JIJIJ", result.data.id)
             cambiarPag(value)
+            
+          })
+          .catch((error)=>{
+            console.log(error)
+          }) 
+  }
+
+  function deleteTour(event: any, idTour: any){
+    event.preventDefault()
+    const url = `https://api-things-to-do.herokuapp.com/tour-operator/delete-tour/${idTour}`
+      axios.put(url, {})
+          .then((result)=>{
+            console.log("JIJIJ", result.data.id)
+            refresh()
             
           })
           .catch((error)=>{
@@ -71,6 +90,8 @@ function MainScreenTO(props: IMainScreenTO): JSX.Element {
           console.log(error)
         })
       },[])
+
+    
 
       console.log(tours)
 
@@ -162,7 +183,8 @@ function MainScreenTO(props: IMainScreenTO): JSX.Element {
                     variant='outline'
                     aria-label='eliminar'
                     size={botonContinue}
-                    icon={<DeleteIcon w={6} h={6}/>}
+                    icon={<DeleteIcon w={6} h={6}
+                    onClick={(e) => deleteTour(e, tourInfo.id)}/>}
                   />
                 </HStack>
               </VStack>
