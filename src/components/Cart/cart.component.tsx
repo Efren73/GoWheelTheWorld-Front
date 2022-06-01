@@ -77,8 +77,7 @@ const Cart: React.FC = () => {
 
 	  useEffect(() => {
 		if (status === "succeeded" ) {
-			if(tour.basicInformation!= undefined)
-			{			
+			if(tour.basicInformation!= undefined) {			
 			setValue(tour.basicInformation.tourName)
 			setHours(tour.basicInformation.duration.hours)
 			setMinutes(tour.basicInformation.duration.minutes)
@@ -158,8 +157,8 @@ const Cart: React.FC = () => {
 										 }>
 								<NumberInputField />
 								<NumberInputStepper>
-									<NumberIncrementStepper bg='#2F6FE4' _active={{ bg: '#2558B6' }} children ='+'/>
-									<NumberDecrementStepper bg='#2F6FE4' _active={{ bg: '#2558B6' }} children ='-'/>
+									<NumberIncrementStepper color="white" bg='#2F6FE4' _active={{ bg: '#2558B6' }} children ='+'/>
+									<NumberDecrementStepper color="white" bg='#2F6FE4' _active={{ bg: '#2558B6' }} children ='-'/>
 								</NumberInputStepper>
 							</NumberInput>
 							
@@ -181,8 +180,8 @@ const Cart: React.FC = () => {
 											}}>
 									<NumberInputField />
 									<NumberInputStepper>
-										<NumberIncrementStepper  bg='#2F6FE4' _active={{ bg: '#00000' }} children ='+'/>
-										<NumberDecrementStepper bg='#2F6FE4' _active={{ bg: '#2558B6' }}  children ='-'/>
+										<NumberIncrementStepper color="white" bg='#2F6FE4' _active={{ bg: '#2558B6' }} children ='+'/>
+										<NumberDecrementStepper color="white" bg='#2F6FE4' _active={{ bg: '#2558B6' }}  children ='-'/>
 									</NumberInputStepper>
 							</NumberInput>
 						</Stack>

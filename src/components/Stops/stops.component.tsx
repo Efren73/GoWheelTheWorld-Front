@@ -199,14 +199,15 @@ const Stops: React.FC = () => {
                                                                 fontSize={'20px'} 
                                                                 background={'white'} 
                                                                 defaultValue={0}
+										                        borderRadius='10px'
                                                                 onChange={(valueString) => {
                                                                     setHours(valueString)
                                                                     }
                                                                 }>
                                                         <NumberInputField />
                                                         <NumberInputStepper>
-                                                            <NumberIncrementStepper bg='#2F6FE4' _active={{ bg: '#2558B6' }} children ='+'/>
-                                                            <NumberDecrementStepper bg='#2F6FE4' _active={{ bg: '#2558B6' }} children ='-'/>
+                                                            <NumberIncrementStepper color="white" bg='#2F6FE4' _active={{ bg: '#2558B6' }} children ='+'/>
+                                                            <NumberDecrementStepper color="white" bg='#2F6FE4' _active={{ bg: '#2558B6' }} children ='-'/>
                                                         </NumberInputStepper>
                                                     </NumberInput>
                                                     
@@ -225,8 +226,8 @@ const Stops: React.FC = () => {
                                                                     }}>
                                                             <NumberInputField />
                                                             <NumberInputStepper>
-                                                                <NumberIncrementStepper  bg='#2F6FE4' _active={{ bg: '#2558B6' }} children ='+'/>
-                                                                <NumberDecrementStepper bg='#2F6FE4' _active={{ bg: '#2558B6' }}  children ='-'/>
+                                                                <NumberIncrementStepper color="white" bg='#2F6FE4' _active={{ bg: '#2558B6' }} children ='+'/>
+                                                                <NumberDecrementStepper color="white" bg='#2F6FE4' _active={{ bg: '#2558B6' }}  children ='-'/>
                                                             </NumberInputStepper>
                                                     </NumberInput>
                                                 </Stack>

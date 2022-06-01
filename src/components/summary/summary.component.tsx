@@ -36,13 +36,16 @@ const Summary: React.FC = () => {
 
   /* FUNCIÓN GROUP-PRIVATE ------------------------- */
   function showGroupPrivate() {
-      if(tour.basicInformation.privateTour === true && tour.basicInformation.groupTour === true)
-        return 'Group / Private tour';
-      else if(tour.basicInformation.privateTour === false && tour.basicInformation.groupTour === true)
-        return 'Group tour'
-      else if(tour.basicInformation.privateTour === true && tour.basicInformation.groupTour === false)
-        return 'Private tour'
-  }
+    if(status === "succeeded") {
+      if(tour.basicInformation != undefined) {
+        if(tour.basicInformation.privateTour === true && tour.basicInformation.groupTour === true)
+          return 'Group / Private tour';
+        else if(tour.basicInformation.privateTour === false && tour.basicInformation.groupTour === true)
+          return 'Group tour'
+        else if(tour.basicInformation.privateTour === true && tour.basicInformation.groupTour === false)
+          return 'Private tour'
+      } else return "Type of group"
+  }}
 
   return (
   <Box h ={{ base: '60%', md: '100%', sm:'100%' }} w={{ base: '25%', md: '25%', sm:'100%' }} background="#000" borderRadius='10px' borderColor={'black'} paddingBottom='20px'>
@@ -58,16 +61,19 @@ const Summary: React.FC = () => {
 
         <Box borderRadius='10px' border='3px solid #89A1CD' w='98%' padding='10px'>
             <HStack justifyContent='flex-start'>
-              <Image src={photo} alt="default image" maxWidth={114} maxH={71}/>
+              <Image src={photo} alt="default image" maxWidth={114} maxH={71} p={1} />
               <Text color='#89A1CD' fontSize={Responsive.fontSizeResponsiveHead}>
-                { status === "succeeded" && tour.basicInformation.tourName ? tour.basicInformation.tourName : "Name of the tour" }
+                { status === "succeeded" && tour.basicInformation != undefined ? 
+                  tour.basicInformation.tourName
+                  : 
+                  "Name of the tour" }
               </Text>
             </HStack>
 
             <HStack justifyContent="en" w="full">
-                <Image src={Typetour} alt="Type of tour icon" w={25} h={25}/>
+                <Image src={Typetour} alt="Type of tour icon" w={25} h={25} m={0.5}/>
               <Text color="#fff" fontSize={Responsive.fontSizeResponsiveHead}>
-                { status === "succeeded" &&tour.basicInformation.typeOfActivity ? 
+                { status === "succeeded" && tour.basicInformation != undefined ? 
                   tour.basicInformation.typeOfActivity + '' 
                   : 
                   "Type of tour" }
@@ -75,9 +81,9 @@ const Summary: React.FC = () => {
             </HStack>
 
             <HStack >
-              <Image src={duration} alt="Duration icon" w={25} h={25} />
+              <Image src={duration} alt="Duration icon" w={25} h={25} m={0.5}/>
               <Text color="#fff" fontSize={Responsive.fontSizeResponsiveHead}>
-                { status === "succeeded" && tour.basicInformation.duration ? 
+                { status === "succeeded" && tour.basicInformation != undefined ? 
                   (tour.basicInformation.duration.hours + ":" + tour.basicInformation.duration.minutes + ' hours') 
                   : 
                   "Duration" }
@@ -85,16 +91,16 @@ const Summary: React.FC = () => {
             </HStack>
 
             <HStack >
-              <Image src={group} alt="Group icon" w={25} h={25} />
+              <Image src={group} alt="Group icon" w={25} h={25} m={0.5}/>
               <Text color="#fff" fontSize={Responsive.fontSizeResponsiveHead}>
                 { showGroupPrivate() }
               </Text>
             </HStack>
 
             <HStack >
-              <Image src={person} alt="Number of members icon" w={25} h={25} />
+              <Image src={person} alt="Number of members icon" w={25} h={25} m={0.5}/>
               <Text color="#fff" fontSize={Responsive.fontSizeResponsiveHead}>
-                { status === "succeeded" && tour.basicInformation.numberMaxTravelers && tour.basicInformation.numberMinTravelers ? 
+                { status === "succeeded" && tour.basicInformation != undefined ? 
                   ( 'Min: ' + tour.basicInformation.numberMaxTravelers + " / " + 'Max: ' + tour.basicInformation. numberMinTravelers) 
                   : 
                   'Number of traveleres' }
@@ -102,9 +108,9 @@ const Summary: React.FC = () => {
             </HStack>
 
             <HStack >
-            <Image src={price} alt="Price icon" w={25} h={25} />
+            <Image src={price} alt="Price icon" w={25} h={25} m={0.5}/>
               <Text color="#fff" fontSize={Responsive.fontSizeResponsiveHead}>
-                { status === "succeeded" && tour.basicInformation.price ? tour.basicInformation.price : "$ Price" }
+                { status === "succeeded" && tour.basicInformation != undefined ? tour.basicInformation.price : "$ Price" }
               </Text>
             </HStack>
         </Box>
@@ -117,23 +123,23 @@ const Summary: React.FC = () => {
 
         <Box borderRadius='10px' border='3px solid #89A1CD'  w='98%' padding='10px'>
             <HStack justifyContent="en" w="full">
-                <Image src={location} alt="Meeting point icon" w={25} h={25}/>
+                <Image src={location} alt="Meeting point icon" w={25} h={25} m={0.5}/>
               <Text color="#fff" fontSize={Responsive.fontSizeResponsiveHead}>
-                { status === "succeeded" && tour.intinerary.meetPoint ? tour.intinerary.meetPoint : 'Meeting point' }
+                { status === "succeeded" && tour.intinerary != undefined ? tour.intinerary.meetPoint : 'Meeting point' }
               </Text> 
             </HStack>
 
             <HStack >
-              <Image src={location} alt="End point icon" w={25} h={25} />
+              <Image src={location} alt="End point icon" w={25} h={25} m={0.5}/>
               <Text color="#fff" fontSize={Responsive.fontSizeResponsiveHead}>
-                { status === "succeeded" && tour.intinerary.endPoint ? tour.intinerary.endPoint : 'Meeting point' }
+                { status === "succeeded" && tour.intinerary != undefined ? tour.intinerary.endPoint : 'Meeting point' }
               </Text>
             </HStack>
             <HStack>
-              <Image src={language} alt="Language icon" w={25} h={25} />
+              <Image src={language} alt="Language icon" w={25} h={25} m={0.5}/>
               <Text color="#fff" fontSize={Responsive.fontSizeResponsiveHead} w="80%">
                 { status === "succeeded" &&
-                  tour.intinerary.languages ? 
+                  tour.intinerary != undefined ? 
                   tour.intinerary.languages + '' 
                   : 
                 "Languages" }
@@ -149,27 +155,27 @@ const Summary: React.FC = () => {
 
         <Box borderRadius='10px' border='3px solid #89A1CD'  w='98%' padding='10px'>
             <HStack justifyContent="en" w="full">
-                <Image src={child} alt="Child icon" w={25} h={25}/>
+                <Image src={child} alt="Child icon" w={25} h={25} m={0.5}/>
               <Text color="#fff" fontSize={Responsive.fontSizeResponsiveHead}>
                 { status === "succeeded" && 
-                  tour.childrenPolicy.childrenAge ? 
+                  tour.childrenPolicy != undefined ? 
                   ("Children's allow age: " + tour.childrenPolicy.childrenAge) : "Children's allow age" }
               </Text> 
             </HStack>
 
             <HStack >
-              <Image src={price} alt="Price icon" w={25} h={25} />
+              <Image src={price} alt="Price icon" w={25} h={25} m={0.5}/>
               <Text color="#fff" fontSize={Responsive.fontSizeResponsiveHead}>
                 { status === "succeeded" && 
-                  tour.childrenPolicy.childrenAgePay ? 
+                  tour.childrenPolicy != undefined ? 
                   ("Children's pay from age: " + tour.childrenPolicy.childrenAgePay) : "Children's pay from age" }
               </Text>
             </HStack>
             <HStack >
-              <Image src={height} alt="Height icon" w={25} h={25} />
+              <Image src={height} alt="Height icon" w={25} h={25} m={0.5}/>
               <Text color="#fff" fontSize={Responsive.fontSizeResponsiveHead}>
                 { status === "succeeded" && 
-                  tour.childrenPolicy.childrenHeight ? 
+                  tour.childrenPolicy != undefined ? 
                   ("Limit height: " + tour.childrenPolicy.childrenHeight) : "Limit height" }
               </Text>
             </HStack>
