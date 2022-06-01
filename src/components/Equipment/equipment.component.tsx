@@ -17,7 +17,7 @@ import { IEquipment } from "./equipment.types";
 import {useState, useEffect} from 'react';
 import { Responsive } from "../generalTypes";
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
-import { fetchTours, updateTour, selectAllTours, getTourStatus} from "../../reducers/appSlice";
+import { fetchTours, updateTour, selectAllTours, getTourStatus, changeState} from "../../reducers/appSlice";
 
 function Equipment(props: IEquipment): JSX.Element {
 
@@ -61,7 +61,10 @@ function Equipment(props: IEquipment): JSX.Element {
 
     function changeValue(e:any, index: any){
         let newArray: any[] = [...equipment];
-        newArray[index].answer = e.target.value;
+        newArray[index] = {
+            ...equipment[index],
+            answer: e.target.value
+        }
         setEquipment(newArray)
     }
 
@@ -73,10 +76,22 @@ function Equipment(props: IEquipment): JSX.Element {
       
       useEffect(() => {
         if (status === "succeeded" ) {
-          console.log("Wenas", tour.accesibility.equipment)
-          setEquipment(tour.accesibility.equipment)
+            if(tour.accessibility != undefined && tour.accessibility.equipment != undefined){
+                setEquipment(tour.accessibility.equipment)
+            }
         }
         },[status]);
+
+        useEffect(() => {
+            dispatch(changeState(
+              {
+                accessibility : {
+                  ...tour.accessibility,
+                  equipment: equipment
+                }
+              }
+            ))    
+            },[equipment]);
     return(
         <Box boxShadow='2xl'
             w="65%" 
@@ -84,7 +99,7 @@ function Equipment(props: IEquipment): JSX.Element {
             background="#EBE9E9"
             borderRadius="10px">
             <VStack alignItems='flex-start' w="full" h="full">
-                <Text fontSize={Responsive.fontSizeResponsiveHead} color='#3F6FE4'> Accesibility / Equipment </Text>
+                <Text fontSize={Responsive.fontSizeResponsiveHead} color='#3F6FE4'> Accessibility / Equipment </Text>
                 <Heading fontSize={Responsive.fontSizeResponsiveBody}>Equipment</Heading>
                 <HStack justifyContent="flex-end" w="full">
                     <HStack w="14%" spacing={31}>
