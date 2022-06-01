@@ -27,11 +27,25 @@ import {links} from '../../reducers/appSlice'
 
 function MainScreenTO(props: IMainScreenTO): JSX.Element {
   const navigate = useNavigate()
-  const dispatch = useAppDispatch();
-  const tour = useAppSelector(selectAllTours);
 
-  function change(){
-    navigate(`/tour-operator/${idTourOperator}/question/1/name-of-tour`)
+  function cambiarPag(idTour: string){
+    navigate(`/tour-operator/${idTourOperator}/question/${idTour}/name-of-tour`)
+  }
+  function createTour(event: any){
+    event.preventDefault()
+    const url = `https://api-things-to-do.herokuapp.com/tour-operator/create-tour/${idTourOperator}`
+      axios.post(url, {})
+          .then((result)=>{
+            
+            let value = result.data.id
+            console.log("JIJIJ", result.data.id)
+            cambiarPag(value)
+            
+          })
+          .catch((error)=>{
+            console.log(error)
+          })
+        
   }
   const tamanoBox = useBreakpointValue({ base: '', md: '80%', lg: '80%' })
   const spacing = useBreakpointValue({ base: '-4', md: '', lg: '-4' })
@@ -63,13 +77,6 @@ function MainScreenTO(props: IMainScreenTO): JSX.Element {
     const goToTour = ((idTour: string) =>{
       links(idTour)
       navigate(`/tour-operator/${idTourOperator}/question/${idTour}/name-of-tour`)
-    })
-
-    const DeleteTour = ((idTour: string) =>{
-      links(idTour)
-      dispatch(fetchTours())
-      dispatch(changeState({deletedAt: ""}))
-     // dispatch(updateTour(tour))
     })
 
   
@@ -123,7 +130,7 @@ function MainScreenTO(props: IMainScreenTO): JSX.Element {
                         width={'50%'}
                         bg="#2F6FE4" 
                         color="white"
-                        onClick={change}> 
+                        onClick={createTour}> 
                   Let's start! </Button>
               </HStack>
             </Box>
@@ -155,7 +162,6 @@ function MainScreenTO(props: IMainScreenTO): JSX.Element {
                     variant='outline'
                     aria-label='eliminar'
                     size={botonContinue}
-                    onClick = {() => DeleteTour(tourInfo.id)}
                     icon={<DeleteIcon w={6} h={6}/>}
                   />
                 </HStack>

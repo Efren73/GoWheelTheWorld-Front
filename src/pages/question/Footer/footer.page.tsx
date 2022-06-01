@@ -14,11 +14,11 @@ import {
   
 import logo from '../../login/images/logo.png'
 import { useAppSelector, useAppDispatch } from '../../../app/hooks';
-import { fetchTours, updateTour, selectAllTours, getTourStatus, changeState} from "../../../reducers/appSlice";
+import { fetchTours, updateTour, selectAllTours, getTourStatus, changeState, links} from "../../../reducers/appSlice";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import { IFooter } from "./footer.types";
 
-export let ProgressNav = ["name-of-tour", "type-of-tour", "group-private", "price","description","upload-photos","meeting-point","end-point","stops","languages", "restrictions","children-policy","General","Food","Transport", "assistance","transportation","restrooms","places","equipment","faqs","cancelation-policy","" ]
+export let ProgressNav = ["name-of-tour", "type-of-tour", "group-private", "price","description","upload-photos","meeting-point","end-point","stops","languages", "restrictions","children-policy","whats-included-general","whats-included-food","whats-included-transport", "whats-included-accessibility","assistance","transportation","restrooms","places","equipment","faqs","cancelation-policy","" ]
   function Footer (props:any)  {
     console.log("Checa esto ->", props)
     const navigate = useNavigate();
@@ -29,6 +29,9 @@ export let ProgressNav = ["name-of-tour", "type-of-tour", "group-private", "pric
 
     const location = useLocation();
     const link: string[] = location.pathname.split('/')
+    const idTour: string = link[link.length - 2]
+    links(idTour)
+
 
 
     let Position = location.pathname.split('/');
@@ -36,6 +39,7 @@ export let ProgressNav = ["name-of-tour", "type-of-tour", "group-private", "pric
     console.log(ProgressNav[index])
 
     function changeNext(){
+      console.log("Se debe ver esto")
       try {
         setAddRequestStatus('pending')
         dispatch(updateTour(tour))
@@ -82,7 +86,7 @@ export let ProgressNav = ["name-of-tour", "type-of-tour", "group-private", "pric
                     > Back </Button>
           </Link>
             {/*<Text fontSize="20px" color="#9B9B9B"> 1 of 19 items sent </Text>*/}
-            <Link to = { ProgressNav[index+1]}>
+            <Link to = { ProgressNav[index+1]=="" ? `/tour-operator/${props}/tour-completed/${idTour}` : ProgressNav[index+1] }>
             <Button size='lg'
                     fontSize={fontSizeResponsive}
                     borderRadius={10}

@@ -30,7 +30,7 @@ const ChildPolicy: React.FC = () => {
 
     useEffect(() => {
         if (status === "succeeded" ) {
-            if (tour.basicInformation != undefined)
+            if (tour.childernPolicy != undefined && [...tour.basicInformation.childrenPolicy] != undefined)
 {                setValueQ1((tour.childrenPolicy.childrenAllowed).toString())
                 setValueAge(tour.childrenPolicy.childrenAge)
                 setValuePay(tour.childrenPolicy.childrenAgePay)

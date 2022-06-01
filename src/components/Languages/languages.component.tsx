@@ -115,7 +115,8 @@ const Languages: React.FC = () => {
 
   useEffect(() => {
     if (status === "succeeded" ) {   
-      setCheckedItems(tour.intinerary.languages)
+      if (tour.intinerary != undefined  && tour.intinerary.languages!= undefined)
+        setCheckedItems(tour.intinerary.languages)
     } 
     }, [status]);
 

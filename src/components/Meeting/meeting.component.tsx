@@ -49,7 +49,9 @@ const Meeting: React.FC = () => {
 
 	  useEffect(() => {
 		if (status === "succeeded" ) {
-			setValue(tour.intinerary.meetPoint)
+      if(tour.intinerary != undefined && tour.intinerary.meetPoint != undefined){
+        setValue(tour.intinerary.meetPoint)
+      }
 		}
 	  }, [status]);
 

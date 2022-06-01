@@ -22,7 +22,7 @@ import {useNavigate} from 'react-router-dom'
 function TourCompleted(props: ITourCompleted): JSX.Element {
     const navigate = useNavigate()
     function change(){
-        navigate('/tour-operator/1')
+        navigate('/tour-operator/KQt7tDgPInW9txuxDXXl')
     }
 	return (
         <React.Fragment>
