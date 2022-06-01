@@ -127,10 +127,10 @@ const Restrictions: React.FC = () => {
     console.log('checkedItems', checkedItems)
     
   return(
-    <Box boxShadow='2xl'
+    <Box boxShadow='md'
       w="65%" 
       p={10}
-      background="#EBE9E9"
+      background="#F8F9F9"
       borderRadius="10px">
       
       <Stack spacing={2}>

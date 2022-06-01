@@ -93,10 +93,10 @@ function Equipment(props: IEquipment): JSX.Element {
             ))    
             },[equipment]);
     return(
-        <Box boxShadow='2xl'
+        <Box boxShadow='md'
             w="65%" 
             p={20}
-            background="#EBE9E9"
+            background="#F8F9F9"
             borderRadius="10px">
             <VStack alignItems='flex-start' w="full" h="full">
                 <Text fontSize={Responsive.fontSizeResponsiveHead} color='#3F6FE4'> Accessibility / Equipment </Text>

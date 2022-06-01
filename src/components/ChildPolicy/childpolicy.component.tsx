@@ -158,10 +158,10 @@ const ChildPolicy: React.FC = () => {
     return (
     <React.Fragment>
         <Box
-        boxShadow='xl'
+        boxShadow='md'
         w={{base:"65%", md:'70%', sm:'75%'}}
         p={10}
-        background="#EBE9E9"
+        background="#F8F9F9"
         borderRadius="10px">
             <Stack spacing={2}>
                 <Text fontSize={Responsive.fontSizeResponsiveHead} color='#3F6FE4'>Children Policy</Text>

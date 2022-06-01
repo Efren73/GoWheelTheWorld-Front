@@ -50,10 +50,10 @@ const CancelationPolicy: React.FC = () => {
     return (
         <React.Fragment>
             <Box
-            boxShadow='2xl'
+            boxShadow='md'
             w="65%" 
             p={10}
-            background="#EBE9E9"
+            background="#F8F9F9"
             borderRadius="10px">
                 <Stack spacing={2}>
                     <Text fontSize={Responsive.fontSizeResponsiveHead} color='#3F6FE4'> Cancelation policy </Text>

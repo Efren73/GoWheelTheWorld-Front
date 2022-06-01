@@ -44,14 +44,6 @@ function CustomCheckbox(props: any) {
           rounded='lg'
           cursor='pointer'
           {...getCheckboxProps()}
-          //onChange={() => {
-            // Función que en el Padre se llama handleCheckedItems, se pasó como onChange
-            // El hijo le pasa al Padre la experience selccionada y su estado
-            //setisChecked(!isCheckedItem)
-           // props.onChange(props.value, isCheckedItem)
-            
-            //console.log('HIJOisCheckedItem',isCheckedItem)
-          //}}
           >
           <input {...getInputProps()} hidden />
           <Text {...getLabelProps()}>{props.value}</Text>
@@ -124,10 +116,10 @@ const Languages: React.FC = () => {
  
 
   return(
-    <Box boxShadow='2xl'
+    <Box boxShadow='md'
       w="65%" 
       p={10}
-      background="#EBE9E9"
+      background="#F8F9F9"
       borderRadius="10px">
 
       <Stack spacing={2}>
