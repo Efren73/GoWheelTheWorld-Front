@@ -204,7 +204,7 @@ const ChildPolicy: React.FC = () => {
                     <Text fontSize={Responsive.fontSizeResponsiveHead} color="#3F6FE4">
                         Children Policy
                     </Text>
-                    <Heading fontSize={{ base: "35px", sm: "18px" }}>
+                    <Heading fontSize={Responsive.fontSizeResponsiveHead}>
                         Tell us about children policy
                     </Heading>
 

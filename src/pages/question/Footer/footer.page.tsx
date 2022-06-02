@@ -1,22 +1,15 @@
-import * as React from "react"
 import { useState } from "react"
 import {
-    Text,
-    VStack,
     Box,
     HStack,
-    Image,
     Slider,
     SliderTrack,
     SliderFilledTrack,
     Button,
   } from "@chakra-ui/react"
-  
-import logo from '../../login/images/logo.png'
 import { useAppSelector, useAppDispatch } from '../../../app/hooks';
-import { fetchTours, updateTour, selectAllTours, getTourStatus, changeState, links} from "../../../reducers/appSlice";
+import { updateTour, selectAllTours, getTourStatus, links} from "../../../reducers/appSlice";
 import { useNavigate, useLocation, Link } from "react-router-dom";
-import { IFooter } from "./footer.types";
 
 export let ProgressNav = ["name-of-tour", "type-of-tour", "group-private", "price","description","upload-photos","meeting-point","end-point","stops","languages", "restrictions","children-policy","whats-included-general","whats-included-food","whats-included-transport", "whats-included-accessibility","assistance","transportation","restrooms","places","equipment","faqs","cancelation-policy","" ]
   function Footer (props:any)  {
@@ -31,8 +24,6 @@ export let ProgressNav = ["name-of-tour", "type-of-tour", "group-private", "pric
     const link: string[] = location.pathname.split('/')
     const idTour: string = link[link.length - 2]
     links(idTour)
-
-
 
     let Position = location.pathname.split('/');
     const index = ProgressNav.findIndex(element => element === Position[Position.length-1]);
@@ -96,7 +87,7 @@ export let ProgressNav = ["name-of-tour", "type-of-tour", "group-private", "pric
             </Link>
         </HStack>
     </Box>
-    
-    )
-  }
+  )
+}
+
   export default Footer;

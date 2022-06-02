@@ -150,11 +150,11 @@ const Stops: React.FC = () => {
                 >
                     <Stack spacing={2}>
                     <Text color="#3F6FE4" fontSize={Responsive.fontSizeResponsiveHead}>
-                        tinerary / Stops
+                        Itinerary / Stops
                     </Text>
-                    <Text fontSize={Responsive.fontSizeResponsiveBody}>
+                    <Heading fontSize={Responsive.fontSizeResponsiveBody}>
                         Introduce the stops
-                    </Text>
+                    </Heading>
                     </Stack>
 
                     <Stack overflowY="auto" w="full" justifyContent="flex-start">
