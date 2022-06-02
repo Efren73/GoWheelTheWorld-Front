@@ -1,6 +1,6 @@
 import * as React from "react"
 import { useState, useEffect} from "react"
-import { Flex, position, useDisclosure } from "@chakra-ui/react"
+import { Flex, useDisclosure } from "@chakra-ui/react"
 import {
     Text,
     HStack,
@@ -19,7 +19,6 @@ import {
 } from "@chakra-ui/react"
 
 import { DeleteIcon } from "@chakra-ui/icons"
-import { AnyRecord } from "dns"
 import { Responsive } from "../generalTypes";
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { fetchTours, selectAllTours, getTourStatus, changeState } from "../../reducers/appSlice";
@@ -145,7 +144,7 @@ const Faqs: React.FC = () => {
 
 	  useEffect(() => {
 		if (status === "succeeded" ) {
-            if(tour.faqs != undefined) {
+            if(tour.faqs !== undefined) {
                 setQuestionAnswer(tour.faqs)
             }
 		}

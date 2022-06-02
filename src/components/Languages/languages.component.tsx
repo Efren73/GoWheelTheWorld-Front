@@ -6,17 +6,16 @@ import {
   Box,
   useCheckbox,
   chakra,
-  useCheckboxGroup,
   Heading,
 } from "@chakra-ui/react"
 import { Responsive } from "../generalTypes";
 import { useState, useEffect } from "react"
 
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
-import { fetchTours, updateTour, selectAllTours, getTourStatus, changeState} from "../../reducers/appSlice";
+import { fetchTours, selectAllTours, getTourStatus, changeState} from "../../reducers/appSlice";
 
 function CustomCheckbox(props: any) {
-  const { state, getCheckboxProps, getInputProps, getLabelProps } = useCheckbox(props)
+  const { getCheckboxProps, getInputProps, getLabelProps } = useCheckbox(props)
   
   let backgroundValue: string;
   let colorValue: string;
@@ -61,7 +60,6 @@ function CustomCheckbox(props: any) {
 
 const Languages: React.FC = () => {
   const dispatch = useAppDispatch();
-  const [addRequestStatus, setAddRequestStatus] = useState('idle')
   const tour = useAppSelector(selectAllTours);
   const status = useAppSelector(getTourStatus);
 
@@ -93,7 +91,7 @@ const Languages: React.FC = () => {
     }
     else {
       // filter regresa una copia del arreglo original, pero ahora sin el languageName que indique
-      const result = checkedItems.filter(checkedItems => checkedItems != languageName)
+      const result = checkedItems.filter(checkedItems => checkedItems !== languageName)
       // actualizamos al arreglo original checkedItems con el arreglo de filter
       setCheckedItems(result)
     }
@@ -115,7 +113,7 @@ const Languages: React.FC = () => {
 
   useEffect(() => {
     if (status === "succeeded" ) {   
-      if (tour.intinerary != undefined  && tour.intinerary.languages!= undefined)
+      if (tour.intinerary !== undefined  && tour.intinerary.languages!== undefined)
         setCheckedItems(tour.intinerary.languages)
     } 
     }, [status]);

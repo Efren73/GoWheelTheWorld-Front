@@ -27,7 +27,6 @@ import { InfoIcon } from '@chakra-ui/icons';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { fetchTours, changeState,selectAllTours, getTourStatus } from "../../reducers/appSlice";
 import { Responsive } from "../generalTypes";
-import { ProgressNav } from "../../pages/question/Footer";
 
 const Cart: React.FC = () => {
 	const dispatch = useAppDispatch();
@@ -77,7 +76,7 @@ const Cart: React.FC = () => {
 
 	  useEffect(() => {
 		if (status === "succeeded" ) {
-			if(tour.basicInformation!= undefined) {			
+			if(tour.basicInformation!== undefined) {			
 			setValue(tour.basicInformation.tourName)
 			setHours(tour.basicInformation.duration.hours)
 			setMinutes(tour.basicInformation.duration.minutes)

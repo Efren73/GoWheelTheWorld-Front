@@ -30,7 +30,7 @@ const ChildPolicy: React.FC = () => {
 
     useEffect(() => {
         if (status === "succeeded" ) {
-            if (tour.childernPolicy != undefined && [...tour.basicInformation.childrenPolicy] != undefined)
+            if (tour.childernPolicy !== undefined && [...tour.basicInformation.childrenPolicy] !== undefined)
 {                setValueQ1((tour.childrenPolicy.childrenAllowed).toString())
                 setValueAge(tour.childrenPolicy.childrenAge)
                 setValuePay(tour.childrenPolicy.childrenAgePay)
@@ -56,7 +56,7 @@ const ChildPolicy: React.FC = () => {
     const [valueH, setValueH] = React.useState();
 
     useEffect(() => {
-        if (valueQ1=='true')
+        if (valueQ1==='true')
 		{dispatch(changeState(
 			{
 				childrenPolicy : {
@@ -84,7 +84,7 @@ const ChildPolicy: React.FC = () => {
     const colSpan = { base: 2, md: 1 };
 
     const addQuestionAnswer = (answer:string, numero: number | undefined) => {
-        if (answer == "no")
+        if (answer === "no")
         {
             return (
                 <NumberInput background='white' borderRadius={5} width='20%' value={numero}>
@@ -95,7 +95,7 @@ const ChildPolicy: React.FC = () => {
     }
     
     function addAnswer(RadioB:string){
-        if (RadioB == 'true')
+        if (RadioB === 'true')
         return (
             <Stack w="full" p={5}>
                 <Grid  column={2} columnGap={3} rowGap={6} w="full">
@@ -147,7 +147,7 @@ const ChildPolicy: React.FC = () => {
                 </Grid>
             </Stack>
         )
-        else if(RadioB == 'false')
+        else if(RadioB === 'false')
         return(
             <Center  h='full' color='black' w="full">
                 <Text fontSize={Responsive.fontSizeResponsiveHead} color='#black'> That's all from this part! </Text>

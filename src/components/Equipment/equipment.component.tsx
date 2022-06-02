@@ -17,12 +17,11 @@ import { IEquipment } from "./equipment.types";
 import {useState, useEffect} from 'react';
 import { Responsive } from "../generalTypes";
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
-import { fetchTours, updateTour, selectAllTours, getTourStatus, changeState} from "../../reducers/appSlice";
+import { fetchTours, selectAllTours, getTourStatus, changeState} from "../../reducers/appSlice";
 
 function Equipment(props: IEquipment): JSX.Element {
 
     const dispatch = useAppDispatch();
-    const [addRequestStatus, setAddRequestStatus] = useState('idle')
     const tour = useAppSelector(selectAllTours);
     const status = useAppSelector(getTourStatus);
 
@@ -76,7 +75,7 @@ function Equipment(props: IEquipment): JSX.Element {
       
       useEffect(() => {
         if (status === "succeeded" ) {
-            if(tour.accessibility != undefined && tour.accessibility.equipment != undefined){
+            if(tour.accessibility !== undefined && tour.accessibility.equipment !== undefined){
                 setEquipment(tour.accessibility.equipment)
             }
         }

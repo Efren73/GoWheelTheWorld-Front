@@ -1,6 +1,5 @@
 import * as React from "react"
 import {
-  ChakraProvider,
   useBreakpointValue,
   Box,
   Drawer,
@@ -19,9 +18,7 @@ import {
 } from "@chakra-ui/react"
 import { HamburgerIcon } from "@chakra-ui/icons"
 
-import { BrowserRouter, Link, Route} from  'react-router-dom'
-import Cart from '../Cart/cart.component'
-
+import {  Link} from  'react-router-dom'
 
 const LateralMenu = (props: any) => {
 

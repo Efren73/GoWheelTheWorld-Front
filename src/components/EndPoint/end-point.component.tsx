@@ -23,13 +23,11 @@ const EndPoint: React.FC = () => {
 
   /* NÚMERO DE CARÁCTERES ------------------------------*/
   let [value, setValue] = useState('')
-  let [characters, setCharacters] = useState(0)
   let inputValue: any;
 
   let handleInputChange = (e: any) => {
     inputValue = e.target.value
     setValue(inputValue)
-    setCharacters(inputValue.length)
   }
 
   useEffect(() => {
@@ -49,7 +47,7 @@ const EndPoint: React.FC = () => {
 
 	  useEffect(() => {
       if (status === "succeeded" ) {
-        if(tour.intinerary != undefined && tour.intinerary.endPoint != undefined)
+        if(tour.intinerary !== undefined && tour.intinerary.endPoint !== undefined)
         setValue(tour.intinerary.endPoint)
       }
 	  }, [status]);
