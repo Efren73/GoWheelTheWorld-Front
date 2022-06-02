@@ -53,7 +53,7 @@ const Summary: React.FC = () => {
   /* TOUR NAME ----------------------------- */
   function showTourName() {
     if(status === "succeeded") {
-      if(tour.basicInformation.tourName != '') return tour.basicInformation.tourName;
+      if(tour.basicInformation.tourName != 'Experience name') return tour.basicInformation.tourName;
       else return "Name fo the tour"
     }
   }
