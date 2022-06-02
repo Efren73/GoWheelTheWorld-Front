@@ -13,10 +13,10 @@ import { useState, useEffect } from "react"
 import { Responsive } from "../generalTypes";
 
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
-import { fetchTours, updateTour, selectAllTours, getTourStatus, changeState} from "../../reducers/appSlice";
+import { fetchTours, selectAllTours, getTourStatus, changeState} from "../../reducers/appSlice";
 
 function CustomCheckbox(props: any) {
-  const { state, getCheckboxProps, getInputProps, getLabelProps } = useCheckbox(props)
+  const { getCheckboxProps, getInputProps, getLabelProps } = useCheckbox(props)
 
   // Arreglo de strings para guardar los checkboxes seleccionados
   const [checkedItems, setCheckedItems] = useState<boolean>(props.isChecked)
@@ -53,7 +53,6 @@ function CustomCheckbox(props: any) {
 const Restrictions: React.FC = () => {
 
   const dispatch = useAppDispatch();
-  const [addRequestStatus, setAddRequestStatus] = useState('idle')
   const tour = useAppSelector(selectAllTours);
   const status = useAppSelector(getTourStatus);
 
@@ -78,31 +77,31 @@ const Restrictions: React.FC = () => {
     const handleCheckedItems = (restrictionName:string, checkea:boolean) => {
       // Agregando el nombre de el lenguaje que se selccionó en el hijo CustomCheckbox
       if(checkea === false) { // AGREGA
-        if(restrictionName == 'There is no restriction of any kind regarding this tour') { // NO
+        if(restrictionName === 'There is no restriction of any kind regarding this tour') { // NO
           setCheckedItems([restrictionName])
-        } else if (restrictionName == 'Select all') { // All
-          const result = restrictions.filter(restrictions => restrictions != 'There is no restriction of any kind regarding this tour')
+        } else if (restrictionName === 'Select all') { // All
+          const result = restrictions.filter(restrictions => restrictions !== 'There is no restriction of any kind regarding this tour')
           setCheckedItems(result)
         } else { // CUALQUIER OTRO
-          const result = checkedItems.filter(restrictions => restrictions != 'There is no restriction of any kind regarding this tour')
+          const result = checkedItems.filter(restrictions => restrictions !== 'There is no restriction of any kind regarding this tour')
           setCheckedItems([...result, restrictionName])
         }
       }
       else { // ELIMINA
-        if (restrictionName == 'Select all'){ // All
+        if (restrictionName === 'Select all'){ // All
           const result: string[] = []; 
           setCheckedItems(result) // Deja vacío el arreglo
         } else {
           // filter regresa una copia del arreglo original, pero ahora sin el languageName que indique
           const result = checkedItems.filter(checkedItems => 
-            (checkedItems != restrictionName) && checkedItems != 'Select all')
+            (checkedItems !== restrictionName) && checkedItems !== 'Select all')
           // actualizamos al arreglo original checkedItems con el arreglo de filter
           setCheckedItems(result)
         }
       }
     }
     // console.log(checkedItems.length)
-    if(checkedItems.length == 6) { // Trae todas las respuestas
+    if(checkedItems.length === 6) { // Trae todas las respuestas
       setCheckedItems([...checkedItems, 'Select all'])
     }
 
@@ -119,7 +118,7 @@ const Restrictions: React.FC = () => {
 
     useEffect(() => {
       if (status === "succeeded" ) { 
-        if(tour.intinerary != undefined && tour.intinerary.restrictions != undefined)  
+        if(tour.intinerary !== undefined && tour.intinerary.restrictions !== undefined)  
         setCheckedItems(tour.intinerary.restrictions)
       } 
       }, [status]);

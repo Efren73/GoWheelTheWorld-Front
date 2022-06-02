@@ -52,7 +52,7 @@ import { getTourStatus } from "../../../reducers/appSlice"
         )
       }
       function CheckSize(screenSize:any){
-        if (screenSize=='true' && status==="succeeded")
+        if (screenSize==='true' && status==="succeeded")
             return (
                 <SummaryDrawer/>
                 )

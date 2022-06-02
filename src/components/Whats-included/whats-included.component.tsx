@@ -2,12 +2,10 @@ import * as React from "react"
 import {
   Text,
   Heading,
-  ChakraProvider,
   Stack,
   SimpleGrid,
   useCheckbox,
   chakra, 
-  useCheckboxGroup,
   Box,
 } from "@chakra-ui/react"
 
@@ -16,10 +14,10 @@ import { useState, useEffect } from "react";
 import { Responsive } from "../generalTypes";
 
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
-import { fetchTours, updateTour, selectAllTours, getTourStatus, changeState} from "../../reducers/appSlice";
+import { fetchTours, selectAllTours, getTourStatus, changeState} from "../../reducers/appSlice";
 
 function CustomCheckbox(props: any) {
-  const { state, getCheckboxProps, getInputProps, getLabelProps } = useCheckbox(props)
+  const { getCheckboxProps, getInputProps, getLabelProps } = useCheckbox(props)
   //console.log('HIJO ', props)
   let backgroundValue: string;
   let colorValue: string;
@@ -99,14 +97,12 @@ function CustomCheckbox(props: any) {
 }
 
 const WhatsIncluded: React.FC = () => {
-    const { value, getCheckboxProps } = useCheckboxGroup()
 
     const location = useLocation();
     const link: string[] = location.pathname.split('/')
     const route: string = link[link.length - 1]
 
     const dispatch = useAppDispatch();
-    const [addRequestStatus, setAddRequestStatus] = useState('idle')
     const tour = useAppSelector(selectAllTours);
     const status = useAppSelector(getTourStatus);
 
@@ -169,7 +165,7 @@ const WhatsIncluded: React.FC = () => {
           }
           else {
             // filter regresa una copia del arreglo original, pero ahora sin el expereinceName que indique
-            const result = checkedItemsGeneral.filter(checkedItemsGeneral => checkedItemsGeneral != includesName)
+            const result = checkedItemsGeneral.filter(checkedItemsGeneral => checkedItemsGeneral !== includesName)
             // actualizamos al arreglo original checkedItems con el arreglo de filter
             setCheckedItems1(result)
           }
@@ -179,7 +175,7 @@ const WhatsIncluded: React.FC = () => {
           }
           else {
             // filter regresa una copia del arreglo original, pero ahora sin el expereinceName que indique
-            const result = checkedItemsFood.filter(checkedItemsFood => checkedItemsFood != includesName)
+            const result = checkedItemsFood.filter(checkedItemsFood => checkedItemsFood !== includesName)
             // actualizamos al arreglo original checkedItems con el arreglo de filter
             setCheckedItems2(result)
           }
@@ -189,7 +185,7 @@ const WhatsIncluded: React.FC = () => {
           }
           else {
             // filter regresa una copia del arreglo original, pero ahora sin el expereinceName que indique
-            const result = checkedItemsTransport.filter(checkedItemsTransport => checkedItemsTransport != includesName)
+            const result = checkedItemsTransport.filter(checkedItemsTransport => checkedItemsTransport !== includesName)
             // actualizamos al arreglo original checkedItems con el arreglo de filter
             setCheckedItems3(result)
           }
@@ -199,7 +195,7 @@ const WhatsIncluded: React.FC = () => {
           }
           else {
             // filter regresa una copia del arreglo original, pero ahora sin el expereinceName que indique
-            const result = checkedItemsAccessibility.filter(checkedItemsAccessibility => checkedItemsAccessibility != includesName)
+            const result = checkedItemsAccessibility.filter(checkedItemsAccessibility => checkedItemsAccessibility !== includesName)
             // actualizamos al arreglo original checkedItems con el arreglo de filter
             setCheckedItems4(result)
           }
@@ -209,7 +205,7 @@ const WhatsIncluded: React.FC = () => {
         
   useEffect(() => {
     if (status === "succeeded" ) {  
-      if(tour.whatsIncluded != undefined){
+      if(tour.whatsIncluded !== undefined){
         setCheckedItems1(tour.whatsIncluded.general)
         setCheckedItems2(tour.whatsIncluded.food)
         setCheckedItems3(tour.whatsIncluded.transport)

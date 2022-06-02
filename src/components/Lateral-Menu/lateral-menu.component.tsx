@@ -25,7 +25,6 @@ const LateralMenu = (props: any) => {
   const screenSize = useBreakpointValue({ base: 'md', sm: 'full', lg:'sm' })
 
   const {isOpen,onOpen,onClose}= useDisclosure()
-  const btnRef= React.useRef()
 
   console.log(props)
   return (

@@ -5,7 +5,6 @@ import {
   Heading,
   HStack,
   Box,
-  TableContainer,
   Table,
   Tbody,
   Tr,
@@ -17,12 +16,11 @@ import { IPlaces } from "./places.types";
 import {useState, useEffect} from 'react'
 import { Responsive } from "../generalTypes";
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
-import { fetchTours, updateTour, selectAllTours, getTourStatus, changeState} from "../../reducers/appSlice";
+import { fetchTours, selectAllTours, getTourStatus, changeState} from "../../reducers/appSlice";
 
 function Places(props: IPlaces): JSX.Element {
 
     const dispatch = useAppDispatch();
-    const [addRequestStatus, setAddRequestStatus] = useState('idle')
     const tour = useAppSelector(selectAllTours);
     const status = useAppSelector(getTourStatus);
 
@@ -68,7 +66,7 @@ function Places(props: IPlaces): JSX.Element {
       
       useEffect(() => {
         if (status === "succeeded" ) {
-            if(tour.accessibility != undefined && tour.accessibility.places != undefined){
+            if(tour.accessibility !== undefined && tour.accessibility.places !== undefined){
                 setPlaces(tour.accessibility.places)
             }
         }

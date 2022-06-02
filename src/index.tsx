@@ -4,13 +4,11 @@ import React, { Fragment } from "react"
 import { App } from "./App"
 import reportWebVitals from "./reportWebVitals"
 import * as serviceWorker from "./serviceWorker"
-
 import { Provider } from 'react-redux';
 import {store} from './app/store'
 import theme from "./theme"
 import './styles.css'
 import { createRoot } from 'react-dom/client';
-
 const container = document.getElementById('root')!;
 const root = createRoot(container);
 

@@ -1,6 +1,4 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState, AppThunk } from '../app/store';
-import { useAppSelector, useAppDispatch } from '../app/hooks';
 import axios from "axios";
 
 
@@ -85,7 +83,6 @@ export const appSlice = createSlice({
         .addCase(fetchTours.fulfilled, (state, action) => {
           state.status = 'succeeded'
           state.tour = action.payload
-          state.url = state.url
 
         })
         .addCase(fetchTours.rejected, (state) => {

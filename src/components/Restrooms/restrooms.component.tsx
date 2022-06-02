@@ -5,7 +5,6 @@ import {
   Heading,
   HStack,
   Box,
-  TableContainer,
   Table,
   Tbody,
   Tr,
@@ -17,12 +16,11 @@ import { IRestrooms } from "./restrooms.types";
 import {useState, useEffect} from 'react'
 import { Responsive } from "../generalTypes";
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
-import { fetchTours, updateTour, selectAllTours, getTourStatus, changeState} from "../../reducers/appSlice";
+import { fetchTours, selectAllTours, getTourStatus, changeState} from "../../reducers/appSlice";
 
 function Restrooms(props: IRestrooms): JSX.Element {
 
     const dispatch = useAppDispatch();
-    const [addRequestStatus, setAddRequestStatus] = useState('idle')
     const tour = useAppSelector(selectAllTours);
     const status = useAppSelector(getTourStatus);
 
@@ -62,7 +60,7 @@ function Restrooms(props: IRestrooms): JSX.Element {
       
       useEffect(() => {
         if (status === "succeeded" ) {
-            if(tour.accessibility != undefined && tour.accessibility.restrooms != undefined){
+            if(tour.accessibility !== undefined && tour.accessibility.restrooms !== undefined){
                 setRestRoom(tour.accessibility.restrooms)
             }
         }
