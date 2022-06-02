@@ -107,6 +107,9 @@ const GroupPrivate: React.FC = () => {
         if (inputValue3 < minimo) setMaximo(minimo)
     }
 
+    console.log('minimo' + minimo)
+    console.log('maximo' + maximo)
+
     /* botones --------- */
     function Decrease(valor: any) {
         if(valor === 'minimo') {
@@ -135,11 +138,14 @@ const GroupPrivate: React.FC = () => {
 
     useEffect(() => {
         if (status === "succeeded" ) {
-            if(tour.basicInformation!= undefined) {
-                setMinimo(tour.basicInformation.numberMinTravelers)
-                setMaximo(tour.basicInformation.numberMaxTravelers)
+            if(tour.basicInformation != undefined) {
                 setPrivado(tour.basicInformation.privateTour)
                 setGroup(tour.basicInformation.groupTour)
+                if( tour.basicInformation.numberMaxTravelers != undefined &&
+                    tour.basicInformation.numberMinTravelers != undefined ) {
+                    setMinimo(tour.basicInformation.numberMinTravelers)
+                    setMaximo(tour.basicInformation.numberMaxTravelers)
+                }
             }
         }
     }, [status]);
