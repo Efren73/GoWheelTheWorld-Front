@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, useNavigate, Outlet, useLocation} from 'react-router-dom';
+import { Outlet, useLocation} from 'react-router-dom';
 
 import {
   VStack,
@@ -7,13 +7,9 @@ import {
 
   useBreakpointValue,
   HStack,
-  Container,
   Box,
-  Divider,
-  useDisclosure
 } from "@chakra-ui/react";
 
-import { IQuestion } from './question.types';
 import Summary from '../../components/summary/summary.component';
 
 import { 
@@ -27,8 +23,6 @@ import Footer from './Footer';
 import {links} from '../../reducers/appSlice'
 
 function Question(props: any): JSX.Element {
-      const navigate = useNavigate();
-
 
       const screenSize = useBreakpointValue({ base: 'true',sm: 'true', md: 'false', lg:'false' })
       function CheckSize(screenSize:any){

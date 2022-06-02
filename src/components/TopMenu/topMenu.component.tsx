@@ -1,16 +1,13 @@
 import * as React from "react"
-import { useState } from "react"
 import {useNavigate} from 'react-router-dom'
 
 import {
-    ChakraProvider,
     Box,
     HStack,
     Spacer,
-    Heading,
     Text,
   } from "@chakra-ui/react"
-import { Avatar, AvatarBadge, AvatarGroup } from '@chakra-ui/react'
+import { Avatar} from '@chakra-ui/react'
 
 import { Image } from '@chakra-ui/react'
 import { ITopMenu } from "./topMenu.types"

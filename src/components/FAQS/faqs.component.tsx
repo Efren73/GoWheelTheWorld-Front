@@ -154,7 +154,7 @@ const Faqs: React.FC = () => {
 
   useEffect(() => {
     if (status === "succeeded") {
-      if (tour.faqs != undefined) {
+      if (tour.faqs !== undefined) {
         setQuestionAnswer(tour.faqs);
       }
     }

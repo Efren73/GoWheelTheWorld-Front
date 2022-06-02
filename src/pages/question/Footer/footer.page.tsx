@@ -1,30 +1,23 @@
 import * as React from "react"
 import { useState } from "react"
 import {
-    Text,
-    VStack,
     Box,
     HStack,
-    Image,
     Slider,
     SliderTrack,
     SliderFilledTrack,
     Button,
   } from "@chakra-ui/react"
   
-import logo from '../../login/images/logo.png'
 import { useAppSelector, useAppDispatch } from '../../../app/hooks';
-import { fetchTours, updateTour, selectAllTours, getTourStatus, changeState, links} from "../../../reducers/appSlice";
-import { useNavigate, useLocation, Link } from "react-router-dom";
-import { IFooter } from "./footer.types";
+import {  updateTour, selectAllTours, links} from "../../../reducers/appSlice";
+import { useLocation, Link } from "react-router-dom";
 
 export let ProgressNav = ["name-of-tour", "type-of-tour", "group-private", "price","description","upload-photos","meeting-point","end-point","stops","languages", "restrictions","children-policy","whats-included-general","whats-included-food","whats-included-transport", "whats-included-accessibility","assistance","transportation","restrooms","places","equipment","faqs","cancelation-policy","" ]
   function Footer (props:any)  {
     console.log("Checa esto ->", props)
-    const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const tour = useAppSelector(selectAllTours);
-    const status = useAppSelector(getTourStatus);
     const [addRequestStatus, setAddRequestStatus] = useState('idle')
 
     const location = useLocation();
@@ -42,6 +35,7 @@ export let ProgressNav = ["name-of-tour", "type-of-tour", "group-private", "pric
       console.log("Se debe ver esto")
       try {
         setAddRequestStatus('pending')
+        console.log(addRequestStatus)
         dispatch(updateTour(tour))
         
       } catch (err) {
@@ -75,7 +69,7 @@ export let ProgressNav = ["name-of-tour", "type-of-tour", "group-private", "pric
             </SliderTrack>
         </Slider>
         <HStack justifyContent="space-between" w="full" paddingRight={41} paddingLeft={41} paddingTop="3">
-        <Link to = { index == 0 ? `/tour-operator/${props}` : ProgressNav[index-1] }>
+        <Link to = { index === 0 ? `/tour-operator/${props}` : ProgressNav[index-1] }>
             <Button size='lg'
                     fontSize={fontSizeResponsive}
                     borderRadius={10}
@@ -86,7 +80,7 @@ export let ProgressNav = ["name-of-tour", "type-of-tour", "group-private", "pric
                     > Back </Button>
           </Link>
             {/*<Text fontSize="20px" color="#9B9B9B"> 1 of 19 items sent </Text>*/}
-            <Link to = { ProgressNav[index+1]=="" ? `/tour-operator/${props}/tour-completed/${idTour}` : ProgressNav[index+1] }>
+            <Link to = { ProgressNav[index+1]==="" ? `/tour-operator/${props}/tour-completed/${idTour}` : ProgressNav[index+1] }>
             <Button size='lg'
                     fontSize={fontSizeResponsive}
                     borderRadius={10}

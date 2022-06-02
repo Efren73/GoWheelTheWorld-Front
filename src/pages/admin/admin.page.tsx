@@ -1,16 +1,13 @@
 import * as React from "react"
 import { useState } from "react"
 import {useNavigate} from 'react-router-dom'
-import { useDisclosure } from "@chakra-ui/react"
 import {
-    ChakraProvider,
     Button,
     Box,
     Checkbox, 
     Text,
     VStack,
     HStack,
-    theme,
     Progress,
     Divider,
     Stack,
@@ -22,7 +19,6 @@ import {
     RadioGroup, 
     MenuButton,
     Wrap,
-    Grid,
     MenuList,
     MenuItem,
     Slider,
@@ -33,9 +29,8 @@ import {
     Flex,
   } from "@chakra-ui/react"
   
-  import { ChevronDownIcon, ArrowDownIcon, WarningIcon } from '@chakra-ui/icons'
-  import { Avatar, AvatarBadge, AvatarGroup } from '@chakra-ui/react'
-  import { Image } from '@chakra-ui/react'
+  import { ChevronDownIcon, ArrowDownIcon } from '@chakra-ui/icons'
+  import { Avatar } from '@chakra-ui/react'
   import TopMenu from "../../components/TopMenu/topMenu.component"
   
 

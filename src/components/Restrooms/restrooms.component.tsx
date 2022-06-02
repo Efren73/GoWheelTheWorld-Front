@@ -26,7 +26,6 @@ import {
 
 function Restrooms(props: IRestrooms): JSX.Element {
   const dispatch = useAppDispatch();
-  const [addRequestStatus, setAddRequestStatus] = useState("idle");
   const tour = useAppSelector(selectAllTours);
   const status = useAppSelector(getTourStatus);
 
@@ -70,8 +69,8 @@ function Restrooms(props: IRestrooms): JSX.Element {
   useEffect(() => {
     if (status === "succeeded") {
       if (
-        tour.accessibility != undefined &&
-        tour.accessibility.restrooms != undefined
+        tour.accessibility !== undefined &&
+        tour.accessibility.restrooms !== undefined
       ) {
         setRestRoom(tour.accessibility.restrooms);
       }

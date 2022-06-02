@@ -21,7 +21,7 @@ import {
 } from "../../reducers/appSlice";
 
 function CustomCheckbox(props: any) {
-  const { state, getCheckboxProps, getInputProps, getLabelProps } =
+  const {  getCheckboxProps, getInputProps, getLabelProps } =
     useCheckbox(props);
 
   let backgroundValue: string;
@@ -58,7 +58,6 @@ function CustomCheckbox(props: any) {
 
 const Languages: React.FC = () => {
   const dispatch = useAppDispatch();
-  const [addRequestStatus, setAddRequestStatus] = useState("idle");
   const tour = useAppSelector(selectAllTours);
   const status = useAppSelector(getTourStatus);
 
@@ -88,7 +87,7 @@ const Languages: React.FC = () => {
     } else {
       // filter regresa una copia del arreglo original, pero ahora sin el languageName que indique
       const result = checkedItems.filter(
-        (checkedItems) => checkedItems != languageName
+        (checkedItems) => checkedItems !== languageName
       );
       // actualizamos al arreglo original checkedItems con el arreglo de filter
       setCheckedItems(result);
@@ -111,8 +110,8 @@ const Languages: React.FC = () => {
   useEffect(() => {
     if (status === "succeeded") {
       if (
-        tour.intinerary != undefined &&
-        tour.intinerary.languages != undefined
+        tour.intinerary !== undefined &&
+        tour.intinerary.languages !== undefined
       )
         setCheckedItems(tour.intinerary.languages);
     }

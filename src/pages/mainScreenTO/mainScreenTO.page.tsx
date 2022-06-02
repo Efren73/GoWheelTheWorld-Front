@@ -20,8 +20,6 @@ import ImageInfoMSTO from './ImageInfoMSTO.png';
 import fondoMS from './FondoMS.png';
 import TopMenu from '../../components/TopMenu/topMenu.component';
 import {useNavigate, useLocation} from  'react-router-dom'
-import { useAppSelector, useAppDispatch } from '../../app/hooks';
-import { changeState, updateTour, fetchTours,selectAllTours } from '../../reducers/appSlice';
 import axios from 'axios';
 import {links} from '../../reducers/appSlice'
 
