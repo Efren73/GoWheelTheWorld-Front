@@ -7,6 +7,7 @@ import {
   Heading,
   HStack,
   Image,
+  Skeleton,
 } from "@chakra-ui/react";
 import photo from './images/photo.png';
 import duration from './images/duration.png';
@@ -29,15 +30,12 @@ const Summary: React.FC = () => {
   const tour = useAppSelector(selectAllTours);
   const status = useAppSelector(getTourStatus);
 
-  /* get --------- */
-  useEffect(() => {
-    dispatch(fetchTours())
-  }, []);
+  console.log(status)
 
-  /* FUNCIÓN GROUP-PRIVATE ------------------------- */
+  /* GROUP-PRIVATE --------------------------------- */
   function showGroupPrivate() {
     if(status === "succeeded") {
-      if(tour.basicInformation != undefined) {
+      if(tour.basicInformation.privateTour != undefined && tour.basicInformation.groupTour != undefined) {
         if(tour.basicInformation.privateTour === true && tour.basicInformation.groupTour === true)
           return 'Group / Private tour';
         else if(tour.basicInformation.privateTour === false && tour.basicInformation.groupTour === true)
@@ -46,6 +44,14 @@ const Summary: React.FC = () => {
           return 'Private tour'
       } else return "Type of group"
   }}
+
+  /* TOUR NAME ----------------------------- */
+  function showTourName() {
+    if(status === "succeeded") {
+      if(tour.basicInformation.tourName != 'Experience name') return tour.basicInformation.tourName;
+      else return "Name fo the tour"
+    }
+  }
 
   return (
   <Box h ={{ base: '60%', md: '100%', sm:'100%' }} w={{ base: '25%', md: '25%', sm:'100%' }} background="#000" borderRadius='10px' borderColor={'black'} paddingBottom='20px'>
@@ -63,17 +69,16 @@ const Summary: React.FC = () => {
             <HStack justifyContent='flex-start'>
               <Image src={photo} alt="default image" maxWidth={114} maxH={71} p={1} />
               <Text color='#89A1CD' fontSize={Responsive.fontSizeResponsiveHead}>
-                { status === "succeeded" && tour.basicInformation != undefined ? 
-                  tour.basicInformation.tourName
-                  : 
-                  "Name of the tour" }
+                { status === 'loading' ?
+                  <Skeleton height='20px' /> :
+                  showTourName() }
               </Text>
             </HStack>
 
             <HStack justifyContent="en" w="full">
                 <Image src={Typetour} alt="Type of tour icon" w={25} h={25} m={0.5}/>
               <Text color="#fff" fontSize={Responsive.fontSizeResponsiveHead}>
-                { status === "succeeded" && tour.basicInformation != undefined ? 
+                { status === "succeeded" && tour.basicInformation.typeOfActivity != undefined ? 
                   tour.basicInformation.typeOfActivity + '' 
                   : 
                   "Type of tour" }
@@ -83,7 +88,10 @@ const Summary: React.FC = () => {
             <HStack >
               <Image src={duration} alt="Duration icon" w={25} h={25} m={0.5}/>
               <Text color="#fff" fontSize={Responsive.fontSizeResponsiveHead}>
-                { status === "succeeded" && tour.basicInformation != undefined ? 
+                { status === "succeeded" && 
+                  tour.basicInformation.duration.hours != "" &&
+                  tour.basicInformation.duration.minutes != ""
+                  ? 
                   (tour.basicInformation.duration.hours + ":" + tour.basicInformation.duration.minutes + ' hours') 
                   : 
                   "Duration" }
@@ -100,7 +108,9 @@ const Summary: React.FC = () => {
             <HStack >
               <Image src={person} alt="Number of members icon" w={25} h={25} m={0.5}/>
               <Text color="#fff" fontSize={Responsive.fontSizeResponsiveHead}>
-                { status === "succeeded" && tour.basicInformation != undefined ? 
+                { status === "succeeded" && 
+                  tour.basicInformation.numberMaxTravelers != undefined && 
+                  tour.basicInformation.numberMinTravelers != undefined ? 
                   ( 'Min: ' + tour.basicInformation.numberMaxTravelers + " / " + 'Max: ' + tour.basicInformation. numberMinTravelers) 
                   : 
                   'Number of traveleres' }
@@ -110,7 +120,7 @@ const Summary: React.FC = () => {
             <HStack >
             <Image src={price} alt="Price icon" w={25} h={25} m={0.5}/>
               <Text color="#fff" fontSize={Responsive.fontSizeResponsiveHead}>
-                { status === "succeeded" && tour.basicInformation != undefined ? tour.basicInformation.price : "$ Price" }
+                { status === "succeeded" && tour.basicInformation.price != undefined ? tour.basicInformation.price : "$ Price" }
               </Text>
             </HStack>
         </Box>
