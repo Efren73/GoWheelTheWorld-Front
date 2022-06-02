@@ -1,4 +1,5 @@
 import * as React from "react"
+import { Stack, NumberInput, NumberInputField, useDisclosure, Skeleton } from "@chakra-ui/react"
 import {
   Text,
   VStack,
@@ -83,79 +84,86 @@ function Assistance(props: IAssistance): JSX.Element {
             },[assistan]);
 
     return (
-        <Box boxShadow='2xl'
-        w="65%" 
-        p={10}
-        background="#EBE9E9"
-        borderRadius="10px">
-        <VStack alignItems='flex-start' w="full">
-            <Text fontSize={Responsive.fontSizeResponsiveHead} color='#3F6FE4'> Accessibility / Assistance </Text>
-            <Heading fontSize={Responsive.fontSizeResponsiveBody}>Assistance</Heading>
-            
-            <HStack justifyContent="flex-end" w="50%">
-                <HStack w="15%" spacing={31}>
-                    <Text color="#4F6FE4" fontSize={Responsive.fontSizeResponsiveHead}> Yes </Text>
-                    <Text color="#4F6FE4" fontSize={Responsive.fontSizeResponsiveHead}> No </Text>
-                </HStack>
-            </HStack>
-            <Table bg="white" borderRadius={10}>
-                <Tbody>
-                    <Tr fontSize={Responsive.fontSizeResponsiveHead}>
-                        <Td>Guides / staff members have been trained by Wheel the World to provide assistance to people with disabilities during the tour/activity</Td>
-                        <Td>
-                            <RadioGroup value = {assistan[0].answer}>
-                                <HStack spacing={8}>
-                                    <Radio  value='yes'
-                                            border='1px'
-                                            borderColor='#2F6FE4'
-                                            onChange={(e) => changeValue(e, 0)}></Radio>
-                                    <Radio  value='no'
-                                            border='1px'
-                                            borderColor='#2F6FE4'
-                                            onChange={(e) => changeValue(e, 0)}></Radio>
-                                </HStack>
-                            </RadioGroup>
-                        </Td>
-                    </Tr>
-                    <Tr fontSize={Responsive.fontSizeResponsiveHead}>
-                        <Td>Guides / staff members have experience assisting people with disabilities</Td>
-                        <Td>
-                            <RadioGroup value = {assistan[1].answer}>
-                                <HStack spacing={8}>
-                                    <Radio  value='yes'
-                                            border='1px'
-                                            borderColor='#2F6FE4'
-                                            onChange={(e) => changeValue(e, 1)}></Radio>
-                                    <Radio  value='no'
-                                            border='1px'
-                                            borderColor='#2F6FE4'
-                                            onChange={(e) => changeValue(e, 1)}></Radio>
-                                </HStack>
-                            </RadioGroup>
-                        </Td>
-                    </Tr>
-                    <Tr fontSize={Responsive.fontSizeResponsiveHead}>
-                        <Td>Guides / staff members will be available to assist</Td>
-                        <Td>
-                            <RadioGroup value = {assistan[2].answer}>
-                                <HStack spacing={8}>
-                                    <Radio  value='yes'
-                                            border='1px'
-                                            borderColor='#2F6FE4'
-                                            onChange={(e) => changeValue(e, 2)}></Radio>
-                                    <Radio  value='no'
-                                            border='1px'
-                                            borderColor='#2F6FE4'
-                                            onChange={(e) => changeValue(e, 2)}></Radio>
-                                </HStack>
-                            </RadioGroup>
-                        </Td>
-                    </Tr>
-                </Tbody>
-            </Table>
-            
-        </VStack>
-    </Box>
+        <React.Fragment>
+			{
+                status === "succeeded" ?
+                    <Box boxShadow='md'
+                    w="65%" 
+                    p={10}
+                    background="#F8F9F9"
+                    borderRadius="10px">
+                    <VStack alignItems='flex-start' w="full">
+                        <Text fontSize={Responsive.fontSizeResponsiveHead} color='#3F6FE4'> Accessibility / Assistance </Text>
+                        <Heading fontSize={Responsive.fontSizeResponsiveBody}>Assistance</Heading>
+                        
+                        <HStack justifyContent="flex-end" w="50%">
+                            <HStack w="15%" spacing={31}>
+                                <Text color="#4F6FE4" fontSize={Responsive.fontSizeResponsiveHead}> Yes </Text>
+                                <Text color="#4F6FE4" fontSize={Responsive.fontSizeResponsiveHead}> No </Text>
+                            </HStack>
+                        </HStack>
+                        <Table bg="white" borderRadius={10}>
+                            <Tbody>
+                                <Tr fontSize={Responsive.fontSizeResponsiveHead}>
+                                    <Td>Guides / staff members have been trained by Wheel the World to provide assistance to people with disabilities during the tour/activity</Td>
+                                    <Td>
+                                        <RadioGroup value = {assistan[0].answer}>
+                                            <HStack spacing={8}>
+                                                <Radio  value='yes'
+                                                        border='1px'
+                                                        borderColor='#2F6FE4'
+                                                        onChange={(e: any) => changeValue(e, 0)}></Radio>
+                                                <Radio  value='no'
+                                                        border='1px'
+                                                        borderColor='#2F6FE4'
+                                                        onChange={(e: any) => changeValue(e, 0)}></Radio>
+                                            </HStack>
+                                        </RadioGroup>
+                                    </Td>
+                                </Tr>
+                                <Tr fontSize={Responsive.fontSizeResponsiveHead}>
+                                    <Td>Guides / staff members have experience assisting people with disabilities</Td>
+                                    <Td>
+                                        <RadioGroup value = {assistan[1].answer}>
+                                            <HStack spacing={8}>
+                                                <Radio  value='yes'
+                                                        border='1px'
+                                                        borderColor='#2F6FE4'
+                                                        onChange={(e: any) => changeValue(e, 1)}></Radio>
+                                                <Radio  value='no'
+                                                        border='1px'
+                                                        borderColor='#2F6FE4'
+                                                        onChange={(e: any) => changeValue(e, 1)}></Radio>
+                                            </HStack>
+                                        </RadioGroup>
+                                    </Td>
+                                </Tr>
+                                <Tr fontSize={Responsive.fontSizeResponsiveHead}>
+                                    <Td>Guides / staff members will be available to assist</Td>
+                                    <Td>
+                                        <RadioGroup value = {assistan[2].answer}>
+                                            <HStack spacing={8}>
+                                                <Radio  value='yes'
+                                                        border='1px'
+                                                        borderColor='#2F6FE4'
+                                                        onChange={(e: any) => changeValue(e, 2)}></Radio>
+                                                <Radio  value='no'
+                                                        border='1px'
+                                                        borderColor='#2F6FE4'
+                                                        onChange={(e: any) => changeValue(e, 2)}></Radio>
+                                            </HStack>
+                                        </RadioGroup>
+                                    </Td>
+                                </Tr>
+                            </Tbody>
+                        </Table>
+                        
+                    </VStack>
+                    </Box>
+                :
+                <Skeleton w="65%" h='75%' p={10} borderRadius="10px" />
+            }
+        </React.Fragment>
 
     );
 }
