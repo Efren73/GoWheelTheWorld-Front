@@ -136,11 +136,11 @@ const GroupPrivate: React.FC = () => {
 
     useEffect(() => {
         if (status === "succeeded" ) {
-            if(tour.basicInformation != undefined) {
+            if(tour.basicInformation !== undefined) {
                 setPrivado(tour.basicInformation.privateTour)
                 setGroup(tour.basicInformation.groupTour)
-                if( tour.basicInformation.numberMaxTravelers != undefined &&
-                    tour.basicInformation.numberMinTravelers != undefined ) {
+                if( tour.basicInformation.numberMaxTravelers !== undefined &&
+                    tour.basicInformation.numberMinTravelers !== undefined ) {
                     setMinimo(tour.basicInformation.numberMinTravelers)
                     setMaximo(tour.basicInformation.numberMaxTravelers)
                 }

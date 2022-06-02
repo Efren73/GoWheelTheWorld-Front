@@ -1,5 +1,5 @@
 import * as React from "react"
-import { Stack, NumberInput, NumberInputField, useDisclosure, Skeleton } from "@chakra-ui/react"
+import { Skeleton } from "@chakra-ui/react"
 import {
   Text,
   VStack,
