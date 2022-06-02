@@ -2,13 +2,13 @@ import * as React from "react"
 import {
   Text,
   Heading,
-  ChakraProvider,
   Stack,
   SimpleGrid,
   useCheckbox,
   chakra, 
   useCheckboxGroup,
   Box,
+  Skeleton,
 } from "@chakra-ui/react"
 
 import { useLocation } from "react-router-dom"
@@ -16,7 +16,9 @@ import { useState, useEffect } from "react";
 import { Responsive } from "../generalTypes";
 
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
-import { fetchTours, updateTour, selectAllTours, getTourStatus, changeState} from "../../reducers/appSlice";
+import { fetchTours, selectAllTours, getTourStatus, changeState} from "../../reducers/appSlice";
+
+let name: string;
 
 function CustomCheckbox(props: any) {
   const { state, getCheckboxProps, getInputProps, getLabelProps } = useCheckbox(props)
@@ -33,45 +35,6 @@ function CustomCheckbox(props: any) {
     backgroundValue = '#fff'
     colorValue = '#000'
   }
-
-  // Para cambiar el estado de los checkbox checkeados
-  // const [isCheckedGeneral, setisGeneral] = useState(false)
-  // const [isCheckedFood, setisFood] = useState(false)
-  // const [isCheckedTrans, setisTrans] = useState(false)
-  // const [isCheckedAccess, setisAccess] = useState(false)
-
-  //   function State() {
-  //     if(props.ruta == 'whats-included-general') {
-  //       setisGeneral(!isCheckedGeneral)
-  //       props.onChange(props.value, isCheckedGeneral)
-  //     } else if (props.ruta == 'whats-included-food'){
-  //       setisFood(!isCheckedFood)
-  //       props.onChange(props.value, isCheckedFood)
-  //     } else if (props.ruta == 'whats-included-transport') {
-  //       setisTrans(!isCheckedTrans)
-  //       props.onChange(props.value, isCheckedTrans)
-  //     } else if (props.ruta == 'whats-included-accessibility') {
-  //       setisAccess(!isCheckedAccess)
-  //       props.onChange(props.value, isCheckedAccess)
-  //     }
-  //   }
-
-  //   if(props.ruta == 'whats-included-general' && isCheckedGeneral == false){
-  //       backgroundValue = '#fff'
-  //       colorValue = '#000'
-  //     } else if(props.ruta == 'whats-included-food' && isCheckedFood == false){
-  //         backgroundValue = '#fff'
-  //         colorValue = '#000'
-  //     } else if(props.ruta == 'whats-included-transport' && isCheckedTrans == false){
-  //       backgroundValue = '#fff'
-  //       colorValue = '#000'
-  //     } else if(props.ruta == 'whats-included-accessibility' && isCheckedAccess == false){
-  //       backgroundValue = '#fff'
-  //       colorValue = '#000'
-  //     } else {
-  //     backgroundValue = '#3F6FE4'
-  //     colorValue='#fff'
-  //   }
    
     return (
       <chakra.label
@@ -87,10 +50,6 @@ function CustomCheckbox(props: any) {
           rounded='lg'
           cursor='pointer'
           {...getCheckboxProps()}
-          
-          // onChange={() => {
-          //   State()
-          // }}
           >
           <input {...getInputProps()} hidden />
           <Text {...getLabelProps()}>{props.value}</Text>
@@ -133,6 +92,7 @@ const WhatsIncluded: React.FC = () => {
       'Gratuities',
       'Tourist city taxes');
       principal = checkedItemsGeneral;
+      name = "General";
     }
     else if(route === "whats-included-food"){
       included.push('Snacks',
@@ -142,6 +102,7 @@ const WhatsIncluded: React.FC = () => {
       'Lunch',
       'Dinner')
       principal = checkedItemsFood;
+      name = "Food";
     }
     else if(route === "whats-included-transport"){
       included.push('Gound transportation',
@@ -149,18 +110,16 @@ const WhatsIncluded: React.FC = () => {
       'Professional driver',
       'Parking')
       principal = checkedItemsTransport;
+      name = "Transport";
     }
     else if(route === "whats-included-accessibility"){
       included.push('Instructors',
       'Equipment rental',
       'Assistants')
       principal = checkedItemsAccessibility;
+      name = "Accessibility";
     }
 
-    
-    
-
-    /* RESPONSIVE --------------------------------- */
     const handleCheckedItems = (includesName:string, checkea:boolean) => {
       // Agregando el nombre de la experiencia que se selccionó en el hijo CustomCheckbox
         if(route === "whats-included-general"){
@@ -233,8 +192,6 @@ const WhatsIncluded: React.FC = () => {
       ))    
       },[checkedItemsGeneral, checkedItemsFood, checkedItemsTransport, checkedItemsAccessibility ]);
 
-
-
         console.log('General', checkedItemsGeneral)
         console.log('Food', checkedItemsFood)
         console.log('transport',checkedItemsTransport)
@@ -242,42 +199,52 @@ const WhatsIncluded: React.FC = () => {
 
     return(
       <React.Fragment>
-        <Box boxShadow='2xl'
-             w="65%" 
-             p={10}
-             background="#EBE9E9"
-             borderRadius="10px">
-  
-            <Stack spacing={2}>
-                <Text fontSize={Responsive.fontSizeResponsiveHead} color='#3F6FE4'> What's included </Text>
-                <Heading fontSize={Responsive.fontSizeResponsiveBody}> Select what's included with your tour </Heading>
-            </Stack>
-            
-            <SimpleGrid h='80%' columns={[1, 1, 2, 2, 3]} spacing={15} paddingTop='30px' alignSelf={'center'} fontSize={Responsive.fontSizeResponsiveHead}>
-            {
-            included.map ((includes: string) =>(
-              <React.Fragment>
-                {principal.includes(includes) ? 
-                <CustomCheckbox
-                // Llamando a función hijo CustomCheckbox, se le pasa el arreglo de experiences
-                {...{value: `${includes}`, ruta: `${route}`, isChecked: true}}
-                // Función que en el Padre se llama handleCheckedItems, se pasa como onChange
-                onChange={()=> handleCheckedItems(includes, true)}
-                /> : 
-                <CustomCheckbox
-                // Llamando a función hijo CustomCheckbox, se le pasa el arreglo de experiences
-                {...{value: `${includes}`, ruta: `${route}`, isChecked: false}}
-                // Función que en el Padre se llama handleCheckedItems, se pasa como onChange
-                onChange={()=> handleCheckedItems(includes, false)}
-                />}
-              
-              </React.Fragment>
-              
-            ))
-            }
-            </SimpleGrid>
+        {status === "succeeded" ?
+          (
+            <Box boxShadow='md'
+                w="65%" 
+                p={10}
+                background="#F8F9F9"
+                borderRadius="10px">
+      
+                <Stack spacing={2}>
+                    <Text fontSize={Responsive.fontSizeResponsiveHead} color='#3F6FE4'>
+                        What's included {"/ " + name}
+                      </Text>
+                    <Heading fontSize={Responsive.fontSizeResponsiveBody}> Select what's included with your tour </Heading>
+                </Stack>
+                
+                <SimpleGrid h='80%' columns={[1, 1, 2, 2, 3]} spacing={15} paddingTop='30px' alignSelf={'center'} fontSize={Responsive.fontSizeResponsiveHead}>
+                {
+                included.map ((includes: string) =>(
+                  <React.Fragment>
+                    {principal.includes(includes) ? 
+                    <CustomCheckbox
+                    // Llamando a función hijo CustomCheckbox, se le pasa el arreglo de experiences
+                    {...{value: `${includes}`, ruta: `${route}`, isChecked: true}}
+                    // Función que en el Padre se llama handleCheckedItems, se pasa como onChange
+                    onChange={()=> handleCheckedItems(includes, true)}
+                    /> : 
+                    <CustomCheckbox
+                    // Llamando a función hijo CustomCheckbox, se le pasa el arreglo de experiences
+                    {...{value: `${includes}`, ruta: `${route}`, isChecked: false}}
+                    // Función que en el Padre se llama handleCheckedItems, se pasa como onChange
+                    onChange={()=> handleCheckedItems(includes, false)}
+                    />}
+                  
+                  </React.Fragment>
+                  
+                ))
+                }
+                </SimpleGrid>
 
-        </Box >
+            </Box >
+          )
+          :
+          (
+            <Skeleton w="65%" h="75%" p={10} borderRadius="10px" />
+          )
+        }
       </React.Fragment>
     )
 }

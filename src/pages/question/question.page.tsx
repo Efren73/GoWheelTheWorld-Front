@@ -45,7 +45,7 @@ function Question(props: any): JSX.Element {
     links(idTourOperator)
 	return (
 	<React.Fragment>
-        <Flex overflowX='hidden' h="100%">
+        <Flex overflowX='hidden' h="100%" bg='#F2F3F4'>
             <HStack w="full" h="full" >
                 <Box  h='full' position='absolute'>
                     <LateralMenu />
