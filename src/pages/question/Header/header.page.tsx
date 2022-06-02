@@ -19,9 +19,11 @@ import {
   import {HamburgerIcon } from '@chakra-ui/icons'
   import Summary from "../../../components/summary"
   import logo from '../../login/images/logo.png'
+import { useAppSelector } from "../../../app/hooks"
+import { getTourStatus } from "../../../reducers/appSlice"
 
   const Header = () =>{ 
-
+    const status = useAppSelector(getTourStatus);
     const screenSize = useBreakpointValue({ base: 'true', md: 'false', lg:'false' })
 
 
@@ -50,7 +52,7 @@ import {
         )
       }
       function CheckSize(screenSize:any){
-        if (screenSize=='true')
+        if (screenSize=='true' && status==="succeeded")
             return (
                 <SummaryDrawer/>
                 )

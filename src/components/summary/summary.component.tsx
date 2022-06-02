@@ -32,11 +32,6 @@ const Summary: React.FC = () => {
 
   console.log(status)
 
-  /* get --------- */
-  useEffect(() => {
-    dispatch(fetchTours())
-  }, []);
-
   /* GROUP-PRIVATE --------------------------------- */
   function showGroupPrivate() {
     if(status === "succeeded") {

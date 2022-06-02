@@ -4,13 +4,13 @@ import { Routes, useNavigate, Outlet, useLocation} from 'react-router-dom';
 import {
   VStack,
   Flex,
-  Stack,
-  ChakraProvider,
+
   useBreakpointValue,
   HStack,
   Container,
   Box,
-  Divider
+  Divider,
+  useDisclosure
 } from "@chakra-ui/react";
 
 import { IQuestion } from './question.types';
@@ -30,18 +30,14 @@ function Question(props: any): JSX.Element {
       const navigate = useNavigate();
 
 
-      const screenSize = useBreakpointValue({ base: 'true', md: 'false', lg:'false' })
+      const screenSize = useBreakpointValue({ base: 'true',sm: 'true', md: 'false', lg:'false' })
       function CheckSize(screenSize:any){
-          if (screenSize=='false')
+          if (screenSize ==='false')
               return (
                       <Summary />
                   )
       }
 
-    function change(){
-        
-        navigate('/tour-operator/1/tour-completed/1')
-    }
 
     const location = useLocation();
     const link: string[] = location.pathname.split('/')
