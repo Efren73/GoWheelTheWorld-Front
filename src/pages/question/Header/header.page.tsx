@@ -70,7 +70,7 @@ import { getTourStatus } from "../../../reducers/appSlice"
             </VStack>
         </Box>
         { 
-            CheckSize(screenSize)
+            CheckSize(screenSize) 
          }
     </HStack>
 

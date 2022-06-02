@@ -54,12 +54,12 @@ const Summary: React.FC = () => {
   }
 
   return (
-  <Box h ={{ base: '60%', md: '100%', sm:'100%' }} w={{ base: '25%', md: '25%', sm:'100%' }} background="#000" borderRadius='10px' borderColor={'black'} paddingBottom='20px'>
+  <Box h ={{ base: '60%', md: '100%', sm:'100%' }} w={{ base: '25%', md: '25%', sm:'100%' }} background="#1e272e" borderRadius='10px' borderColor={'black'} paddingBottom='20px'>
     <Heading fontSize='20px' paddingLeft={22} paddingTop={5} color="#fff" paddingBottom={2}>
       Summary
     </Heading>
 
-    <VStack h='88%' padding='20px' overflowY='scroll'>
+    <VStack h='88%' padding='20px' overflowY='scroll' >
       <VStack w="full" h="full" alignItems="flex-start" spacing="-0.4">
         <Text color='#89A1CD' fontSize={Responsive.fontSizeResponsiveBody}>
           Basic Information

@@ -34,7 +34,7 @@ const LateralMenu = (props: any) => {
   return (
     <React.Fragment>
       <Box h='full'>
-        <Box h="full" alignItems="flex-start" background='#000' paddingTop={2}>
+        <Box h="full" alignItems="flex-start" background='#1e272e' paddingTop={2}>
           <Button colorScheme='blackAlpha' onClick={onOpen} >
             <HamburgerIcon w={7} h={7} />
           </Button>
@@ -46,7 +46,7 @@ const LateralMenu = (props: any) => {
         size={screenSize}
         >
           <DrawerOverlay/>
-          <DrawerContent bg="#000" color='#fff'>
+          <DrawerContent bg="#1e272e" color='#fff'>
             <DrawerCloseButton/>
             <DrawerHeader color='#fff'>Tour/Activity Information</DrawerHeader>
             <DrawerBody>
@@ -61,7 +61,7 @@ const LateralMenu = (props: any) => {
                        
                       </AccordionButton>
                     </h2>
-                    <AccordionPanel pb={5}>
+                    <AccordionPanel pb={5} onClick={onClose}>
                       <Link to="name-of-tour">
                         <Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">Name</Button>
                       </Link>
