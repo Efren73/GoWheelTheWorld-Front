@@ -205,19 +205,19 @@ const GroupPrivate: React.FC = () => {
 
                     <Stack justifyContent={'center'} spacing='50px' direction={['column', 'column', 'row', 'row']}> 
                         <HStack maxW='200px'>
-                            <Button isDisabled={buttonDisabledMinimoMenos} name="minimum" onClick={() => Decrease('minimo')} background='#2F6FE4'> - </Button>
+                            <Button isDisabled={buttonDisabledMinimoMenos} name="minimum" onClick={() => Decrease('minimo')} background='#2F6FE4' color="white"> - </Button>
                             <Input  onChange={ChangeMinimo} 
                                     value={minimo}
                                     background='#white'/>
-                            <Button isDisabled={buttonDisableMinimoMas} onClick={() => Increase('minimo')} background='#2F6FE4'> + </Button>
+                            <Button isDisabled={buttonDisableMinimoMas} onClick={() => Increase('minimo')} background='#2F6FE4' color="white"> + </Button>
                         </HStack>
                         <HStack maxW='200px'>
-                            <Button isDisabled={buttonDisabledMaximoMenos} onClick={() => Decrease('maximo')} background='#2F6FE4'> - </Button>
+                            <Button isDisabled={buttonDisabledMaximoMenos} onClick={() => Decrease('maximo')} background='#2F6FE4' color="white"> - </Button>
                             <Input  onChange={ChangeMaximo} 
                                     onBlur={ChangeMaximo2}
                                     value={maximo}
                                     background='#white' />
-                            <Button isDisabled={buttonDisableMaximoMas} onClick={() => Increase('maximo')} background='#2F6FE4'> + </Button>
+                            <Button isDisabled={buttonDisableMaximoMas} onClick={() => Increase('maximo')} background='#2F6FE4' color="white"> + </Button>
                         </HStack>
                     </Stack>
                 </VStack>
