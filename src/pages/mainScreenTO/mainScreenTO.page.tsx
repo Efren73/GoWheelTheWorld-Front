@@ -103,7 +103,7 @@ function MainScreenTO(props: IMainScreenTO): JSX.Element {
     <Flex h="100vh">
       <VStack w="full" h="full">
         <TopMenu />
-        <Box bgImage={`url(${fondoMS})`} w="full" h="full" bgSize={"cover"}>
+        <Box bg={"#f5f6fa"} w="full" h="full" bgSize={"cover"}>
           <Flex alignItems={[ 'center', 'center', 'start', 'center' ]} 
                 justifyContent="center" 
                 w="full" 
@@ -112,6 +112,7 @@ function MainScreenTO(props: IMainScreenTO): JSX.Element {
             <Box  w={['90%', '90%', '40%', '40%' ]}
                   h={tamanoBox}
                   bgColor="white"
+                  boxShadow="md"
                   p={[ '6', '6', '6', '6', '39', '49' ]}
                   borderRadius={20}
                   marginRight={[ '0', '0', '50', '100' ]}
@@ -155,6 +156,7 @@ function MainScreenTO(props: IMainScreenTO): JSX.Element {
             </Box>
             <Box w={[ '90%', '90%', '40%', '40%' ]}
                  h={tamanoBox}
+                 boxShadow="md"
                  bgColor="white"
                  p={[ '6', '6', '6', '6', '39', '49' ]}
                  borderRadius={20}

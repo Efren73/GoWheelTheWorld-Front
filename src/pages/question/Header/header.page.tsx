@@ -50,7 +50,7 @@ const Header = () =>{
       )
     }
 
-  function CheckSize(screenSize:any) {
+  function CheckSgiize(screenSize:any) {
     if (screenSize=='true' && status==="succeeded")
       return (
         <SummaryDrawer/>
