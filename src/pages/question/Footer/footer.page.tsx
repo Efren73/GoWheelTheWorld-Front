@@ -1,5 +1,5 @@
 import * as React from "react"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import {
     Box,
     HStack,
@@ -15,7 +15,7 @@ import { useLocation, Link } from "react-router-dom";
 
 export let ProgressNav = ["name-of-tour", "type-of-tour", "group-private", "price","description","upload-photos","meeting-point","end-point","stops","languages", "restrictions","children-policy","whats-included-general","whats-included-food","whats-included-transport", "whats-included-accessibility","assistance","transportation","restrooms","places","equipment","faqs","cancelation-policy","" ]
   function Footer (props:any)  {
-    console.log("Checa esto ->", props)
+
     const dispatch = useAppDispatch();
     const tour = useAppSelector(selectAllTours);
     const [addRequestStatus, setAddRequestStatus] = useState('idle')
@@ -24,40 +24,23 @@ export let ProgressNav = ["name-of-tour", "type-of-tour", "group-private", "pric
     const link: string[] = location.pathname.split('/')
     const idTour: string = link[link.length - 2]
     links(idTour)
-
-
-
+    
     let Position = location.pathname.split('/');
     const index = ProgressNav.findIndex(element => element === Position[Position.length-1]);
-    console.log(ProgressNav[index])
+    //console.log(ProgressNav[index])
 
-    function changeNext(){
-      console.log("Se debe ver esto")
+    useEffect(() => {
       try {
-        setAddRequestStatus('pending')
-        console.log(addRequestStatus)
-        dispatch(updateTour(tour))
-        
-      } catch (err) {
-        console.error('Failed to save the post', err)
-      } finally {
-        setAddRequestStatus('idle')
-      }
-    }
-
+          setAddRequestStatus('pending')
+          console.log(addRequestStatus)
+          dispatch(updateTour(tour))     
+          } catch (err) {
+            console.error('Failed to save the post', err)
+          } finally {
+            setAddRequestStatus('idle')
+          }
+    }, [index]);
     
-    function changeBack(){
-      try {
-        setAddRequestStatus('pending')
-        dispatch(updateTour(tour))
-        
-      } catch (err) {
-        console.error('Failed to save the post', err)
-      } finally {
-        setAddRequestStatus('idle')
-      }
-    }
-
     /* RESPONSIVE ------------------------------------*/
     const fontSizeResponsive = { base:'20px', sm:'15px'};
     
@@ -76,7 +59,6 @@ export let ProgressNav = ["name-of-tour", "type-of-tour", "group-private", "pric
                     bg="white"
                     border='1px'
                     borderColor="#3F6FE4" 
-                    onClick={changeBack}
                     > Back </Button>
           </Link>
             {/*<Text fontSize="20px" color="#9B9B9B"> 1 of 19 items sent </Text>*/}
@@ -85,8 +67,7 @@ export let ProgressNav = ["name-of-tour", "type-of-tour", "group-private", "pric
                     fontSize={fontSizeResponsive}
                     borderRadius={10}
                     bg="#3F6FE4"
-                    color="white"
-                    onClick={changeNext}> Next </Button>
+                    color="white"> Next </Button>
             </Link>
         </HStack>
     </Box>
