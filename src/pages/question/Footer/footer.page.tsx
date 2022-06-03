@@ -1,4 +1,3 @@
-import * as React from "react"
 import { useState } from "react"
 import {
     Box,
@@ -10,7 +9,7 @@ import {
   } from "@chakra-ui/react"
   
 import { useAppSelector, useAppDispatch } from '../../../app/hooks';
-import {  updateTour, selectAllTours, links} from "../../../reducers/appSlice";
+import { updateTour, selectAllTours, links } from "../../../reducers/appSlice";
 import { useLocation, Link } from "react-router-dom";
 
 export let ProgressNav = ["name-of-tour", "type-of-tour", "group-private", "price","description","upload-photos","meeting-point","end-point","stops","languages", "restrictions","children-policy","whats-included-general","whats-included-food","whats-included-transport", "whats-included-accessibility","assistance","transportation","restrooms","places","equipment","faqs","cancelation-policy","" ]
@@ -24,8 +23,6 @@ export let ProgressNav = ["name-of-tour", "type-of-tour", "group-private", "pric
     const link: string[] = location.pathname.split('/')
     const idTour: string = link[link.length - 2]
     links(idTour)
-
-
 
     let Position = location.pathname.split('/');
     const index = ProgressNav.findIndex(element => element === Position[Position.length-1]);
@@ -90,7 +87,7 @@ export let ProgressNav = ["name-of-tour", "type-of-tour", "group-private", "pric
             </Link>
         </HStack>
     </Box>
-    
-    )
-  }
+  )
+}
+
   export default Footer;

@@ -67,7 +67,7 @@ function Login(props: ILogin): JSX.Element {
             </Box>
             <Box w="50%">
               <HStack justifyContent="flex-end" w="full" h="13%" >
-                  <Image src={logo} w="22%" h="full"/>
+                  <Image src={logo} w={{ lg:"15%", md:'20%' }} h={{ lg:'100%', md:'80%'}} p={3}/>
               </HStack>
               <VStack w="100%" spacing={59} p={10}>
                 <Heading> Welcome back! </Heading>
