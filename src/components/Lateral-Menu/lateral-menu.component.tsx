@@ -1,6 +1,5 @@
 import * as React from "react"
 import {
-  ChakraProvider,
   useBreakpointValue,
   Box,
   Drawer,
@@ -19,16 +18,13 @@ import {
 } from "@chakra-ui/react"
 import { HamburgerIcon } from "@chakra-ui/icons"
 
-import { BrowserRouter, Link, Route} from  'react-router-dom'
-import Cart from '../Cart/cart.component'
-
+import {  Link} from  'react-router-dom'
 
 const LateralMenu = (props: any) => {
 
   const screenSize = useBreakpointValue({ base: 'md', sm: 'full', lg:'sm' })
 
   const {isOpen,onOpen,onClose}= useDisclosure()
-  const btnRef= React.useRef()
 
   console.log(props)
   return (
@@ -98,7 +94,7 @@ const LateralMenu = (props: any) => {
                         
                       </AccordionButton>
                     </h2>
-                    <AccordionPanel pb={5}>
+                    <AccordionPanel pb={5} onClick={onClose}>
                       <Link to="meeting-point">
                         <Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">Meet Point</Button>
                       </Link>

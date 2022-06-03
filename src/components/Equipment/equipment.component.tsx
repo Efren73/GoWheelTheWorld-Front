@@ -27,7 +27,6 @@ import {
 
 function Equipment(props: IEquipment): JSX.Element {
   const dispatch = useAppDispatch();
-  const [addRequestStatus, setAddRequestStatus] = useState("idle");
   const tour = useAppSelector(selectAllTours);
   const status = useAppSelector(getTourStatus);
 
@@ -85,8 +84,8 @@ function Equipment(props: IEquipment): JSX.Element {
   useEffect(() => {
     if (status === "succeeded") {
       if (
-        tour.accessibility != undefined &&
-        tour.accessibility.equipment != undefined
+        tour.accessibility !== undefined &&
+        tour.accessibility.equipment !== undefined
       ) {
         setEquipment(tour.accessibility.equipment);
       }

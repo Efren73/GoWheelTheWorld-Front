@@ -13,8 +13,6 @@ import {
 import Photo from "./image.png";
 import "./upload-photos.modules.css";
 import { Responsive } from "../generalTypes";
-const arreglo: string[] = ["Photo 1", "Photo 2"];
-
 /* CMANEJAR ESTATUS (loading, succeeded, idle' ) ----------- */
 let status = "succeeded";
 

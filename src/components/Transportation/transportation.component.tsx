@@ -5,7 +5,6 @@ import {
   Heading,
   HStack,
   Box,
-  TableContainer,
   Table,
   Tbody,
   Tr,
@@ -20,7 +19,6 @@ import { Responsive } from "../generalTypes";
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
 import {
   fetchTours,
-  updateTour,
   selectAllTours,
   getTourStatus,
   changeState,
@@ -28,7 +26,6 @@ import {
 
 function Transportation(props: ITransportation): JSX.Element {
   const dispatch = useAppDispatch();
-  const [addRequestStatus, setAddRequestStatus] = useState("idle");
   const tour = useAppSelector(selectAllTours);
   const status = useAppSelector(getTourStatus);
 
@@ -70,8 +67,8 @@ function Transportation(props: ITransportation): JSX.Element {
 
   useEffect(() => {
     if (status === "succeeded") {
-      if (tour.accessibility != undefined) {
-        if (tour.accessibility.transportation != undefined)
+      if (tour.accessibility !== undefined) {
+        if (tour.accessibility.transportation !== undefined)
           setTransport(tour.accessibility.transportation);
       }
     }
