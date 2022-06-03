@@ -23,7 +23,6 @@ import { getTourStatus } from "../../../reducers/appSlice"
 
 const Header = () =>{ 
   const status = useAppSelector(getTourStatus);
-  const screenSize = useBreakpointValue({ base: 'true', md: 'false', lg:'false', sm: 'false'})
   const [isLargerThan1280] = useMediaQuery('(min-width: 768px)')
 
   function SummaryDrawer() {

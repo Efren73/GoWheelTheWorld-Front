@@ -1,5 +1,5 @@
 import * as React from "react"
-import { Stack, NumberInput, NumberInputField, useDisclosure, Skeleton } from "@chakra-ui/react"
+import { Skeleton } from "@chakra-ui/react"
 import {
   Text,
   VStack,
@@ -19,12 +19,11 @@ import { Responsive } from "../generalTypes";
 
 
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
-import { fetchTours, updateTour, selectAllTours, getTourStatus, changeState} from "../../reducers/appSlice";
+import { fetchTours, selectAllTours, getTourStatus, changeState} from "../../reducers/appSlice";
 
 function Assistance(props: IAssistance): JSX.Element {
 
     const dispatch = useAppDispatch();
-    const [addRequestStatus, setAddRequestStatus] = useState('idle')
     const tour = useAppSelector(selectAllTours);
     const status = useAppSelector(getTourStatus);
 
@@ -67,7 +66,7 @@ function Assistance(props: IAssistance): JSX.Element {
       useEffect(() => {
         if (status === "succeeded" ) {
             
-            if(tour.accessibility != undefined && tour.accessibility.assistance != undefined ) {
+            if(tour.accessibility !== undefined && tour.accessibility.assistance !== undefined ) {
                 setAssistan(tour.accessibility.assistance)
             }
         }

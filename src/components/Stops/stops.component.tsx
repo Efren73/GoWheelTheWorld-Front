@@ -7,7 +7,6 @@ import {
   Button,
   HStack,
   Box,
-  useNumberInput,
   ChakraProvider,
   Flex,
   NumberInput,
@@ -36,19 +35,9 @@ const Stops: React.FC = () => {
   const status = useAppSelector(getTourStatus);
 
   /* NÚMERO DE CARÁCTERES ------------------------------*/
-  let [value, setValue] = useState([""]);
-  let [characters, setCharacters] = useState(0);
-  let inputValue: any;
 
   let [myStop, setMyStop] = useState<any[]>([]);
 
-  let handleInputChange = (e: any) => {
-    inputValue = e.target.value;
-    if (inputValue.length <= 80) {
-      setValue(inputValue);
-      setCharacters(inputValue.length);
-    }
-  };
 
   //Función para que cuando se de click a add, se agreguen elementos al arreglo con el fin de que se rendericen más componentes
   const addQuestionAnswer = () => {
@@ -101,16 +90,6 @@ const Stops: React.FC = () => {
 
   console.log(myStop);
 
-  const { getInputProps, getIncrementButtonProps, getDecrementButtonProps } =
-    useNumberInput({
-      step: 1,
-      defaultValue: 0,
-      min: 1,
-    });
-
-  const inc = getIncrementButtonProps();
-  const dec = getDecrementButtonProps();
-  const input = getInputProps();
 
   console.log(status);
 
@@ -131,7 +110,7 @@ const Stops: React.FC = () => {
 
   useEffect(() => {
     if (status === "succeeded") {
-      if (tour.intinerary != undefined) {
+      if (tour.intinerary !== undefined) {
         setMyStop(tour.intinerary.stops);
       }
     }

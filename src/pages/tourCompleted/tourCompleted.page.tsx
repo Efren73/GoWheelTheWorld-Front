@@ -5,7 +5,6 @@ import {
   Heading,
   Flex,
   Button,
-  ChakraProvider,
   HStack,
   Link,
   Slider,
@@ -14,7 +13,6 @@ import {
   Box,
 } from "@chakra-ui/react";
 import { CheckCircleIcon, ChevronRightIcon } from '@chakra-ui/icons';
-import fondoMS from '../mainScreenTO/FondoMS.png';
 import { ITourCompleted } from './tourCompleted.types';
 import TopMenu from '../../components/TopMenu/topMenu.component';
 import {useNavigate} from 'react-router-dom'

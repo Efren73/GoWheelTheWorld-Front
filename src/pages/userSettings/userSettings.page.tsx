@@ -1,18 +1,12 @@
 import * as React from "react"
-import { useState } from "react"
-import {useNavigate} from 'react-router-dom'
-import { Heading, useDisclosure } from "@chakra-ui/react"
+import { Heading } from "@chakra-ui/react"
 import {
-    ChakraProvider,
     Button,
     Box,
     Text,
     VStack,
     HStack,
-    Image,
-    Divider,
     Input,
-    FormControl,
     FormLabel,
     GridItem,
     Grid,
@@ -24,11 +18,7 @@ import {
 
   } from "@chakra-ui/react"
   import TopMenu from "../../components/TopMenu/topMenu.component"
-  import { Icon } from '@chakra-ui/react'
-  import { CloseIcon , EditIcon } from '@chakra-ui/icons'
   import { MdHome } from 'react-icons/md'
-  import { Avatar, AvatarBadge, AvatarGroup } from '@chakra-ui/react'
-
 
   export const UserSettings  = () => {
     
@@ -47,7 +37,6 @@ import {
         )
     }
 
-    let [check1, setCheck1] = useState(false)
     const Responsive = { lg: '40%', md: '60%', sm: '80%' };
     const colSpan = { base: 2, md: 1 };
 

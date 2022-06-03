@@ -1,5 +1,5 @@
 import React from 'react';
-import { Outlet, useLocation } from 'react-router-dom';
+import { Outlet, useLocation} from 'react-router-dom';
 
 import {
   VStack,
@@ -15,10 +15,13 @@ import Footer from './Footer';
 import { links } from '../../reducers/appSlice'
 
 function Question(props: any): JSX.Element {
-    const screenSize = useBreakpointValue({ base: 'true', sm: 'true', md: 'false', lg:'false' })
+
+    const screenSize = useBreakpointValue({ base: 'true',sm: 'true', md: 'false', lg:'false' })
     function CheckSize(screenSize:any){
         if (screenSize ==='false')
-            return ( <Summary /> )
+            return (
+                    <Summary />
+                )
     }
 
     const location = useLocation();

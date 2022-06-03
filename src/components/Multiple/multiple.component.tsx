@@ -21,7 +21,7 @@ import {
 import { Responsive } from "../generalTypes";
 
 function CustomCheckbox(props: any) {
-  const { state, getCheckboxProps, getInputProps, getLabelProps } =
+  const { getCheckboxProps, getInputProps, getLabelProps } =
     useCheckbox(props);
   let backgroundValue: string;
   let colorValue: string;
@@ -87,7 +87,7 @@ const Multiple = () => {
     } else {
       /* filter regresa una copia del arreglo original, pero ahora sin el expereinceName que indique */
       const result = checkedItems.filter(
-        (checkedItems) => checkedItems != expereinceName
+        (checkedItems) => checkedItems !== expereinceName
       );
       /* actualizamos al arreglo original checkedItems con el arreglo de filter */
       setCheckedItems(result);
@@ -107,8 +107,8 @@ const Multiple = () => {
   useEffect(() => {
     if (status === "succeeded") {
       if (
-        tour.basicInformation != undefined &&
-        tour.basicInformation.typeOfActivity != undefined
+        tour.basicInformation !== undefined &&
+        tour.basicInformation.typeOfActivity !== undefined
       ) {
         setCheckedItems(tour.basicInformation.typeOfActivity);
       }
