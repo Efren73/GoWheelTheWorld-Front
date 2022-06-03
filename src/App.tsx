@@ -9,7 +9,7 @@ export const App = () => (
     <Summary /> */}
     <Routes>
       <Route path="/" element = {<a href="/login">Go to login page</a>}/>
-      <Route path="login"  element={<Login />}  />
+      <Route path="/login"  element={<Login />}  />
       <Route path="signup" element={<Signup />} />
       <Route path="admin" element={<Admin />} />
       <Route path="tour-operator/:id" element={<MainScreenTO />} />
