@@ -1,4 +1,6 @@
 import * as React from "react"
+import { useState } from 'react';
+
 import {
   useBreakpointValue,
   Box,
@@ -18,15 +20,33 @@ import {
 } from "@chakra-ui/react"
 import { HamburgerIcon } from "@chakra-ui/icons"
 
-import {  Link} from  'react-router-dom'
+import {  Link, useLocation} from  'react-router-dom'
 
 const LateralMenu = (props: any) => {
-
+  const location = useLocation();
+  const link: string[] = location.pathname.split('/')
+  const category: string = link[link.length - 1]
   const screenSize = useBreakpointValue({ base: 'md', sm: 'full', lg:'sm' })
+  const basicInformationS = ["name-of-tour", "type-of-tour", "group-private", "price","description","upload-photos"]
+  const intineraryS = ["meeting-point","end-point","stops","languages", "restrictions"]
+  const whatsIncludedS = ["whats-included-general","whats-included-food","whats-included-transport", "whats-included-accessibility"]
+  const accesibilityS = ["assistance","transportation","restrooms","places","equipment"]
+  let number: number;
+  //console.log("Lateral Menu:",category)
+
+  if (basicInformationS.includes(category)== true) 
+  { number = 0}
+  else if (intineraryS.includes(category)==true)
+   {number = 1}
+  else if (whatsIncludedS.includes(category)==true)
+   {number = 3}
+  else if (accesibilityS.includes(category) ==true)
+   { number = 4}
+   else
+   {number = 0}
 
   const {isOpen,onOpen,onClose}= useDisclosure()
 
-  console.log(props)
   return (
     <React.Fragment>
       <Box h='full'>
@@ -46,7 +66,7 @@ const LateralMenu = (props: any) => {
             <DrawerCloseButton/>
             <DrawerHeader color='#fff'>Tour/Activity Information</DrawerHeader>
             <DrawerBody>
-                <Accordion defaultIndex={[0]} allowMultiple>
+                <Accordion defaultIndex={[number]} allowMultiple>
                   <AccordionItem>
                     <h2>
                       <AccordionButton>
@@ -59,27 +79,27 @@ const LateralMenu = (props: any) => {
                     </h2>
                     <AccordionPanel pb={5} onClick={onClose}>
                       <Link to="name-of-tour">
-                        <Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">Name</Button>
+                        <Button colorScheme='white' variant='ghost' bg={category=="name-of-tour"?'#636e72':"#1e272e"} height='30px' width='250px' justifyContent="flex-start">Name</Button>
                       </Link>
 
                       <Link to="type-of-tour">
-                        <Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">Type</Button>
+                        <Button colorScheme='white' variant='ghost'  bg={category=="type-of-tour"?'#636e72':"#1e272e"} height='30px' width='250px' justifyContent="flex-start">Type</Button>
                       </Link>
 
                       <Link to="group-private">
-                        <Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">Travelers</Button>
+                        <Button colorScheme='white' variant='ghost'  bg={category=="group-private"?'#636e72':"#1e272e"} height='30px' width='250px' justifyContent="flex-start">Travelers</Button>
                       </Link>
 
                       <Link to="price">
-                        <Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">Price</Button>
+                        <Button colorScheme='white' variant='ghost'  bg={category=="price"?'#636e72':"#1e272e"} height='30px' width='250px' justifyContent="flex-start">Price</Button>
                       </Link>
 
                       <Link to="description">
-                        <Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">Description</Button>
+                        <Button colorScheme='white' variant='ghost'  bg={category=="description"?'#636e72':"#1e272e"} height='30px' width='250px' justifyContent="flex-start">Description</Button>
                       </Link>
 
                       <Link to="upload-photos">
-                        <Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">Upload Photos</Button>
+                        <Button colorScheme='white' variant='ghost' bg={category=="upload-photos"?'#636e72':"#1e272e"}  height='30px' width='250px' justifyContent="flex-start">Upload Photos</Button>
                       </Link>
                     </AccordionPanel>
                   </AccordionItem>
@@ -96,23 +116,23 @@ const LateralMenu = (props: any) => {
                     </h2>
                     <AccordionPanel pb={5} onClick={onClose}>
                       <Link to="meeting-point">
-                        <Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">Meet Point</Button>
+                        <Button colorScheme='white'  bg={category=="meeting-point"?'#636e72':"#1e272e"} variant='ghost' height='30px' width='250px' justifyContent="flex-start">Meet Point</Button>
                       </Link>
                       
                       <Link to="end-point">
-                        <Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">End Point</Button>
+                        <Button colorScheme='white'  bg={category=="end-point"?'#636e72':"#1e272e"} variant='ghost' height='30px' width='250px' justifyContent="flex-start">End Point</Button>
                       </Link>
 
                       <Link to="stops">
-                        <Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">Stops</Button>
+                        <Button colorScheme='white'  bg={category=="stops"?'#636e72':"#1e272e"}  variant='ghost' height='30px' width='250px' justifyContent="flex-start">Stops</Button>
                       </Link>
                       
                       <Link to="languages">
-                        <Button colorScheme='white' variant='ghost'height='30px' width='250px' justifyContent="flex-start">Spoken Languages</Button>
+                        <Button colorScheme='white'  bg={category=="languages"?'#636e72':"#1e272e"} variant='ghost'height='30px' width='250px' justifyContent="flex-start">Spoken Languages</Button>
                       </Link>
 
                       <Link to="restrictions">
-                        <Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">Restriction</Button>
+                        <Button colorScheme='white'  bg={category=="restrictions"?'#636e72':"#1e272e"}  variant='ghost' height='30px' width='250px' justifyContent="flex-start">Restriction</Button>
                       </Link>
 
                     </AccordionPanel>
@@ -142,27 +162,27 @@ const LateralMenu = (props: any) => {
                         
                       </AccordionButton>
                     </h2>
-                    <AccordionPanel pb={4}>
+                    <AccordionPanel pb={4}  onClick={onClose}>
                       <Link to="whats-included-general">
-                        <Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">General</Button>
+                        <Button colorScheme='white'  bg={category=="whats-included-general"?'#636e72':"#1e272e"}  variant='ghost' height='30px' width='250px' justifyContent="flex-start">General</Button>
                       </Link>
                       
                       <Link to="whats-included-food">
-                        <Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">Food</Button>
+                        <Button colorScheme='white'  bg={category=="whats-included-food"?'#636e72':"#1e272e"} variant='ghost' height='30px' width='250px' justifyContent="flex-start">Food</Button>
                       </Link>
 
                       <Link to="whats-included-transport">
-                        <Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">Transport</Button>
+                        <Button colorScheme='white'  bg={category=="whats-included-transport"?'#636e72':"#1e272e"}  variant='ghost' height='30px' width='250px' justifyContent="flex-start">Transport</Button>
                       </Link>
                       
                       <Link to="whats-included-accessibility">
-                        <Button colorScheme='white' variant='ghost'height='30px' width='250px' justifyContent="flex-start">Accessibility</Button>
+                        <Button colorScheme='white'  bg={category=="whats-included-accessibility"?'#636e72':"#1e272e"}  variant='ghost'height='30px' width='250px' justifyContent="flex-start">Accessibility</Button>
                       </Link>
 
                     </AccordionPanel>
                   </AccordionItem>
 
-                  <AccordionItem >
+                  <AccordionItem>
                     <h2>
                       <AccordionButton>
                       <AccordionIcon />
@@ -171,26 +191,26 @@ const LateralMenu = (props: any) => {
                         </Box>
                       </AccordionButton>
                     </h2>
-                    <AccordionPanel pb={5}>
+                    <AccordionPanel pb={5} onClick={onClose}>
 
                       <Link to="assistance">
-                        <Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">Assistance</Button>
+                        <Button colorScheme='white'  bg={category=="assistance"?'#636e72':"#1e272e"} variant='ghost' height='30px' width='250px' justifyContent="flex-start">Assistance</Button>
                       </Link>
 
                       <Link to="transportation">
-                        <Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">Transportation</Button>
+                        <Button colorScheme='white'  bg={category=="trasnsportation"?'#636e72':"#1e272e"} variant='ghost' height='30px' width='250px' justifyContent="flex-start">Transportation</Button>
                       </Link>
 
                       <Link to="restrooms">
-                        <Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">Restrooms</Button>
+                        <Button colorScheme='white' bg={category=="restrooms"?'#636e72':"#1e272e"}  variant='ghost' height='30px' width='250px' justifyContent="flex-start">Restrooms</Button>
                       </Link>
 
                       <Link to="places">
-                        <Button colorScheme='white' variant='ghost'height='30px' width='250px' justifyContent="flex-start">Places</Button>
+                        <Button colorScheme='white'  bg={category=="places"?'#636e72':"#1e272e"} variant='ghost'height='30px' width='250px' justifyContent="flex-start">Places</Button>
                       </Link>
 
                       <Link to="equipment">
-                        <Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">Equipment</Button>
+                        <Button colorScheme='white'  bg={category=="equipment"?'#636e72':"#1e272e"} variant='ghost' height='30px' width='250px' justifyContent="flex-start">Equipment</Button>
                       </Link>
 
                     </AccordionPanel>

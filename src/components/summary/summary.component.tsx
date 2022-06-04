@@ -1,4 +1,6 @@
 import * as React from "react";
+import { useRef } from "react";
+
 import {
   Box,
   Text,
@@ -7,6 +9,7 @@ import {
   HStack,
   Image,
   Skeleton,
+  Button,
 } from "@chakra-ui/react";
 import photo from './images/photo.png';
 import duration from './images/duration.png';
@@ -21,14 +24,14 @@ import price from './images/price.png';
 import { Responsive } from "../generalTypes";
 import { useAppSelector } from '../../app/hooks';
 import { selectAllTours, getTourStatus } from "../../reducers/appSlice";
+import { AnyAsyncThunk } from "@reduxjs/toolkit/dist/matchers";
 
 const Summary: React.FC = () => {
-
   /* REDUX ----------------------------------------- */
   const tour = useAppSelector(selectAllTours);
   const status = useAppSelector(getTourStatus);
 
-  console.log(status)
+  //console.log(status.diff)
 
   /* GROUP-PRIVATE --------------------------------- */
   function showGroupPrivate() {
@@ -50,20 +53,23 @@ const Summary: React.FC = () => {
       else return "Name fo the tour"
     }
   }
+  const initialRef = React.useRef<any>(null)
 
   return (
-    <Box h ={{ base: '60%', md: '100%', sm:'100%' }} w={{ base: '25%', md: '25%', sm:'100%' }} background="#1e272e" borderRadius='10px' borderColor={'black'} paddingBottom='20px'>
+    <Box h ={{ base: '60%', md: '100%', sm:'100%' }} w={{ base: '25%', md: '25%', sm:'100%' }} 
+    background="#1e272e" 
+    borderRadius='10px' 
+    borderColor={'black'} 
+    paddingBottom='20px'>
       <Heading fontSize='20px' paddingLeft={22} paddingTop={5} color="#fff" paddingBottom={2}>
         Summary
       </Heading>
-
       <VStack h='88%' padding='20px' overflowY='scroll'>
         <VStack w="full" h="full" alignItems="flex-start" spacing="-0.4">
           <Text color='#89A1CD' fontSize={Responsive.fontSizeResponsiveBody}>
             Basic Information
           </Text>
-
-          <Box borderRadius='10px' border='3px solid #89A1CD' w='98%' padding='10px'>
+          <Box borderRadius='10px' border='3px solid #89A1CD' w='98%' padding='10px' >
               <HStack justifyContent='flex-start'>
                 <Image src={photo} alt="default image" maxWidth={114} maxH={71} p={1} />
                 <Text color='#89A1CD' fontSize={Responsive.fontSizeResponsiveHead}>
@@ -124,12 +130,12 @@ const Summary: React.FC = () => {
           </Box>
         </VStack>
 
-        <VStack w="full" h="full" alignItems="flex-start" spacing="-0.4">
+        <VStack w="full" h="full" alignItems="flex-start" spacing="-0.4" >
           <Text color='#89A1CD' fontSize={Responsive.fontSizeResponsiveHead}>
             Itinerary
           </Text>
 
-          <Box borderRadius='10px' border='3px solid #89A1CD'  w='98%' padding='10px'>
+          <Box borderRadius='10px' border='3px solid #89A1CD'  w='98%' padding='10px'  ref={initialRef}>
               <HStack justifyContent="en" w="full">
                   <Image src={location} alt="Meeting point icon" w={25} h={25} m={0.5}/>
                 <Text color="#fff" fontSize={Responsive.fontSizeResponsiveHead}>

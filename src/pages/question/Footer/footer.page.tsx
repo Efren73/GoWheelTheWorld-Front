@@ -13,7 +13,7 @@ import { useAppSelector, useAppDispatch } from '../../../app/hooks';
 import { updateTour, selectAllTours, links } from "../../../reducers/appSlice";
 import { useLocation, Link } from "react-router-dom";
 
-export let ProgressNav = ["name-of-tour", "type-of-tour", "group-private", "price","description","upload-photos","meeting-point","end-point","stops","languages", "restrictions","children-policy","whats-included-general","whats-included-food","whats-included-transport", "whats-included-accessibility","assistance","transportation","restrooms","places","equipment","faqs","cancelation-policy","" ]
+export let ProgressNav = ["","name-of-tour", "type-of-tour", "group-private", "price","description","upload-photos","meeting-point","end-point","stops","languages", "restrictions","children-policy","whats-included-general","whats-included-food","whats-included-transport", "whats-included-accessibility","assistance","transportation","restrooms","places","equipment","faqs","cancelation-policy","" ]
   function Footer (props:any)  {
 
     const dispatch = useAppDispatch();
@@ -30,16 +30,18 @@ export let ProgressNav = ["name-of-tour", "type-of-tour", "group-private", "pric
     //console.log(ProgressNav[index])
 
     useEffect(() => {
-      try {
-          setAddRequestStatus('pending')
-          console.log(addRequestStatus)
-          dispatch(updateTour(tour))     
-          } catch (err) {
-            console.error('Failed to save the post', err)
-          } finally {
-            setAddRequestStatus('idle')
+      if(index-1 != 0) {
+        try {
+            setAddRequestStatus('pending')
+            console.log(addRequestStatus)
+            dispatch(updateTour(tour))     
+            } catch (err) {
+              console.error('Failed to save the post', err)
+            } finally {
+              setAddRequestStatus('idle')
+            }
           }
-    }, [index]);
+      }, [index]);
     
     /* RESPONSIVE ------------------------------------*/
     const fontSizeResponsive = { base:'20px', sm:'15px'};
@@ -52,7 +54,7 @@ export let ProgressNav = ["name-of-tour", "type-of-tour", "group-private", "pric
             </SliderTrack>
         </Slider>
         <HStack justifyContent="space-between" w="full" paddingRight={41} paddingLeft={41} paddingTop="3">
-        <Link to = { index === 0 ? `/tour-operator/${props}` : ProgressNav[index-1] }>
+        <Link to = { index-1 === 0 ? `/tour-operator/${props}` : ProgressNav[index-1] }>
             <Button size='lg'
                     fontSize={fontSizeResponsive}
                     borderRadius={10}
