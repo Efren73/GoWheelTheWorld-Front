@@ -38,7 +38,7 @@ const CancelationPolicy: React.FC = () => {
 
   useEffect(() => {
     if (status === "succeeded") {
-      if (tour.cancellationPolicy != undefined) {
+      if (tour.cancellationPolicy !== undefined) {
         setValue1(tour.cancellationPolicy);
       }
     }

@@ -77,7 +77,7 @@ const Cart: React.FC = () => {
 
   useEffect(() => {
     if (status === "succeeded") {
-      if (tour.basicInformation != undefined) {
+      if (tour.basicInformation !== undefined) {
         setValue(tour.basicInformation.tourName);
         setHours(tour.basicInformation.duration.hours);
         setMinutes(tour.basicInformation.duration.minutes);
@@ -95,14 +95,14 @@ const Cart: React.FC = () => {
     "DUMBO Tour, The New Brooklyn",
     "Snorkel with whale sharks",
   ];
-
+	//console.log("Prueba1 ->", Object.values(tour.basicInformation))
   return (
     <React.Fragment>
 		{status === "succeeded" ?
 			(
 				<Box
 				boxShadow="md"
-				w="65%"
+				w={{sm:"65%", md:"65%", lg:"65%"}}
 				p={10}
 				background="#F8F9F9"
 				borderRadius="10px"

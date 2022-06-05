@@ -19,7 +19,6 @@ import { Responsive } from "../generalTypes";
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
 import {
   fetchTours,
-  updateTour,
   selectAllTours,
   getTourStatus,
   changeState,
@@ -27,7 +26,6 @@ import {
 
 function Places(props: IPlaces): JSX.Element {
   const dispatch = useAppDispatch();
-  const [addRequestStatus, setAddRequestStatus] = useState("idle");
   const tour = useAppSelector(selectAllTours);
   const status = useAppSelector(getTourStatus);
 
@@ -77,8 +75,8 @@ function Places(props: IPlaces): JSX.Element {
   useEffect(() => {
     if (status === "succeeded") {
       if (
-        tour.accessibility != undefined &&
-        tour.accessibility.places != undefined
+        tour.accessibility !== undefined &&
+        tour.accessibility.places !== undefined
       ) {
         setPlaces(tour.accessibility.places);
       }

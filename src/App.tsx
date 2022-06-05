@@ -1,28 +1,15 @@
 import * as React from "react"
-import {
-  ChakraProvider,
-  Box,
-  Text,
-  VStack,
-  Code,
-  Grid, 
-  theme,
-  Switch,
-} from "@chakra-ui/react"
-import { ColorModeSwitcher } from "./ColorModeSwitcher"
-import { Logo } from "./Logo"
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom"
+import { BrowserRouter, Routes, Route } from "react-router-dom"
 import {Login, Signup, Admin, MainScreenTO, Question, TourCompleted, AdminSummary, UserSettings} from './pages'
-import { Cart, Description, LateralMenu, Multiple, Price, Summary, GroupPrivate, UploadPhotos, Meeting, Stops, Languages, Restrictions, ChildPolicy, Assistance, Transportation, Restrooms, Places, Equipment, Faqs, WhatsIncluded, EndPoint, CancelatioPolicy } from "./components"
-import TopMenu from "./components/TopMenu"
+import { Cart, Description, Multiple, Price, GroupPrivate, UploadPhotos, Meeting, Stops, Languages, Restrictions, ChildPolicy, Assistance, Transportation, Restrooms, Places, Equipment, Faqs, WhatsIncluded, EndPoint, CancelatioPolicy } from "./components"
 
 export const App = () => (
   <BrowserRouter>
 { /*   <LateralMenu />
     <Summary /> */}
     <Routes>
-      <Route path="/"/>
-      <Route path="login"  element={<Login />}  />
+      <Route path="/" element = {<Login />}/>
+      <Route path="/login"  element={<Login />}  />
       <Route path="signup" element={<Signup />} />
       <Route path="admin" element={<Admin />} />
       <Route path="tour-operator/:id" element={<MainScreenTO />} />

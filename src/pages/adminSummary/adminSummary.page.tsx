@@ -1,48 +1,22 @@
 import * as React from "react"
-import { useState } from "react"
 import {useNavigate} from 'react-router-dom'
 import {
-    ChakraProvider,
     Button,
-    Box,
-    Checkbox, 
+    Box, 
     Text,
     VStack,
     HStack,
-    theme,
-    Progress,
-    Divider,
-    Stack,
-    Switch,
-    FormControl,
-    FormLabel,
     Accordion,
     AccordionItem,
     AccordionButton,
     AccordionIcon,
-    Menu,
-    Radio, 
-    RadioGroup, 
-    Grid,
-    GridItem,
-    MenuButton,
-    Wrap,
-    MenuList,
-    Spacer,
     AccordionPanel,
-    MenuItem,
     Heading,
-    Slider,
-    SliderTrack,
-    SliderFilledTrack,
-    SliderThumb,
-    WrapItem,
     Flex,
   } from "@chakra-ui/react"
 
 
-  import { ArrowDownIcon, HamburgerIcon } from '@chakra-ui/icons'
-  import { Avatar, AvatarBadge, AvatarGroup } from '@chakra-ui/react'
+  import { ArrowDownIcon } from '@chakra-ui/icons'
   import { Image } from '@chakra-ui/react'
 
   import TopMenu from "../../components/TopMenu/topMenu.component"

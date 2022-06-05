@@ -11,7 +11,6 @@ import {
   SimpleGrid,
   useCheckbox,
   chakra,
-  useCheckboxGroup,
   Heading,
   Skeleton,
   ChakraProvider,
@@ -22,7 +21,7 @@ import { Responsive } from "../generalTypes";
 
 function CustomCheckbox(props: any) {
     
-    const { state, getCheckboxProps, getInputProps, getLabelProps } = useCheckbox(props)
+    const { getCheckboxProps, getInputProps, getLabelProps } = useCheckbox(props)
     let backgroundValue: string;
     let colorValue: string;
     let srcValue: any;
@@ -35,7 +34,7 @@ function CustomCheckbox(props: any) {
       colorValue='#fff'
     }
 
-    if(props.value == 'Private') srcValue = 'https://cdn-icons-png.flaticon.com/512/1077/1077114.png'
+    if(props.value === 'Private') srcValue = 'https://cdn-icons-png.flaticon.com/512/1077/1077114.png'
     else srcValue = 'https://cdn-icons-png.flaticon.com/512/681/681494.png'
 
     return (
@@ -52,8 +51,8 @@ function CustomCheckbox(props: any) {
             rounded='lg'
             cursor='pointer'
             {...getCheckboxProps()} >
-                <img src={srcValue} height ="50" width="50" />
-                <img {...getInputProps()} hidden />
+                <img src={srcValue} alt= "reference" height ="50" width="50" />
+                <img {...getInputProps()} hidden alt = "reference"/>
 
                 <input {...getInputProps()} hidden />
                 <Text {...getLabelProps()}>{props.value}</Text>
@@ -63,7 +62,6 @@ function CustomCheckbox(props: any) {
 
 const GroupPrivate: React.FC = () => {
 
-    const { value, getCheckboxProps } = useCheckboxGroup();
 
     /* LÓGICA PRIMERA PREGUNTA ----------------------------------------- */
     const [ privado, setPrivado ] = React.useState(false);
@@ -82,15 +80,15 @@ const GroupPrivate: React.FC = () => {
     /* LÓGICA SEGUNDA PREGUNTA ----------------------------------------- */
     const [minimo, setMinimo] = React.useState(1)
     const [maximo, setMaximo] = React.useState(1)
-    const buttonDisabledMinimoMenos = minimo == 1;
-    const buttonDisabledMaximoMenos = maximo == 1 || minimo == maximo;
+    const buttonDisabledMinimoMenos = minimo === 1;
+    const buttonDisabledMaximoMenos = maximo === 1 || minimo === maximo;
     const buttonDisableMaximoMas = minimo > maximo;
     const buttonDisableMinimoMas = minimo >= maximo;
 
     let inputValue: any;
     function ChangeMinimo(e: any){
         inputValue = +e.target.value;
-        if(inputValue > 1 || inputValue == '') setMinimo(inputValue)
+        if(inputValue > 1 || inputValue === '') setMinimo(inputValue)
         else setMinimo(1)
 
         if (inputValue > maximo) setMinimo(maximo)
@@ -99,7 +97,7 @@ const GroupPrivate: React.FC = () => {
     let inputValue2: any;
     function ChangeMaximo(e: any) {
         inputValue2 = +e.target.value;
-        if(inputValue2 > 1 || inputValue2 == '') setMaximo(inputValue2)
+        if(inputValue2 > 1 || inputValue2 === '') setMaximo(inputValue2)
         else setMaximo(1)
     }
 
@@ -108,6 +106,9 @@ const GroupPrivate: React.FC = () => {
         inputValue3 = +e.target.value;
         if (inputValue3 < minimo) setMaximo(minimo)
     }
+
+    console.log('minimo' + minimo)
+    console.log('maximo' + maximo)
 
     /* botones --------- */
     function Decrease(valor: any) {
@@ -137,11 +138,14 @@ const GroupPrivate: React.FC = () => {
 
     useEffect(() => {
         if (status === "succeeded" ) {
-            if(tour.basicInformation!= undefined) {
-                setMinimo(tour.basicInformation.numberMinTravelers)
-                setMaximo(tour.basicInformation.numberMaxTravelers)
+            if(tour.basicInformation !== undefined) {
                 setPrivado(tour.basicInformation.privateTour)
                 setGroup(tour.basicInformation.groupTour)
+                if( tour.basicInformation.numberMaxTravelers !== undefined &&
+                    tour.basicInformation.numberMinTravelers !== undefined ) {
+                    setMinimo(tour.basicInformation.numberMinTravelers)
+                    setMaximo(tour.basicInformation.numberMaxTravelers)
+                }
             }
         }
     }, [status]);

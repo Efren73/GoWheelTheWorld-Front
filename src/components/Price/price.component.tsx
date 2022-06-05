@@ -35,7 +35,7 @@ const Price: React.FC = () => {
 
   useEffect(() => {
     if (status === "succeeded") {
-      if (tour.basicInformation != undefined) {
+      if (tour.basicInformation !== undefined) {
         setPrice(tour.basicInformation.price);
       }
     }

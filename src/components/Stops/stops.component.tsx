@@ -7,7 +7,6 @@ import {
   Button,
   HStack,
   Box,
-  useNumberInput,
   ChakraProvider,
   Flex,
   NumberInput,
@@ -129,16 +128,6 @@ const Stops: React.FC = () => {
 
   console.log(myStop);
 
-  const { getInputProps, getIncrementButtonProps, getDecrementButtonProps } =
-    useNumberInput({
-      step: 1,
-      defaultValue: 0,
-      min: 1,
-    });
-
-  const inc = getIncrementButtonProps();
-  const dec = getDecrementButtonProps();
-  const input = getInputProps();
 
   console.log(status);
 
@@ -161,7 +150,7 @@ const Stops: React.FC = () => {
   /* GET ------------------------------*/
   useEffect(() => {
     if (status === "succeeded") {
-      if (tour.intinerary != undefined) {
+      if (tour.intinerary !== undefined) {
         setMyStop(tour.intinerary.stops);
       }
     }
