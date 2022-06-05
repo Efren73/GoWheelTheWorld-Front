@@ -21,8 +21,7 @@ import {
 } from "../../reducers/appSlice";
 
 function CustomCheckbox(props: any) {
-  const {  getCheckboxProps, getInputProps, getLabelProps } =
-    useCheckbox(props);
+  const { getCheckboxProps, getInputProps, getLabelProps } = useCheckbox(props);
 
   let backgroundValue: string;
   let colorValue: string;
@@ -121,53 +120,55 @@ const Languages: React.FC = () => {
 
   return (
     <React.Fragment>
-      {status === "succeeded" ?
-          (
-            <Box boxShadow="md" w="65%" p={10} background="#F8F9F9" borderRadius="10px">
-              <Stack spacing={2}>
-                <Text fontSize={Responsive.fontSizeResponsiveHead} color="#3F6FE4">
-                  Itinerary / Languages
-                </Text>
-                <Heading fontSize={Responsive.fontSizeResponsiveBody}>
-                  Select the spoken languages on this tours
-                </Heading>
-              </Stack>
+      {status === "succeeded" ? (
+        <Box
+          boxShadow="md"
+          w="65%"
+          p={10}
+          background="#F8F9F9"
+          borderRadius="10px"
+        >
+          <Stack spacing={2}>
+            <Text fontSize={Responsive.fontSizeResponsiveHead} color="#3F6FE4">
+              Itinerary / Languages
+            </Text>
+            <Heading fontSize={Responsive.fontSizeResponsiveBody}>
+              Select the spoken languages on this tours
+            </Heading>
+          </Stack>
 
-              <SimpleGrid
-                columns={[1, 1, 1, 2, 3]}
-                spacing={15}
-                justifyItems="center"
-                paddingTop="30px"
-                h="80%"
-                overflowY="auto"
-                fontSize={Responsive.fontSizeResponsiveHead}
-              >
-                {languages.map((language: string) => (
-                  <React.Fragment>
-                    {checkedItems.includes(language) ? (
-                      <CustomCheckbox
-                        // Llamando a función hijo CustomCheckbox, se le pasa el arreglo de experiences
-                        {...{ value: `${language}`, isChecked: true }}
-                        // Función que en el Padre se llama handleCheckedItems, se pasa como onChange
-                        onChange={() => handleCheckedItems(language, true)}
-                      />
-                    ) : (
-                      <CustomCheckbox
-                        {...{ value: `${language}`, isChecked: false }}
-                        onChange={() => handleCheckedItems(language, false)}
-                      />
-                    )}
-                  </React.Fragment>
-                ))}
-              </SimpleGrid>
-            </Box>
-          )
-          :
-          (
-            <Skeleton w="65%" h="75%" p={10} borderRadius="10px" />
-          )
-      }
-  </React.Fragment>
+          <SimpleGrid
+            columns={[1, 1, 1, 2, 3]}
+            spacing={15}
+            justifyItems="center"
+            paddingTop="30px"
+            h="80%"
+            overflowY="auto"
+            fontSize={Responsive.fontSizeResponsiveHead}
+          >
+            {languages.map((language: string) => (
+              <React.Fragment>
+                {checkedItems.includes(language) ? (
+                  <CustomCheckbox
+                    // Llamando a función hijo CustomCheckbox, se le pasa el arreglo de experiences
+                    {...{ value: `${language}`, isChecked: true }}
+                    // Función que en el Padre se llama handleCheckedItems, se pasa como onChange
+                    onChange={() => handleCheckedItems(language, true)}
+                  />
+                ) : (
+                  <CustomCheckbox
+                    {...{ value: `${language}`, isChecked: false }}
+                    onChange={() => handleCheckedItems(language, false)}
+                  />
+                )}
+              </React.Fragment>
+            ))}
+          </SimpleGrid>
+        </Box>
+      ) : (
+        <Skeleton w="65%" h="75%" p={10} borderRadius="10px" />
+      )}
+    </React.Fragment>
   );
 };
 export default Languages;
