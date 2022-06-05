@@ -31,7 +31,7 @@ const LateralMenu = (props: any) => {
   const intineraryS = ["meeting-point","end-point","stops","languages", "restrictions"]
   const whatsIncludedS = ["whats-included-general","whats-included-food","whats-included-transport", "whats-included-accessibility"]
   const accesibilityS = ["assistance","transportation","restrooms","places","equipment"]
-  let number: number;
+  let number: number | null;
   //console.log("Lateral Menu:",category)
 
   if (basicInformationS.includes(category)== true) 
@@ -43,7 +43,7 @@ const LateralMenu = (props: any) => {
   else if (accesibilityS.includes(category) ==true)
    { number = 4}
    else
-   {number = 0}
+   {number = 2}
 
   const {isOpen,onOpen,onClose}= useDisclosure()
 
@@ -138,7 +138,7 @@ const LateralMenu = (props: any) => {
                     </AccordionPanel>
                   </AccordionItem>
 
-                  <AccordionItem>
+                  <AccordionItem bg={category=="children-policy"?'#636e72':"#1e272e"}  onClick={onClose}>
                     <h2>
                       
                       <Link to="children-policy">
@@ -198,7 +198,7 @@ const LateralMenu = (props: any) => {
                       </Link>
 
                       <Link to="transportation">
-                        <Button colorScheme='white'  bg={category=="trasnsportation"?'#636e72':"#1e272e"} variant='ghost' height='30px' width='250px' justifyContent="flex-start">Transportation</Button>
+                        <Button colorScheme='white'  bg={category=="transportation"?'#636e72':"#1e272e"} variant='ghost' height='30px' width='250px' justifyContent="flex-start">Transportation</Button>
                       </Link>
 
                       <Link to="restrooms">
@@ -216,9 +216,8 @@ const LateralMenu = (props: any) => {
                     </AccordionPanel>
                   </AccordionItem>
                   
-                  <AccordionItem >
+                  <AccordionItem  bg={category=="faqs"?'#636e72':"#1e272e"}  onClick={onClose}>
                     <h2>
-
                       <Link to="faqs">
                         <AccordionButton>
                           <Box flex='1' textAlign='left'>
@@ -230,9 +229,8 @@ const LateralMenu = (props: any) => {
                     </h2>
                   </AccordionItem>
 
-                  <AccordionItem >
+                  <AccordionItem  bg={category=="cancelation-policy"?'#636e72':"#1e272e"}  onClick={onClose} >
                     <h2>
-
                       <Link to="cancelation-policy">
                         <AccordionButton>
                           <Box flex='1' textAlign='left'>

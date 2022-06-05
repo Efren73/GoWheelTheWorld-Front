@@ -53,13 +53,14 @@ const Summary: React.FC = () => {
       else return "Name fo the tour"
     }
   }
-  const initialRef = React.useRef<any>(null)
+  const intinerary = React.useRef<any>()
 
   return (
     <Box h ={{ base: '60%', md: '100%', sm:'100%' }} w={{ base: '25%', md: '25%', sm:'100%' }} 
     background="#1e272e" 
     borderRadius='10px' 
     borderColor={'black'} 
+    onFocus={()=>{return intinerary;}}
     paddingBottom='20px'>
       <Heading fontSize='20px' paddingLeft={22} paddingTop={5} color="#fff" paddingBottom={2}>
         Summary
@@ -135,7 +136,7 @@ const Summary: React.FC = () => {
             Itinerary
           </Text>
 
-          <Box borderRadius='10px' border='3px solid #89A1CD'  w='98%' padding='10px'  ref={initialRef}>
+          <Box ref={intinerary} borderRadius='10px' border='3px solid #89A1CD'  w='98%' padding='10px'>
               <HStack justifyContent="en" w="full">
                   <Image src={location} alt="Meeting point icon" w={25} h={25} m={0.5}/>
                 <Text color="#fff" fontSize={Responsive.fontSizeResponsiveHead}>
