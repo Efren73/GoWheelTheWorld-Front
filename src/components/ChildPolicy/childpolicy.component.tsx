@@ -95,8 +95,8 @@ const ChildPolicy: React.FC = () => {
     if (answer === "no") {
       return (
         <NumberInput
-          variant={numero ? 'filled' : 'outline'}
-          bg={numero ? '#F8F9F9' : '#fff'}
+          variant={numero ? "filled" : "outline"}
+          bg={numero ? "#F8F9F9" : "#fff"}
           borderRadius={5}
           width="20%"
           value={numero}
@@ -114,13 +114,13 @@ const ChildPolicy: React.FC = () => {
           <Grid column={2} columnGap={3} rowGap={6} w="full">
             <GridItem colSpan={2}>
               <Heading fontSize={Responsive.fontSizeResponsiveHead}>
-                  Additional questions
+                Additional questions
               </Heading>
             </GridItem>
 
             <GridItem colSpan={colSpan}>
               <Text fontSize={Responsive.fontSizeResponsiveHead}>
-                  From what age are children allowed?
+                From what age are children allowed?
               </Text>
             </GridItem>
 
@@ -192,52 +192,48 @@ const ChildPolicy: React.FC = () => {
 
   return (
     <React.Fragment>
-        {status === "succeeded" ?
-            (
-                <Box
-                boxShadow="md"
-                w={{ base: "65%", md: "70%", sm: "75%" }}
-                p={10}
-                background="#F8F9F9"
-                borderRadius="10px"
-                >
-                <Stack spacing={2}>
-                    <Text fontSize={Responsive.fontSizeResponsiveHead} color="#3F6FE4">
-                        Children Policy
-                    </Text>
-                    <Heading fontSize={Responsive.fontSizeResponsiveHead}>
-                        Tell us about children policy
-                    </Heading>
+      {status === "succeeded" ? (
+        <Box
+          boxShadow="md"
+          w={{ base: "65%", md: "70%", sm: "75%" }}
+          p={10}
+          background="#F8F9F9"
+          borderRadius="10px"
+        >
+          <Stack spacing={2}>
+            <Text fontSize={Responsive.fontSizeResponsiveHead} color="#3F6FE4">
+              Children Policy
+            </Text>
+            <Heading fontSize={Responsive.fontSizeResponsiveHead}>
+              Tell us about children policy
+            </Heading>
 
-                    <HStack w="full">
-                    <Text fontSize={Responsive.fontSizeResponsiveHead}>
-                        Are children allowed in this tour?
-                    </Text>
-                    <RadioGroup
-                        onChange={setValueQ1}
-                        value={valueQ1}
-                        defaultValue={valueQ1}
-                    >
-                        <Stack direction="row">
-                        <Radio bg="white" value="true" size="lg">
-                            Yes
-                        </Radio>
-                        <Radio bg="white" value="false" size="lg">
-                            No
-                        </Radio>
-                        </Stack>
-                    </RadioGroup>
-                    </HStack>
-
-                    <HStack>{addAnswer(valueQ1)}</HStack>
+            <HStack w="full">
+              <Text fontSize={Responsive.fontSizeResponsiveHead}>
+                Are children allowed in this tour?
+              </Text>
+              <RadioGroup
+                onChange={setValueQ1}
+                value={valueQ1}
+                defaultValue={valueQ1}
+              >
+                <Stack direction="row">
+                  <Radio bg="white" value="true" size="lg">
+                    Yes
+                  </Radio>
+                  <Radio bg="white" value="false" size="lg">
+                    No
+                  </Radio>
                 </Stack>
-                </Box>
-            )
-            :
-            (
-                <Skeleton w="65%" h="75%" p={10} borderRadius="10px" />
-            )
-        }
+              </RadioGroup>
+            </HStack>
+
+            <HStack>{addAnswer(valueQ1)}</HStack>
+          </Stack>
+        </Box>
+      ) : (
+        <Skeleton w="65%" h="75%" p={10} borderRadius="10px" />
+      )}
     </React.Fragment>
   );
 };

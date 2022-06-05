@@ -39,7 +39,7 @@ import {
 
 const Faqs: React.FC = () => {
   /* ALERT DIALOG ------------------------------*/
-  const cancelRef:  any = useRef()
+  const cancelRef: any = useRef();
 
   /* REDUX ------------------------------*/
   const dispatch = useAppDispatch();
@@ -92,7 +92,7 @@ const Faqs: React.FC = () => {
       {
         question: "",
         answer: "",
-        indexElement: questionAnswer.length
+        indexElement: questionAnswer.length,
       },
     ]);
   };
@@ -151,21 +151,18 @@ const Faqs: React.FC = () => {
   }
 
   function deleteQ() {
+    let newArray = [...questionAnswer];
+    newArray.splice(indexValue, 1);
 
-     let newArray = [...questionAnswer];
-     newArray.splice(indexValue, 1);
-
-    for(let i = 0; i<newArray.length; i++){
+    for (let i = 0; i < newArray.length; i++) {
       newArray[i] = {
         ...newArray[i],
-        indexElement: i
-      }
+        indexElement: i,
+      };
     }
-   
+
     setQuestionAnswer(newArray);
     onClose();
-
-
   }
 
   console.log("Faqs", questionAnswer);
@@ -192,168 +189,166 @@ const Faqs: React.FC = () => {
 
   return (
     <React.Fragment>
-        {status === "succeeded" ?
-            (
-                <Box
-                boxShadow="md"
-                w="65%"
-                p={10}
-                background="#F8F9F9"
-                borderRadius="10px"
-                >
-                <Stack spacing={2} marginBottom={15}>
-                    <Text color="#3F6FE4" fontSize={Responsive.fontSizeResponsiveHead}>
-                        FAQS
-                    </Text>
-                    <Heading fontSize={Responsive.fontSizeResponsiveBody}>
-                        Add your Frequently Asked Questions
-                    </Heading>
-                </Stack>
+      {status === "succeeded" ? (
+        <Box
+          boxShadow="md"
+          w="65%"
+          p={10}
+          background="#F8F9F9"
+          borderRadius="10px"
+        >
+          <Stack spacing={2} marginBottom={15}>
+            <Text color="#3F6FE4" fontSize={Responsive.fontSizeResponsiveHead}>
+              FAQS
+            </Text>
+            <Heading fontSize={Responsive.fontSizeResponsiveBody}>
+              Add your Frequently Asked Questions
+            </Heading>
+          </Stack>
 
-                <Stack overflowY="auto" w="full" justifyContent="flex-start">
-                    <Stack w="85%" justifyContent="start">
-                    <HStack justifyContent="flex-start" marginTop='20px'>
-                        <Checkbox
-                        background="#fff"
-                        _focus={{ background: "#000" }}
-                        size="lg"
-                        onChange={() => setCheck1(!check1)}
-                        />
-                        <Text fontSize={Responsive.fontSizeResponsiveHead}>
-                            Can I Park here?
-                        </Text>
+          <Stack overflowY="auto" w="full" justifyContent="flex-start">
+            <Stack w="85%" justifyContent="start">
+              <HStack justifyContent="flex-start" marginTop="20px">
+                <Checkbox
+                  background="#fff"
+                  _focus={{ background: "#000" }}
+                  size="lg"
+                  onChange={() => setCheck1(!check1)}
+                />
+                <Text fontSize={Responsive.fontSizeResponsiveHead}>
+                  Can I Park here?
+                </Text>
+              </HStack>
+              {check1 && addAnswer()}
+            </Stack>
+            <Stack>
+              <Button
+                marginTop="20px"
+                bg="#3F6FE4"
+                border=" 1px solid #000"
+                color="#fff"
+                borderRadius="20px"
+                onClick={addQuestionAnswer}
+                w="10%"
+                fontSize={Responsive.fontSizeResponsiveBody}
+              >
+                + Add
+              </Button>
+            </Stack>
+            <form onSubmit={handleSubmit}>
+              {questionAnswer && questionAnswer.length > 0 ? (
+                questionAnswer.map((x: any, index: any) => (
+                  <Stack w="100%" marginBottom={4}>
+                    <HStack>
+                      <Stack w="85%" marginTop="20px">
+                        <Heading fontSize={Responsive.fontSizeResponsiveHead}>
+                          Question {index + 1}
+                        </Heading>
+                        <Box>
+                          <Box>
+                            <Input
+                              variant={x.question ? "filled" : "outline"}
+                              placeholder="Question"
+                              value={x.question}
+                              onChange={(e: any) =>
+                                changeOneValue(e, index, "question")
+                              }
+                            />
+                            <Text color="#2F6FE4">
+                              {x.question ? x.question.length : 0}/200
+                            </Text>
+                          </Box>
+                          <Box>
+                            <Textarea
+                              variant={x.answer ? "filled" : "outline"}
+                              marginTop="10px"
+                              h="80px"
+                              placeholder="Answer"
+                              value={x.answer}
+                              onChange={(e: any) =>
+                                changeOneValue(e, index, "answer")
+                              }
+                            />
+                            <Text color="#2F6FE4">
+                              {x.answer ? x.answer.length : 0}/200
+                            </Text>
+                          </Box>
+                          <Flex justifyContent="flex-end">
+                            <Button
+                              variant="link"
+                              onClick={() => {
+                                onOpen();
+                                setIndex(x.indexElement);
+                              }}
+                              marginBottom="20px"
+                            >
+                              <DeleteIcon />
+                            </Button>
+                            <AlertDialog
+                              isOpen={isOpen}
+                              leastDestructiveRef={cancelRef}
+                              motionPreset="slideInBottom"
+                              onClose={onClose}
+                              isCentered
+                            >
+                              <AlertDialogOverlay>
+                                <AlertDialogContent>
+                                  <AlertDialogHeader
+                                    fontSize="lg"
+                                    fontWeight="bold"
+                                  >
+                                    Delete question
+                                  </AlertDialogHeader>
+
+                                  <AlertDialogBody>
+                                    Are you sure? You can't undo this action
+                                    afterwards.
+                                  </AlertDialogBody>
+
+                                  <AlertDialogFooter>
+                                    <Button ref={cancelRef} onClick={onClose}>
+                                      Cancel
+                                    </Button>
+                                    <Button
+                                      colorScheme="red"
+                                      onClick={() => deleteQ()}
+                                      ml={3}
+                                    >
+                                      Delete
+                                    </Button>
+                                  </AlertDialogFooter>
+                                </AlertDialogContent>
+                              </AlertDialogOverlay>
+                            </AlertDialog>
+                          </Flex>
+                        </Box>
+                      </Stack>
                     </HStack>
-                    {check1 && addAnswer()}
-                    </Stack>
-                    <Stack>
-                    <Button
-                        marginTop='20px'
-                        bg="#3F6FE4"
-                        border=" 1px solid #000"
-                        color="#fff"
-                        borderRadius="20px"
-                        onClick={addQuestionAnswer}
-                        w="10%"
-                        fontSize={Responsive.fontSizeResponsiveBody}
-                    >
-                        + Add
-                    </Button>
-                    </Stack>
-                    <form onSubmit={handleSubmit}>
-                        {questionAnswer && questionAnswer.length > 0 ?
-                            (
-                                questionAnswer.map((x: any, index: any) => (
-                                    <Stack w="100%" marginBottom={4}>
-                                        <HStack>
-                                        <Stack w="85%" marginTop='20px'>
-                                          <Heading
-                                            fontSize={Responsive.fontSizeResponsiveHead}
-                                          >
-                                            Question {index + 1}
-                                          </Heading>
-                                            <Box>
-                                            <Box>
-                                                <Input
-                                                variant={x.question ? 'filled' : 'outline'}
-                                                placeholder="Question"
-                                                value={x.question}
-                                                onChange={(e: any) =>
-                                                    changeOneValue(e, index, "question")
-                                                }
-                                                />
-                                                <Text color="#2F6FE4">
-                                                  {x.question ? x.question.length : 0}/200
-                                                </Text>
-                                            </Box>
-                                            <Box>
-                                                <Textarea
-                                                variant={x.answer ? 'filled' : 'outline'}
-                                                marginTop='10px'
-                                                h='80px'
-                                                placeholder="Answer"
-                                                value={x.answer}
-                                                onChange={(e: any) =>
-                                                    changeOneValue(e, index, "answer")
-                                                }
-                                                />
-                                                <Text color="#2F6FE4">
-                                                {x.answer ? x.answer.length : 0}/200
-                                                </Text>
-                                            </Box>
-                                            <Flex justifyContent="flex-end">
-                                                <Button
-                                                variant="link"
-                                                onClick={() => {
-                                                  onOpen();
-                                                  setIndex(x.indexElement)
-                                                }}
-                                                marginBottom="20px"
-                                                >
-                                                  <DeleteIcon />
-                                                </Button>
-                                                <AlertDialog
-                                                  isOpen={isOpen}
-                                                  leastDestructiveRef={cancelRef}
-                                                  motionPreset='slideInBottom'
-                                                  onClose={onClose}
-                                                  isCentered
-                                                >
-                                              <AlertDialogOverlay>
-                                              <AlertDialogContent>
-                                                <AlertDialogHeader fontSize='lg' fontWeight='bold'>
-                                                  Delete question
-                                                </AlertDialogHeader>
+                  </Stack>
+                ))
+              ) : (
+                <p></p>
+              )}
+            </form>
+          </Stack>
 
-                                                <AlertDialogBody>
-                                                  Are you sure? You can't undo this action afterwards.
-                                                </AlertDialogBody>
+          <Box w="full"></Box>
 
-                                                <AlertDialogFooter>
-                                                  <Button ref={cancelRef} onClick={onClose}>
-                                                    Cancel
-                                                  </Button>
-                                                  <Button colorScheme='red' onClick={() => deleteQ()} ml={3} >
-                                                    Delete
-                                                  </Button>
-                                                </AlertDialogFooter>
-                                              </AlertDialogContent>
-                                            </AlertDialogOverlay>
-                                            </AlertDialog>
-                                            </Flex>
-                                            </Box>
-                                        </Stack>
-                                        </HStack>
-                                    </Stack>
-                                ))
-                            )
-                            :
-                            (
-                                <p></p>
-                            )
-                        }
-                    </form>
-                </Stack>
+          <Box w="full">
+            <HStack justifyContent="flex-end">
+              <Button variant="link">
+                <Text color="#2F6FE4" as="u">
+                  Show examples
+                </Text>
+              </Button>
+            </HStack>
+          </Box>
+        </Box>
+      ) : (
+        <Skeleton w="65%" h="75%" p={10} borderRadius="10px" />
+      )}
 
-                <Box w="full"></Box>
-
-                <Box w="full">
-                    <HStack justifyContent="flex-end">
-                    <Button variant="link" >
-                        <Text color="#2F6FE4" as="u">
-                            Show examples
-                        </Text>
-                    </Button>
-                    </HStack>
-                </Box>
-                </Box>
-            )
-            :
-            (
-                <Skeleton w="65%" h="75%" p={10} borderRadius="10px" />
-            )
-        }
-
-        {/* <Modal
+      {/* <Modal
             onClose={onClose}
             size="xl"
             isOpen={isOpen}

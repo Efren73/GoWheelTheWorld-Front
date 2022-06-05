@@ -22,8 +22,7 @@ import {
 } from "../../reducers/appSlice";
 
 function CustomCheckbox(props: any) {
-  const { getCheckboxProps, getInputProps, getLabelProps } =
-    useCheckbox(props);
+  const { getCheckboxProps, getInputProps, getLabelProps } = useCheckbox(props);
 
   // Arreglo de strings para guardar los checkboxes seleccionados
   const [checkedItems, setCheckedItems] = useState<boolean>(props.isChecked);
@@ -146,51 +145,53 @@ const Restrictions: React.FC = () => {
 
   return (
     <React.Fragment>
-      {status === "succeeded" ?
-        (
-          <Box boxShadow="md" w="65%" p={10} background="#F8F9F9" borderRadius="10px">
-            <Stack spacing={2}>
-              <Text fontSize={Responsive.fontSizeResponsiveHead} color="#3F6FE4">
-                Itinerary / Restrictions
-              </Text>
-              <Heading fontSize={Responsive.fontSizeResponsiveBody}>
-                Select the restrictions on this tour
-              </Heading>
-            </Stack>
+      {status === "succeeded" ? (
+        <Box
+          boxShadow="md"
+          w="65%"
+          p={10}
+          background="#F8F9F9"
+          borderRadius="10px"
+        >
+          <Stack spacing={2}>
+            <Text fontSize={Responsive.fontSizeResponsiveHead} color="#3F6FE4">
+              Itinerary / Restrictions
+            </Text>
+            <Heading fontSize={Responsive.fontSizeResponsiveBody}>
+              Select the restrictions on this tour
+            </Heading>
+          </Stack>
 
-            <Stack pl={6} mt={1} spacing={2}>
-              {restrictions.map((restriction: string) => (
-                <React.Fragment>
-                  {checkedItems.includes(restriction) ? ( //GET REGRESA ALGO
-                    <CustomCheckbox
-                      {...{
-                        value: `${restriction}`,
-                        isChecked: true,
-                        isDisabled: false,
-                      }}
-                      onChange={() => handleCheckedItems(restriction, true)}
-                    />
-                  ) : (
-                    // GET NO REGRESA NADA
-                    <CustomCheckbox
-                      {...{
-                        value: `${restriction}`,
-                        isChecked: false,
-                        isDisabled: false,
-                      }}
-                      onChange={() => handleCheckedItems(restriction, false)}
-                    />
-                  )}
-                </React.Fragment>
-              ))}
-            </Stack>
-          </Box>
-        )
-        :
-        (
-          <Skeleton w="65%" h="75%" p={10} borderRadius="10px" />
-        )
-      }
+          <Stack pl={6} mt={1} spacing={2}>
+            {restrictions.map((restriction: string) => (
+              <React.Fragment>
+                {checkedItems.includes(restriction) ? ( //GET REGRESA ALGO
+                  <CustomCheckbox
+                    {...{
+                      value: `${restriction}`,
+                      isChecked: true,
+                      isDisabled: false,
+                    }}
+                    onChange={() => handleCheckedItems(restriction, true)}
+                  />
+                ) : (
+                  // GET NO REGRESA NADA
+                  <CustomCheckbox
+                    {...{
+                      value: `${restriction}`,
+                      isChecked: false,
+                      isDisabled: false,
+                    }}
+                    onChange={() => handleCheckedItems(restriction, false)}
+                  />
+                )}
+              </React.Fragment>
+            ))}
+          </Stack>
+        </Box>
+      ) : (
+        <Skeleton w="65%" h="75%" p={10} borderRadius="10px" />
+      )}
     </React.Fragment>
   );
 };
