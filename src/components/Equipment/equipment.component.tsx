@@ -102,222 +102,218 @@ function Equipment(props: IEquipment): JSX.Element {
       })
     );
   }, [equipment]);
-  
+
   return (
     <React.Fragment>
-        {status === "succeeded" ? 
-            (
-                <Box
-                boxShadow="md"
-                w="65%"
-                p={20}
-                background="#F8F9F9"
-                borderRadius="10px"
+      {status === "succeeded" ? (
+        <Box
+          boxShadow="md"
+          w="65%"
+          p={20}
+          background="#F8F9F9"
+          borderRadius="10px"
+        >
+          <VStack alignItems="flex-start" w="full" h="full">
+            <Text fontSize={Responsive.fontSizeResponsiveHead} color="#3F6FE4">
+              Accessibility / Equipment
+            </Text>
+            <Heading fontSize={Responsive.fontSizeResponsiveBody}>
+              Equipment
+            </Heading>
+            <HStack justifyContent="flex-end" w="full">
+              <HStack w="14%" spacing={31}>
+                <Text
+                  color="#4F6FE4"
+                  fontSize={Responsive.fontSizeResponsiveHead}
                 >
-                <VStack alignItems="flex-start" w="full" h="full">
-                    <Text fontSize={Responsive.fontSizeResponsiveHead} color="#3F6FE4">
-                      Accessibility / Equipment
-                    </Text>
-                    <Heading fontSize={Responsive.fontSizeResponsiveBody}>
-                        Equipment
-                    </Heading>
-                    <HStack justifyContent="flex-end" w="full">
-                    <HStack w="14%" spacing={31}>
-                        <Text
-                        color="#4F6FE4"
-                        fontSize={Responsive.fontSizeResponsiveHead}
-                        >
-                          Yes
-                        </Text>
-                        <Text
-                        color="#4F6FE4"
-                        fontSize={Responsive.fontSizeResponsiveHead}
-                        >
-                          No
-                        </Text>
-                    </HStack>
-                    </HStack>
-                    <TableContainer w="full" h="80%" overflowY="auto">
-                    <Table bg="white" borderRadius={10}>
-                        <Tbody>
-                        <Tr fontSize={Responsive.fontSizeResponsiveHead}>
-                            <Td>
-                                Is adaptive equipment included in this tour/activity?
-                            </Td>
-                            <Td>
-                            <RadioGroup value={equipment[0].answer}>
-                                <HStack spacing={8} justifyContent="flex-end">
-                                <Radio
-                                    value="yes"
-                                    border="1px"
-                                    borderColor="#2F6FE4"
-                                    onChange={(e: any) => changeValue(e, 0)}
-                                ></Radio>
-                                <Radio
-                                    value="no"
-                                    border="1px"
-                                    borderColor="#2F6FE4"
-                                    onChange={(e: any) => changeValue(e, 0)}
-                                ></Radio>
-                                </HStack>
-                            </RadioGroup>
-                            </Td>
-                        </Tr>
-                        <Tr fontSize={Responsive.fontSizeResponsiveHead}>
-                            <Td>
-                                Adaptive equipment is included and can be used
-                                independently
-                            </Td>
-                            <Td>
-                            <RadioGroup value={equipment[1].answer}>
-                                <HStack spacing={8} justifyContent="flex-end">
-                                <Radio
-                                    value="yes"
-                                    border="1px"
-                                    borderColor="#2F6FE4"
-                                    onChange={(e: any) => changeValue(e, 1)}
-                                ></Radio>
-                                <Radio
-                                    value="no"
-                                    border="1px"
-                                    borderColor="#2F6FE4"
-                                    onChange={(e: any) => changeValue(e, 1)}
-                                ></Radio>
-                                </HStack>
-                            </RadioGroup>
-                            </Td>
-                        </Tr>
-                        <Tr fontSize={Responsive.fontSizeResponsiveHead}>
-                            <Td>
-                                Adaptive equipment is included and can be used
-                                independently or assisted
-                            </Td>
-                            <Td>
-                            <RadioGroup value={equipment[2].answer}>
-                                <HStack spacing={8} justifyContent="flex-end">
-                                <Radio
-                                    value="yes"
-                                    border="1px"
-                                    borderColor="#2F6FE4"
-                                    onChange={(e: any) => changeValue(e, 2)}
-                                ></Radio>
-                                <Radio
-                                    value="no"
-                                    border="1px"
-                                    borderColor="#2F6FE4"
-                                    onChange={(e: any) => changeValue(e, 2)}
-                                ></Radio>
-                                </HStack>
-                            </RadioGroup>
-                            </Td>
-                        </Tr>
-                        <Tr fontSize={Responsive.fontSizeResponsiveHead}>
-                            <Td>
-                                Adaptive equipment is included and one person assisting is
-                                needed
-                            </Td>
-                            <Td>
-                            <RadioGroup value={equipment[3].answer}>
-                                <HStack spacing={8} justifyContent="flex-end">
-                                <Radio
-                                    value="yes"
-                                    border="1px"
-                                    borderColor="#2F6FE4"
-                                    onChange={(e: any) => changeValue(e, 3)}
-                                ></Radio>
-                                <Radio
-                                    value="no"
-                                    border="1px"
-                                    borderColor="#2F6FE4"
-                                    onChange={(e: any) => changeValue(e, 3)}
-                                ></Radio>
-                                </HStack>
-                            </RadioGroup>
-                            </Td>
-                        </Tr>
-                        <Tr fontSize={Responsive.fontSizeResponsiveHead}>
-                            <Td>
-                                Adaptive equipment is included and two people assisting
-                                are needed
-                            </Td>
-                            <Td>
-                            <RadioGroup value={equipment[4].answer}>
-                                <HStack spacing={8} justifyContent="flex-end">
-                                <Radio
-                                    value="yes"
-                                    border="1px"
-                                    borderColor="#2F6FE4"
-                                    onChange={(e: any) => changeValue(e, 4)}
-                                ></Radio>
-                                <Radio
-                                    value="no"
-                                    border="1px"
-                                    borderColor="#2F6FE4"
-                                    onChange={(e: any) => changeValue(e, 4)}
-                                ></Radio>
-                                </HStack>
-                            </RadioGroup>
-                            </Td>
-                        </Tr>
-                        <Tr fontSize={Responsive.fontSizeResponsiveHead}>
-                            <Td>
-                                Adaptive equipment is included and three or more people
-                                assisting are needed
-                            </Td>
-                            <Td>
-                            <RadioGroup value={equipment[5].answer}>
-                                <HStack spacing={8} justifyContent="flex-end">
-                                <Radio
-                                    value="yes"
-                                    border="1px"
-                                    borderColor="#2F6FE4"
-                                    onChange={(e: any) => changeValue(e, 5)}
-                                ></Radio>
-                                <Radio
-                                    value="no"
-                                    border="1px"
-                                    borderColor="#2F6FE4"
-                                    onChange={(e: any) => changeValue(e, 5)}
-                                ></Radio>
-                                </HStack>
-                            </RadioGroup>
-                            </Td>
-                        </Tr>
-                        <Tr fontSize={Responsive.fontSizeResponsiveHead}>
-                            <Td>
-                                Optional adaptive equipment is included and can be used
-                                independently
-                            </Td>
-                            <Td>
-                            <RadioGroup value={equipment[6].answer}>
-                                <HStack spacing={8} justifyContent="flex-end">
-                                <Radio
-                                    value="yes"
-                                    border="1px"
-                                    borderColor="#2F6FE4"
-                                    onChange={(e: any) => changeValue(e, 6)}
-                                ></Radio>
-                                <Radio
-                                    value="no"
-                                    border="1px"
-                                    borderColor="#2F6FE4"
-                                    onChange={(e: any) => changeValue(e, 6)}
-                                ></Radio>
-                                </HStack>
-                            </RadioGroup>
-                            </Td>
-                        </Tr>
-                        </Tbody>
-                    </Table>
-                    </TableContainer>
-                </VStack>
-                </Box>
-            )
-            :
-            (
-                <Skeleton w="65%" h="75%" p={10} borderRadius="10px" />
-            )
-        }
+                  Yes
+                </Text>
+                <Text
+                  color="#4F6FE4"
+                  fontSize={Responsive.fontSizeResponsiveHead}
+                >
+                  No
+                </Text>
+              </HStack>
+            </HStack>
+            <TableContainer w="full" h="80%" overflowY="auto">
+              <Table bg="white" borderRadius={10}>
+                <Tbody>
+                  <Tr fontSize={Responsive.fontSizeResponsiveHead}>
+                    <Td>
+                      Is adaptive equipment included in this tour/activity?
+                    </Td>
+                    <Td>
+                      <RadioGroup value={equipment[0].answer}>
+                        <HStack spacing={8} justifyContent="flex-end">
+                          <Radio
+                            value="yes"
+                            border="1px"
+                            borderColor="#2F6FE4"
+                            onChange={(e: any) => changeValue(e, 0)}
+                          ></Radio>
+                          <Radio
+                            value="no"
+                            border="1px"
+                            borderColor="#2F6FE4"
+                            onChange={(e: any) => changeValue(e, 0)}
+                          ></Radio>
+                        </HStack>
+                      </RadioGroup>
+                    </Td>
+                  </Tr>
+                  <Tr fontSize={Responsive.fontSizeResponsiveHead}>
+                    <Td>
+                      Adaptive equipment is included and can be used
+                      independently
+                    </Td>
+                    <Td>
+                      <RadioGroup value={equipment[1].answer}>
+                        <HStack spacing={8} justifyContent="flex-end">
+                          <Radio
+                            value="yes"
+                            border="1px"
+                            borderColor="#2F6FE4"
+                            onChange={(e: any) => changeValue(e, 1)}
+                          ></Radio>
+                          <Radio
+                            value="no"
+                            border="1px"
+                            borderColor="#2F6FE4"
+                            onChange={(e: any) => changeValue(e, 1)}
+                          ></Radio>
+                        </HStack>
+                      </RadioGroup>
+                    </Td>
+                  </Tr>
+                  <Tr fontSize={Responsive.fontSizeResponsiveHead}>
+                    <Td>
+                      Adaptive equipment is included and can be used
+                      independently or assisted
+                    </Td>
+                    <Td>
+                      <RadioGroup value={equipment[2].answer}>
+                        <HStack spacing={8} justifyContent="flex-end">
+                          <Radio
+                            value="yes"
+                            border="1px"
+                            borderColor="#2F6FE4"
+                            onChange={(e: any) => changeValue(e, 2)}
+                          ></Radio>
+                          <Radio
+                            value="no"
+                            border="1px"
+                            borderColor="#2F6FE4"
+                            onChange={(e: any) => changeValue(e, 2)}
+                          ></Radio>
+                        </HStack>
+                      </RadioGroup>
+                    </Td>
+                  </Tr>
+                  <Tr fontSize={Responsive.fontSizeResponsiveHead}>
+                    <Td>
+                      Adaptive equipment is included and one person assisting is
+                      needed
+                    </Td>
+                    <Td>
+                      <RadioGroup value={equipment[3].answer}>
+                        <HStack spacing={8} justifyContent="flex-end">
+                          <Radio
+                            value="yes"
+                            border="1px"
+                            borderColor="#2F6FE4"
+                            onChange={(e: any) => changeValue(e, 3)}
+                          ></Radio>
+                          <Radio
+                            value="no"
+                            border="1px"
+                            borderColor="#2F6FE4"
+                            onChange={(e: any) => changeValue(e, 3)}
+                          ></Radio>
+                        </HStack>
+                      </RadioGroup>
+                    </Td>
+                  </Tr>
+                  <Tr fontSize={Responsive.fontSizeResponsiveHead}>
+                    <Td>
+                      Adaptive equipment is included and two people assisting
+                      are needed
+                    </Td>
+                    <Td>
+                      <RadioGroup value={equipment[4].answer}>
+                        <HStack spacing={8} justifyContent="flex-end">
+                          <Radio
+                            value="yes"
+                            border="1px"
+                            borderColor="#2F6FE4"
+                            onChange={(e: any) => changeValue(e, 4)}
+                          ></Radio>
+                          <Radio
+                            value="no"
+                            border="1px"
+                            borderColor="#2F6FE4"
+                            onChange={(e: any) => changeValue(e, 4)}
+                          ></Radio>
+                        </HStack>
+                      </RadioGroup>
+                    </Td>
+                  </Tr>
+                  <Tr fontSize={Responsive.fontSizeResponsiveHead}>
+                    <Td>
+                      Adaptive equipment is included and three or more people
+                      assisting are needed
+                    </Td>
+                    <Td>
+                      <RadioGroup value={equipment[5].answer}>
+                        <HStack spacing={8} justifyContent="flex-end">
+                          <Radio
+                            value="yes"
+                            border="1px"
+                            borderColor="#2F6FE4"
+                            onChange={(e: any) => changeValue(e, 5)}
+                          ></Radio>
+                          <Radio
+                            value="no"
+                            border="1px"
+                            borderColor="#2F6FE4"
+                            onChange={(e: any) => changeValue(e, 5)}
+                          ></Radio>
+                        </HStack>
+                      </RadioGroup>
+                    </Td>
+                  </Tr>
+                  <Tr fontSize={Responsive.fontSizeResponsiveHead}>
+                    <Td>
+                      Optional adaptive equipment is included and can be used
+                      independently
+                    </Td>
+                    <Td>
+                      <RadioGroup value={equipment[6].answer}>
+                        <HStack spacing={8} justifyContent="flex-end">
+                          <Radio
+                            value="yes"
+                            border="1px"
+                            borderColor="#2F6FE4"
+                            onChange={(e: any) => changeValue(e, 6)}
+                          ></Radio>
+                          <Radio
+                            value="no"
+                            border="1px"
+                            borderColor="#2F6FE4"
+                            onChange={(e: any) => changeValue(e, 6)}
+                          ></Radio>
+                        </HStack>
+                      </RadioGroup>
+                    </Td>
+                  </Tr>
+                </Tbody>
+              </Table>
+            </TableContainer>
+          </VStack>
+        </Box>
+      ) : (
+        <Skeleton w="65%" h="75%" p={10} borderRadius="10px" />
+      )}
     </React.Fragment>
   );
 }
