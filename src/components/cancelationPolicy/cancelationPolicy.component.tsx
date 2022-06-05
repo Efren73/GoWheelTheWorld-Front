@@ -69,17 +69,20 @@ const CancelationPolicy: React.FC = () => {
                         Cancelation policy
                     </Text>
                     <Heading fontSize={Responsive.fontSizeResponsiveBody}>
-                        Cancelation policy
+                      Tell us about cancelation policy
                     </Heading>
                     <Box w="full">
                     <Textarea
+                        variant={value1 ? 'filled' : 'outline'}
                         h="200px"
                         placeholder="Cancelation policy"
-                        background="#fff"
                         onChange={handleInputLink}
                         value={value1}
                         fontSize={Responsive.fontSizeResponsiveHead}
                     />
+                    <Text fontSize={Responsive.fontSizeResponsiveHead} color="#2F6FE4">
+                          {value1 ? value1.length : 0}/999
+                        </Text>
                     </Box>
                 </Stack>
                 </Box>

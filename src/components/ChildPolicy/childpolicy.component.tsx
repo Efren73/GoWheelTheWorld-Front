@@ -95,7 +95,8 @@ const ChildPolicy: React.FC = () => {
     if (answer == "no") {
       return (
         <NumberInput
-          background="white"
+          variant={numero ? 'filled' : 'outline'}
+          bg={numero ? '#F8F9F9' : '#fff'}
           borderRadius={5}
           width="20%"
           value={numero}

@@ -75,8 +75,7 @@ const Price: React.FC = () => {
                         $USD
                     </Text>
                     <NumberInput
-                    background="white"
-                    borderRadius={10}
+                    variant={price ? 'filled' : 'outline'}
                     onChange={(cost: any) => setPrice(cost)}
                     value={price}
                     >

@@ -80,8 +80,7 @@ const EndPoint: React.FC = () => {
               </Stack>
 
               <Input
-                background={"white"}
-                variant="outline"
+                variant={value ? 'filled' : 'outline'}
                 h="30px"
                 fontSize={Responsive.fontSizeResponsiveHead}
                 required

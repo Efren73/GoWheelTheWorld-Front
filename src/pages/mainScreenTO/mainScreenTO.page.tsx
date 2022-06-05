@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import {
   Text,
   VStack,
@@ -13,6 +13,13 @@ import {
   Box,
   IconButton,
   useBreakpointValue,
+  useDisclosure,
+  AlertDialog,
+  AlertDialogOverlay,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogBody,
+  AlertDialogFooter,
 } from "@chakra-ui/react";
 import { DeleteIcon } from '@chakra-ui/icons';
 import { IMainScreenTO } from './mainScreenTO.types';
@@ -26,6 +33,10 @@ import axios from 'axios';
 import {links} from '../../reducers/appSlice'
 
 function MainScreenTO(props: IMainScreenTO): JSX.Element {
+  /* ALERT DIALOG ------------------------------*/
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const cancelRef:  any = useRef()
+
   const navigate = useNavigate()
 
   function cambiarPag(idTour: string){
@@ -53,6 +64,7 @@ function MainScreenTO(props: IMainScreenTO): JSX.Element {
   }
 
   function deleteTour(event: any, idTour: any){
+    onOpen();
     event.preventDefault()
     const url = `https://api-things-to-do.herokuapp.com/tour-operator/delete-tour/${idTour}`
       axios.put(url, {})
@@ -64,7 +76,6 @@ function MainScreenTO(props: IMainScreenTO): JSX.Element {
           .catch((error)=>{
             console.log(error)
           })
-        
   }
   const tamanoBox = useBreakpointValue({ base: '', md: '80%', lg: '80%' })
   const spacing = useBreakpointValue({ base: '-4', md: '', lg: '-4' })
@@ -166,29 +177,79 @@ function MainScreenTO(props: IMainScreenTO): JSX.Element {
               <Heading marginBottom={5}> Tour registered </Heading>
               {
                 tours.map((tourInfo: any) => {
-                  return(
+                  return (
                     <VStack alignItems="flex-start" spacing={spacing}>
-                       <Text>{tourInfo.basicInformation.tourName}</Text>
-                <HStack w="full" spacing={6}>
-                  <HStack w="full">
-                    <Slider defaultValue={30} isReadOnly={true}>
-                      <SliderTrack>
-                        <SliderFilledTrack />
-                      </SliderTrack>
-                    </Slider>
-                    <Text color="#2F6FE4"> 30% </Text>
-                  </HStack>
-                  <Button onClick = {() => goToTour(tourInfo.id)} size={botonContinue} bg="#2F6FE4" color="white" fontSize={fSBContinue}> Continue </Button>
-                  <IconButton
-                    variant='outline'
-                    aria-label='eliminar'
-                    size={botonContinue}
-                    icon={<DeleteIcon w={6} h={6}
-                    onClick={(e) => deleteTour(e, tourInfo.id)}/>}
-                  />
-                </HStack>
-              </VStack>
-                  )
+                      <Text>{tourInfo.basicInformation.tourName}</Text>
+                      <HStack w="full" spacing={6}>
+                        <HStack w="full">
+                          <Slider defaultValue={30} isReadOnly={true}>
+                            <SliderTrack>
+                              <SliderFilledTrack />
+                            </SliderTrack>
+                          </Slider>
+                          <Text color="#2F6FE4"> 30% </Text>
+                        </HStack>
+                        <Button
+                          onClick={() => goToTour(tourInfo.id)}
+                          size={botonContinue}
+                          bg="#2F6FE4"
+                          color="white"
+                          fontSize={fSBContinue}
+                        >
+                          {" "}
+                          Continue{" "}
+                        </Button>
+                        <IconButton
+                          variant="outline"
+                          aria-label="eliminar"
+                          size={botonContinue}
+                          icon={
+                            <DeleteIcon
+                              w={6}
+                              h={6}
+                              onClick={(e: any) => deleteTour(e, tourInfo.id)}
+                            />
+                          }
+                        />
+                        <AlertDialog
+                          isOpen={isOpen}
+                          leastDestructiveRef={cancelRef}
+                          motionPreset='slideInBottom'
+                          onClose={onClose}
+                          isCentered
+                        >
+                          <AlertDialogOverlay>
+                            <AlertDialogContent>
+                              <AlertDialogHeader
+                                fontSize="lg"
+                                fontWeight="bold"
+                              >
+                                Delete tour/activity
+                              </AlertDialogHeader>
+
+                              <AlertDialogBody>
+                                Are you sure? You can't undo this action
+                                afterwards.
+                              </AlertDialogBody>
+
+                              <AlertDialogFooter>
+                                <Button ref={cancelRef} onClick={onClose}>
+                                  Cancel
+                                </Button>
+                                <Button
+                                  colorScheme="red"
+                                  onClick={onClose}
+                                  ml={3}
+                                >
+                                  Delete
+                                </Button>
+                              </AlertDialogFooter>
+                            </AlertDialogContent>
+                          </AlertDialogOverlay>
+                        </AlertDialog>
+                      </HStack>
+                    </VStack>
+                  );
                 })
               }
             </Box>

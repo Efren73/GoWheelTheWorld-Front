@@ -1,6 +1,5 @@
 import * as React from "react";
-import { useState, useEffect } from "react";
-import { Flex, Skeleton, useDisclosure } from "@chakra-ui/react";
+import { useState, useEffect, useRef } from "react";
 import {
   Text,
   HStack,
@@ -16,6 +15,16 @@ import {
   ModalBody,
   ModalFooter,
   Heading,
+  Skeleton,
+  AlertDialog,
+  AlertDialogOverlay,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogBody,
+  AlertDialogFooter,
+  Flex,
+  Textarea,
+  useDisclosure,
 } from "@chakra-ui/react";
 
 import { DeleteIcon } from "@chakra-ui/icons";
@@ -29,6 +38,10 @@ import {
 } from "../../reducers/appSlice";
 
 const Faqs: React.FC = () => {
+  /* ALERT DIALOG ------------------------------*/
+  const cancelRef:  any = useRef()
+
+  /* REDUX ------------------------------*/
   const dispatch = useAppDispatch();
   const tour = useAppSelector(selectAllTours);
   const status = useAppSelector(getTourStatus);
@@ -44,6 +57,8 @@ const Faqs: React.FC = () => {
   let [characters, setCharacters] = useState(0);
   //Valor que se encuentra en el input para contar caracteres
   let inputValue: any;
+
+  let [indexValue, setIndex] = useState(0);
 
   //Función cada vez que el contenido del texto cambie
   let handleInputChange = (e: any) => {
@@ -77,6 +92,7 @@ const Faqs: React.FC = () => {
       {
         question: "",
         answer: "",
+        indexElement: questionAnswer.length
       },
     ]);
   };
@@ -116,7 +132,9 @@ const Faqs: React.FC = () => {
   //El valor newArray[3] hace referencia a la cantidad de caracteres de la respuesta
   function changeOneValue(e: any, index: any, type: any) {
     let newArray = [...questionAnswer];
-    if (e.target.value.length <= 80) {
+    inputValue = e.target.value;
+
+    if (e.target.value.length <= 200) {
       if (type === "question") {
         newArray[index] = {
           ...questionAnswer[index],
@@ -132,10 +150,22 @@ const Faqs: React.FC = () => {
     setQuestionAnswer(newArray);
   }
 
-  function deleteQ(e: any, index: any) {
-    let newArray = [...questionAnswer];
-    newArray.splice(index, 1);
+  function deleteQ() {
+
+     let newArray = [...questionAnswer];
+     newArray.splice(indexValue, 1);
+
+    for(let i = 0; i<newArray.length; i++){
+      newArray[i] = {
+        ...newArray[i],
+        indexElement: i
+      }
+    }
+   
     setQuestionAnswer(newArray);
+    onClose();
+
+
   }
 
   console.log("Faqs", questionAnswer);
@@ -182,7 +212,7 @@ const Faqs: React.FC = () => {
 
                 <Stack overflowY="auto" w="full" justifyContent="flex-start">
                     <Stack w="85%" justifyContent="start">
-                    <HStack justifyContent="flex-start">
+                    <HStack justifyContent="flex-start" marginTop='20px'>
                         <Checkbox
                         background="#fff"
                         _focus={{ background: "#000" }}
@@ -197,6 +227,7 @@ const Faqs: React.FC = () => {
                     </Stack>
                     <Stack>
                     <Button
+                        marginTop='20px'
                         bg="#3F6FE4"
                         border=" 1px solid #000"
                         color="#fff"
@@ -214,43 +245,80 @@ const Faqs: React.FC = () => {
                                 questionAnswer.map((x: any, index: any) => (
                                     <Stack w="100%" marginBottom={4}>
                                         <HStack>
-                                        <Stack w="85%">
-                                            <Text>Question {index + 1}</Text>
+                                        <Stack w="85%" marginTop='20px'>
+                                          <Heading
+                                            fontSize={Responsive.fontSizeResponsiveHead}
+                                          >
+                                            Question {index + 1}
+                                          </Heading>
                                             <Box>
                                             <Box>
                                                 <Input
+                                                variant={x.question ? 'filled' : 'outline'}
                                                 placeholder="Question"
-                                                bg="#fff"
                                                 value={x.question}
                                                 onChange={(e: any) =>
                                                     changeOneValue(e, index, "question")
                                                 }
                                                 />
                                                 <Text color="#2F6FE4">
-                                                  {x.question ? x.question.length : 0}/80
+                                                  {x.question ? x.question.length : 0}/200
                                                 </Text>
                                             </Box>
                                             <Box>
-                                                <Input
+                                                <Textarea
+                                                variant={x.answer ? 'filled' : 'outline'}
+                                                marginTop='10px'
+                                                h='80px'
                                                 placeholder="Answer"
                                                 value={x.answer}
-                                                bg="#fff"
                                                 onChange={(e: any) =>
                                                     changeOneValue(e, index, "answer")
                                                 }
                                                 />
                                                 <Text color="#2F6FE4">
-                                                {x.answer ? x.answer.length : 0}/80
+                                                {x.answer ? x.answer.length : 0}/200
                                                 </Text>
                                             </Box>
                                             <Flex justifyContent="flex-end">
                                                 <Button
                                                 variant="link"
-                                                onClick={(e: any) => deleteQ(e, index)}
+                                                onClick={() => {
+                                                  onOpen();
+                                                  setIndex(x.indexElement)
+                                                }}
                                                 marginBottom="20px"
                                                 >
-                                                <DeleteIcon />
+                                                  <DeleteIcon />
                                                 </Button>
+                                                <AlertDialog
+                                                  isOpen={isOpen}
+                                                  leastDestructiveRef={cancelRef}
+                                                  motionPreset='slideInBottom'
+                                                  onClose={onClose}
+                                                  isCentered
+                                                >
+                                              <AlertDialogOverlay>
+                                              <AlertDialogContent>
+                                                <AlertDialogHeader fontSize='lg' fontWeight='bold'>
+                                                  Delete question
+                                                </AlertDialogHeader>
+
+                                                <AlertDialogBody>
+                                                  Are you sure? You can't undo this action afterwards.
+                                                </AlertDialogBody>
+
+                                                <AlertDialogFooter>
+                                                  <Button ref={cancelRef} onClick={onClose}>
+                                                    Cancel
+                                                  </Button>
+                                                  <Button colorScheme='red' onClick={() => deleteQ()} ml={3} >
+                                                    Delete
+                                                  </Button>
+                                                </AlertDialogFooter>
+                                              </AlertDialogContent>
+                                            </AlertDialogOverlay>
+                                            </AlertDialog>
                                             </Flex>
                                             </Box>
                                         </Stack>
@@ -270,7 +338,7 @@ const Faqs: React.FC = () => {
 
                 <Box w="full">
                     <HStack justifyContent="flex-end">
-                    <Button variant="link" onClick={onOpen}>
+                    <Button variant="link" >
                         <Text color="#2F6FE4" as="u">
                             Show examples
                         </Text>
@@ -285,7 +353,7 @@ const Faqs: React.FC = () => {
             )
         }
 
-        <Modal
+        {/* <Modal
             onClose={onClose}
             size="xl"
             isOpen={isOpen}
@@ -308,7 +376,7 @@ const Faqs: React.FC = () => {
                 <Button onClick={onClose}>Close</Button>
             </ModalFooter>
             </ModalContent>
-        </Modal>
+        </Modal> */}
     </React.Fragment>
   );
 };

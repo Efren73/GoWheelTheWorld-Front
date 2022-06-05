@@ -124,20 +124,6 @@ const LateralMenu = (props: any) => {
 
                   <AccordionItem>
                     <h2>
-                      
-                      <Link to="children-policy">
-                        <AccordionButton>
-                          <Box flex='1' textAlign='left'>
-                          Children Policy
-                          </Box>
-                        </AccordionButton>
-                      </Link>
-
-                    </h2>
-                  </AccordionItem>
-
-                  <AccordionItem>
-                    <h2>
                       <AccordionButton>
                       <AccordionIcon />
                         <Box flex='1' textAlign='left'>
@@ -206,7 +192,21 @@ const LateralMenu = (props: any) => {
                       <Link to="faqs">
                         <AccordionButton>
                           <Box flex='1' textAlign='left'>
-                            FAQ
+                            FAQs
+                          </Box>
+                        </AccordionButton>
+                      </Link>
+
+                    </h2>
+                  </AccordionItem>
+
+                  <AccordionItem>
+                    <h2>
+                      
+                      <Link to="children-policy">
+                        <AccordionButton>
+                          <Box flex='1' textAlign='left'>
+                          Children Policy
                           </Box>
                         </AccordionButton>
                       </Link>

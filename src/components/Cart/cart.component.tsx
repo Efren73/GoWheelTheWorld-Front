@@ -48,8 +48,8 @@ const Cart: React.FC = () => {
   let inputValue: any;
 
   /* TIEMPO DEL TOUR --------------------------------- */
-  const [hours, setHours] = React.useState("");
-  const [minutes, setMinutes] = React.useState("30");
+  const [hours, setHours] = useState<number>(0);
+  const [minutes, setMinutes] = useState<number>(0);
 
   let handleInputChange = (e: any) => {
     inputValue = e.target.value;
@@ -129,21 +129,19 @@ const Cart: React.FC = () => {
 					</Text>
 					<Box w="full">
 					<Input
-						background={"white"}
-						variant="outline"
+						variant={value ? 'filled' : 'outline'}
 						h="40px"
 						fontSize={Responsive.fontSizeResponsiveHead}
 						required
 						maxLength={80}
 						placeholder="Experience name"
 						onChange={handleInputChange}
-						value={value}
+						value={ value}
 					/>
 
-					<HStack justifyContent="space-between" color="#2F6FE4">
+					<HStack justifyContent="space-between" color="#2F6FE4" paddingBottom="20px">
 						<Text fontSize={Responsive.fontSizeResponsiveHead}>
-							{" "}
-							{characters}/50{" "}
+							{value ? value.length : 0}/50
 						</Text>
 						<Button variant="link" onClick={onOpen}>
 						<Text
@@ -151,16 +149,15 @@ const Cart: React.FC = () => {
 							as="u"
 							fontSize={Responsive.fontSizeResponsiveHead}
 						>
-							{" "}
-							Show examples{" "}
+							Show examples
 						</Text>
 						</Button>
 					</HStack>
 					</Box>
-					<Box w="full">
-					<Heading fontSize={Responsive.fontSizeResponsiveHead}>
-						Trip duration
-					</Heading>
+					<Box w="full" paddingBottom="20px">
+						<Heading fontSize={Responsive.fontSizeResponsiveHead}>
+							Trip duration
+						</Heading>
 					</Box>
 					<Box>
 					<Stack
@@ -175,20 +172,21 @@ const Cart: React.FC = () => {
 							Hours
 						</Text>
 						<NumberInput
-						size="md"
-						maxW={80}
-						min={0}
-						max={10}
-						variant="outline"
-						h="40px"
-						fontSize={"20px"}
-						background={"white"}
-						defaultValue={0}
-						value={hours}
-						borderRadius="10px"
-						onChange={(valueString: any) => {
-							setHours(valueString);
-						}}
+							variant={hours ? 'filled' : 'outline'}
+							bg={hours ? '#F8F9F9' : '#fff'}
+							marginRight={'40px'}
+							size="md"
+							maxW={80}
+							min={0}
+							max={10}
+							h="40px"
+							fontSize={"20px"}
+							defaultValue={0}
+							value={hours}
+							borderRadius="10px"
+							onChange={(valueString: any) => {
+								setHours(valueString);
+							}}
 						>
 						<NumberInputField />
 						<NumberInputStepper>
@@ -215,20 +213,21 @@ const Cart: React.FC = () => {
 							Minutes
 						</Text>
 						<NumberInput
-						size="md"
-						maxW={80}
-						min={15}
-						max={59}
-						variant="outline"
-						h="40px"
-						fontSize={Responsive.fontSizeResponsiveHead}
-						background={"white"}
-						defaultValue={0}
-						value={minutes}
-						borderRadius="10px"
-						onChange={(value: any) => {
-							setMinutes(value);
-						}}
+							variant={minutes ? 'filled' : 'outline'}
+							bg={minutes ? '#F8F9F9' : '#fff'}
+							marginRight={'40px'}
+							size="md"
+							maxW={80}
+							min={(hours > 0 ) ? 0 : 30}
+							max={59}
+							h="40px"
+							fontSize={Responsive.fontSizeResponsiveHead}
+							defaultValue={0}
+							value={minutes}
+							borderRadius="10px"
+							onChange={(value: any) => {
+								setMinutes(value);
+							}}
 						>
 						<NumberInputField />
 						<NumberInputStepper>

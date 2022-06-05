@@ -13,6 +13,8 @@ import {
   chakra,
   useCheckboxGroup,
   Heading,
+  Skeleton,
+  ChakraProvider,
 } from "@chakra-ui/react";
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { fetchTours, selectAllTours, getTourStatus, changeState } from "../../reducers/appSlice";
@@ -160,66 +162,139 @@ const GroupPrivate: React.FC = () => {
 	} , [maximo, minimo, privado, group]);
 
     return (
-        <React.Fragment>
-            <Box boxShadow='md'
-                w="65%" 
-                p={10}
-                background="#F8F9F9"
-                borderRadius="10px" >
-        
-                <Stack spacing={2}>
-                    <Text fontSize={Responsive.fontSizeResponsiveHead} color='#3F6FE4'>Basic Information / Travelers</Text>
-                </Stack>
+        <ChakraProvider>
+            {status === "succeeded" ?
+                (
+                    <Box
+                    boxShadow="md"
+                    w="65%"
+                    p={10}
+                    background="#F8F9F9"
+                    borderRadius="10px"
+                    >
+                    <Stack spacing={2}>
+                        <Text fontSize={Responsive.fontSizeResponsiveHead} color="#3F6FE4">
+                            Basic Information / Travelers
+                        </Text>
+                    </Stack>
 
-                <VStack>
-                    <Heading alignSelf={'flex-start'} fontSize={Responsive.fontSizeResponsiveBody}>Is it a private or a group tour/activity?</Heading>
-                    <SimpleGrid columns={[1, 1, 2, 2, 2]} spacing={15} paddingTop='20px' paddingBottom='30px' alignSelf={'center'} fontSize={Responsive.fontSizeResponsiveHead}>
-                        {   privado === true ?
-                                <CustomCheckbox {...{ value: 'Private', isChecked: true }} 
-                                                onChange = {handlePrivateChange} /> 
-                            :
-                                <CustomCheckbox {...{ value: 'Private', isChecked: false }} 
-                                                onChange = {handlePrivateChange} /> 
-                        }
-                        {   group === true ?
-                                <CustomCheckbox {...{ value: 'Group', isChecked: true }} 
-                                                onChange = {handleGroupChange} /> 
-                            :
-                                <CustomCheckbox {...{ value: 'Group', isChecked: false }} 
-                                                onChange = {handleGroupChange} /> 
-                        }
-                    </SimpleGrid>
+                    <VStack>
+                        <Heading
+                        alignSelf={"flex-start"}
+                        fontSize={Responsive.fontSizeResponsiveBody}
+                        >
+                        Is it a private or a group tour/activity?
+                        </Heading>
+                        <SimpleGrid
+                        columns={[1, 1, 2, 2, 2]}
+                        spacing={15}
+                        paddingTop="20px"
+                        paddingBottom="30px"
+                        alignSelf={"center"}
+                        fontSize={Responsive.fontSizeResponsiveHead}
+                        >
+                        {privado === true ? (
+                            <CustomCheckbox
+                            {...{ value: "Private", isChecked: true }}
+                            onChange={handlePrivateChange}
+                            />
+                        ) : (
+                            <CustomCheckbox
+                            {...{ value: "Private", isChecked: false }}
+                            onChange={handlePrivateChange}
+                            />
+                        )}
+                        {group === true ? (
+                            <CustomCheckbox
+                            {...{ value: "Group", isChecked: true }}
+                            onChange={handleGroupChange}
+                            />
+                        ) : (
+                            <CustomCheckbox
+                            {...{ value: "Group", isChecked: false }}
+                            onChange={handleGroupChange}
+                            />
+                        )}
+                        </SimpleGrid>
 
-                    <Heading alignSelf={'flex-start'} fontSize={Responsive.fontSizeResponsiveBody} paddingBottom='10px'>
-                        Please specify the minimum and maximum number of travelers
-                    </Heading>
+                        <Heading
+                        alignSelf={"flex-start"}
+                        fontSize={Responsive.fontSizeResponsiveBody}
+                        paddingBottom="10px"
+                        >
+                            Please specify the minimum and maximum number of travelers
+                        </Heading>
 
-                    <HStack w='42%' paddingBottom='10px' spacing='42%' justifyContent={'flex-start'}>
+                        <HStack
+                        w="42%"
+                        paddingBottom="10px"
+                        spacing="42%"
+                        justifyContent={"flex-start"}
+                        >
                         <Text fontSize={Responsive.fontSizeResponsiveHead}>Minimum</Text>
                         <Text fontSize={Responsive.fontSizeResponsiveHead}>Maximum</Text>
-                    </HStack>
+                        </HStack>
 
-                    <Stack justifyContent={'center'} spacing='50px' direction={['column', 'column', 'row', 'row']}> 
-                        <HStack maxW='200px'>
-                            <Button isDisabled={buttonDisabledMinimoMenos} name="minimum" onClick={() => Decrease('minimo')} background='#2F6FE4'> - </Button>
-                            <Input  onChange={ChangeMinimo} 
-                                    value={minimo}
-                                    background='#white'/>
-                            <Button isDisabled={buttonDisableMinimoMas} onClick={() => Increase('minimo')} background='#2F6FE4'> + </Button>
+                        <Stack
+                        justifyContent={"center"}
+                        spacing="50px"
+                        direction={["column", "column", "row", "row"]}
+                        >
+                        <HStack maxW="200px">
+                            <Button
+                            isDisabled={buttonDisabledMinimoMenos}
+                            name="minimum"
+                            onClick={() => Decrease("minimo")}
+                            background="#2F6FE4"
+                            >
+                                -
+                            </Button>
+                            <Input
+                            variant={minimo ? 'filled' : 'outline'}
+                            onChange={ChangeMinimo}
+                            value={minimo}
+                            />
+                            <Button
+                            isDisabled={buttonDisableMinimoMas}
+                            onClick={() => Increase("minimo")}
+                            background="#2F6FE4"
+                            >
+                                +
+                            </Button>
                         </HStack>
-                        <HStack maxW='200px'>
-                            <Button isDisabled={buttonDisabledMaximoMenos} onClick={() => Decrease('maximo')} background='#2F6FE4'> - </Button>
-                            <Input  onChange={ChangeMaximo} 
-                                    onBlur={ChangeMaximo2}
-                                    value={maximo}
-                                    background='#white' />
-                            <Button isDisabled={buttonDisableMaximoMas} onClick={() => Increase('maximo')} background='#2F6FE4'> + </Button>
+                        <HStack maxW="200px">
+                            <Button
+                            isDisabled={buttonDisabledMaximoMenos}
+                            onClick={() => Decrease("maximo")}
+                            background="#2F6FE4"
+                            >
+                                -
+                            </Button>
+                            <Input
+                            variant={maximo ? 'filled' : 'outline'}
+                            onChange={ChangeMaximo}
+                            onBlur={ChangeMaximo2}
+                            value={maximo}
+                            />
+                            <Button
+                            isDisabled={buttonDisableMaximoMas}
+                            onClick={() => Increase("maximo")}
+                            background="#2F6FE4"
+                            >
+                                +
+                            </Button>
                         </HStack>
-                    </Stack>
-                </VStack>
-            </Box>
-        </React.Fragment>
-    )
+                        </Stack>
+                    </VStack>
+                    </Box>
+                )
+                :
+                (
+                    <Skeleton w="65%" h="75%" p={10} borderRadius="10px" />
+                )
+            }
+        </ChakraProvider>
+    );
 }
 
 export default GroupPrivate;

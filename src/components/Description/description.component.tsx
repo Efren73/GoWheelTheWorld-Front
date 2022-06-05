@@ -17,6 +17,7 @@ import {
   Link,
   Heading,
   Skeleton,
+  Input,
 } from "@chakra-ui/react";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 import { Responsive } from "../generalTypes";
@@ -111,37 +112,34 @@ const Description: React.FC = () => {
                     <Text fontSize={Responsive.fontSizeResponsiveHead} color="#3F6FE4">
                         Basic Information / Description
                     </Text>
-                    <Heading fontSize={Responsive.fontSizeResponsiveBody}>
-                        Please share the link to your website or any another platform
-                        where the tour/activity is displayed
-                    </Heading>
-                    <Box w="full">
-                    <Textarea
-                        h="100px"
-                        placeholder="Link"
-                        background="#fff"
-                        onChange={handleInputLink}
-                        value={value1}
-                        fontSize={Responsive.fontSizeResponsiveHead}
-                    />
-                    </Box>
+                      <Heading fontSize={Responsive.fontSizeResponsiveBody}>
+                          Please share the link to your website or any another platform
+                          where the tour/activity is displayed
+                      </Heading>
+                      <Input
+                          variant={value ? 'filled' : 'outline'}
+                          placeholder="Link"
+                          onChange={handleInputLink}
+                          value={value1}
+                          fontSize={Responsive.fontSizeResponsiveHead}
+                      />
+                    <Stack paddingTop='20px'>
                     <Heading fontSize={Responsive.fontSizeResponsiveBody}>
                         Description of the tour / activity
                     </Heading>
-
-                    <Box w="full">
                     <Textarea
+                        variant={value ? 'filled' : 'outline'}
                         h="500px"
                         placeholder="Description of the tour"
-                        background="#fff"
                         onChange={handleInputChange}
                         value={value}
                         fontSize={Responsive.fontSizeResponsiveHead}
                     />
 
+                    </Stack>
                     <HStack justifyContent="space-between" color="#2F6FE4">
                         <Text fontSize={Responsive.fontSizeResponsiveHead}>
-                            {characters}/1600
+                          {value ? value.length : 0}/1600
                         </Text>
                         <Button variant="link" onClick={onOpen}>
                         <Text
@@ -149,12 +147,10 @@ const Description: React.FC = () => {
                             as="u"
                             fontSize={Responsive.fontSizeResponsiveHead}
                         >
-                            {" "}
-                            Show examples{" "}
+                          Show examples
                         </Text>
                         </Button>
                     </HStack>
-                    </Box>
                 </Stack>
                 </Box>
             )
