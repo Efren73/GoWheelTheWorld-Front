@@ -55,19 +55,19 @@ const LateralMenu = (props: any) => {
     "places",
     "equipment",
   ];
-  let number: number;
+  let [number,setNumber] = useState(2);
   //console.log("Lateral Menu:",category)
 
   if (basicInformationS.includes(category) == true) {
-    number = 0;
+    setNumber(0);
   } else if (intineraryS.includes(category) == true) {
-    number = 1;
+    setNumber (1);
   } else if (whatsIncludedS.includes(category) == true) {
-    number = 3;
+    setNumber(3);
   } else if (accesibilityS.includes(category) == true) {
-    number = 4;
+    setNumber(4);
   } else {
-    number = 0;
+    setNumber(2);
   }
 
   const { isOpen, onOpen, onClose } = useDisclosure();
