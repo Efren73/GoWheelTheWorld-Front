@@ -324,7 +324,7 @@ import { Assistance, Equipment } from "../../components";
                     </Box>
                 </HStack>
 
-                {/* <Accordion defaultIndex={[0]} allowMultiple w="80%" >
+                <Accordion defaultIndex={[0]} allowMultiple w="80%" >
 
                 <AccordionItem p={4}>
                     <h2>
@@ -578,7 +578,7 @@ import { Assistance, Equipment } from "../../components";
                         </Text>
                     </AccordionPanel>
                 </AccordionItem>
-                </Accordion> */}
+                </Accordion>
 
 
 
