@@ -143,22 +143,6 @@ const Summary: React.FC = () => {
                 </Text>
               </HStack>
 
-              <HStack justifyContent="en" w="full">
-                <Image
-                  src={Typetour}
-                  alt="Type of tour icon"
-                  w={25}
-                  h={25}
-                  m={0.5}
-                />
-                <Text color="#fff" fontSize={Responsive.fontSizeResponsiveHead}>
-                  {status === "succeeded" &&
-                  tour.basicInformation.typeOfActivity !== undefined
-                    ? tour.basicInformation.typeOfActivity + ""
-                    : "Type of tour"}
-                </Text>
-              </HStack>
-
               <HStack>
                 <Image
                   src={duration}
@@ -176,6 +160,22 @@ const Summary: React.FC = () => {
                       tour.basicInformation.duration.minutes +
                       " hours"
                     : "Duration"}
+                </Text>
+              </HStack>
+
+              <HStack justifyContent="en" w="full">
+                <Image
+                  src={Typetour}
+                  alt="Type of tour icon"
+                  w={25}
+                  h={25}
+                  m={0.5}
+                />
+                <Text color="#fff" fontSize={Responsive.fontSizeResponsiveHead}>
+                  {status === "succeeded" &&
+                  tour.basicInformation.typeOfActivity !== undefined
+                    ? tour.basicInformation.typeOfActivity + ""
+                    : "Type of tour"}
                 </Text>
               </HStack>
 
@@ -248,7 +248,7 @@ const Summary: React.FC = () => {
                   m={0.5}
                 />
                 <Text color="#fff" fontSize={Responsive.fontSizeResponsiveHead}>
-                  {status === "succeeded" && tour.intinerary !== undefined
+                  {status === "succeeded" && tour.intinerary !== undefined && tour.intinerary.meetPoint !== undefined
                     ? tour.intinerary.meetPoint
                     : "Meeting point"}
                 </Text>
@@ -263,9 +263,9 @@ const Summary: React.FC = () => {
                   m={0.5}
                 />
                 <Text color="#fff" fontSize={Responsive.fontSizeResponsiveHead}>
-                  {status === "succeeded" && tour.intinerary !== undefined
+                  {status === "succeeded" && tour.intinerary !== undefined && tour.intinerary.endPoint !== undefined
                     ? tour.intinerary.endPoint
-                    : "Meeting point"}
+                    : "End point"}
                 </Text>
               </HStack>
               <HStack>
@@ -281,7 +281,7 @@ const Summary: React.FC = () => {
                   fontSize={Responsive.fontSizeResponsiveHead}
                   w="80%"
                 >
-                  {status === "succeeded" && tour.intinerary !== undefined
+                  {status === "succeeded" && tour.intinerary !== undefined && tour.intinerary.languages !== undefined
                     ? tour.intinerary.languages + ""
                     : "Languages"}
                 </Text>
@@ -356,7 +356,7 @@ const Summary: React.FC = () => {
             </Text>
             <Box w="98%" padding="10px">
               {status === "succeeded" && tour.whatsIncluded ? (
-                tour.whatsIncluded.accessibility.map((i: string) => (
+                tour.whatsIncluded.general.map((i: string) => (
                   <Text
                     color="#fff"
                     fontSize={Responsive.fontSizeResponsiveHead}
@@ -366,7 +366,7 @@ const Summary: React.FC = () => {
                 ))
               ) : (
                 <Text color="#fff" fontSize={Responsive.fontSizeResponsiveHead}>
-                  Doesn't include anything in accessibility
+                  Doesn't include anything in general
                 </Text>
               )}
             </Box>
@@ -388,22 +388,6 @@ const Summary: React.FC = () => {
             </Box>
             <Box w="98%" padding="10px">
               {status === "succeeded" && tour.whatsIncluded ? (
-                tour.whatsIncluded.general.map((i: string) => (
-                  <Text
-                    color="#fff"
-                    fontSize={Responsive.fontSizeResponsiveHead}
-                  >
-                    {i}
-                  </Text>
-                ))
-              ) : (
-                <Text color="#fff" fontSize={Responsive.fontSizeResponsiveHead}>
-                  Doesn't include anything in general
-                </Text>
-              )}
-            </Box>
-            <Box w="98%" padding="10px">
-              {status === "succeeded" && tour.whatsIncluded ? (
                 tour.whatsIncluded.transport.map((i: string) => (
                   <Text
                     color="#fff"
@@ -415,6 +399,22 @@ const Summary: React.FC = () => {
               ) : (
                 <Text color="#fff" fontSize={Responsive.fontSizeResponsiveHead}>
                   Doesn't include anything in transport
+                </Text>
+              )}
+            </Box>
+            <Box w="98%" padding="10px">
+              {status === "succeeded" && tour.whatsIncluded ? (
+                tour.whatsIncluded.accessibility.map((i: string) => (
+                  <Text
+                    color="#fff"
+                    fontSize={Responsive.fontSizeResponsiveHead}
+                  >
+                    {i}
+                  </Text>
+                ))
+              ) : (
+                <Text color="#fff" fontSize={Responsive.fontSizeResponsiveHead}>
+                  Doesn't include anything in accessibility
                 </Text>
               )}
             </Box>
