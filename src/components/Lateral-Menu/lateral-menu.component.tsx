@@ -20,8 +20,6 @@ import {
 } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import { Link, useLocation } from "react-router-dom";
-import { ProgressNav } from "../../pages/question/Footer";
-
 const LateralMenu = (props: any) => {
   const location = useLocation();
   const link: string[] = location.pathname.split("/");
@@ -60,6 +58,19 @@ const LateralMenu = (props: any) => {
   const [number,setNumber] = useState(0);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
+  function CheckLateral(category:string) {
+      if (basicInformationS.includes(category) == true) {
+          return 0;
+        } else if (intineraryS.includes(category) == true) {
+          return 1;
+        } else if (whatsIncludedS.includes(category) == true) {
+          return 2;
+        } else if (accesibilityS.includes(category) == true) {
+          return 3;
+        } else 
+        return 4
+  }
+
   return (
     <React.Fragment>
       <Box h="full">
@@ -84,7 +95,7 @@ const LateralMenu = (props: any) => {
             <DrawerCloseButton />
             <DrawerHeader color="#fff">Tour/Activity Information</DrawerHeader>
             <DrawerBody>
-              <Accordion defaultIndex={[number]} allowMultiple>
+              <Accordion defaultIndex={CheckLateral(category)} allowMultiple>
                 <AccordionItem>
                   <h2>
                     <AccordionButton>
@@ -359,7 +370,7 @@ const LateralMenu = (props: any) => {
                       <Button
                         colorScheme="white"
                         bg={
-                          category == "trasnsportation" ? "#636e72" : "#1e272e"
+                          category == "transportation" ? "#636e72" : "#1e272e"
                         }
                         variant="ghost"
                         height="30px"
@@ -411,19 +422,7 @@ const LateralMenu = (props: any) => {
                   </AccordionPanel>
                 </AccordionItem>
 
-                <AccordionItem>
-                  <h2>
-                    <Link to="faqs">
-                      <AccordionButton>
-                        <Box flex="1" textAlign="left">
-                          FAQs
-                        </Box>
-                      </AccordionButton>
-                    </Link>
-                  </h2>
-                </AccordionItem>
-
-                <AccordionItem>
+                <AccordionItem bg={category == "children-policy" ? "#636e72" : "#1e272e"} onClick={onClose}>
                   <h2>
                     <Link to="children-policy">
                       <AccordionButton>
@@ -435,7 +434,20 @@ const LateralMenu = (props: any) => {
                   </h2>
                 </AccordionItem>
 
-                <AccordionItem>
+                <AccordionItem bg={category == "faqs" ? "#636e72" : "#1e272e"} onClick={onClose}
+>
+                  <h2>
+                    <Link to="faqs">
+                      <AccordionButton>
+                        <Box flex="1" textAlign="left">
+                          FAQs
+                        </Box>
+                      </AccordionButton>
+                    </Link>
+                  </h2>
+                </AccordionItem>
+
+                <AccordionItem bg={category == "cancelation-policy" ? "#636e72" : "#1e272e"} onClick={onClose}>
                   <h2>
                     <Link to="cancelation-policy">
                       <AccordionButton>

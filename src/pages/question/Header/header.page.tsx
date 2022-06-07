@@ -2,6 +2,7 @@ import {
   Button,
   useDisclosure,
   useBreakpointValue,
+  Text,
   HStack,
   Box,
   Drawer,
@@ -9,21 +10,36 @@ import {
   DrawerOverlay,
   DrawerContent,
   DrawerCloseButton,
-  Link,
   Image,
   useMediaQuery,
   Flex,
 } from "@chakra-ui/react"
-
+import { useState} from "react"
+import { useNavigate, useLocation } from "react-router-dom";
 import { HamburgerIcon } from '@chakra-ui/icons'
 import Summary from "../../../components/summary"
 import logo from '../../login/images/logo.png'
-import { useAppSelector } from "../../../app/hooks"
-import { getTourStatus } from "../../../reducers/appSlice"
+import { useAppSelector, useAppDispatch } from "../../../app/hooks"
+import { getTourStatus, selectAllTours} from "../../../reducers/appSlice"
+import { updateTour  } from "../../../reducers/appSlice";
+import { link } from "fs";
 
-const Header = () =>{ 
+
+const Header = (props:any) =>{ 
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const status = useAppSelector(getTourStatus);
+  const tour = useAppSelector(selectAllTours);
+  const [addRequestStatus, setAddRequestStatus] = useState('idle');
+
   const [isLargerThan1280] = useMediaQuery('(min-width: 768px)')
+
+  function saveProgress():any {
+
+      navigate(
+        `/tour-operator/${props}`
+      );
+    }
 
   function SummaryDrawer() {
       const { isOpen, onOpen, onClose } = useDisclosure()
@@ -73,7 +89,11 @@ const Header = () =>{
               <Box alignItems={'flex-end'}>
                 <SummaryDrawer/>
               </Box>
-              <Link fontSize={['10px', '14px', '15px']}> Save and exit </Link>
+                <Button onClick={saveProgress} variant={"ghost"}>
+                <u>
+                    Save and exit
+                </u>
+                </Button>
             </VStack>
           </HStack>
         ) : (
@@ -85,7 +105,11 @@ const Header = () =>{
               <Box  w= '35%'>
                   <Image src={logo} />
               </Box>
-              <Link fontSize='13px'> Save and exit </Link>
+              <Button onClick={saveProgress}  variant={"ghost"}>
+                <u>
+                  Save and exit 
+                </u>              
+              </Button>
             </VStack>
           </HStack>
         )
