@@ -17,6 +17,7 @@ import {
   selectAllTours,
   getTourStatus,
   changeState,
+  changeAreaEdited,
 } from "../../reducers/appSlice";
 import { Responsive } from "../generalTypes";
 
@@ -101,6 +102,7 @@ const Multiple = () => {
   /* get --------- */
   useEffect(() => {
     dispatch(fetchTours());
+    dispatch(changeAreaEdited('BASIC_INFORMATION'))
   }, []);
 
   useEffect(() => {

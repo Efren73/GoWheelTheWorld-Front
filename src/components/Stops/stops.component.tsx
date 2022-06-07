@@ -34,6 +34,7 @@ import {
   selectAllTours,
   getTourStatus,
   changeState,
+  changeAreaEdited,
 } from "../../reducers/appSlice";
 
 const Stops: React.FC = () => {
@@ -131,6 +132,7 @@ const Stops: React.FC = () => {
 
   useEffect(() => {
     dispatch(fetchTours());
+    dispatch(changeAreaEdited('ITINERARY'))
   }, []);
 
   /* UPDATE ------------------------------*/

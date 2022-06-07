@@ -79,22 +79,25 @@ const Summary: React.FC = () => {
   React.useEffect (() =>{
     let element: any;
     switch(areaEdited){
-      case 'BASIC_INFORMATION':{
-        element = refBasic.current
-
+      case 'BASIC_INFORMATION': {
+        element = refBasic.current;
+        break;
       }
       case 'ITINERARY': {
-        element = refItinerary.current
+        element = refItinerary.current;
+        break;
       }
-      case 'CHILDREN_POLICY': {
-        element = refChildren.current
+      case 'CHILDREN':{
+        element = refChildren.current;
+        break;
       }
       case 'WHATS_INCLUDED':{
-        element = refWhats.current
+        element = refWhats.current;
+        break;
       }
     }
     if(element){
-      element.scrollIntoView()
+      element.scrollIntoView();
     }
   }, [areaEdited])
 
@@ -138,6 +141,7 @@ const Summary: React.FC = () => {
             borderBottom={"solid #89A1CD"}
             borderLeft={"solid #89A1CD"}
             borderRight={"solid #89A1CD"}
+            ref={refBasic}
           >
             <Text
               color="#89A1CD"
@@ -325,6 +329,7 @@ const Summary: React.FC = () => {
             borderBottom={"solid #89A1CD"}
             borderLeft={"solid #89A1CD"}
             borderRight={"solid #89A1CD"}
+            ref={refChildren}
           >
             <Text
               color="#89A1CD"
@@ -380,6 +385,7 @@ const Summary: React.FC = () => {
             borderBottom={"solid #89A1CD"}
             borderLeft={"solid #89A1CD"}
             borderRight={"solid #89A1CD"}
+            ref={refWhats}
           >
             <Text color="#89A1CD" fontSize={Responsive.fontSizeResponsiveHead}>
               What's included?

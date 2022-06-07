@@ -22,6 +22,7 @@ import {
   selectAllTours,
   getTourStatus,
   changeState,
+  changeAreaEdited,
 } from "../../reducers/appSlice";
 
 const ChildPolicy: React.FC = () => {
@@ -58,6 +59,7 @@ const ChildPolicy: React.FC = () => {
 
   useEffect(() => {
     dispatch(fetchTours());
+    dispatch(changeAreaEdited('CHILDREN'))
   }, []);
 
   useEffect(() => {

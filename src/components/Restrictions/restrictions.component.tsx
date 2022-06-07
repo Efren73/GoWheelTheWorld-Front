@@ -19,6 +19,7 @@ import {
   selectAllTours,
   getTourStatus,
   changeState,
+  changeAreaEdited,
 } from "../../reducers/appSlice";
 
 function CustomCheckbox(props: any) {
@@ -54,6 +55,7 @@ const Restrictions: React.FC = () => {
 
   useEffect(() => {
     dispatch(fetchTours());
+    dispatch(changeAreaEdited('ITINERARY'))
   }, []);
 
   // Arreglo de strings para guardar los checkboxes seleccionados

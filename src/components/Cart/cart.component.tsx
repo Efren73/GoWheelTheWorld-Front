@@ -31,6 +31,7 @@ import {
   changeState,
   selectAllTours,
   getTourStatus,
+  changeAreaEdited,
 } from "../../reducers/appSlice";
 import { Responsive } from "../generalTypes";
 
@@ -61,6 +62,7 @@ const Cart: React.FC = () => {
 
   useEffect(() => {
     dispatch(fetchTours());
+    dispatch(changeAreaEdited('BASIC_INFORMATION'))
   }, []);
 
   useEffect(() => {
