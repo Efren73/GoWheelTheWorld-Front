@@ -25,25 +25,28 @@ import {
   import {useState, useEffect} from 'react'
   import axios from 'axios'
 import { Assistance, Equipment } from "../../components";
-  export const AdminSummary = () => {
+  export function AdminSummary():any{
 
     const scroll = useLocation();
     const link: string[] = scroll.pathname.split("/");
     const section: string = link[link.length - 1];
     const [tour, setTour] = useState<any>('');
+    const [status, setStatus] =useState<any>('idle')
 
     const url = `https://api-things-to-do.herokuapp.com/admin/one-tour/${section}`;
     
     useEffect(() => {
         console.log("Entrando a use Effect")
-      axios
-        .get(url)
+        setStatus('Loading')
+        axios.get(url)
         .then((result) => {
           console.log(result.data);
           setTour(result.data);
+          setStatus('Ready')
         })
         .catch((error) => {
           console.log(error);
+          setStatus('Error')
         });
     }, []);
 
@@ -53,10 +56,8 @@ import { Assistance, Equipment } from "../../components";
     function Change():void {
         navigate (`/admin`)
     }
-
     function restrictions(){
-        console.log('entrando a restrictions', tour.intinerary.restrictions)
-        if(tour.intinerary.restrictions !== undefined){
+        if(tour.intinerary !== undefined && tour.intinerary.restrictions !== undefined){
             return(
                 tour.intinerary.restrictions.map((value: string) => (
                     <Text fontSize={Responsive.fontSizeResponsiveHead}>{value}</Text> 
@@ -65,7 +66,7 @@ import { Assistance, Equipment } from "../../components";
     }
 
     function Stops(){
-        if(tour.intinerary.stops !== undefined){
+        if(tour.intinerary !== undefined && tour.intinerary.stops !== undefined){
             return(
                 tour.intinerary.stops.map((value: any, index: number) => (
                     <React.Fragment>
@@ -89,7 +90,7 @@ import { Assistance, Equipment } from "../../components";
     }
 
     function whatsGeneral(){
-        if(tour.whatsIncluded.general !== undefined){
+        if(tour.whatsIncluded !== undefined && tour.whatsIncluded.general !== undefined){
             return(
                 tour.whatsIncluded.general.map((value: string) => (
                     <Text fontSize={Responsive.fontSizeResponsiveHead}>{value}</Text> 
@@ -102,7 +103,7 @@ import { Assistance, Equipment } from "../../components";
         }
     }
     function whatsFood(){
-        if(tour.whatsIncluded.food !== undefined){
+        if(tour.whatsIncluded !== undefined && tour.whatsIncluded.food !== undefined){
             return(
                 tour.whatsIncluded.food.map((value: string) => (
                     <Text fontSize={Responsive.fontSizeResponsiveHead}>{value}</Text> 
@@ -115,7 +116,7 @@ import { Assistance, Equipment } from "../../components";
         }
     }
     function whatsTransport(){
-        if(tour.whatsIncluded.transport !== undefined){
+        if(tour.whatsIncluded !== undefined && tour.whatsIncluded.transport !== undefined){
             return(
                 tour.whatsIncluded.transport.map((value: string) => (
                     <Text fontSize={Responsive.fontSizeResponsiveHead}>{value}</Text> 
@@ -128,7 +129,7 @@ import { Assistance, Equipment } from "../../components";
         }
     }
     function whatsAccess(){
-        if(tour.whatsIncluded.accessibility !== undefined){
+        if(tour.whatsIncluded !== undefined && tour.whatsIncluded.accessibility !== undefined){
             return(
                 tour.whatsIncluded.accessibility.map((value: string) => (
                     <Text fontSize={Responsive.fontSizeResponsiveHead}>{value}</Text> 
@@ -165,7 +166,7 @@ import { Assistance, Equipment } from "../../components";
         }
 
     function Assistance(){
-        if(tour.accessibility.assistance !== undefined){
+        if(tour.accessibility !== undefined && tour.accessibility.assistance !== undefined){
             return(
                 tour.accessibility.assistance.map((value: any) => (
                     <Text fontSize={Responsive.fontSizeResponsiveHead}>{value.question}? {value.answer}</Text>
@@ -180,7 +181,7 @@ import { Assistance, Equipment } from "../../components";
     }
 
     function Transportation(){
-        if(tour.accessibility.transportation !== undefined){
+        if(tour.accessibility !== undefined && tour.accessibility.transportation !== undefined){
             return(
                 tour.accessibility.transportation.map((value: any) => (
                     <Text fontSize={Responsive.fontSizeResponsiveHead}>{value.question}? {value.answer}</Text>
@@ -195,7 +196,7 @@ import { Assistance, Equipment } from "../../components";
     }
 
     function Places(){
-        if(tour.accessibility.places !== undefined){
+        if(tour.accessibility !== undefined && tour.accessibility.places !== undefined){
             return(
                 tour.accessibility.places.map((value: any) => (
                     <Text fontSize={Responsive.fontSizeResponsiveHead}>{value.question}? {value.answer}</Text>
@@ -210,7 +211,7 @@ import { Assistance, Equipment } from "../../components";
     }
 
     function Restrooms(){
-        if(tour.accessibility.restrooms !== undefined){
+        if(tour.accessibility !== undefined && tour.accessibility.restrooms !== undefined){
             return(
                 tour.accessibility.restrooms.map((value: any) => (
                     <Text fontSize={Responsive.fontSizeResponsiveHead}>{value.question}? {value.answer}</Text>
@@ -225,7 +226,7 @@ import { Assistance, Equipment } from "../../components";
     }
 
     function Equipment(){
-        if(tour.accessibility.equipment !== undefined){
+        if(tour.accessibility !== undefined && tour.accessibility.equipment !== undefined){
             return(
                 tour.accessibility.equipment.map((value: any) => (
                     <Text fontSize={Responsive.fontSizeResponsiveHead}>{value.question}? {value.answer}</Text>
@@ -302,302 +303,315 @@ import { Assistance, Equipment } from "../../components";
         }
     }
         
-    return (
-    <React.Fragment>
-         <Flex h="100vh">
-            <VStack w="full" h="full">
-                <TopMenu />
-
-                <HStack direction={['column', 'row']} justifyContent="space-between" w="80%" >
-
-                    <Box justifyContent="flex-start" paddingBottom={3} >
-                        <Heading as='h2' >
-                            Tour Summary
-                        </Heading>
-                        <Text fontSize='2xl'>Summary of the tour divided by categories</Text>
-
-                        <Text p={1} fontSize='md' color='gray.500'>Sky-diving; Rivera Maya, Mapped by: Jhon Wayne on 10/10/21  </Text>
-                    </Box>
-
-                    <Box w='15%'>
-                        <Image w="50%" src='https://icon-library.com/images/completed-icon/completed-icon-6.jpg' />    
-                    </Box>
-                </HStack>
-
-                {/* <Accordion defaultIndex={[0]} allowMultiple w="80%" >
-
-                <AccordionItem p={4}>
-                    <h2>
-                    <AccordionButton>
-                        <Box flex='1' textAlign='left'>
-                        Basic Information
-                        </Box>
-                        <AccordionIcon />
-                    </AccordionButton>
-                    </h2>
-                    <AccordionPanel pb={4}>
+    if(status === "Ready"){
+        return (
+            <React.Fragment>
+                 <Flex h="100vh">
+                    <VStack w="full" h="full">
+                        <TopMenu />
+        
+                        <HStack direction={['column', 'row']} justifyContent="space-between" w="80%" >
+        
+                            <Box justifyContent="flex-start" paddingBottom={3} >
+                                <Heading as='h2' >
+                                    Tour Summary
+                                </Heading>
+                                <Text fontSize='2xl'>Summary of the tour divided by categories</Text>
+        
+                                <Text p={1} fontSize='md' color='gray.500'>Sky-diving; Rivera Maya, Mapped by: Jhon Wayne on 10/10/21  </Text>
+                            </Box>
+        
+                            <Box w='15%'>
+                                <Image w="50%" src='https://icon-library.com/images/completed-icon/completed-icon-6.jpg' />    
+                            </Box>
+                        </HStack>
+        
+                        <Accordion defaultIndex={[0]} allowMultiple w="80%" >
+        
+                        <AccordionItem p={4}>
+                            <h2>
+                            <AccordionButton>
+                                <Box flex='1' textAlign='left'>
+                                Basic Information
+                                </Box>
+                                <AccordionIcon />
+                            </AccordionButton>
+                            </h2>
+                            <AccordionPanel pb={4}>
+                                
+                                <Text fontSize={Responsive.fontSizeResponsiveHead}>
+                                    <b>Tour Name: </b> 
+                                    {tour.basicInformation.tourName !== undefined &&
+                                    tour.basicInformation.tourName !== ""
+                                    ? tour.basicInformation.tourName 
+                                    : "No tour name yet"}
+                                </Text>
+        
+                                <Text fontSize={Responsive.fontSizeResponsiveHead}>
+                                    <b>Duration: </b> 
+                                    {tour.basicInformation.duration.hours !== "" &&
+                                    tour.basicInformation.duration.minutes !== ""
+                                    ? tour.basicInformation.duration.hours +
+                                    " hours and " +
+                                    tour.basicInformation.duration.minutes +
+                                    " minutes"
+                                    : "Duration"}
+                                </Text>
+        
+                                <Text fontSize={Responsive.fontSizeResponsiveHead}>
+                                    <b>Type of activity: </b> 
+                                    {tour.basicInformation.typeOfActivity !== undefined
+                                    ? tour.basicInformation.typeOfActivity + ""
+                                    : "No type of tour"}
+                                </Text>
+        
+                                <Text fontSize={Responsive.fontSizeResponsiveHead}>
+                                    <b>Private or group tour? </b> 
+                                    {showGroupPrivate()}
+                                </Text>
+        
+                                <Text fontSize={Responsive.fontSizeResponsiveHead}>
+                                    <b>Number of traveleres: </b> 
+                                    {tour.basicInformation.numberMaxTravelers !== undefined &&
+                                    tour.basicInformation.numberMinTravelers !== undefined
+                                        ? `Minimum: ${tour.basicInformation.numberMinTravelers} / Maximum: ${tour.basicInformation.numberMaxTravelers}`
+                                        : "No number of traveleres"}
+                                </Text>
+        
+                                <Text fontSize={Responsive.fontSizeResponsiveHead}>
+                                    <b>Price: </b> 
+                                    {tour.basicInformation.price !== undefined 
+                                        ? `${tour.basicInformation.price} USD`
+                                        : "No price yet"}
+                                </Text>
+        
+                                <Text fontSize={Responsive.fontSizeResponsiveHead}>
+                                    <b>Document related to the price: </b> 
+                                    {tour.basicInformation.link !== undefined 
+                                        ? `${tour.basicInformation.link}`
+                                        : "No document "}
+                                </Text>
+        
+                                <Text fontSize={Responsive.fontSizeResponsiveHead}>
+                                    <b>Link: </b> 
+                                    {tour.basicInformation.link !== undefined 
+                                        ? `${tour.basicInformation.link}`
+                                        : "No link yet"}
+                                </Text>
+        
+                                <Text fontSize={Responsive.fontSizeResponsiveHead}>
+                                    <b>Photos: </b> 
+                                    {tour.basicInformation.link !== undefined 
+                                        ? `${tour.basicInformation.link}`
+                                        : "No link yet"}
+                                </Text>
+        
+                                <Text fontSize={Responsive.fontSizeResponsiveHead}>
+                                    <b>Description: </b> 
+                                    {tour.basicInformation.description !== undefined 
+                                        ? `${tour.basicInformation.description}`
+                                        : "No description yet"}
+                                </Text>
+                            </AccordionPanel>
+                        </AccordionItem>
+        
+                        <AccordionItem p={4}>
+                            <h2>
+                            <AccordionButton>
+                                <Box flex='1' textAlign='left'>
+                                Itinerary
+                                </Box>
+                                <AccordionIcon />
+                            </AccordionButton>
+                            </h2>
+                            <AccordionPanel pb={4}>
+                                
+                                <Text fontSize={Responsive.fontSizeResponsiveHead}>
+                                    <b>Meeting point: </b> 
+                                    {tour.intinerary !== undefined &&
+                                    tour.intinerary.meetPoint !== undefined
+                                    
+                                    ? tour.intinerary.meetPoint 
+                                    : "No meet point yet"}
+                                </Text>
+        
+                                <Text fontSize={Responsive.fontSizeResponsiveHead}>
+                                    <b>End point: </b> 
+                                    {tour.intinerary !== undefined &&
+                                    tour.intinerary.endPoint !== undefined
+                                    ? tour.intinerary.endPoint 
+                                    : "No end point yet"}
+                                </Text>
+        
+                                <Text fontSize={Responsive.fontSizeResponsiveHead}>
+                                    <b>Languages: </b> 
+                                    {
+                                    tour.intinerary !== undefined && 
+                                    tour.intinerary.languages !== undefined
+                                    ? tour.intinerary.languages + ""
+                                    : "No languages yet"}
+                                </Text>
+                                
+                                <Text fontSize={Responsive.fontSizeResponsiveHead}>
+                                    <b>Restrictions: </b> 
+                                </Text>
+                                    {restrictions()}
+        
+                                <Text fontSize={Responsive.fontSizeResponsiveHead}>
+                                    <b>Stops: </b> 
+                                    {Stops()}
+                                </Text>
+                                
+        
+                            </AccordionPanel>
+                        </AccordionItem>
                         
-                        <Text fontSize={Responsive.fontSizeResponsiveHead}>
-                            <b>Tour Name: </b> 
-                            {tour.basicInformation.tourName !== undefined &&
-                            tour.basicInformation.tourName !== ""
-                            ? tour.basicInformation.tourName 
-                            : "No tour name yet"}
-                        </Text>
-
-                        <Text fontSize={Responsive.fontSizeResponsiveHead}>
-                            <b>Duration: </b> 
-                            {tour.basicInformation.duration.hours !== "" &&
-                            tour.basicInformation.duration.minutes !== ""
-                            ? tour.basicInformation.duration.hours +
-                            " hours and " +
-                            tour.basicInformation.duration.minutes +
-                            " minutes"
-                            : "Duration"}
-                        </Text>
-
-                        <Text fontSize={Responsive.fontSizeResponsiveHead}>
-                            <b>Type of activity: </b> 
-                            {tour.basicInformation.typeOfActivity !== undefined
-                            ? tour.basicInformation.typeOfActivity + ""
-                            : "No type of tour"}
-                        </Text>
-
-                        <Text fontSize={Responsive.fontSizeResponsiveHead}>
-                            <b>Private or group tour? </b> 
-                            {showGroupPrivate()}
-                        </Text>
-
-                        <Text fontSize={Responsive.fontSizeResponsiveHead}>
-                            <b>Number of traveleres: </b> 
-                            {tour.basicInformation.numberMaxTravelers !== undefined &&
-                            tour.basicInformation.numberMinTravelers !== undefined
-                                ? `Minimum: ${tour.basicInformation.numberMinTravelers} / Maximum: ${tour.basicInformation.numberMaxTravelers}`
-                                : "No number of traveleres"}
-                        </Text>
-
-                        <Text fontSize={Responsive.fontSizeResponsiveHead}>
-                            <b>Price: </b> 
-                            {tour.basicInformation.price !== undefined 
-                                ? `${tour.basicInformation.price} USD`
-                                : "No price yet"}
-                        </Text>
-
-                        <Text fontSize={Responsive.fontSizeResponsiveHead}>
-                            <b>Document related to the price: </b> 
-                            {tour.basicInformation.link !== undefined 
-                                ? `${tour.basicInformation.link}`
-                                : "No document "}
-                        </Text>
-
-                        <Text fontSize={Responsive.fontSizeResponsiveHead}>
-                            <b>Link: </b> 
-                            {tour.basicInformation.link !== undefined 
-                                ? `${tour.basicInformation.link}`
-                                : "No link yet"}
-                        </Text>
-
-                        <Text fontSize={Responsive.fontSizeResponsiveHead}>
-                            <b>Photos: </b> 
-                            {tour.basicInformation.link !== undefined 
-                                ? `${tour.basicInformation.link}`
-                                : "No link yet"}
-                        </Text>
-
-                        <Text fontSize={Responsive.fontSizeResponsiveHead}>
-                            <b>Description: </b> 
-                            {tour.basicInformation.description !== undefined 
-                                ? `${tour.basicInformation.description}`
-                                : "No description yet"}
-                        </Text>
-                    </AccordionPanel>
-                </AccordionItem>
-
-                <AccordionItem p={4}>
-                    <h2>
-                    <AccordionButton>
-                        <Box flex='1' textAlign='left'>
-                        Itinerary
-                        </Box>
-                        <AccordionIcon />
-                    </AccordionButton>
-                    </h2>
-                    <AccordionPanel pb={4}>
-                        
-                        <Text fontSize={Responsive.fontSizeResponsiveHead}>
-                            <b>Meeting point: </b> 
-                            {tour.intinerary.meetPoint !== undefined
-                            ? tour.intinerary.meetPoint 
-                            : "No meet point yet"}
-                        </Text>
-
-                        <Text fontSize={Responsive.fontSizeResponsiveHead}>
-                            <b>End point: </b> 
-                            {tour.intinerary.endPoint !== undefined
-                            ? tour.intinerary.endPoint 
-                            : "No end point yet"}
-                        </Text>
-
-                        <Text fontSize={Responsive.fontSizeResponsiveHead}>
-                            <b>Languages: </b> 
-                            {tour.intinerary.languages !== undefined
-                            ? tour.intinerary.languages + ""
-                            : "No languages yet"}
-                        </Text>
-                        
-                        <Text fontSize={Responsive.fontSizeResponsiveHead}>
-                            <b>Restrictions: </b> 
-                        </Text>
-                            {restrictions()}
-
-                        <Text fontSize={Responsive.fontSizeResponsiveHead}>
-                            <b>Stops: </b> 
-                            {Stops()}
-                        </Text>
-                        
-
-                    </AccordionPanel>
-                </AccordionItem>
-                
-                <AccordionItem p={4}>
-                    <h2>
-                    <AccordionButton>
-                        <Box flex='1' textAlign='left'>
-                        What's included?
-                        </Box>
-                        <AccordionIcon />
-                    </AccordionButton>
-                    </h2>
-                    <AccordionPanel pb={4}>
-                        
-                        <Text fontSize={Responsive.fontSizeResponsiveHead}>
-                            <b>General: </b> 
-                            {whatsGeneral()}
-                        </Text>
-                        
-                        <Text fontSize={Responsive.fontSizeResponsiveHead}>
-                            <b>Food: </b> 
-                            {whatsFood()}
-                        </Text>
-                        <Text fontSize={Responsive.fontSizeResponsiveHead}>
-                            <b>Transport: </b> 
-                            {whatsTransport()}
-                        </Text>
-                        <Text fontSize={Responsive.fontSizeResponsiveHead}>
-                            <b>Accessibility: </b> 
-                            {whatsAccess()}
-                        </Text>
-                        
-
-                    </AccordionPanel>
-                </AccordionItem>
-
-                <AccordionItem p={4}>
-                    <h2>
-                    <AccordionButton>
-                        <Box flex='1' textAlign='left'>
-                        Accessibility
-                        </Box>
-                        <AccordionIcon />
-                    </AccordionButton>
-                    </h2>
-                    <AccordionPanel pb={4}>
-                        
-                        <Text fontSize={Responsive.fontSizeResponsiveHead}>
-                            <b>Assistance: </b> 
-                            {Assistance()}
-                        </Text>
-                        
-                        <Text fontSize={Responsive.fontSizeResponsiveHead}>
-                            <b>Transportation: </b> 
-                            {Transportation()}
-                        </Text>
-                        <Text fontSize={Responsive.fontSizeResponsiveHead}>
-                            <b>Restrooms: </b> 
-                            {Restrooms()}
-                        </Text>
-                        <Text fontSize={Responsive.fontSizeResponsiveHead}>
-                            <b>Places: </b> 
-                            {Places()}
-                        </Text>
-                        <Text fontSize={Responsive.fontSizeResponsiveHead}>
-                            <b>Equipment: </b> 
-                            {Equipment()}
-                        </Text>
-                        
-
-                    </AccordionPanel>
-                </AccordionItem>
-                <AccordionItem p={4}>
-                    <h2>
-                    <AccordionButton>
-                        <Box flex='1' textAlign='left'>
-                        Frequently asked questions
-                        </Box>
-                        <AccordionIcon />
-                    </AccordionButton>
-                    </h2>
-                    <AccordionPanel pb={4}>
-                        
-                        <Text fontSize={Responsive.fontSizeResponsiveHead}>
-                            {Faqs()}
-                        </Text>
-                    </AccordionPanel>
-                </AccordionItem>
-                <AccordionItem p={4}>
-                    <h2>
-                    <AccordionButton>
-                        <Box flex='1' textAlign='left'>
-                        Children Policy
-                        </Box>
-                        <AccordionIcon />
-                    </AccordionButton>
-                    </h2>
-                    <AccordionPanel pb={4}>
-                        <Text fontSize={Responsive.fontSizeResponsiveHead}>
-                            {ChildPolicy()}
-                        </Text>
-                    </AccordionPanel>
-                </AccordionItem>
-                <AccordionItem p={4}>
-                    <h2>
-                    <AccordionButton>
-                        <Box flex='1' textAlign='left'>
-                        Cancellation Policy
-                        </Box>
-                        <AccordionIcon />
-                    </AccordionButton>
-                    </h2>
-                    <AccordionPanel pb={4}>
-                        <Text fontSize={Responsive.fontSizeResponsiveHead}>
-                            {
-                                 tour.cancellationPolicy !== undefined
-                                    ? tour.cancellationPolicy
-                                    : "No cancellation Policy yet"
-                            }
-                        </Text>
-                    </AccordionPanel>
-                </AccordionItem>
-                </Accordion> */}
-
-
-
-                <HStack w={"full"} h={"full"} justifyContent="space-around" paddingBottom={5}>
-
-                    <Button size='lg'
-                                            fontSize="20px"
-                                            borderRadius={10}
-                                            bg="#3F6FE4"
-                                            color="white"
-                                            onClick={Change}> Back </Button>
-
-                </HStack>
-
-            </VStack>
-        </Flex>
-
-    
-    </React.Fragment>
-  )}
-  export default AdminSummary
+                        <AccordionItem p={4}>
+                            <h2>
+                            <AccordionButton>
+                                <Box flex='1' textAlign='left'>
+                                What's included?
+                                </Box>
+                                <AccordionIcon />
+                            </AccordionButton>
+                            </h2>
+                            <AccordionPanel pb={4}>
+                                
+                                <Text fontSize={Responsive.fontSizeResponsiveHead}>
+                                    <b>General: </b> 
+                                    {whatsGeneral()}
+                                </Text>
+                                
+                                <Text fontSize={Responsive.fontSizeResponsiveHead}>
+                                    <b>Food: </b> 
+                                    {whatsFood()}
+                                </Text>
+                                <Text fontSize={Responsive.fontSizeResponsiveHead}>
+                                    <b>Transport: </b> 
+                                    {whatsTransport()}
+                                </Text>
+                                <Text fontSize={Responsive.fontSizeResponsiveHead}>
+                                    <b>Accessibility: </b> 
+                                    {whatsAccess()}
+                                </Text>
+                                
+        
+                            </AccordionPanel>
+                        </AccordionItem>
+        
+                        <AccordionItem p={4}>
+                            <h2>
+                            <AccordionButton>
+                                <Box flex='1' textAlign='left'>
+                                Accessibility
+                                </Box>
+                                <AccordionIcon />
+                            </AccordionButton>
+                            </h2>
+                            <AccordionPanel pb={4}>
+                                
+                                <Text fontSize={Responsive.fontSizeResponsiveHead}>
+                                    <b>Assistance: </b> 
+                                    {Assistance()}
+                                </Text>
+                                
+                                <Text fontSize={Responsive.fontSizeResponsiveHead}>
+                                    <b>Transportation: </b> 
+                                    {Transportation()}
+                                </Text>
+                                <Text fontSize={Responsive.fontSizeResponsiveHead}>
+                                    <b>Restrooms: </b> 
+                                    {Restrooms()}
+                                </Text>
+                                <Text fontSize={Responsive.fontSizeResponsiveHead}>
+                                    <b>Places: </b> 
+                                    {Places()}
+                                </Text>
+                                <Text fontSize={Responsive.fontSizeResponsiveHead}>
+                                    <b>Equipment: </b> 
+                                    {Equipment()}
+                                </Text>
+                                
+        
+                            </AccordionPanel>
+                        </AccordionItem>
+                        <AccordionItem p={4}>
+                            <h2>
+                            <AccordionButton>
+                                <Box flex='1' textAlign='left'>
+                                Frequently asked questions
+                                </Box>
+                                <AccordionIcon />
+                            </AccordionButton>
+                            </h2>
+                            <AccordionPanel pb={4}>
+                                
+                                <Text fontSize={Responsive.fontSizeResponsiveHead}>
+                                    {Faqs()}
+                                </Text>
+                            </AccordionPanel>
+                        </AccordionItem>
+                        <AccordionItem p={4}>
+                            <h2>
+                            <AccordionButton>
+                                <Box flex='1' textAlign='left'>
+                                Children Policy
+                                </Box>
+                                <AccordionIcon />
+                            </AccordionButton>
+                            </h2>
+                            <AccordionPanel pb={4}>
+                                <Text fontSize={Responsive.fontSizeResponsiveHead}>
+                                    {ChildPolicy()}
+                                </Text>
+                            </AccordionPanel>
+                        </AccordionItem>
+                        <AccordionItem p={4}>
+                            <h2>
+                            <AccordionButton>
+                                <Box flex='1' textAlign='left'>
+                                Cancellation Policy
+                                </Box>
+                                <AccordionIcon />
+                            </AccordionButton>
+                            </h2>
+                            <AccordionPanel pb={4}>
+                                <Text fontSize={Responsive.fontSizeResponsiveHead}>
+                                    {
+                                         tour.cancellationPolicy !== undefined
+                                            ? tour.cancellationPolicy
+                                            : "No cancellation Policy yet"
+                                    }
+                                </Text>
+                            </AccordionPanel>
+                        </AccordionItem>
+                        </Accordion>
+        
+        
+        
+                        <HStack w={"full"} h={"full"} justifyContent="space-around" paddingBottom={5}>
+        
+                            <Button size='lg'
+                                                    fontSize="20px"
+                                                    borderRadius={10}
+                                                    bg="#3F6FE4"
+                                                    color="white"
+                                                    onClick={Change}> Back </Button>
+        
+                        </HStack>
+        
+                    </VStack>
+                </Flex>
+        
+            
+            </React.Fragment>
+          )
+    }
+    else if(status === "Loading"){
+        return(
+            <div>Loading</div>
+        )
+    }
+}
+export default AdminSummary
   

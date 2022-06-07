@@ -15,6 +15,7 @@ import {
   selectAllTours,
   getTourStatus,
   changeState,
+  changeAreaEdited
 } from "../../reducers/appSlice";
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
 
@@ -36,6 +37,7 @@ const Meeting: React.FC = () => {
 
   useEffect(() => {
     dispatch(fetchTours());
+    dispatch(changeAreaEdited('ITINERARY'))
   }, []);
 
   useEffect(() => {

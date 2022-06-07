@@ -16,6 +16,7 @@ import {
   selectAllTours,
   getTourStatus,
   changeState,
+  changeAreaEdited,
 } from "../../reducers/appSlice";
 import { Responsive } from "../generalTypes";
 import "../Upload-Photos/upload-photos.modules.css";
@@ -31,6 +32,7 @@ const Price: React.FC = () => {
   /* get --------- */
   useEffect(() => {
     dispatch(fetchTours());
+    dispatch(changeAreaEdited('BASIC_INFORMATION'))
   }, []);
 
   useEffect(() => {

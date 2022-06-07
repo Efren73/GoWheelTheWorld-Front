@@ -25,6 +25,8 @@ import {
   Flex,
   Textarea,
   useDisclosure,
+  useToast,
+  ModalCloseButton,
 } from "@chakra-ui/react";
 
 import { DeleteIcon } from "@chakra-ui/icons";
@@ -38,8 +40,6 @@ import {
 } from "../../reducers/appSlice";
 
 const Faqs: React.FC = () => {
-  /* ALERT DIALOG ------------------------------*/
-  const cancelRef: any = useRef();
 
   /* REDUX ------------------------------*/
   const dispatch = useAppDispatch();
@@ -96,9 +96,6 @@ const Faqs: React.FC = () => {
       },
     ]);
   };
-
-  //Elementos utilizados para la ventana modal
-  const { isOpen, onOpen, onClose } = useDisclosure();
 
   //Matriz en donde se guardan los ejemplos de faqs
   const faqsExamples: string[][] = [
@@ -187,6 +184,45 @@ const Faqs: React.FC = () => {
     }
   }, [status]);
 
+    /* TOAST ----------------------------------------*/
+    const toast = useToast();
+
+    function toastSuccess() {
+      toast({
+        title: "Success!",
+        description: "Your tour or activity has been deleted.",
+        status: "success",
+        duration: 9000,
+        isClosable: true,
+      });
+    }
+
+    /* ALERT DIALOG ------------------------------*/
+  let [myModal, setMyModal] = useState<string>('');
+
+  const OverlayOne = () => (
+    <ModalBody>
+      Are you sure? You can't undo this action afterwards.
+    </ModalBody>
+  );
+
+  const OverlayTwo = () => (
+    <ModalBody>
+        {faqsExamples.map((faq) => (
+          <Stack marginBottom="10px">
+              <Text color="#3F6FE4" fontSize="20px">
+              {faq[0]}
+              </Text>
+              <Text fontSize="16px">{faq[1]}</Text>
+          </Stack>
+      ))}
+    </ModalBody>
+  )
+
+  const [overlay, setOverlay] = React.useState(<OverlayOne />)
+  //Elementos utilizados para la ventana modal
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   return (
     <React.Fragment>
       {status === "succeeded" ? (
@@ -225,7 +261,6 @@ const Faqs: React.FC = () => {
               <Button
                 marginTop="20px"
                 bg="#3F6FE4"
-                border=" 1px solid #000"
                 color="#fff"
                 borderRadius="20px"
                 onClick={addQuestionAnswer}
@@ -277,49 +312,15 @@ const Faqs: React.FC = () => {
                             <Button
                               variant="link"
                               onClick={() => {
+                                setOverlay(<OverlayOne />);
                                 onOpen();
                                 setIndex(x.indexElement);
+                                setMyModal("delete");
                               }}
                               marginBottom="20px"
                             >
                               <DeleteIcon />
                             </Button>
-                            <AlertDialog
-                              isOpen={isOpen}
-                              leastDestructiveRef={cancelRef}
-                              motionPreset="slideInBottom"
-                              onClose={onClose}
-                              isCentered
-                            >
-                              <AlertDialogOverlay>
-                                <AlertDialogContent>
-                                  <AlertDialogHeader
-                                    fontSize="lg"
-                                    fontWeight="bold"
-                                  >
-                                    Delete question
-                                  </AlertDialogHeader>
-
-                                  <AlertDialogBody>
-                                    Are you sure? You can't undo this action
-                                    afterwards.
-                                  </AlertDialogBody>
-
-                                  <AlertDialogFooter>
-                                    <Button ref={cancelRef} onClick={onClose}>
-                                      Cancel
-                                    </Button>
-                                    <Button
-                                      colorScheme="red"
-                                      onClick={() => deleteQ()}
-                                      ml={3}
-                                    >
-                                      Delete
-                                    </Button>
-                                  </AlertDialogFooter>
-                                </AlertDialogContent>
-                              </AlertDialogOverlay>
-                            </AlertDialog>
                           </Flex>
                         </Box>
                       </Stack>
@@ -336,7 +337,14 @@ const Faqs: React.FC = () => {
 
           <Box w="full">
             <HStack justifyContent="flex-end">
-              <Button variant="link">
+              <Button
+                variant="link"
+                onClick={() => {
+                  setOverlay(<OverlayTwo />);
+                  onOpen();
+                  setMyModal("examples");
+                }}
+              >
                 <Text color="#2F6FE4" as="u">
                   Show examples
                 </Text>
@@ -347,31 +355,41 @@ const Faqs: React.FC = () => {
       ) : (
         <Skeleton w="65%" h="75%" p={10} borderRadius="10px" />
       )}
-
-      {/* <Modal
-            onClose={onClose}
-            size="xl"
-            isOpen={isOpen}
-            scrollBehavior="inside"
-        >
-            <ModalOverlay />
-            <ModalContent background="#EBE9E9">
-            <ModalHeader color="#3F6FE4">Examples</ModalHeader>
-            <ModalBody>
-                {faqsExamples.map((faq) => (
-                    <Stack marginBottom="10px">
-                        <Text color="#3F6FE4" fontSize="20px">
-                        {faq[0]}
-                        </Text>
-                        <Text fontSize="16px">{faq[1]}</Text>
-                    </Stack>
-                ))}
-            </ModalBody>
+      <Modal
+        isCentered
+        isOpen={isOpen}
+        onClose={onClose}
+        scrollBehavior="inside"
+      >
+        <ModalOverlay bg="none" backdropFilter="auto" backdropBlur="2px" />
+        <ModalContent>
+          {myModal === "examples" ? (
+            <ModalHeader marginLeft={'5%'} fontSize="lg"
+            fontWeight="bold"> Examples </ModalHeader>
+          ) : (
+            <ModalHeader
+            marginLeft={'5%'}
+            fontSize="lg"
+            fontWeight="bold"> Delete FAQ </ModalHeader>
+          )}
+          <ModalCloseButton />
+          <ModalBody>{overlay}</ModalBody>
+          {myModal === "examples" ? (
             <ModalFooter>
-                <Button onClick={onClose}>Close</Button>
+              <Button onClick={onClose} background="#3F6FE4" color={"white"}>
+                Close
+              </Button>
             </ModalFooter>
-            </ModalContent>
-        </Modal> */}
+          ) : (
+            <ModalFooter>
+              <Button onClick={onClose}>Cancel</Button>
+              <Button colorScheme="red" onClick={() => deleteQ()} ml={3}>
+                Delete
+              </Button>
+            </ModalFooter>
+          )}
+        </ModalContent>
+      </Modal>
     </React.Fragment>
   );
 };
