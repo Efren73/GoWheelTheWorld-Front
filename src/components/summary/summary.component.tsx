@@ -71,13 +71,25 @@ const Summary: React.FC = () => {
   console.log(link)
 
   const refItinerary = useRef<HTMLDivElement>(null);
+  const refBasic = useRef<HTMLDivElement>(null);
+  const refChildren = useRef<HTMLDivElement>(null);
+  const refWhats = useRef<HTMLDivElement>(null);
 
-  
   React.useEffect (() =>{
     let element: any;
     switch(areaEdited){
+      case 'BASIC_INFORMATION':{
+        element = refBasic.current
+
+      }
       case 'ITINERARY': {
         element = refItinerary.current
+      }
+      case 'CHILDREN_POLICY': {
+        element = refChildren.current
+      }
+      case 'WHATS_INCLUDED':{
+        element = refWhats.current
       }
     }
     if(element){

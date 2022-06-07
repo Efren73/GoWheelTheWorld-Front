@@ -54,6 +54,9 @@ import { Assistance, Equipment } from "../../components";
         navigate (`/admin`)
     }
 
+    if(estatus === "Ready"){
+        
+    }
     function restrictions(){
         console.log('entrando a restrictions', tour.intinerary.restrictions)
         if(tour.intinerary.restrictions !== undefined){
@@ -324,7 +327,7 @@ import { Assistance, Equipment } from "../../components";
                     </Box>
                 </HStack>
 
-                <Accordion defaultIndex={[0]} allowMultiple w="80%" >
+                {/* <Accordion defaultIndex={[0]} allowMultiple w="80%" >
 
                 <AccordionItem p={4}>
                     <h2>
@@ -578,7 +581,7 @@ import { Assistance, Equipment } from "../../components";
                         </Text>
                     </AccordionPanel>
                 </AccordionItem>
-                </Accordion>
+                </Accordion> */}
 
 
 
