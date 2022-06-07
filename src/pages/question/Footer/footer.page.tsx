@@ -60,7 +60,7 @@ export let ProgressNav = ["","name-of-tour", "type-of-tour", "group-private", "p
     
     return (
       <Box h="16%" w="full" marginBottom={'10px'}>
-        <Slider defaultValue={0} isReadOnly={true} size="lg" w="full">
+        <Slider defaultValue={0} value={tour.percentage} isReadOnly={true} size="lg" w="full">
             <SliderTrack w="full" bg="#C9C9C9">
                 <SliderFilledTrack w="full"/>
             </SliderTrack>
@@ -78,7 +78,7 @@ export let ProgressNav = ["","name-of-tour", "type-of-tour", "group-private", "p
           </Link>
             {/*<Text fontSize="20px" color="#9B9B9B"> 1 of 19 items sent </Text>*/}
             <Box >
-              {progress==100 ? tourCompleted() : console.log(progress)}
+              {tour.percentage=== 100 ? tourCompleted() : console.log(progress)}
               <Link to = { ProgressNav[index+1]==="" ? `/tour-operator/${props}/tour-completed/${idTour}` : ProgressNav[index+1] }>
               <Button size='lg'
                       fontSize={fontSizeResponsive}
