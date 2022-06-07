@@ -13,6 +13,18 @@ import { useAppSelector, useAppDispatch } from '../../../app/hooks';
 import { updateTour, selectAllTours, links } from "../../../reducers/appSlice";
 import { useLocation, Link } from "react-router-dom";
 
+const progress:Number = 100;
+
+function tourCompleted(){
+  return (
+    <Button size='lg'
+    margin={1}
+    borderRadius={10}
+    colorScheme="green"
+    color="white"> Complete Tour </Button>
+  )
+}
+
 export let ProgressNav = ["","name-of-tour", "type-of-tour", "group-private", "price","description","upload-photos","meeting-point","end-point","stops","languages", "restrictions","children-policy","whats-included-general","whats-included-food","whats-included-transport", "whats-included-accessibility","assistance","transportation","restrooms","places","equipment","faqs","cancelation-policy","" ]
   function Footer (props:any)  {
 
@@ -57,6 +69,7 @@ export let ProgressNav = ["","name-of-tour", "type-of-tour", "group-private", "p
         <Link to = { index-1 === 0 ? `/tour-operator/${props}` : ProgressNav[index-1] }>
             <Button size='lg'
                     fontSize={fontSizeResponsive}
+                    isDisabled={ProgressNav[index-1]===""? true: false}
                     borderRadius={10}
                     bg="white"
                     border='1px'
@@ -64,13 +77,17 @@ export let ProgressNav = ["","name-of-tour", "type-of-tour", "group-private", "p
                     > Back </Button>
           </Link>
             {/*<Text fontSize="20px" color="#9B9B9B"> 1 of 19 items sent </Text>*/}
-            <Link to = { ProgressNav[index+1]==="" ? `/tour-operator/${props}/tour-completed/${idTour}` : ProgressNav[index+1] }>
-            <Button size='lg'
-                    fontSize={fontSizeResponsive}
-                    borderRadius={10}
-                    bg="#3F6FE4"
-                    color="white"> Next </Button>
-            </Link>
+            <Box >
+              {progress==100 ? tourCompleted() : console.log(progress)}
+              <Link to = { ProgressNav[index+1]==="" ? `/tour-operator/${props}/tour-completed/${idTour}` : ProgressNav[index+1] }>
+              <Button size='lg'
+                      fontSize={fontSizeResponsive}
+                      isDisabled={ProgressNav[index+1]===""? true: false}
+                      borderRadius={10}
+                      bg="#3F6FE4"
+                      color="white"> Next </Button>
+              </Link>
+            </Box>
         </HStack>
     </Box>
   )

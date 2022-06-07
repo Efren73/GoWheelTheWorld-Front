@@ -48,6 +48,8 @@ const Cart: React.FC = () => {
   let [characters, setCharacters] = useState(0);
   let inputValue: any;
 
+  //console.log("Tour Complete:",Object.values(tour),"BI:",Object.values(tour.accessibility.assistance))
+
   /* TIEMPO DEL TOUR --------------------------------- */
   const [hours, setHours] = useState<number>(0);
   const [minutes, setMinutes] = useState<number>(0);

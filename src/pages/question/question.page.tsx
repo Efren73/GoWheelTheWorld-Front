@@ -38,7 +38,7 @@ function Question(props: any): JSX.Element {
                     
                     <VStack h="100%" w="100%" alignItems="flex-end">
                         <Box w='92%' h="16%" marginLeft='2%'>
-                            <Header/>
+                        {Header(idTourOperator)}     
                         </Box>
                         <Box h="68%" w="100%">
                             <HStack justifyContent="center" 
