@@ -88,6 +88,8 @@ function Restrooms(props: IRestrooms): JSX.Element {
     );
   }, [restRoom]);
 
+  const tab = <>&nbsp;&nbsp;&nbsp;&nbsp;</>;
+
   return (
     <React.Fragment>
       {status === "succeeded" ? (
@@ -105,25 +107,16 @@ function Restrooms(props: IRestrooms): JSX.Element {
             <Heading fontSize={Responsive.fontSizeResponsiveBody}>
               Restrooms
             </Heading>
-            <HStack justifyContent="flex-end" w="95%">
-              <HStack w="15%" spacing={31}>
-                <Text
-                  color="#4F6FE4"
-                  fontSize={Responsive.fontSizeResponsiveHead}
-                >
-                  Yes
-                </Text>
-                <Text
-                  color="#4F6FE4"
-                  fontSize={Responsive.fontSizeResponsiveHead}
-                >
-                  No
-                </Text>
-              </HStack>
-            </HStack>
-
             <Table bg="white" borderRadius={10}>
               <Tbody>
+                <Tr fontSize={Responsive.fontSizeResponsiveHead}>
+                  <Td> </Td>
+                  <Td color="#4F6FE4"> 
+                    <HStack justifyContent="flex-end">
+                      <Text> Yes {tab} No </Text>
+                    </HStack>
+                  </Td>
+                </Tr>
                 <Tr fontSize={Responsive.fontSizeResponsiveHead}>
                   <Td>
                     Accessible restrooms available at every place of the

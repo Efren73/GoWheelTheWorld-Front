@@ -13,6 +13,7 @@ export const links = ((data: any) =>{
 export interface  basicInformation 
 {
     tour: {},
+    areaEdited: string,
     /*tourName: string | null;
     id: number;
     duration: string | null;
@@ -29,6 +30,7 @@ export interface  basicInformation
 } 
 const initialState: basicInformation = {
     tour: {},
+    areaEdited: '',
     /*tourName: null,
     id: 1,
     duration: null,
@@ -65,8 +67,13 @@ export const appSlice = createSlice({
         state.tour = {
           ...state.tour,
          ...action.payload
-        }    
-    },
+        }  
+      },
+      changeAreaEdited: (state, action: PayloadAction<any>) => {
+        state.areaEdited = action.payload
+      }
+
+
 
   },
 
@@ -93,10 +100,10 @@ export const appSlice = createSlice({
     },
 });
 
-export const { changeState } = appSlice.actions;
+export const { changeState, changeAreaEdited } = appSlice.actions;
 export const selectAllTours = (state:any) => state.appSlice.tour;
 export const getTourStatus = (state: any) => state.appSlice.status;
-
+export const selectAreaEdited = (state: any) => state.appSlice.areaEdited;
 
 //export const tourName = (state: RootState) => state.tourN.tourName;
 

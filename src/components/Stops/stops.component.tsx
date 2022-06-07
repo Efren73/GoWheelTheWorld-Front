@@ -17,12 +17,13 @@ import {
   Heading,
   Skeleton,
   useDisclosure,
-  AlertDialog,
-  AlertDialogOverlay,
-  AlertDialogContent,
-  AlertDialogHeader,
-  AlertDialogBody,
-  AlertDialogFooter,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalFooter,
 } from "@chakra-ui/react";
 
 import { DeleteIcon } from "@chakra-ui/icons";
@@ -34,6 +35,7 @@ import {
   selectAllTours,
   getTourStatus,
   changeState,
+  changeAreaEdited,
 } from "../../reducers/appSlice";
 
 const Stops: React.FC = () => {
@@ -83,7 +85,6 @@ const Stops: React.FC = () => {
         newArray[index] = {
           ...myStop[index],
           stopName: e.target.value,
-          //index: index
         };
         setMyStop(newArray);
 
@@ -94,14 +95,12 @@ const Stops: React.FC = () => {
       newArray[index] = {
         ...myStop[index],
         minutes: e,
-        //index: index
       };
       setMyStop(newArray);
     } else if (value === "hours") {
       newArray[index] = {
         ...myStop[index],
         hours: e,
-        //index: index
       };
       setMyStop(newArray);
     }
@@ -110,7 +109,7 @@ const Stops: React.FC = () => {
   }
 
   function deleteQ() {
-    console.log("Index a ELIMINAR ", indexValue);
+    // console.log("Index a ELIMINAR ", indexValue);
     let newArray: any[] = [...myStop];
     newArray.splice(indexValue, 1);
 
@@ -131,6 +130,7 @@ const Stops: React.FC = () => {
 
   useEffect(() => {
     dispatch(fetchTours());
+    dispatch(changeAreaEdited('ITINERARY'))
   }, []);
 
   /* UPDATE ------------------------------*/
@@ -168,16 +168,15 @@ const Stops: React.FC = () => {
             <Text color="#3F6FE4" fontSize={Responsive.fontSizeResponsiveHead}>
               Itinerary / Stops
             </Text>
-            <Text fontSize={Responsive.fontSizeResponsiveBody}>
+            <Heading fontSize={Responsive.fontSizeResponsiveBody}>
               Introduce the stops
-            </Text>
+            </Heading>
           </Stack>
 
           <Stack overflowY="auto" w="full" justifyContent="flex-start">
             <Stack>
               <Button
                 bg="#3F6FE4"
-                border=" 1px solid #000"
                 color="#fff"
                 borderRadius="20px"
                 marginTop="20px"
@@ -324,29 +323,21 @@ const Stops: React.FC = () => {
                             >
                               <DeleteIcon h={"200%"} />
                             </Button>
-                            <AlertDialog
-                              isOpen={isOpen}
-                              leastDestructiveRef={cancelRef}
-                              onClose={onClose}
-                              motionPreset="slideInBottom"
+                            <Modal
                               isCentered
+                              isOpen={isOpen}
+                              onClose={onClose}
+                              scrollBehavior="inside"
                             >
-                              <AlertDialogOverlay>
-                                <AlertDialogContent>
-                                  <AlertDialogHeader
-                                    fontSize="lg"
-                                    fontWeight="bold"
-                                  >
-                                    Delete stop
-                                  </AlertDialogHeader>
-
-                                  <AlertDialogBody>
-                                    Are you sure? You can't undo this action
-                                    afterwards.
-                                  </AlertDialogBody>
-
-                                  <AlertDialogFooter>
-                                    <Button ref={cancelRef} onClick={onClose}>
+                              <ModalOverlay bg="none" backdropFilter="auto" backdropBlur="2px" />
+                              <ModalContent>
+                                <ModalHeader fontSize="lg" fontWeight="bold"> Delete stop </ModalHeader>
+                                <ModalCloseButton />
+                                <ModalBody>
+                                  Are you sure? You can't undo this action afterwards.
+                                </ModalBody>
+                                <ModalFooter>
+                                    <Button onClick={onClose}>
                                       Cancel
                                     </Button>
                                     <Button
@@ -356,10 +347,9 @@ const Stops: React.FC = () => {
                                     >
                                       Delete
                                     </Button>
-                                  </AlertDialogFooter>
-                                </AlertDialogContent>
-                              </AlertDialogOverlay>
-                            </AlertDialog>
+                                </ModalFooter>
+                              </ModalContent>
+                            </Modal>
                           </Flex>
                         </Box>
                       </Stack>

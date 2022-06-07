@@ -20,6 +20,7 @@ import {
   selectAllTours,
   getTourStatus,
   changeState,
+  changeAreaEdited
 } from "../../reducers/appSlice";
 
 let name: string;
@@ -70,6 +71,7 @@ const WhatsIncluded: React.FC = () => {
 
   useEffect(() => {
     dispatch(fetchTours());
+    dispatch(changeAreaEdited('WHATS_INCLUDED'));
   }, []);
 
   // Arreglo de strings para guardar los checkboxes seleccionados
