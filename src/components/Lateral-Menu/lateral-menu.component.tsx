@@ -69,7 +69,7 @@ const LateralMenu = (props: any) => {
           background="#1e272e"
           paddingTop={2}
         >
-          <Button colorScheme="blackAlpha" onClick={onOpen}>
+          <Button colorScheme="blackAlpha" onClick={onOpen} bg="#1e272e">
             <HamburgerIcon w={7} h={7} />
           </Button>
         </Box>

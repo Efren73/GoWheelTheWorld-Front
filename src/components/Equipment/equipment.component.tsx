@@ -66,7 +66,7 @@ function Equipment(props: IEquipment): JSX.Element {
     },
   ]);
 
-  console.log(equipment);
+  // console.log(equipment);
 
   function changeValue(e: any, index: any) {
     let newArray: any[] = [...equipment];
@@ -103,6 +103,8 @@ function Equipment(props: IEquipment): JSX.Element {
     );
   }, [equipment]);
 
+  const tab = <>&nbsp;&nbsp;&nbsp;&nbsp;</>;
+
   return (
     <React.Fragment>
       {status === "succeeded" ? (
@@ -120,25 +122,17 @@ function Equipment(props: IEquipment): JSX.Element {
             <Heading fontSize={Responsive.fontSizeResponsiveBody}>
               Equipment
             </Heading>
-            <HStack justifyContent="flex-end" w="full">
-              <HStack w="14%" spacing={31}>
-                <Text
-                  color="#4F6FE4"
-                  fontSize={Responsive.fontSizeResponsiveHead}
-                >
-                  Yes
-                </Text>
-                <Text
-                  color="#4F6FE4"
-                  fontSize={Responsive.fontSizeResponsiveHead}
-                >
-                  No
-                </Text>
-              </HStack>
-            </HStack>
             <TableContainer w="full" h="80%" overflowY="auto">
               <Table bg="white" borderRadius={10}>
                 <Tbody>
+                  <Tr fontSize={Responsive.fontSizeResponsiveHead}>
+                    <Td> </Td>
+                    <Td color="#4F6FE4"> 
+                      <HStack justifyContent="flex-end">
+                        <Text> Yes {tab} No </Text>
+                      </HStack>
+                    </Td>
+                  </Tr>
                   <Tr fontSize={Responsive.fontSizeResponsiveHead}>
                     <Td>
                       Is adaptive equipment included in this tour/activity?

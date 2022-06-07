@@ -66,6 +66,7 @@ const Summary: React.FC = () => {
       else return "Name of the tour";
     }
   }
+
   const initialRef = React.useRef<any>(null);
   let link = useLocation().pathname.split("/")[-1]
   console.log(link)
@@ -96,6 +97,17 @@ const Summary: React.FC = () => {
       element.scrollIntoView()
     }
   }, [areaEdited])
+
+  /* CHILD POLICY -------------------------- */
+  function showChildPolicy() {
+    if (status === "succeeded") {
+      if(tour.childrenPolicy !== undefined) {
+        if(tour.childrenPolicy.childrenAllowed === 'true') {
+          return 'informacion disponible'
+        } else return "Nada en children policy";
+      } 
+    } 
+  } 
 
   return (
     <Box
@@ -319,35 +331,41 @@ const Summary: React.FC = () => {
               fontSize={Responsive.fontSizeResponsiveHead}
               marginBottom={"3%"}
             >
-              Children Policy
+              Children policy
             </Text>
-            <Stack spacing={"1%"}>
-              <HStack justifyContent="en" w="full">
-                <Image src={child} alt="Child icon" w={25} h={25} m={0.5} />
-                <Text color="#fff" fontSize={Responsive.fontSizeResponsiveHead}>
-                  {status === "succeeded" && tour.childrenPolicy !== undefined
-                    ? "Children's allow age: " + tour.childrenPolicy.childrenAge
-                    : "Children's allow age"}
-                </Text>
-              </HStack>
-              <HStack>
-                <Image src={price} alt="Price icon" w={25} h={25} m={0.5} />
-                <Text color="#fff" fontSize={Responsive.fontSizeResponsiveHead}>
-                  {status === "succeeded" && tour.childrenPolicy !== undefined
-                    ? "Children's pay from age: " +
-                      tour.childrenPolicy.childrenAgePay
-                    : "Children's pay from age"}
-                </Text>
-              </HStack>
-              <HStack>
-                <Image src={height} alt="Height icon" w={25} h={25} m={0.5} />
-                <Text color="#fff" fontSize={Responsive.fontSizeResponsiveHead}>
-                  {status === "succeeded" && tour.childrenPolicy !== undefined
-                    ? "Limit height: " + tour.childrenPolicy.childrenHeight
-                    : "Limit height"}
-                </Text>
-              </HStack>
-            </Stack>
+
+            { showChildPolicy() === 'informacion disponible' ? 
+              <Stack spacing={"1%"}>
+                <HStack justifyContent="en" w="full">
+                  <Image src={child} alt="Child icon" w={25} h={25} m={0.5} />
+                  <Text color="#fff" fontSize={Responsive.fontSizeResponsiveHead}>
+                    { tour.childrenPolicy.childrenAge !== undefined && tour.childrenPolicy.childrenAge === 0
+                      ? "Children's allow age: Every age "
+                      : "Children's allow age: " + tour.childrenPolicy.childrenAge}
+                  </Text>
+                </HStack>
+                <HStack>
+                  <Image src={price} alt="Price icon" w={25} h={25} m={0.5} />
+                  <Text color="#fff" fontSize={Responsive.fontSizeResponsiveHead}>
+                    { tour.childrenPolicy.childrenAgePay !== undefined && tour.childrenPolicy.childrenAgePay === 0
+                      ? "Children's pay from age: Every age "
+                      : "Children's pay from age: " + tour.childrenPolicy.childrenAgePay }   
+                  </Text>
+                </HStack>
+                <HStack>
+                  <Image src={height} alt="Height icon" w={25} h={25} m={0.5} />
+                  <Text color="#fff" fontSize={Responsive.fontSizeResponsiveHead}>
+                    { tour.childrenPolicy.childrenHeight !== undefined && tour.childrenPolicy.childrenHeight === 0
+                      ? "Limit height: Any height "
+                      : "Limit height: " + tour.childrenPolicy.childrenHeight } 
+                  </Text>
+                </HStack>
+              </Stack> 
+              :
+              <Text color="#fff" fontSize={Responsive.fontSizeResponsiveHead}>
+                Doesn't include anything in children policy
+              </Text>
+            } 
           </Box>
         </VStack>
 
