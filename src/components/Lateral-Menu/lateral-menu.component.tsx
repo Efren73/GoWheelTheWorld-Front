@@ -19,14 +19,15 @@ import {
   AccordionIcon,
 } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
-
 import { Link, useLocation } from "react-router-dom";
+import { ProgressNav } from "../../pages/question/Footer";
 
 const LateralMenu = (props: any) => {
   const location = useLocation();
   const link: string[] = location.pathname.split("/");
   const category: string = link[link.length - 1];
   const screenSize = useBreakpointValue({ base: "md", sm: "full", lg: "sm" });
+
   const basicInformationS = [
     "name-of-tour",
     "type-of-tour",
@@ -55,21 +56,8 @@ const LateralMenu = (props: any) => {
     "places",
     "equipment",
   ];
-  let number: number;
-  //console.log("Lateral Menu:",category)
-
-  if (basicInformationS.includes(category) == true) {
-    number = 0;
-  } else if (intineraryS.includes(category) == true) {
-    number = 1;
-  } else if (whatsIncludedS.includes(category) == true) {
-    number = 3;
-  } else if (accesibilityS.includes(category) == true) {
-    number = 4;
-  } else {
-    number = 0;
-  }
-
+  
+  const [number,setNumber] = useState(0);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
@@ -81,7 +69,7 @@ const LateralMenu = (props: any) => {
           background="#1e272e"
           paddingTop={2}
         >
-          <Button colorScheme="blackAlpha" onClick={onOpen}>
+          <Button colorScheme="blackAlpha" onClick={onOpen} bg="#1e272e">
             <HamburgerIcon w={7} h={7} />
           </Button>
         </Box>

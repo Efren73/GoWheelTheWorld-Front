@@ -23,6 +23,7 @@ const CancelationPolicy: React.FC = () => {
   let inputValue1: any;
   let handleInputLink = (e: any) => {
     inputValue1 = e.target.value;
+    console.log('value ----->', inputValue1)
     setValue1(inputValue1);
   };
 

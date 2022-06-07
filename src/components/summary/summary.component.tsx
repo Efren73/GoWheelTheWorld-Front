@@ -22,13 +22,14 @@ import Typetour from "./images/type-of-tour.png";
 import price from "./images/price.png";
 import { Responsive } from "../generalTypes";
 import { useAppSelector } from "../../app/hooks";
-import { selectAllTours, getTourStatus } from "../../reducers/appSlice";
+import { selectAllTours, getTourStatus, selectAreaEdited } from "../../reducers/appSlice";
+import { useLocation } from "react-router-dom";
 
 const Summary: React.FC = () => {
   /* REDUX ----------------------------------------- */
   const tour = useAppSelector(selectAllTours);
   const status = useAppSelector(getTourStatus);
-
+  const areaEdited = useAppSelector(selectAreaEdited)
   //console.log(status.diff)
 
   /* GROUP-PRIVATE --------------------------------- */
@@ -65,7 +66,51 @@ const Summary: React.FC = () => {
       else return "Name of the tour";
     }
   }
+
   const initialRef = React.useRef<any>(null);
+  let link = useLocation().pathname.split("/")[-1]
+  console.log(link)
+
+  const refItinerary = useRef<HTMLDivElement>(null);
+  const refBasic = useRef<HTMLDivElement>(null);
+  const refChildren = useRef<HTMLDivElement>(null);
+  const refWhats = useRef<HTMLDivElement>(null);
+
+  React.useEffect (() =>{
+    let element: any;
+    switch(areaEdited){
+      case 'BASIC_INFORMATION': {
+        element = refBasic.current;
+        break;
+      }
+      case 'ITINERARY': {
+        element = refItinerary.current;
+        break;
+      }
+      case 'CHILDREN':{
+        element = refChildren.current;
+        break;
+      }
+      case 'WHATS_INCLUDED':{
+        element = refWhats.current;
+        break;
+      }
+    }
+    if(element){
+      element.scrollIntoView();
+    }
+  }, [areaEdited])
+
+  /* CHILD POLICY -------------------------- */
+  function showChildPolicy() {
+    if (status === "succeeded") {
+      if(tour.childrenPolicy !== undefined) {
+        if(tour.childrenPolicy.childrenAllowed === 'true') {
+          return 'informacion disponible'
+        } else return "Nada en children policy";
+      } 
+    } 
+  } 
 
   return (
     <Box
@@ -85,7 +130,7 @@ const Summary: React.FC = () => {
       >
         Summary
       </Heading>
-      <VStack h="88%" padding="20px" overflowY="scroll">
+      <VStack h="88%" padding="20px" overflowY="scroll" transitionTimingFunction='ease-in' transition='0.5s'>
         <VStack w="full" h="full" alignItems="flex-start" spacing="-0.4">
           <Box
             borderRadius="10px"
@@ -96,6 +141,7 @@ const Summary: React.FC = () => {
             borderBottom={"solid #89A1CD"}
             borderLeft={"solid #89A1CD"}
             borderRight={"solid #89A1CD"}
+            ref={refBasic}
           >
             <Text
               color="#89A1CD"
@@ -125,22 +171,6 @@ const Summary: React.FC = () => {
                 </Text>
               </HStack>
 
-              <HStack justifyContent="en" w="full">
-                <Image
-                  src={Typetour}
-                  alt="Type of tour icon"
-                  w={25}
-                  h={25}
-                  m={0.5}
-                />
-                <Text color="#fff" fontSize={Responsive.fontSizeResponsiveHead}>
-                  {status === "succeeded" &&
-                  tour.basicInformation.typeOfActivity !== undefined
-                    ? tour.basicInformation.typeOfActivity + ""
-                    : "Type of tour"}
-                </Text>
-              </HStack>
-
               <HStack>
                 <Image
                   src={duration}
@@ -158,6 +188,22 @@ const Summary: React.FC = () => {
                       tour.basicInformation.duration.minutes +
                       " hours"
                     : "Duration"}
+                </Text>
+              </HStack>
+
+              <HStack justifyContent="en" w="full">
+                <Image
+                  src={Typetour}
+                  alt="Type of tour icon"
+                  w={25}
+                  h={25}
+                  m={0.5}
+                />
+                <Text color="#fff" fontSize={Responsive.fontSizeResponsiveHead}>
+                  {status === "succeeded" &&
+                  tour.basicInformation.typeOfActivity !== undefined
+                    ? tour.basicInformation.typeOfActivity + ""
+                    : "Type of tour"}
                 </Text>
               </HStack>
 
@@ -202,7 +248,6 @@ const Summary: React.FC = () => {
           <Box
             borderRadius="10px"
             w="98%"
-            ref={initialRef}
             marginTop={"15px"}
             paddingLeft={"10px"}
             paddingBottom={"10px"}
@@ -210,14 +255,17 @@ const Summary: React.FC = () => {
             borderBottom={"solid #89A1CD"}
             borderLeft={"solid #89A1CD"}
             borderRight={"solid #89A1CD"}
+            ref={refItinerary}
           >
             <Text
               color="#89A1CD"
               fontSize={Responsive.fontSizeResponsiveHead}
               marginBottom={"3%"}
+              
             >
               Itinerary
             </Text>
+            
             <Stack spacing={"1%"}>
               <HStack justifyContent="en" w="full">
                 <Image
@@ -228,7 +276,7 @@ const Summary: React.FC = () => {
                   m={0.5}
                 />
                 <Text color="#fff" fontSize={Responsive.fontSizeResponsiveHead}>
-                  {status === "succeeded" && tour.intinerary !== undefined
+                  {status === "succeeded" && tour.intinerary !== undefined && tour.intinerary.meetPoint !== undefined
                     ? tour.intinerary.meetPoint
                     : "Meeting point"}
                 </Text>
@@ -243,9 +291,9 @@ const Summary: React.FC = () => {
                   m={0.5}
                 />
                 <Text color="#fff" fontSize={Responsive.fontSizeResponsiveHead}>
-                  {status === "succeeded" && tour.intinerary !== undefined
+                  {status === "succeeded" && tour.intinerary !== undefined && tour.intinerary.endPoint !== undefined
                     ? tour.intinerary.endPoint
-                    : "Meeting point"}
+                    : "End point"}
                 </Text>
               </HStack>
               <HStack>
@@ -261,7 +309,7 @@ const Summary: React.FC = () => {
                   fontSize={Responsive.fontSizeResponsiveHead}
                   w="80%"
                 >
-                  {status === "succeeded" && tour.intinerary !== undefined
+                  {status === "succeeded" && tour.intinerary !== undefined && tour.intinerary.languages !== undefined
                     ? tour.intinerary.languages + ""
                     : "Languages"}
                 </Text>
@@ -281,41 +329,48 @@ const Summary: React.FC = () => {
             borderBottom={"solid #89A1CD"}
             borderLeft={"solid #89A1CD"}
             borderRight={"solid #89A1CD"}
+            ref={refChildren}
           >
             <Text
               color="#89A1CD"
               fontSize={Responsive.fontSizeResponsiveHead}
               marginBottom={"3%"}
             >
-              Children Policy
+              Children policy
             </Text>
-            <Stack spacing={"1%"}>
-              <HStack justifyContent="en" w="full">
-                <Image src={child} alt="Child icon" w={25} h={25} m={0.5} />
-                <Text color="#fff" fontSize={Responsive.fontSizeResponsiveHead}>
-                  {status === "succeeded" && tour.childrenPolicy !== undefined
-                    ? "Children's allow age: " + tour.childrenPolicy.childrenAge
-                    : "Children's allow age"}
-                </Text>
-              </HStack>
-              <HStack>
-                <Image src={price} alt="Price icon" w={25} h={25} m={0.5} />
-                <Text color="#fff" fontSize={Responsive.fontSizeResponsiveHead}>
-                  {status === "succeeded" && tour.childrenPolicy !== undefined
-                    ? "Children's pay from age: " +
-                      tour.childrenPolicy.childrenAgePay
-                    : "Children's pay from age"}
-                </Text>
-              </HStack>
-              <HStack>
-                <Image src={height} alt="Height icon" w={25} h={25} m={0.5} />
-                <Text color="#fff" fontSize={Responsive.fontSizeResponsiveHead}>
-                  {status === "succeeded" && tour.childrenPolicy !== undefined
-                    ? "Limit height: " + tour.childrenPolicy.childrenHeight
-                    : "Limit height"}
-                </Text>
-              </HStack>
-            </Stack>
+
+            { showChildPolicy() === 'informacion disponible' ? 
+              <Stack spacing={"1%"}>
+                <HStack justifyContent="en" w="full">
+                  <Image src={child} alt="Child icon" w={25} h={25} m={0.5} />
+                  <Text color="#fff" fontSize={Responsive.fontSizeResponsiveHead}>
+                    { tour.childrenPolicy.childrenAge !== undefined && tour.childrenPolicy.childrenAge === 0
+                      ? "Children's allow age: Every age "
+                      : "Children's allow age: " + tour.childrenPolicy.childrenAge}
+                  </Text>
+                </HStack>
+                <HStack>
+                  <Image src={price} alt="Price icon" w={25} h={25} m={0.5} />
+                  <Text color="#fff" fontSize={Responsive.fontSizeResponsiveHead}>
+                    { tour.childrenPolicy.childrenAgePay !== undefined && tour.childrenPolicy.childrenAgePay === 0
+                      ? "Children's pay from age: Every age "
+                      : "Children's pay from age: " + tour.childrenPolicy.childrenAgePay }   
+                  </Text>
+                </HStack>
+                <HStack>
+                  <Image src={height} alt="Height icon" w={25} h={25} m={0.5} />
+                  <Text color="#fff" fontSize={Responsive.fontSizeResponsiveHead}>
+                    { tour.childrenPolicy.childrenHeight !== undefined && tour.childrenPolicy.childrenHeight === 0
+                      ? "Limit height: Any height "
+                      : "Limit height: " + tour.childrenPolicy.childrenHeight } 
+                  </Text>
+                </HStack>
+              </Stack> 
+              :
+              <Text color="#fff" fontSize={Responsive.fontSizeResponsiveHead}>
+                Doesn't include anything in children policy
+              </Text>
+            } 
           </Box>
         </VStack>
 
@@ -330,13 +385,14 @@ const Summary: React.FC = () => {
             borderBottom={"solid #89A1CD"}
             borderLeft={"solid #89A1CD"}
             borderRight={"solid #89A1CD"}
+            ref={refWhats}
           >
             <Text color="#89A1CD" fontSize={Responsive.fontSizeResponsiveHead}>
               What's included?
             </Text>
             <Box w="98%" padding="10px">
               {status === "succeeded" && tour.whatsIncluded ? (
-                tour.whatsIncluded.accessibility.map((i: string) => (
+                tour.whatsIncluded.general.map((i: string) => (
                   <Text
                     color="#fff"
                     fontSize={Responsive.fontSizeResponsiveHead}
@@ -346,7 +402,7 @@ const Summary: React.FC = () => {
                 ))
               ) : (
                 <Text color="#fff" fontSize={Responsive.fontSizeResponsiveHead}>
-                  Doesn't include anything in accessibility
+                  Doesn't include anything in general
                 </Text>
               )}
             </Box>
@@ -368,22 +424,6 @@ const Summary: React.FC = () => {
             </Box>
             <Box w="98%" padding="10px">
               {status === "succeeded" && tour.whatsIncluded ? (
-                tour.whatsIncluded.general.map((i: string) => (
-                  <Text
-                    color="#fff"
-                    fontSize={Responsive.fontSizeResponsiveHead}
-                  >
-                    {i}
-                  </Text>
-                ))
-              ) : (
-                <Text color="#fff" fontSize={Responsive.fontSizeResponsiveHead}>
-                  Doesn't include anything in general
-                </Text>
-              )}
-            </Box>
-            <Box w="98%" padding="10px">
-              {status === "succeeded" && tour.whatsIncluded ? (
                 tour.whatsIncluded.transport.map((i: string) => (
                   <Text
                     color="#fff"
@@ -395,6 +435,22 @@ const Summary: React.FC = () => {
               ) : (
                 <Text color="#fff" fontSize={Responsive.fontSizeResponsiveHead}>
                   Doesn't include anything in transport
+                </Text>
+              )}
+            </Box>
+            <Box w="98%" padding="10px">
+              {status === "succeeded" && tour.whatsIncluded ? (
+                tour.whatsIncluded.accessibility.map((i: string) => (
+                  <Text
+                    color="#fff"
+                    fontSize={Responsive.fontSizeResponsiveHead}
+                  >
+                    {i}
+                  </Text>
+                ))
+              ) : (
+                <Text color="#fff" fontSize={Responsive.fontSizeResponsiveHead}>
+                  Doesn't include anything in accessibility
                 </Text>
               )}
             </Box>

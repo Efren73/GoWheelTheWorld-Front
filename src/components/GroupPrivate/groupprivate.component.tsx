@@ -21,6 +21,7 @@ import {
   selectAllTours,
   getTourStatus,
   changeState,
+  changeAreaEdited,
 } from "../../reducers/appSlice";
 import { Responsive } from "../generalTypes";
 
@@ -138,6 +139,7 @@ const GroupPrivate: React.FC = () => {
   /* get --------- */
   useEffect(() => {
     dispatch(fetchTours());
+    dispatch(changeAreaEdited('BASIC_INFORMATION'))
   }, []);
 
   useEffect(() => {

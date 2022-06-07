@@ -1,5 +1,6 @@
 import * as React from "react"
-import { Heading } from "@chakra-ui/react"
+import { useState, useEffect } from "react";
+import { Heading, Skeleton } from "@chakra-ui/react"
 import {
     Button,
     Box,
@@ -18,17 +19,72 @@ import {
 
   } from "@chakra-ui/react"
   import TopMenu from "../../components/TopMenu/topMenu.component"
+  import { useAppSelector, useAppDispatch } from "../../app/hooks";
+  import {
+    fetchTours,
+    changeState,
+    selectAllTours,
+    getTourStatus,
+  } from "../../reducers/appSlice";
   import { MdHome } from 'react-icons/md'
 
   export const UserSettings  = () => {
-    
+
+  const dispatch = useAppDispatch();
+  const tour = useAppSelector(selectAllTours);
+  const status = useAppSelector(getTourStatus);
+
+  console.log(status);
+
+  let [value, setValue] = useState("");
+  let [value1, setValue1] = useState("");
+  let [value2, setValue2] = useState("");
+  let [value3, setValue3] = useState("");
+  let [value4, setValue4] = useState("");
+  let inputValue: any;
+
+  let handleInputChange = (e: any) => {
+    inputValue = e.target.value;
+    setValue(inputValue);
+  };
+
+  useEffect(() => {
+    dispatch(fetchTours());
+  }, []);
+
+  useEffect(() => {
+    dispatch(
+      changeState({
+        profile: {
+          ...tour.profile,
+          firstname: value,
+          companyname: value,
+          phone: value,
+          email: value,
+          password: value,
+        },
+      })
+    );
+  }, [value]);
+
+  useEffect(() => {
+    if (status === "succeeded") {
+      if (
+        tour.profile !== undefined
+      )
+        setValue(tour.profile);
+    }
+  }, [status]);
+
     function MyEditable(data: any, label:string) {
         return(
         <Editable
             textAlign='left'
-            value= {data}
             fontSize='md'
             isPreviewFocusable={true}
+            variant={value ? "filled" : "outline"} 
+            value={data}  
+            onChange={handleInputChange}
             >
             <FormLabel>{label}</FormLabel>
             <Input as={EditableInput} borderRadius="4px" />
@@ -43,6 +99,7 @@ import {
 
     return(
         <React.Fragment>
+        {status === "succeeded" ? (
         <Flex h="100vh">
             <VStack w="full" h="full">
                 <TopMenu/>
@@ -73,11 +130,11 @@ import {
                                 {MyEditable("Carlos Manuel Gonzalez Vallejo", "First Name")}
                             </GridItem>
 
-                            <GridItem colSpan={colSpan}>
+                            <GridItem colSpan={colSpan} >
                                 {MyEditable("Los MexiTours, Cancun", "Company name")}                         
                             </GridItem>
 
-                            <GridItem colSpan={colSpan}>
+                            <GridItem colSpan={colSpan} >
                                 {MyEditable("775 771 6931", "Phone number")}
                             </GridItem>
 
@@ -100,6 +157,9 @@ import {
                </VStack>
             </VStack>
         </Flex>
+        ) : (
+        <Skeleton w="65%" h="75%" p={10} borderRadius="10px" />
+      )}
         </React.Fragment>
     )} 
 

@@ -27,6 +27,7 @@ import {
   selectAllTours,
   getTourStatus,
   changeState,
+  changeAreaEdited,
 } from "../../reducers/appSlice";
 
 const Description: React.FC = () => {
@@ -57,10 +58,12 @@ const Description: React.FC = () => {
   const dispatch = useAppDispatch();
   const tour = useAppSelector(selectAllTours);
   const status = useAppSelector(getTourStatus);
+  
 
   /* get --------- */
   useEffect(() => {
     dispatch(fetchTours());
+    dispatch(changeAreaEdited('BASIC_INFORMATION'))
   }, []);
 
   useEffect(() => {

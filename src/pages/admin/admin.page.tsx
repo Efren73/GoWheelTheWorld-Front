@@ -1,5 +1,5 @@
 import * as React from "react"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import {useNavigate} from 'react-router-dom'
 import {
     Button,
@@ -32,6 +32,7 @@ import {
   import { ChevronDownIcon, ArrowDownIcon } from '@chakra-ui/icons'
   import { Avatar } from '@chakra-ui/react'
   import TopMenu from "../../components/TopMenu/topMenu.component"
+import axios from "axios"
   
 
 function StatusSlider(State:boolean){
@@ -85,7 +86,22 @@ function Feature({ Title, Destination, TourOperator, Date, Status, tourId, ...re
 export const Admin  = () => {
     let [check1, setCheck1] = useState(true)
 
+    const [tours, setTours] = useState<any>([]);
+    const url = `https://api-things-to-do.herokuapp.com/admin/principal`;
+    useEffect(() => {
+      axios
+        .get(url)
+        .then((result) => {
+          console.log(result);
+          setTours(result.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }, []);
 
+
+    console.log(tours)
     return(
     <React.Fragment>
         <Flex h="100vh">
@@ -210,32 +226,21 @@ export const Admin  = () => {
                 </Box>
         
                 <VStack paddingTop={5} direction='row' w="80%"  >
-                    <Feature w={"full"} 
-                    Title='Snorkel'
-                    Destination='Cancun, Mex'
-                    TourOperator = 'Jhon Wayne'
-                    Date = '10/10/21'
-                    Status = '80'
-                    tourId = {1}
-                    />
 
-                    <Feature w={"full"} 
-                    Title='Snorkel'
-                    Destination='Cancun, Mex'
-                    TourOperator = 'Jhon Wayne'
-                    Date = '10/10/21'
-                    Status = '29'
-                    tourId = {1}
-                     />
-
-                    <Feature w={"full"} 
-                    Title='Snorkel'
-                    Destination='Cancun, Mex'
-                    TourOperator = 'Jhon Wayne'
-                    Date = '10/10/21'
-                    Status = '60'
-                    tourId = {1}
-                    />
+                    {
+                        tours.map((tour: any) => {
+                            return(
+                                <Feature w={"full"} 
+                                Title={tour.basicInformation.tourName}
+                                Destination={tour.tourOperatorCountry}
+                                TourOperator = {tour.tourOperatorName}
+                                Date = {tour.cratedAt}
+                                Status = '80'
+                                tourId = {tour.id}
+                                />
+                            )
+                        })
+                    }
                 </VStack>
                 
 
