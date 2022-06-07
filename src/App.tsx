@@ -1,12 +1,11 @@
 import * as React from "react"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
-import {Login, Signup, Admin, MainScreenTO, Question, TourCompleted, AdminSummary, UserSettings} from './pages'
+import {Login, Signup, Admin, MainScreenTO, Question, TourCompleted, AdminSummary, UserSettings, NotFound} from './pages'
 import { Cart, Description, Multiple, Price, GroupPrivate, UploadPhotos, Meeting, Stops, Languages, Restrictions, ChildPolicy, Assistance, Transportation, Restrooms, Places, Equipment, Faqs, WhatsIncluded, EndPoint, CancelatioPolicy } from "./components"
+
 
 export const App = () => (
   <BrowserRouter>
-{ /*   <LateralMenu />
-    <Summary /> */}
     <Routes>
       <Route path="/" element = {<Login />}/>
       <Route path="/login"  element={<Login />}  />
@@ -45,7 +44,7 @@ export const App = () => (
         <Route path="faqs" element={<Faqs />} />
         <Route path="cancelation-policy" element={<CancelatioPolicy />} />
       </Route>
-      <Route path="*" element={<div>Not found</div>} />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   </BrowserRouter>
 )
