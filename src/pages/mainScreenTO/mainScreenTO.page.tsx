@@ -234,12 +234,12 @@ function MainScreenTO(props: IMainScreenTO): JSX.Element {
                 <Text>{tourInfo.basicInformation.tourName}</Text>
                 <HStack w="full" spacing={6}>
                   <HStack w="full">
-                    <Slider defaultValue={30} isReadOnly={true}>
+                    <Slider defaultValue={30} value={tourInfo.percentage} isReadOnly={true}>
                       <SliderTrack>
                         <SliderFilledTrack />
                       </SliderTrack>
                     </Slider>
-                    <Text color="#2F6FE4"> 30% </Text>
+                    <Text color="#2F6FE4"> {tourInfo.percentage}% </Text>
                   </HStack>
                   <Button
                     onClick={() => goToTour(tourInfo.id)}

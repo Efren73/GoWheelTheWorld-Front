@@ -235,7 +235,7 @@ export const Admin  = () => {
                                 Destination={tour.tourOperatorCountry}
                                 TourOperator = {tour.tourOperatorName}
                                 Date = {tour.cratedAt}
-                                Status = '80'
+                                Status = {tour.percentage}
                                 tourId = {tour.id}
                                 />
                             )

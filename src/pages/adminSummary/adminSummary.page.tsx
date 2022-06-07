@@ -318,7 +318,7 @@ import { Assistance, Equipment } from "../../components";
                                 </Heading>
                                 <Text fontSize='2xl'>Summary of the tour divided by categories</Text>
         
-                                <Text p={1} fontSize='md' color='gray.500'>Sky-diving; Rivera Maya, Mapped by: Jhon Wayne on 10/10/21  </Text>
+                                <Text p={1} fontSize='md' color='gray.500'>{tour.basicInformation.tourName}; {tour.tourOperatorCountry}, Mapped by: {tour.tourOperatorName} on 11/11/10  </Text>
                             </Box>
         
                             <Box w='15%'>
