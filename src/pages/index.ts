@@ -6,3 +6,4 @@ export {default as MainScreenTO} from './mainScreenTO';
 export {default as Question} from './question';
 export {default as AdminSummary} from './adminSummary';
 export {default as UserSettings} from './userSettings';
+export {default as NotFound} from './NotFound';
