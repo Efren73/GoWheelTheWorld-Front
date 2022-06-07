@@ -22,13 +22,14 @@ import Typetour from "./images/type-of-tour.png";
 import price from "./images/price.png";
 import { Responsive } from "../generalTypes";
 import { useAppSelector } from "../../app/hooks";
-import { selectAllTours, getTourStatus } from "../../reducers/appSlice";
+import { selectAllTours, getTourStatus, selectAreaEdited } from "../../reducers/appSlice";
+import { useLocation } from "react-router-dom";
 
 const Summary: React.FC = () => {
   /* REDUX ----------------------------------------- */
   const tour = useAppSelector(selectAllTours);
   const status = useAppSelector(getTourStatus);
-
+  const areaEdited = useAppSelector(selectAreaEdited)
   //console.log(status.diff)
 
   /* GROUP-PRIVATE --------------------------------- */
@@ -67,6 +68,38 @@ const Summary: React.FC = () => {
   }
 
   const initialRef = React.useRef<any>(null);
+  let link = useLocation().pathname.split("/")[-1]
+  console.log(link)
+
+  const refItinerary = useRef<HTMLDivElement>(null);
+  const refBasic = useRef<HTMLDivElement>(null);
+  const refChildren = useRef<HTMLDivElement>(null);
+  const refWhats = useRef<HTMLDivElement>(null);
+
+  React.useEffect (() =>{
+    let element: any;
+    switch(areaEdited){
+      case 'BASIC_INFORMATION': {
+        element = refBasic.current;
+        break;
+      }
+      case 'ITINERARY': {
+        element = refItinerary.current;
+        break;
+      }
+      case 'CHILDREN':{
+        element = refChildren.current;
+        break;
+      }
+      case 'WHATS_INCLUDED':{
+        element = refWhats.current;
+        break;
+      }
+    }
+    if(element){
+      element.scrollIntoView();
+    }
+  }, [areaEdited])
 
   /* CHILD POLICY -------------------------- */
   function showChildPolicy() {
@@ -97,7 +130,7 @@ const Summary: React.FC = () => {
       >
         Summary
       </Heading>
-      <VStack h="88%" padding="20px" overflowY="scroll">
+      <VStack h="88%" padding="20px" overflowY="scroll" transitionTimingFunction='ease-in' transition='0.5s'>
         <VStack w="full" h="full" alignItems="flex-start" spacing="-0.4">
           <Box
             borderRadius="10px"
@@ -108,6 +141,7 @@ const Summary: React.FC = () => {
             borderBottom={"solid #89A1CD"}
             borderLeft={"solid #89A1CD"}
             borderRight={"solid #89A1CD"}
+            ref={refBasic}
           >
             <Text
               color="#89A1CD"
@@ -214,7 +248,6 @@ const Summary: React.FC = () => {
           <Box
             borderRadius="10px"
             w="98%"
-            ref={initialRef}
             marginTop={"15px"}
             paddingLeft={"10px"}
             paddingBottom={"10px"}
@@ -222,14 +255,17 @@ const Summary: React.FC = () => {
             borderBottom={"solid #89A1CD"}
             borderLeft={"solid #89A1CD"}
             borderRight={"solid #89A1CD"}
+            ref={refItinerary}
           >
             <Text
               color="#89A1CD"
               fontSize={Responsive.fontSizeResponsiveHead}
               marginBottom={"3%"}
+              
             >
               Itinerary
             </Text>
+            
             <Stack spacing={"1%"}>
               <HStack justifyContent="en" w="full">
                 <Image
@@ -293,6 +329,7 @@ const Summary: React.FC = () => {
             borderBottom={"solid #89A1CD"}
             borderLeft={"solid #89A1CD"}
             borderRight={"solid #89A1CD"}
+            ref={refChildren}
           >
             <Text
               color="#89A1CD"
@@ -348,6 +385,7 @@ const Summary: React.FC = () => {
             borderBottom={"solid #89A1CD"}
             borderLeft={"solid #89A1CD"}
             borderRight={"solid #89A1CD"}
+            ref={refWhats}
           >
             <Text color="#89A1CD" fontSize={Responsive.fontSizeResponsiveHead}>
               What's included?
