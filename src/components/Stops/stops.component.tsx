@@ -110,7 +110,7 @@ const Stops: React.FC = () => {
   }
 
   function deleteQ() {
-    console.log("Index a ELIMINAR ", indexValue);
+    // console.log("Index a ELIMINAR ", indexValue);
     let newArray: any[] = [...myStop];
     newArray.splice(indexValue, 1);
 
@@ -168,9 +168,9 @@ const Stops: React.FC = () => {
             <Text color="#3F6FE4" fontSize={Responsive.fontSizeResponsiveHead}>
               Itinerary / Stops
             </Text>
-            <Text fontSize={Responsive.fontSizeResponsiveBody}>
+            <Heading fontSize={Responsive.fontSizeResponsiveBody}>
               Introduce the stops
-            </Text>
+            </Heading>
           </Stack>
 
           <Stack overflowY="auto" w="full" justifyContent="flex-start">
