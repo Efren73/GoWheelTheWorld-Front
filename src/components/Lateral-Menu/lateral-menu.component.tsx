@@ -1,6 +1,5 @@
 import * as React from "react"
 import {
-  ChakraProvider,
   useBreakpointValue,
   Box,
   Drawer,
@@ -98,7 +97,7 @@ const LateralMenu = (props: any) => {
                         
                       </AccordionButton>
                     </h2>
-                    <AccordionPanel pb={5}>
+                    <AccordionPanel pb={5} onClick={onClose}>
                       <Link to="meeting-point">
                         <Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">Meet Point</Button>
                       </Link>
@@ -122,7 +121,7 @@ const LateralMenu = (props: any) => {
                     </AccordionPanel>
                   </AccordionItem>
 
-                  <AccordionItem>
+                  <AccordionItem onClick={onClose}>
                     <h2>
                       
                       <Link to="children-policy">
@@ -146,7 +145,7 @@ const LateralMenu = (props: any) => {
                         
                       </AccordionButton>
                     </h2>
-                    <AccordionPanel pb={4}>
+                    <AccordionPanel pb={4} onClick={onClose}>
                       <Link to="whats-included-general">
                         <Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">General</Button>
                       </Link>
@@ -175,7 +174,7 @@ const LateralMenu = (props: any) => {
                         </Box>
                       </AccordionButton>
                     </h2>
-                    <AccordionPanel pb={5}>
+                    <AccordionPanel pb={5} onClick={onClose}>
 
                       <Link to="assistance">
                         <Button colorScheme='white' variant='ghost' height='30px' width='250px' justifyContent="flex-start">Assistance</Button>
@@ -203,7 +202,7 @@ const LateralMenu = (props: any) => {
                   <AccordionItem >
                     <h2>
 
-                      <Link to="faqs">
+                      <Link to="faqs" onClick={onClose}>
                         <AccordionButton>
                           <Box flex='1' textAlign='left'>
                             FAQ
@@ -217,7 +216,7 @@ const LateralMenu = (props: any) => {
                   <AccordionItem >
                     <h2>
 
-                      <Link to="cancelation-policy">
+                      <Link to="cancelation-policy" onClick={onClose}>
                         <AccordionButton>
                           <Box flex='1' textAlign='left'>
                             Cancelation Policy

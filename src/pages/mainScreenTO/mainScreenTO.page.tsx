@@ -17,7 +17,7 @@ import {
 import { DeleteIcon } from '@chakra-ui/icons';
 import { IMainScreenTO } from './mainScreenTO.types';
 import ImageInfoMSTO from './ImageInfoMSTO.png';
-import fondoMS from './FondoMS.png';
+import fondoMS from './image.jpg';
 import TopMenu from '../../components/TopMenu/topMenu.component';
 import {useNavigate, useLocation} from  'react-router-dom'
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
@@ -105,13 +105,15 @@ function MainScreenTO(props: IMainScreenTO): JSX.Element {
     <Flex h="100vh">
       <VStack w="full" h="full">
         <TopMenu />
-        <Box bgImage={`url(${fondoMS})`} w="full" h="full" bgSize={"cover"}>
+        <Box bgImage={`url(${fondoMS})`}  w="full" h="full" bgSize={"cover"}>
           <Flex alignItems={[ 'center', 'center', 'start', 'center' ]} 
                 justifyContent="center" 
                 w="full" 
                 h="full" 
                 direction={[ "column" , "column", "row", "row" ]}>
             <Box  w={['90%', '90%', '40%', '40%' ]}
+            			boxShadow="md"
+                  background="#F8F9F9"
                   h={tamanoBox}
                   bgColor="white"
                   p={[ '6', '6', '6', '6', '39', '49' ]}
@@ -147,6 +149,7 @@ function MainScreenTO(props: IMainScreenTO): JSX.Element {
               </VStack>
               <HStack justifyContent="center" w="full">
                 <Button marginTop={[ '2', '5', '7', '7', '7', '7', '7']}
+                
                         height={[ '50px', '60px', '40px', '68px' ]}
                         width={'50%'}
                         bg="#2F6FE4" 
@@ -157,6 +160,8 @@ function MainScreenTO(props: IMainScreenTO): JSX.Element {
             </Box>
             <Box w={[ '90%', '90%', '40%', '40%' ]}
                  h={tamanoBox}
+                 boxShadow="md"
+                 background="#F8F9F9"
                  bgColor="white"
                  p={[ '6', '6', '6', '6', '39', '49' ]}
                  borderRadius={20}
