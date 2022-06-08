@@ -21,10 +21,12 @@ import {
   useDisclosure,
   ModalCloseButton,
   IconButton,
+  Image,
 } from "@chakra-ui/react";
 
 import { DeleteIcon } from "@chakra-ui/icons";
 import { Responsive } from "../generalTypes";
+import sillaDeRuedas from "../../pages/mainScreenTO/sillaDeRuedas.png";
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
 import {
   fetchTours,
@@ -209,7 +211,7 @@ const Faqs: React.FC = () => {
       {status === "succeeded" ? (
         <Box
           boxShadow="md"
-          w="65%"
+          w="62%"
           p={10}
           background="#F8F9F9"
           borderRadius="10px"
@@ -334,7 +336,20 @@ const Faqs: React.FC = () => {
           </Box>
         </Box>
       ) : (
-        <Skeleton w="65%" h="75%" p={10} borderRadius="10px" />
+        status === "loading" ? (
+          <Skeleton w="62%" h="75%" p={10} borderRadius="10px" />
+        ) : ( // status ===  failed
+        <Box
+          w="62%"
+          h='full'
+          p={10}
+        >
+          <Text marginBottom={5} color="#3F6FE4">
+            Sorry, something went wrong!{" "}
+          </Text>
+          <Image src={sillaDeRuedas} h="200px" marginTop={"10px"}/>
+        </Box>
+        )
       )}
       <Modal
         isCentered

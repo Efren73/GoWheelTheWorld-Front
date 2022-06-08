@@ -174,7 +174,7 @@ const Multiple = () => {
           </SimpleGrid>
         </Box>
       ) : (
-        <Skeleton w="65%" h="75%" p={10} borderRadius="10px" />
+        <Skeleton w="62%" h="75%" p={10} borderRadius="10px" />
       )}
     </React.Fragment>
   );

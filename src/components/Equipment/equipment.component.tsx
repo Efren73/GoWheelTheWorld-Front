@@ -110,7 +110,7 @@ function Equipment(props: IEquipment): JSX.Element {
       {status === "succeeded" ? (
         <Box
           boxShadow="md"
-          w="65%"
+          w="62%"
           p={20}
           background="#F8F9F9"
           borderRadius="10px"
@@ -306,7 +306,7 @@ function Equipment(props: IEquipment): JSX.Element {
           </VStack>
         </Box>
       ) : (
-        <Skeleton w="65%" h="75%" p={10} borderRadius="10px" />
+        <Skeleton w="62%" h="75%" p={10} borderRadius="10px" />
       )}
     </React.Fragment>
   );
