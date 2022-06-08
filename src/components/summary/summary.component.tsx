@@ -9,6 +9,7 @@ import {
   Image,
   Skeleton,
   Stack,
+  Textarea,
 } from "@chakra-ui/react";
 import photo from "./images/photo.png";
 import duration from "./images/duration.png";
@@ -100,7 +101,7 @@ const Summary: React.FC = () => {
       element.scrollIntoView();
     }
   }, [areaEdited])
-
+  
   /* CHILD POLICY -------------------------- */
   function showChildPolicy() {
     if (status === "succeeded") {
@@ -111,6 +112,12 @@ const Summary: React.FC = () => {
       } 
     } 
   } 
+
+
+   let arrayGeneral: string[] = [''];
+   let arrayFood: string[] = [''];
+   let arrayTransport: string[] = [''];
+   let arrayAccs: string[] = [''];
 
   return (
     <Box
@@ -198,6 +205,7 @@ const Summary: React.FC = () => {
                   w={25}
                   h={25}
                   m={0.5}
+                  alignSelf='start'
                 />
                 <Text color="#fff" fontSize={Responsive.fontSizeResponsiveHead}>
                   {status === "succeeded" &&
@@ -236,8 +244,8 @@ const Summary: React.FC = () => {
                 <Text color="#fff" fontSize={Responsive.fontSizeResponsiveHead}>
                   {status === "succeeded" &&
                   tour.basicInformation.price !== undefined
-                    ? tour.basicInformation.price
-                    : "$ Price"}
+                    ? "USD " + tour.basicInformation.price
+                    : "USD Price"}
                 </Text>
               </HStack>
             </Stack>
@@ -274,6 +282,7 @@ const Summary: React.FC = () => {
                   w={25}
                   h={25}
                   m={0.5}
+                  alignSelf='start'
                 />
                 <Text color="#fff" fontSize={Responsive.fontSizeResponsiveHead}>
                   {status === "succeeded" && tour.intinerary !== undefined && tour.intinerary.meetPoint !== undefined
@@ -289,6 +298,7 @@ const Summary: React.FC = () => {
                   w={25}
                   h={25}
                   m={0.5}
+                  alignSelf='start'
                 />
                 <Text color="#fff" fontSize={Responsive.fontSizeResponsiveHead}>
                   {status === "succeeded" && tour.intinerary !== undefined && tour.intinerary.endPoint !== undefined
@@ -303,6 +313,7 @@ const Summary: React.FC = () => {
                   w={25}
                   h={25}
                   m={0.5}
+                  alignSelf='start'
                 />
                 <Text
                   color="#fff"
@@ -393,13 +404,17 @@ const Summary: React.FC = () => {
             <Box w="98%" padding="10px">
               {status === "succeeded" && tour.whatsIncluded ? (
                 tour.whatsIncluded.general.map((i: string) => (
-                  <Text
-                    color="#fff"
-                    fontSize={Responsive.fontSizeResponsiveHead}
-                  >
-                    {i}
-                  </Text>
-                ))
+                  arrayGeneral = [
+                    ...arrayGeneral,
+                    i, ' '
+                  ]
+                )),
+                <Text
+                  color="#fff"
+                  fontSize={Responsive.fontSizeResponsiveHead}
+                >
+                  {arrayGeneral}
+                </Text>
               ) : (
                 <Text color="#fff" fontSize={Responsive.fontSizeResponsiveHead}>
                   Doesn't include anything in general
@@ -409,13 +424,17 @@ const Summary: React.FC = () => {
             <Box w="98%" padding="10px">
               {status === "succeeded" && tour.whatsIncluded ? (
                 tour.whatsIncluded.food.map((i: string) => (
-                  <Text
-                    color="#fff"
-                    fontSize={Responsive.fontSizeResponsiveHead}
-                  >
-                    {i}
-                  </Text>
-                ))
+                  arrayFood = [
+                    ...arrayFood,
+                    i, ' '
+                  ]
+                )),
+                <Text
+                  color="#fff"
+                  fontSize={Responsive.fontSizeResponsiveHead}
+                >
+                  {arrayFood}
+                </Text>
               ) : (
                 <Text color="#fff" fontSize={Responsive.fontSizeResponsiveHead}>
                   Doesn't include anything in food
@@ -425,13 +444,17 @@ const Summary: React.FC = () => {
             <Box w="98%" padding="10px">
               {status === "succeeded" && tour.whatsIncluded ? (
                 tour.whatsIncluded.transport.map((i: string) => (
-                  <Text
-                    color="#fff"
-                    fontSize={Responsive.fontSizeResponsiveHead}
-                  >
-                    {i}
-                  </Text>
-                ))
+                  arrayTransport = [
+                    ...arrayTransport,
+                    i, ' '
+                  ]
+                )),
+                <Text
+                  color="#fff"
+                  fontSize={Responsive.fontSizeResponsiveHead}
+                >
+                  {arrayTransport}
+                </Text>
               ) : (
                 <Text color="#fff" fontSize={Responsive.fontSizeResponsiveHead}>
                   Doesn't include anything in transport
@@ -441,13 +464,17 @@ const Summary: React.FC = () => {
             <Box w="98%" padding="10px">
               {status === "succeeded" && tour.whatsIncluded ? (
                 tour.whatsIncluded.accessibility.map((i: string) => (
-                  <Text
-                    color="#fff"
-                    fontSize={Responsive.fontSizeResponsiveHead}
-                  >
-                    {i}
-                  </Text>
-                ))
+                  arrayAccs = [
+                    ...arrayAccs,
+                    i, ' '
+                  ]
+                )),
+                <Text
+                  color="#fff"
+                  fontSize={Responsive.fontSizeResponsiveHead}
+                >
+                  {arrayAccs}
+                </Text>
               ) : (
                 <Text color="#fff" fontSize={Responsive.fontSizeResponsiveHead}>
                   Doesn't include anything in accessibility

@@ -263,7 +263,7 @@ const ChildPolicy: React.FC = () => {
       {status === "succeeded" ? (
         <Box
           boxShadow="md"
-          w={{ base: "65%", md: "70%", sm: "75%" }}
+          w="65%"
           p={10}
           background="#F8F9F9"
           borderRadius="10px"

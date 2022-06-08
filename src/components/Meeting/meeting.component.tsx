@@ -86,7 +86,6 @@ const Meeting: React.FC = () => {
             h="30px"
             fontSize={Responsive.fontSizeResponsiveHead}
             required
-            maxLength={80}
             placeholder="Street, number, City"
             marginBottom={"20px"}
             marginTop={"10px"}

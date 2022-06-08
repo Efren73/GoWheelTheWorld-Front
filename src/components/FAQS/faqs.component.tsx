@@ -16,17 +16,11 @@ import {
   ModalFooter,
   Heading,
   Skeleton,
-  AlertDialog,
-  AlertDialogOverlay,
-  AlertDialogContent,
-  AlertDialogHeader,
-  AlertDialogBody,
-  AlertDialogFooter,
   Flex,
   Textarea,
   useDisclosure,
-  useToast,
   ModalCloseButton,
+  IconButton,
 } from "@chakra-ui/react";
 
 import { DeleteIcon } from "@chakra-ui/icons";
@@ -64,7 +58,7 @@ const Faqs: React.FC = () => {
   let handleInputChange = (e: any) => {
     inputValue = e.target.value;
     //Si la longitud es mayor que 60, entonces no podrán hacerse cambios, esta será la longitud máxima
-    if (inputValue.length <= 80) {
+    if (inputValue.length <= 200) {
       setText(inputValue);
       setCharacters(inputValue.length);
     }
@@ -80,7 +74,7 @@ const Faqs: React.FC = () => {
           onChange={handleInputChange}
           value={text}
         />
-        <Text color="#2F6FE4">{characters}/80</Text>
+        <Text color="#2F6FE4">{characters}/200</Text>
       </Box>
     );
   }
@@ -162,8 +156,6 @@ const Faqs: React.FC = () => {
     onClose();
   }
 
-  console.log("Faqs", questionAnswer);
-
   useEffect(() => {
     dispatch(fetchTours());
   }, []);
@@ -184,20 +176,7 @@ const Faqs: React.FC = () => {
     }
   }, [status]);
 
-    /* TOAST ----------------------------------------*/
-    const toast = useToast();
-
-    function toastSuccess() {
-      toast({
-        title: "Success!",
-        description: "Your tour or activity has been deleted.",
-        status: "success",
-        duration: 9000,
-        isClosable: true,
-      });
-    }
-
-    /* ALERT DIALOG ------------------------------*/
+  /* ALERT DIALOG ------------------------------*/
   let [myModal, setMyModal] = useState<string>('');
 
   const OverlayOne = () => (
@@ -222,6 +201,8 @@ const Faqs: React.FC = () => {
   const [overlay, setOverlay] = React.useState(<OverlayOne />)
   //Elementos utilizados para la ventana modal
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  console.log("Faqs", questionAnswer);
 
   return (
     <React.Fragment>
@@ -260,9 +241,9 @@ const Faqs: React.FC = () => {
             <Stack>
               <Button
                 marginTop="20px"
+                marginLeft={'5px'}
                 bg="#3F6FE4"
                 color="#fff"
-                borderRadius="20px"
                 onClick={addQuestionAnswer}
                 w="10%"
                 fontSize={Responsive.fontSizeResponsiveBody}
@@ -309,18 +290,18 @@ const Faqs: React.FC = () => {
                             </Text>
                           </Box>
                           <Flex justifyContent="flex-end">
-                            <Button
-                              variant="link"
-                              onClick={() => {
-                                setOverlay(<OverlayOne />);
-                                onOpen();
-                                setIndex(x.indexElement);
-                                setMyModal("delete");
-                              }}
-                              marginBottom="20px"
-                            >
-                              <DeleteIcon />
-                            </Button>
+                            <IconButton
+                                size='md'
+                                icon={<DeleteIcon />}
+                                aria-label={'Delete stop'}
+                                colorScheme='gray'
+                                onClick={() => {
+                                  setOverlay(<OverlayOne />);
+                                  onOpen();
+                                  setIndex(x.indexElement);
+                                  setMyModal("delete");
+                                }}                             
+                              />
                           </Flex>
                         </Box>
                       </Stack>
