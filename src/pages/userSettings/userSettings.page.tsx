@@ -1,140 +1,182 @@
-import * as React from "react"
+import * as React from "react";
 import { useState, useEffect } from "react";
-import { Heading, Skeleton } from "@chakra-ui/react"
+import { Heading, Skeleton } from "@chakra-ui/react";
 import {
-    Button,
-    Box,
-    Text,
-    VStack,
-    HStack,
-    Input,
-    FormLabel,
-    GridItem,
-    Grid,
-    Flex,
-    Editable,
-    EditableInput,
-    ButtonGroup,
-    EditablePreview,
+  Button,
+  Box,
+  Text,
+  VStack,
+  HStack,
+  Input,
+  FormLabel,
+  GridItem,
+  Grid,
+  Flex,
+  Editable,
+  EditableInput,
+  ButtonGroup,
+  EditablePreview,
+} from "@chakra-ui/react";
+import TopMenu from "../../components/TopMenu/topMenu.component";
+import { MdHome } from 'react-icons/md';
+import { useLocation, useNavigate } from "react-router-dom";
+import { Responsive } from "../../components/generalTypes";
+import axios from "axios";
 
-  } from "@chakra-ui/react"
-  import TopMenu from "../../components/TopMenu/topMenu.component"
-  import { useAppSelector, useAppDispatch } from "../../app/hooks";
-  import {
-    fetchTours,
-    changeState,
-    selectAllTours,
-    getTourStatus,
-  } from "../../reducers/appSlice";
-  import { MdHome } from 'react-icons/md'
+export const UserSettings  = () => {
+  /* MOVERME A MENÚ PRINCIPAL -------------------------------------------------- */
+  let navigate = useNavigate();
+  
+  function goToMenu() {
+    navigate (`/tour-operator/${idTourOperator}`)
+  }
 
-  export const UserSettings  = () => {
+  /* CONTROL DE INPUTS --------------------------------------------------------- */
+  const [ infoTourOperator, setInfoTourOperator ] = useState({
+    fullName: '', 
+    companyName: '', 
+    country: '',
+    email: '',
+    password: '', 
+    phoneNumber: ''
+  });
 
-  const dispatch = useAppDispatch();
-  const tour = useAppSelector(selectAllTours);
-  const status = useAppSelector(getTourStatus);
-
-  console.log(status);
-
-  let [value, setValue] = useState("");
-  let [value1, setValue1] = useState("");
-  let [value2, setValue2] = useState("");
-  let [value3, setValue3] = useState("");
-  let [value4, setValue4] = useState("");
-  let inputValue: any;
-
-  let handleInputChange = (e: any) => {
-    inputValue = e.target.value;
-    setValue(inputValue);
+  function handleChange (e: any, name: string) {
+    setInfoTourOperator({
+        ...infoTourOperator,
+        [name]: e
+    })
   };
 
-    function MyEditable(data: any, label:string) {
-        return(
-        <Editable
-            textAlign='left'
-            fontSize='md'
-            isPreviewFocusable={true}
-            variant={value ? "filled" : "outline"} 
-            value={data}  
-            onChange={handleInputChange}
-            >
-            <FormLabel>{label}</FormLabel>
-            <Input as={EditableInput} borderRadius="4px" />
-            <EditablePreview />
-        </Editable>
-        )
-    }
-    
+  /* GET ---------------------------------------------------------------------- */
+  const location = useLocation();
+  const link: string[] = location.pathname.split("/");
+  const idTourOperator: string = link[link.length - 2];
+  const [status, setStatus] = useState("idle");
 
-    const Responsive = { lg: '40%', md: '60%', sm: '80%' };
-    const colSpan = { base: 2, md: 1 };
+  const url = `https://api-things-to-do.herokuapp.com/tour-operator/info/${idTourOperator}`;
 
+  useEffect(() => {
+    setStatus("loading");
+    axios
+      .get(url)
+      .then((result) => {
+        setInfoTourOperator(result.data);
+        setStatus("succeeded");
+      })
+      .catch((error) => {
+        console.log(error);
+        setStatus("failed");
+      });
+  }, []);
 
-    return(
-        <React.Fragment>
-        {status === "succeeded" ? (
-        <Flex h="100vh">
-            <VStack w="full" h="full">
-                <TopMenu/>
+  /* UPDATE ----------------------------------------------------------------- */
+  function update(event: any){
+    event.preventDefault();
+    setStatus("loading")
+    const action ='put';
+    const url = `http://localhost:3000/tour-operator/update-tour-operator/${idTourOperator}`
 
-                <HStack w="80%" justifyContent='flex-start'>
+    axios({
+        method: action,
+        url: url,
+        data: infoTourOperator,
+        headers:{
+            'Content-type': 'application/json; charset=UTF-8'
+        }
+    }) 
+    .then(() => {
+      setStatus('succeeded')
+    })
+    .catch((error) => {
+      console.log(error);
+      setStatus("failed");
+    })
+  }
 
-                <Button leftIcon={<MdHome />} colorScheme='gray' variant='solid'>
-                    Home
-                </Button>
+  console.log('info tourOperador ---------->', infoTourOperator)
 
-                </HStack>
-                
-                <Box  w={Responsive} >
-                    <Heading as='h2'>
-                        Profile Settings
-                    </Heading>
-                    <Text color='gray.400'>
-                        Edit your profile
-                    </Text>
-                </Box>
+  function MyEditable(value: string, label: string, name: string) {
+    return (
+      <Editable
+          textAlign='left'
+          fontSize='md'
+          isPreviewFocusable={true}
+          value={value}
+          onChange = { (e: any) => handleChange(e, name) }
+      >
+        <FormLabel> {label} </FormLabel>
+        <Input as={EditableInput} borderRadius="4px" name={name} />
+       <EditablePreview />
+      </Editable>
+    )
+  };
 
-                <VStack  boxShadow='md' p='6' rounded='md' bg='white' w={Responsive} >
+  const ResponsiveSize = { lg: '40%', md: '60%', sm: '80%' };
+  const colSpan = { base: 2, md: 1 };
 
+  return(
+    <React.Fragment>
+      <Flex h="100vh">
+        <VStack w="full" h="full">
+          <TopMenu/>
+          <HStack w="80%" justifyContent='flex-start' paddingTop={10} paddingBottom={10}>
+            <Button leftIcon={<MdHome />} colorScheme='gray' variant='solid' onClick={goToMenu}>
+                Home
+            </Button>
+          </HStack>
+            
+          <Box  w={ResponsiveSize}>
+            <Heading fontSize={Responsive.fontSizeResponsiveHead}>
+              Profile Settings
+            </Heading>
+            <Text color='gray.400' fontSize={Responsive.fontSizeResponsiveBody}>
+              Edit your profile
+            </Text>
+          </Box>
 
-                        <Grid  column={2} columnGap={3} rowGap={6} w="full">
+          { status === "succeeded" ? (
+            <VStack  boxShadow='md' p='6' rounded='md' bg='white' w={ResponsiveSize} >
+              <Grid  column={2} columnGap={3} rowGap={6} w="full">
+                <GridItem colSpan={2}>
+                  { MyEditable(infoTourOperator.fullName, "First Name", "fullName") }
+                </GridItem>
 
-                            <GridItem colSpan={2}>
-                                {MyEditable("Carlos Manuel Gonzalez Vallejo", "First Name")}
-                            </GridItem>
+                <GridItem colSpan={colSpan} >
+                  { MyEditable(infoTourOperator.companyName, "Company name", "companyName") }                       
+                </GridItem>
 
-                            <GridItem colSpan={colSpan} >
-                                {MyEditable("Los MexiTours, Cancun", "Company name")}                         
-                            </GridItem>
+                <GridItem colSpan={colSpan} >
+                  { MyEditable(infoTourOperator.phoneNumber, "Phone number", "phoneNumber") }  
+                </GridItem>
 
-                            <GridItem colSpan={colSpan} >
-                                {MyEditable("775 771 6931", "Phone number")}
-                            </GridItem>
+                <GridItem colSpan={colSpan}>
+                  { MyEditable(infoTourOperator.country, "Country", "country") }                       
+                </GridItem>
 
-                            <GridItem colSpan={colSpan}>
-                                {MyEditable("A01276000@tec.mx", "Email Address")}                           
-                            </GridItem>
+                <GridItem colSpan={colSpan}>
+                  { MyEditable(infoTourOperator.email, "Email", "email") }                       
+                </GridItem>
 
-                            <GridItem colSpan={colSpan}>
-                                {MyEditable("***********", "Password")}
-                            </GridItem>
-                        </Grid>
+                <GridItem colSpan={colSpan}>
+                    {/*MyEditable("***********", "Password")*/}
+                </GridItem>
+              </Grid>
+              <Box w='90%' paddingTop={10} >
+                <ButtonGroup variant='solid' spacing='6' size='md'>
+                  <Button>Edit</Button>
+                  <Button colorScheme='blue' onClick={update}>Save</Button>
+                </ButtonGroup>
+              </Box>
+            </VStack> ) 
+            : 
+            ( <Skeleton w="50%" h="60%" p={10} borderRadius="10px" /> )
+          }
+        </VStack>
+      </Flex>
+    </React.Fragment>
+  )
+} 
 
-                    <Box w='90%' paddingTop={10} >
-                        <ButtonGroup variant='solid' spacing='6' size='md'>
-                            <Button colorScheme='blue'>Save</Button>
-                            <Button>Cancel</Button>
-                        </ButtonGroup>
-                    </Box>
-
-               </VStack>
-            </VStack>
-        </Flex>
-        ) : (
-        <Skeleton w="65%" h="75%" p={10} borderRadius="10px" />
-      )}
-        </React.Fragment>
-    )} 
-
-    export default UserSettings;
+export default UserSettings;
         
