@@ -168,7 +168,7 @@ function MainScreenTO(props: IMainScreenTO): JSX.Element {
         h={tamanoBox}
         bgColor="white"
         boxShadow="md"
-        p={10}
+        p={[20]}
         borderRadius={20}
         alignSelf={"center"}
       >
@@ -234,7 +234,11 @@ function MainScreenTO(props: IMainScreenTO): JSX.Element {
                 <Text>{tourInfo.basicInformation.tourName}</Text>
                 <HStack w="full" spacing={6}>
                   <HStack w="full">
-                    <Slider defaultValue={30} value={tourInfo.percentage} isReadOnly={true}>
+                    <Slider
+                      defaultValue={30}
+                      value={tourInfo.percentage}
+                      isReadOnly={true}
+                    >
                       <SliderTrack>
                         <SliderFilledTrack />
                       </SliderTrack>
@@ -266,39 +270,40 @@ function MainScreenTO(props: IMainScreenTO): JSX.Element {
                       />
                     }
                   />
-                  <Modal
-                    isCentered
-                    isOpen={isOpen}
-                    onClose={onClose}
-                    scrollBehavior="inside"
-                  >
-                    <ModalOverlay
-                      bg="none"
-                      backdropFilter="auto"
-                      backdropBlur="2px"
-                    />
-                    <ModalContent>
-                      <ModalHeader fontSize="lg" fontWeight="bold">
-                        {" "}
-                        Delete stop{" "}
-                      </ModalHeader>
-                      <ModalCloseButton />
-                      <ModalBody>
-                        Are you sure? You can't undo this action afterwards.
-                      </ModalBody>
-                      <ModalFooter>
-                        <Button onClick={onClose}>Cancel</Button>
-                        <Button
-                          colorScheme="red"
-                          onClick={(e: any) => deleteTour(e)}
-                          ml={3}
-                        >
-                          Delete
-                        </Button>
-                      </ModalFooter>
-                    </ModalContent>
-                  </Modal>
                 </HStack>
+
+                <Modal
+                  isCentered
+                  isOpen={isOpen}
+                  onClose={onClose}
+                  scrollBehavior="inside"
+                >
+                  <ModalOverlay
+                    bg="none"
+                    backdropFilter="auto"
+                    backdropBlur="2px"
+                  />
+                  <ModalContent>
+                    <ModalHeader fontSize="lg" fontWeight="bold">
+                      {" "}
+                      Delete stop{" "}
+                    </ModalHeader>
+                    <ModalCloseButton />
+                    <ModalBody>
+                      Are you sure? You can't undo this action afterwards.
+                    </ModalBody>
+                    <ModalFooter>
+                      <Button onClick={onClose}>Cancel</Button>
+                      <Button
+                        colorScheme="red"
+                        onClick={(e: any) => deleteTour(e)}
+                        ml={3}
+                      >
+                        Delete
+                      </Button>
+                    </ModalFooter>
+                  </ModalContent>
+                </Modal>
               </VStack>
             );
           })
@@ -318,33 +323,37 @@ function MainScreenTO(props: IMainScreenTO): JSX.Element {
   return (
     <ChakraProvider>
       <Flex h="100vh">
-        <VStack w="full" h="full">
+        <VStack w="full" h="full" bg={"#f5f6fa"}>
           <TopMenu />
-          <Box bg={"#f5f6fa"} w="full" h="full" bgSize={"cover"}>
-            <Flex
-              alignItems={["center", "center", "start", "center"]}
-              justifyContent="center"
-              w="full"
-              h="full"
-              direction={["column", "column", "row", "row"]}
-            >
-              {indexValue != "No doc" ? ( // Sí hay tours registrados
-                <ChakraProvider>
-                  <Stack
-                    h={"80%"}
-                    direction={"row"}
-                    spacing={"5%"}
-                    justifyContent={"center"}
-                  >
-                    {newTourWindow()}
-                    {tourRegisteredWindow()}
-                  </Stack>
-                </ChakraProvider>
-              ) : (
-                newTourWindow()
-              )}
-            </Flex>
-          </Box>
+          <Flex
+            paddingTop={{ base: "10%", lg: "3%", md: "5%", sm: "5%" }}
+            paddingBottom={{ base: "10%", lg: "3%", md: "5%", sm: "5%" }}
+            bg={"#f5f6fa"}
+            bgSize={"cover"}
+            alignItems={"center"}
+            justifyContent="center"
+            w="full"
+            h="full"
+            direction={["column", "column", "row", "row"]}
+          >
+            {indexValue != "No doc" ? ( // Sí hay tours registrados
+              <ChakraProvider>
+                <Stack
+                  bg={"#f5f6fa"}
+                  bgSize={"cover"}
+                  spacing={"7%"}
+                  justifyContent={["center", "center", "start", "center"]}
+                  direction={["column", "column", "column", "row"]}
+                  marginTop={{ base: "50%", lg: "0", md: "40%", sm: "50%" }}
+                >
+                  {newTourWindow()}
+                  {tourRegisteredWindow()}
+                </Stack>
+              </ChakraProvider>
+            ) : (
+              newTourWindow()
+            )}
+          </Flex>
         </VStack>
       </Flex>
     </ChakraProvider>

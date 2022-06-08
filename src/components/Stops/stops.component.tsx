@@ -24,6 +24,9 @@ import {
   ModalBody,
   ModalCloseButton,
   ModalFooter,
+  IconButton,
+  useToast,
+  VStack,
 } from "@chakra-ui/react";
 
 import { DeleteIcon } from "@chakra-ui/icons";
@@ -51,14 +54,15 @@ const Stops: React.FC = () => {
   /* NÚMERO DE CARÁCTERES ------------------------------*/
   let [value, setValue] = useState([""]);
   let [indexValue, setIndex] = useState(0);
+  //UseState para contar los caracteres
   let [characters, setCharacters] = useState(0);
+  //Valor que se encuentra en el input para contar caracteres
   let inputValue: any;
 
-  let [myStop, setMyStop] = useState<any[]>([]);
+  let [myStop, setMyStop] = useState<any>([]);
 
   //Función para que cuando se de click a add, se agreguen elementos al arreglo con el fin de que se rendericen más componentes
   const addQuestionAnswer = () => {
-    console.log("Tamaño STOPS -> ", myStop.length);
     setMyStop([
       ...myStop,
       {
@@ -124,13 +128,9 @@ const Stops: React.FC = () => {
     onClose();
   }
 
-  console.log(myStop);
-
-  console.log(status);
-
   useEffect(() => {
     dispatch(fetchTours());
-    dispatch(changeAreaEdited('ITINERARY'))
+    dispatch(changeAreaEdited("ITINERARY"));
   }, []);
 
   /* UPDATE ------------------------------*/
@@ -148,11 +148,37 @@ const Stops: React.FC = () => {
   /* GET ------------------------------*/
   useEffect(() => {
     if (status === "succeeded") {
-      if (tour.intinerary !== undefined) {
+      if (tour.intinerary.stops !== undefined) {
         setMyStop(tour.intinerary.stops);
       }
     }
   }, [status]);
+
+  /* TOAST ----------------------------------------*/
+  const toast = useToast();
+
+  function toastSuccess() {
+    toast({
+      title: "Success!",
+      description: "Your stop has been saved.",
+      status: "success",
+      duration: 9000,
+      isClosable: true,
+    });
+  }
+
+  function toastError() {
+    toast({
+      title: "Error!.",
+      description: "We were unable to save your stop.",
+      status: "error",
+      duration: 9000,
+      isClosable: true,
+    });
+  }
+
+  console.log("myStop", myStop);
+  console.log(status);
 
   return (
     <ChakraProvider>
@@ -178,8 +204,8 @@ const Stops: React.FC = () => {
               <Button
                 bg="#3F6FE4"
                 color="#fff"
-                borderRadius="20px"
                 marginTop="20px"
+                marginLeft={'5px'}
                 onClick={addQuestionAnswer}
                 w="10%"
                 fontSize={{ base: "25px", sm: "10px", md: "15px" }}
@@ -313,40 +339,56 @@ const Stops: React.FC = () => {
                             </Box>
                           </Box>
                           <Flex justifyContent="flex-end">
-                            <Button
-                              variant="link"
-                              marginTop="20px"
-                              onClick={() => {
-                                onOpen();
-                                setIndex(theStop.indexElement);
-                              }}
-                            >
-                              <DeleteIcon h={"200%"} />
-                            </Button>
+                            <VStack spacing={5} justifyContent={'flex-end'}>
+                              <IconButton
+                                size='md'
+                                icon={<DeleteIcon />}
+                                aria-label={'Delete stop'}
+                                colorScheme='gray'
+                                onClick={() => {
+                                  onOpen();
+                                  setIndex(theStop.indexElement);
+                                }}                              
+                              />
+                              {myStop.length == theStop.indexElement ? (
+                                <Button w='90px' size='md' bg="#3F6FE4" color={'white'}>
+                                  SAVE
+                                </Button>
+                              ) : (
+                              <p></p>
+                              )}
+                            </VStack>
+
                             <Modal
                               isCentered
                               isOpen={isOpen}
                               onClose={onClose}
                               scrollBehavior="inside"
                             >
-                              <ModalOverlay bg="none" backdropFilter="auto" backdropBlur="2px" />
+                              <ModalOverlay
+                                bg="none"
+                                backdropFilter="auto"
+                                backdropBlur="2px"
+                              />
                               <ModalContent>
-                                <ModalHeader fontSize="lg" fontWeight="bold"> Delete stop </ModalHeader>
+                                <ModalHeader fontSize="lg" fontWeight="bold">
+                                  {" "}
+                                  Delete stop{" "}
+                                </ModalHeader>
                                 <ModalCloseButton />
                                 <ModalBody>
-                                  Are you sure? You can't undo this action afterwards.
+                                  Are you sure? You can't undo this action
+                                  afterwards.
                                 </ModalBody>
                                 <ModalFooter>
-                                    <Button onClick={onClose}>
-                                      Cancel
-                                    </Button>
-                                    <Button
-                                      colorScheme="red"
-                                      onClick={() => deleteQ()}
-                                      ml={3}
-                                    >
-                                      Delete
-                                    </Button>
+                                  <Button onClick={onClose}>Cancel</Button>
+                                  <Button
+                                    colorScheme="red"
+                                    onClick={() => deleteQ()}
+                                    ml={3}
+                                  >
+                                    Delete
+                                  </Button>
                                 </ModalFooter>
                               </ModalContent>
                             </Modal>
