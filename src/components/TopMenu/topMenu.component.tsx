@@ -28,6 +28,9 @@ function TopMenu(props: ITopMenu): JSX.Element {
     function Change() {
         navigate (`/tour-operator/${idTourOperator}/Settings`)
     }
+    function logout(){
+        navigate (`/`)
+    }
 
     return (
         <React.Fragment>
@@ -47,7 +50,7 @@ function TopMenu(props: ITopMenu): JSX.Element {
                                     />
                         <MenuList color='black'>
                             <MenuItem fontSize={Responsive.fontSizeResponsiveBody} onClick={Change}>Profile</MenuItem>
-                            <MenuItem fontSize={Responsive.fontSizeResponsiveBody}>Log out</MenuItem>
+                            <MenuItem fontSize={Responsive.fontSizeResponsiveBody} onClick={logout}>Log out</MenuItem>
                         </MenuList>
                     </Menu>
                 </HStack>

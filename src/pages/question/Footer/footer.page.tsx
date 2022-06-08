@@ -7,11 +7,15 @@ import {
     SliderTrack,
     SliderFilledTrack,
     Button,
+    Text
   } from "@chakra-ui/react"
   
 import { useAppSelector, useAppDispatch } from '../../../app/hooks';
 import { updateTour, selectAllTours, links } from "../../../reducers/appSlice";
 import { useLocation, Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+
+import { useToast } from "@chakra-ui/react";
 
 const progress:Number = 100;
 
@@ -55,8 +59,39 @@ export let ProgressNav = ["","name-of-tour", "type-of-tour", "group-private", "p
     const fontSizeResponsive = { base:'20px', sm:'15px'};
     const navigate = useNavigate();
 
+    const toast = useToast();
+
+    function toastSuccess() {
+      toast({
+        title: "Success!",
+        description: "Your tour or activity has been finished.",
+        status: "success",
+        duration: 9000,
+        isClosable: true,
+      });
+    }
+  
+    function toastError() {
+      toast({
+        title: "Error!.",
+        description: "We were unable to finish your tour or activity.",
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+      });
+    }
+
     function finalTour(){
-      navigate(`/tour-operator/${props}/tour-completed/${idTour}`)
+        const url = `https://api-things-to-do.herokuapp.com/tour-operator/finish-tour/${idTour}`
+        axios.put(url, {})
+        .then((result) => {
+          toastSuccess();
+          navigate(`/tour-operator/${props}/tour-completed/${idTour}`)
+        })
+        .catch((error) => {
+          console.log(error);
+          toastError();
+        });
     }
     
     function tourCompleted(){
@@ -88,7 +123,7 @@ export let ProgressNav = ["","name-of-tour", "type-of-tour", "group-private", "p
                     borderColor="#3F6FE4" 
                     > Back </Button>
           </Link>
-            {/*<Text fontSize="20px" color="#9B9B9B">{tour.percentage}%</Text>*/}
+            <Text fontSize="20px" color="#9B9B9B">{tour.percentage}%</Text>
             <Box >
               {tour.percentage=== 100 ? tourCompleted() : console.log(progress)}
               <Link to = { ProgressNav[index+1]==="" ? `/tour-operator/${props}/tour-completed/${idTour}` : ProgressNav[index+1] }>

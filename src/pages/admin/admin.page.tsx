@@ -55,6 +55,17 @@ function Feature({ Title, Destination, TourOperator, Date, Status, tourId, ...re
     function Change():void {
         navigate (`/admin/AdminSummary/${tourId}`)
     }
+
+    let colorScheme = ""
+    if(+Status <= 40){
+        colorScheme = "red";
+    }
+    else if(+Status > 40 && +Status<=75){
+        colorScheme = "yellow";
+    }
+    else if(+Status > 75){
+        colorScheme = "green";
+    }
     return (
         <Box p={5} shadow='md' borderWidth='1px' {...rest}  borderRadius="6px"  onClick={Change}>
         <HStack justifyContent="space-between"    >
@@ -78,7 +89,7 @@ function Feature({ Title, Destination, TourOperator, Date, Status, tourId, ...re
                 </WrapItem>
             </Wrap>
         </HStack>
-        <Progress  value={Status} size='md' colorScheme='red' />
+        <Progress  value={Status} size='md' colorScheme={colorScheme} />
         </Box>
     )
 }
@@ -107,7 +118,7 @@ export const Admin  = () => {
         <Flex h="100vh">
             <VStack w="full" h="full">
                 <TopMenu/>
-
+{/* 
                 <HStack w={"80%"} justifyContent="flex-end" paddingRight={2}  color="red.500">
                     <Text>Clear all filters</Text>
                 </HStack>
@@ -224,6 +235,7 @@ export const Admin  = () => {
                         </Text>
                     </HStack>
                 </Box>
+                */}
         
                 <VStack paddingTop={5} direction='row' w="80%"  >
 
