@@ -16,6 +16,7 @@ import {
   EditableInput,
   ButtonGroup,
   EditablePreview,
+  useEditableControls,
 } from "@chakra-ui/react";
 import TopMenu from "../../components/TopMenu/topMenu.component";
 import { MdHome } from 'react-icons/md';
@@ -65,7 +66,6 @@ export const UserSettings  = () => {
         setStatus("succeeded");
       })
       .catch((error) => {
-        console.log(error);
         setStatus("failed");
       });
   }, []);
@@ -75,7 +75,7 @@ export const UserSettings  = () => {
     event.preventDefault();
     setStatus("loading")
     const action ='put';
-    const url = `http://localhost:3000/tour-operator/update-tour-operator/${idTourOperator}`
+    const url = `https://api-things-to-do.herokuapp.com/tour-operator/update-tour-operator/${idTourOperator}`
 
     axios({
         method: action,
@@ -89,17 +89,34 @@ export const UserSettings  = () => {
       setStatus('succeeded')
     })
     .catch((error) => {
-      console.log(error);
       setStatus("failed");
     })
   }
 
-  console.log('info tourOperador ---------->', infoTourOperator)
+  /* HABILITAR PARA EDICIÓN -------------------------------------------- */
+  function EditableControls() {
+    const {
+      isEditing,
+      getSubmitButtonProps,
+      getCancelButtonProps,
+      getEditButtonProps,
+    } = useEditableControls()
+
+    return isEditing ? (
+      <ButtonGroup justifyContent='center' size='sm'>
+        <Button {...getSubmitButtonProps()} onClick={update} > Save </Button>
+        <Button {...getCancelButtonProps()} > Cancel </Button>
+      </ButtonGroup>
+    ) : (
+      <Button size='sm' {...getEditButtonProps()}> Edit </Button>
+    )
+  }
 
   function MyEditable(value: string, label: string, name: string) {
     return (
       <Editable
           textAlign='left'
+          colorScheme="gray"
           fontSize='md'
           isPreviewFocusable={true}
           value={value}
@@ -107,7 +124,7 @@ export const UserSettings  = () => {
       >
         <FormLabel> {label} </FormLabel>
         <Input as={EditableInput} borderRadius="4px" name={name} />
-       <EditablePreview />
+        <EditablePreview />
       </Editable>
     )
   };
