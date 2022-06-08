@@ -16,15 +16,17 @@ import { Avatar} from '@chakra-ui/react';
 import { Image } from '@chakra-ui/react';
 import { ITopMenu } from "./topMenu.types";
 import logo from './logo.jpg';
-import { ChevronDownIcon } from '@chakra-ui/icons';
+import { useLocation } from "react-router-dom";
 import { Responsive } from "../generalTypes";
 
 function TopMenu(props: ITopMenu): JSX.Element {
-
+    const location = useLocation();
     let navigate = useNavigate()
+    const link: string[] = location.pathname.split("/");
+    const idTourOperator: string = link[link.length - 1];
 
     function Change() {
-        navigate (`/admin/Settings`)
+        navigate (`/tour-operator/${idTourOperator}/Settings`)
     }
 
     return (
@@ -34,7 +36,7 @@ function TopMenu(props: ITopMenu): JSX.Element {
                 <HStack paddingLeft={'7%'} paddingRight={'7%'} h="100%" w="100%" >
                     <Image height={{base: '50%', lg: "70%", md: "70%", sm: '60%'}} src={logo} />
                     <Spacer />
-                    <Text onClick={Change} fontSize={{ base: '13px', md: '15px', lg: '20px', sm: '13px'}}>
+                    <Text fontSize={{ base: '13px', md: '15px', lg: '20px', sm: '13px'}}>
                         Welcome, Carlos! 
                     </Text>
                     <Menu>
