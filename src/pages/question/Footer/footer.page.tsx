@@ -11,19 +11,15 @@ import {
   
 import { useAppSelector, useAppDispatch } from '../../../app/hooks';
 import { updateTour, selectAllTours, links } from "../../../reducers/appSlice";
-import { useLocation, Link } from "react-router-dom";
+import { useLocation, Link, useNavigate } from "react-router-dom";
 
 const progress:Number = 100;
 
-function tourCompleted(){
-  return (
-    <Button size='lg'
-    margin={1}
-    borderRadius={10}
-    colorScheme="green"
-    color="white"> Complete Tour </Button>
-  )
-}
+
+
+
+
+
 
 export let ProgressNav = ["","name-of-tour", "type-of-tour", "group-private", "price","description","upload-photos","meeting-point","end-point","stops","languages", "restrictions","children-policy","whats-included-general","whats-included-food","whats-included-transport", "whats-included-accessibility","assistance","transportation","restrooms","places","equipment","faqs","cancelation-policy","" ]
   function Footer (props:any)  {
@@ -57,7 +53,23 @@ export let ProgressNav = ["","name-of-tour", "type-of-tour", "group-private", "p
     
     /* RESPONSIVE ------------------------------------*/
     const fontSizeResponsive = { base:'20px', sm:'15px'};
+    const navigate = useNavigate();
+
+    function finalTour(){
+      navigate(`/tour-operator/${props}/tour-completed/${idTour}`)
+    }
     
+    function tourCompleted(){
+      return (
+        <Button size='lg'
+        margin={1}
+        borderRadius={10}
+        colorScheme="green"
+        color="white"
+        onClick={()=>finalTour()}> Complete Tour </Button>
+      )
+    }
+
     return (
       <Box h="16%" w="full" marginBottom={'10px'}>
         <Slider defaultValue={0} value={tour.percentage} isReadOnly={true} size="lg" w="full">
@@ -76,7 +88,7 @@ export let ProgressNav = ["","name-of-tour", "type-of-tour", "group-private", "p
                     borderColor="#3F6FE4" 
                     > Back </Button>
           </Link>
-            {/*<Text fontSize="20px" color="#9B9B9B"> 1 of 19 items sent </Text>*/}
+            {/*<Text fontSize="20px" color="#9B9B9B">{tour.percentage}%</Text>*/}
             <Box >
               {tour.percentage=== 100 ? tourCompleted() : console.log(progress)}
               <Link to = { ProgressNav[index+1]==="" ? `/tour-operator/${props}/tour-completed/${idTour}` : ProgressNav[index+1] }>
