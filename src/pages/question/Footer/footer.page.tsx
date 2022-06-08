@@ -7,23 +7,23 @@ import {
     SliderTrack,
     SliderFilledTrack,
     Button,
+    Text
   } from "@chakra-ui/react"
   
 import { useAppSelector, useAppDispatch } from '../../../app/hooks';
 import { updateTour, selectAllTours, links } from "../../../reducers/appSlice";
-import { useLocation, Link } from "react-router-dom";
+import { useLocation, Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+
+import { useToast } from "@chakra-ui/react";
 
 const progress:Number = 100;
 
-function tourCompleted(){
-  return (
-    <Button size='lg'
-    margin={1}
-    borderRadius={10}
-    colorScheme="green"
-    color="white"> Complete Tour </Button>
-  )
-}
+
+
+
+
+
 
 export let ProgressNav = ["","name-of-tour", "type-of-tour", "group-private", "price","description","upload-photos","meeting-point","end-point","stops","languages", "restrictions","children-policy","whats-included-general","whats-included-food","whats-included-transport", "whats-included-accessibility","assistance","transportation","restrooms","places","equipment","faqs","cancelation-policy","" ]
   function Footer (props:any)  {
@@ -57,7 +57,54 @@ export let ProgressNav = ["","name-of-tour", "type-of-tour", "group-private", "p
     
     /* RESPONSIVE ------------------------------------*/
     const fontSizeResponsive = { base:'20px', sm:'15px'};
+    const navigate = useNavigate();
+
+    const toast = useToast();
+
+    function toastSuccess() {
+      toast({
+        title: "Success!",
+        description: "Your tour or activity has been finished.",
+        status: "success",
+        duration: 9000,
+        isClosable: true,
+      });
+    }
+  
+    function toastError() {
+      toast({
+        title: "Error!.",
+        description: "We were unable to finish your tour or activity.",
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+      });
+    }
+
+    function finalTour(){
+        const url = `https://api-things-to-do.herokuapp.com/tour-operator/finish-tour/${idTour}`
+        axios.put(url, {})
+        .then((result) => {
+          toastSuccess();
+          navigate(`/tour-operator/${props}/tour-completed/${idTour}`)
+        })
+        .catch((error) => {
+          console.log(error);
+          toastError();
+        });
+    }
     
+    function tourCompleted(){
+      return (
+        <Button size='lg'
+        margin={1}
+        borderRadius={10}
+        colorScheme="green"
+        color="white"
+        onClick={()=>finalTour()}> Complete Tour </Button>
+      )
+    }
+
     return (
       <Box h="16%" w="full" marginBottom={'10px'}>
         <Slider defaultValue={0} value={tour.percentage} isReadOnly={true} size="lg" w="full">
@@ -76,7 +123,7 @@ export let ProgressNav = ["","name-of-tour", "type-of-tour", "group-private", "p
                     borderColor="#3F6FE4" 
                     > Back </Button>
           </Link>
-            {/*<Text fontSize="20px" color="#9B9B9B"> 1 of 19 items sent </Text>*/}
+            <Text fontSize="20px" color="#9B9B9B">{tour.percentage}%</Text>
             <Box >
               {tour.percentage=== 100 ? tourCompleted() : console.log(progress)}
               <Link to = { ProgressNav[index+1]==="" ? `/tour-operator/${props}/tour-completed/${idTour}` : ProgressNav[index+1] }>
