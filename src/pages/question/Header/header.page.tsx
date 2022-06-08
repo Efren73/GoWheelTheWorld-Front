@@ -1,78 +1,121 @@
-import * as React from "react"
-
 import {
-    Text,
-    Button,
-    useDisclosure,
-    useBreakpointValue,
-    HStack,
-    Box,
-    Drawer,
-    VStack,
-    DrawerOverlay,
-    DrawerContent,
-    DrawerCloseButton,
-    Link,
-    Image,
-  } from "@chakra-ui/react"
+  Button,
+  useDisclosure,
+  useBreakpointValue,
+  Text,
+  HStack,
+  Box,
+  Drawer,
+  VStack,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerCloseButton,
+  Image,
+  useMediaQuery,
+  Flex,
+} from "@chakra-ui/react"
+import { useState} from "react"
+import { useNavigate, useLocation } from "react-router-dom";
+import { HamburgerIcon } from '@chakra-ui/icons'
+import Summary from "../../../components/summary"
+import logo from '../../login/images/logo.png'
+import { useAppSelector, useAppDispatch } from "../../../app/hooks"
+import { getTourStatus, selectAllTours} from "../../../reducers/appSlice"
+import { updateTour  } from "../../../reducers/appSlice";
+import { link } from "fs";
 
-  import {HamburgerIcon } from '@chakra-ui/icons'
-  import Summary from "../../../components/summary"
-  import logo from '../../login/images/logo.png'
-import { useAppSelector } from "../../../app/hooks"
-import { getTourStatus } from "../../../reducers/appSlice"
 
-  const Header = () =>{ 
-    const status = useAppSelector(getTourStatus);
-    const screenSize = useBreakpointValue({ base: 'true', md: 'false', lg:'false' })
+const Header = (props:any) =>{ 
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const status = useAppSelector(getTourStatus);
+  const tour = useAppSelector(selectAllTours);
+  const [addRequestStatus, setAddRequestStatus] = useState('idle');
 
+  const [isLargerThan1280] = useMediaQuery('(min-width: 768px)')
 
-    function SummaryDrawer() {
-        const { isOpen, onOpen, onClose } = useDisclosure()
-      
-        return (
-          <>
-            <Button colorScheme='gray' leftIcon={<HamburgerIcon />}  onClick={onOpen}>
-                Summary
-            </Button>
+  function saveProgress():any {
 
-            <Drawer
-              isOpen={isOpen}
-              placement='right'
-              onClose={onClose}
-              size={'full'}
-            >
-              <DrawerOverlay />
-              <DrawerContent w='full'>
-              <DrawerCloseButton color='white'/>
-                <Summary/>
-              </DrawerContent>
-            </Drawer>
-          </>
-        )
-      }
-      function CheckSize(screenSize:any){
-        if (screenSize=='true' && status==="succeeded")
-            return (
-                <SummaryDrawer/>
-                )
+      navigate(
+        `/tour-operator/${props}`
+      );
     }
 
-    return (
-    <HStack w='full' h={20} justifyContent='space-between' paddingRight='3%'>
-        <Box  w={{base: '10%', md: '15%', lg:'10%', sm: '30%'}}>
-            <Image src={logo} />
-        </Box>
-        <Box alignItems={'flex-end'}>
-            <VStack alignItems="flex-start" spacing="-2">
-                <Text fontSize={['10px', '15px', '20px', '20px']} color="#3F6FE4"> Fernanda, let's start! </Text>
-                <Link fontSize={['10px', '10px', '15px']} > Save and exit </Link>
-            </VStack>
-        </Box>
-        { 
-            CheckSize(screenSize) 
-         }
-    </HStack>
+  function SummaryDrawer() {
+      const { isOpen, onOpen, onClose } = useDisclosure()
+    
+      return (
+        <>
+          <Button borderColor='gray.500' leftIcon={<HamburgerIcon />}  onClick={onOpen} variant='outline'>
+              Summary
+          </Button>
 
-  )}
-  export default Header;
+          <Drawer
+            isOpen={isOpen}
+            placement='right'
+            onClose={onClose}
+            size={'full'}
+          >
+            <DrawerOverlay />
+            <DrawerContent w='full'>
+            <DrawerCloseButton color='white'/>
+              <Summary/>
+            </DrawerContent>
+          </Drawer>
+        </>
+      )
+    }
+
+  function CheckSgiize(screenSize:any) {
+    if (screenSize=='true' && status==="succeeded")
+      return (
+        <SummaryDrawer/>
+      )
+  }
+
+  return (
+    <Flex w="full">
+      { !isLargerThan1280 ? (
+          <HStack w='full' 
+                  h={20} 
+                  justifyContent='space-between' 
+                  paddingRight={{ base: 0, sm: 110}}
+                  paddingLeft={{ base: 0, sm: 90}}>
+                  
+            <Box  w={{ base: '18%', sm: '18%' }}>
+                <Image src={logo} />
+            </Box>
+            <VStack alignItems="flex-start" spacing={1}>
+              <Box alignItems={'flex-end'}>
+                <SummaryDrawer/>
+              </Box>
+                <Button onClick={saveProgress} variant={"ghost"}>
+                <u>
+                    Save and exit
+                </u>
+                </Button>
+            </VStack>
+          </HStack>
+        ) : (
+          <HStack w='full' 
+                  h={20} 
+                  justifyContent='flex-end' 
+                  paddingRight={{ md: 6, lg: 8 }}>
+            <VStack alignItems="flex-end" spacing={-0.1}>
+              <Box  w= '35%'>
+                  <Image src={logo} />
+              </Box>
+              <Button onClick={saveProgress}  variant={"ghost"}>
+                <u>
+                  Save and exit 
+                </u>              
+              </Button>
+            </VStack>
+          </HStack>
+        )
+      }
+    </Flex>
+  )
+}
+
+export default Header;

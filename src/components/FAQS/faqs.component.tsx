@@ -1,6 +1,5 @@
 import * as React from "react";
-import { useState, useEffect } from "react";
-import { Flex, Skeleton, useDisclosure } from "@chakra-ui/react";
+import { useState, useEffect, useRef } from "react";
 import {
   Text,
   HStack,
@@ -16,6 +15,12 @@ import {
   ModalBody,
   ModalFooter,
   Heading,
+  Skeleton,
+  Flex,
+  Textarea,
+  useDisclosure,
+  ModalCloseButton,
+  IconButton,
 } from "@chakra-ui/react";
 
 import { DeleteIcon } from "@chakra-ui/icons";
@@ -29,6 +34,8 @@ import {
 } from "../../reducers/appSlice";
 
 const Faqs: React.FC = () => {
+
+  /* REDUX ------------------------------*/
   const dispatch = useAppDispatch();
   const tour = useAppSelector(selectAllTours);
   const status = useAppSelector(getTourStatus);
@@ -45,11 +52,13 @@ const Faqs: React.FC = () => {
   //Valor que se encuentra en el input para contar caracteres
   let inputValue: any;
 
+  let [indexValue, setIndex] = useState(0);
+
   //Función cada vez que el contenido del texto cambie
   let handleInputChange = (e: any) => {
     inputValue = e.target.value;
     //Si la longitud es mayor que 60, entonces no podrán hacerse cambios, esta será la longitud máxima
-    if (inputValue.length <= 80) {
+    if (inputValue.length <= 200) {
       setText(inputValue);
       setCharacters(inputValue.length);
     }
@@ -65,7 +74,7 @@ const Faqs: React.FC = () => {
           onChange={handleInputChange}
           value={text}
         />
-        <Text color="#2F6FE4">{characters}/80</Text>
+        <Text color="#2F6FE4">{characters}/200</Text>
       </Box>
     );
   }
@@ -77,12 +86,10 @@ const Faqs: React.FC = () => {
       {
         question: "",
         answer: "",
+        indexElement: questionAnswer.length,
       },
     ]);
   };
-
-  //Elementos utilizados para la ventana modal
-  const { isOpen, onOpen, onClose } = useDisclosure();
 
   //Matriz en donde se guardan los ejemplos de faqs
   const faqsExamples: string[][] = [
@@ -116,7 +123,9 @@ const Faqs: React.FC = () => {
   //El valor newArray[3] hace referencia a la cantidad de caracteres de la respuesta
   function changeOneValue(e: any, index: any, type: any) {
     let newArray = [...questionAnswer];
-    if (e.target.value.length <= 80) {
+    inputValue = e.target.value;
+
+    if (e.target.value.length <= 200) {
       if (type === "question") {
         newArray[index] = {
           ...questionAnswer[index],
@@ -132,13 +141,20 @@ const Faqs: React.FC = () => {
     setQuestionAnswer(newArray);
   }
 
-  function deleteQ(e: any, index: any) {
+  function deleteQ() {
     let newArray = [...questionAnswer];
-    newArray.splice(index, 1);
-    setQuestionAnswer(newArray);
-  }
+    newArray.splice(indexValue, 1);
 
-  console.log("Faqs", questionAnswer);
+    for (let i = 0; i < newArray.length; i++) {
+      newArray[i] = {
+        ...newArray[i],
+        indexElement: i,
+      };
+    }
+
+    setQuestionAnswer(newArray);
+    onClose();
+  }
 
   useEffect(() => {
     dispatch(fetchTours());
@@ -154,161 +170,207 @@ const Faqs: React.FC = () => {
 
   useEffect(() => {
     if (status === "succeeded") {
-      if (tour.faqs != undefined) {
+      if (tour.faqs !== undefined) {
         setQuestionAnswer(tour.faqs);
       }
     }
   }, [status]);
 
+  /* ALERT DIALOG ------------------------------*/
+  let [myModal, setMyModal] = useState<string>('');
+
+  const OverlayOne = () => (
+    <ModalBody>
+      Are you sure? You can't undo this action afterwards.
+    </ModalBody>
+  );
+
+  const OverlayTwo = () => (
+    <ModalBody>
+        {faqsExamples.map((faq) => (
+          <Stack marginBottom="10px">
+              <Text color="#3F6FE4" fontSize="20px">
+              {faq[0]}
+              </Text>
+              <Text fontSize="16px">{faq[1]}</Text>
+          </Stack>
+      ))}
+    </ModalBody>
+  )
+
+  const [overlay, setOverlay] = React.useState(<OverlayOne />)
+  //Elementos utilizados para la ventana modal
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  console.log("Faqs", questionAnswer);
+
   return (
     <React.Fragment>
-        {status === "succeeded" ?
-            (
-                <Box
-                boxShadow="md"
-                w="65%"
-                p={10}
-                background="#F8F9F9"
-                borderRadius="10px"
-                >
-                <Stack spacing={2} marginBottom={15}>
-                    <Text color="#3F6FE4" fontSize={Responsive.fontSizeResponsiveHead}>
-                        FAQS
-                    </Text>
-                    <Heading fontSize={Responsive.fontSizeResponsiveBody}>
-                        Add your Frequently Asked Questions
-                    </Heading>
-                </Stack>
-
-                <Stack overflowY="auto" w="full" justifyContent="flex-start">
-                    <Stack w="85%" justifyContent="start">
-                    <HStack justifyContent="flex-start">
-                        <Checkbox
-                        background="#fff"
-                        _focus={{ background: "#000" }}
-                        size="lg"
-                        onChange={() => setCheck1(!check1)}
-                        />
-                        <Text fontSize={Responsive.fontSizeResponsiveHead}>
-                            Can I Park here?
-                        </Text>
-                    </HStack>
-                    {check1 && addAnswer()}
-                    </Stack>
-                    <Stack>
-                    <Button
-                        bg="#3F6FE4"
-                        border=" 1px solid #000"
-                        color="#fff"
-                        borderRadius="20px"
-                        onClick={addQuestionAnswer}
-                        w="10%"
-                        fontSize={Responsive.fontSizeResponsiveBody}
-                    >
-                        + Add
-                    </Button>
-                    </Stack>
-                    <form onSubmit={handleSubmit}>
-                        {questionAnswer && questionAnswer.length > 0 ?
-                            (
-                                questionAnswer.map((x: any, index: any) => (
-                                    <Stack w="100%" marginBottom={4}>
-                                        <HStack>
-                                        <Stack w="85%">
-                                            <Text>Question {index + 1}</Text>
-                                            <Box>
-                                            <Box>
-                                                <Input
-                                                placeholder="Question"
-                                                bg="#fff"
-                                                value={x.question}
-                                                onChange={(e: any) =>
-                                                    changeOneValue(e, index, "question")
-                                                }
-                                                />
-                                                <Text color="#2F6FE4">
-                                                  {x.question ? x.question.length : 0}/80
-                                                </Text>
-                                            </Box>
-                                            <Box>
-                                                <Input
-                                                placeholder="Answer"
-                                                value={x.answer}
-                                                bg="#fff"
-                                                onChange={(e: any) =>
-                                                    changeOneValue(e, index, "answer")
-                                                }
-                                                />
-                                                <Text color="#2F6FE4">
-                                                {x.answer ? x.answer.length : 0}/80
-                                                </Text>
-                                            </Box>
-                                            <Flex justifyContent="flex-end">
-                                                <Button
-                                                variant="link"
-                                                onClick={(e: any) => deleteQ(e, index)}
-                                                marginBottom="20px"
-                                                >
-                                                <DeleteIcon />
-                                                </Button>
-                                            </Flex>
-                                            </Box>
-                                        </Stack>
-                                        </HStack>
-                                    </Stack>
-                                ))
-                            )
-                            :
-                            (
-                                <p></p>
-                            )
-                        }
-                    </form>
-                </Stack>
-
-                <Box w="full"></Box>
-
-                <Box w="full">
-                    <HStack justifyContent="flex-end">
-                    <Button variant="link" onClick={onOpen}>
-                        <Text color="#2F6FE4" as="u">
-                            Show examples
-                        </Text>
-                    </Button>
-                    </HStack>
-                </Box>
-                </Box>
-            )
-            :
-            (
-                <Skeleton w="65%" h="75%" p={10} borderRadius="10px" />
-            )
-        }
-
-        <Modal
-            onClose={onClose}
-            size="xl"
-            isOpen={isOpen}
-            scrollBehavior="inside"
+      {status === "succeeded" ? (
+        <Box
+          boxShadow="md"
+          w="65%"
+          p={10}
+          background="#F8F9F9"
+          borderRadius="10px"
         >
-            <ModalOverlay />
-            <ModalContent background="#EBE9E9">
-            <ModalHeader color="#3F6FE4">Examples</ModalHeader>
-            <ModalBody>
-                {faqsExamples.map((faq) => (
-                    <Stack marginBottom="10px">
-                        <Text color="#3F6FE4" fontSize="20px">
-                        {faq[0]}
-                        </Text>
-                        <Text fontSize="16px">{faq[1]}</Text>
-                    </Stack>
-                ))}
-            </ModalBody>
+          <Stack spacing={2} marginBottom={15}>
+            <Text color="#3F6FE4" fontSize={Responsive.fontSizeResponsiveHead}>
+              FAQS
+            </Text>
+            <Heading fontSize={Responsive.fontSizeResponsiveBody}>
+              Add your Frequently Asked Questions
+            </Heading>
+          </Stack>
+
+          <Stack overflowY="auto" w="full" justifyContent="flex-start">
+            <Stack w="85%" justifyContent="start">
+              <HStack justifyContent="flex-start" marginTop="20px">
+                <Checkbox
+                  background="#fff"
+                  _focus={{ background: "#000" }}
+                  size="lg"
+                  onChange={() => setCheck1(!check1)}
+                />
+                <Text fontSize={Responsive.fontSizeResponsiveHead}>
+                  Can I Park here?
+                </Text>
+              </HStack>
+              {check1 && addAnswer()}
+            </Stack>
+            <Stack>
+              <Button
+                marginTop="20px"
+                marginLeft={'5px'}
+                bg="#3F6FE4"
+                color="#fff"
+                onClick={addQuestionAnswer}
+                w="10%"
+                fontSize={Responsive.fontSizeResponsiveBody}
+              >
+                + Add
+              </Button>
+            </Stack>
+            <form onSubmit={handleSubmit}>
+              {questionAnswer && questionAnswer.length > 0 ? (
+                questionAnswer.map((x: any, index: any) => (
+                  <Stack w="100%" marginBottom={4}>
+                    <HStack>
+                      <Stack w="85%" marginTop="20px">
+                        <Heading fontSize={Responsive.fontSizeResponsiveHead}>
+                          Question {index + 1}
+                        </Heading>
+                        <Box>
+                          <Box>
+                            <Input
+                              variant={x.question ? "filled" : "outline"}
+                              placeholder="Question"
+                              value={x.question}
+                              onChange={(e: any) =>
+                                changeOneValue(e, index, "question")
+                              }
+                            />
+                            <Text color="#2F6FE4">
+                              {x.question ? x.question.length : 0}/200
+                            </Text>
+                          </Box>
+                          <Box>
+                            <Textarea
+                              variant={x.answer ? "filled" : "outline"}
+                              marginTop="10px"
+                              h="80px"
+                              placeholder="Answer"
+                              value={x.answer}
+                              onChange={(e: any) =>
+                                changeOneValue(e, index, "answer")
+                              }
+                            />
+                            <Text color="#2F6FE4">
+                              {x.answer ? x.answer.length : 0}/200
+                            </Text>
+                          </Box>
+                          <Flex justifyContent="flex-end">
+                            <IconButton
+                                size='md'
+                                icon={<DeleteIcon />}
+                                aria-label={'Delete stop'}
+                                colorScheme='gray'
+                                onClick={() => {
+                                  setOverlay(<OverlayOne />);
+                                  onOpen();
+                                  setIndex(x.indexElement);
+                                  setMyModal("delete");
+                                }}                             
+                              />
+                          </Flex>
+                        </Box>
+                      </Stack>
+                    </HStack>
+                  </Stack>
+                ))
+              ) : (
+                <p></p>
+              )}
+            </form>
+          </Stack>
+
+          <Box w="full"></Box>
+
+          <Box w="full">
+            <HStack justifyContent="flex-end">
+              <Button
+                variant="link"
+                onClick={() => {
+                  setOverlay(<OverlayTwo />);
+                  onOpen();
+                  setMyModal("examples");
+                }}
+              >
+                <Text color="#2F6FE4" as="u">
+                  Show examples
+                </Text>
+              </Button>
+            </HStack>
+          </Box>
+        </Box>
+      ) : (
+        <Skeleton w="65%" h="75%" p={10} borderRadius="10px" />
+      )}
+      <Modal
+        isCentered
+        isOpen={isOpen}
+        onClose={onClose}
+        scrollBehavior="inside"
+      >
+        <ModalOverlay bg="none" backdropFilter="auto" backdropBlur="2px" />
+        <ModalContent>
+          {myModal === "examples" ? (
+            <ModalHeader marginLeft={'5%'} fontSize="lg"
+            fontWeight="bold"> Examples </ModalHeader>
+          ) : (
+            <ModalHeader
+            marginLeft={'5%'}
+            fontSize="lg"
+            fontWeight="bold"> Delete FAQ </ModalHeader>
+          )}
+          <ModalCloseButton />
+          <ModalBody>{overlay}</ModalBody>
+          {myModal === "examples" ? (
             <ModalFooter>
-                <Button onClick={onClose}>Close</Button>
+              <Button onClick={onClose} background="#3F6FE4" color={"white"}>
+                Close
+              </Button>
             </ModalFooter>
-            </ModalContent>
-        </Modal>
+          ) : (
+            <ModalFooter>
+              <Button onClick={onClose}>Cancel</Button>
+              <Button colorScheme="red" onClick={() => deleteQ()} ml={3}>
+                Delete
+              </Button>
+            </ModalFooter>
+          )}
+        </ModalContent>
+      </Modal>
     </React.Fragment>
   );
 };

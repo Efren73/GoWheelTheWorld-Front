@@ -17,12 +17,12 @@ import {
   selectAllTours,
   getTourStatus,
   changeState,
+  changeAreaEdited,
 } from "../../reducers/appSlice";
 import { Responsive } from "../generalTypes";
 
 function CustomCheckbox(props: any) {
-  const { state, getCheckboxProps, getInputProps, getLabelProps } =
-    useCheckbox(props);
+  const { getCheckboxProps, getInputProps, getLabelProps } = useCheckbox(props);
   let backgroundValue: string;
   let colorValue: string;
 
@@ -87,7 +87,7 @@ const Multiple = () => {
     } else {
       /* filter regresa una copia del arreglo original, pero ahora sin el expereinceName que indique */
       const result = checkedItems.filter(
-        (checkedItems) => checkedItems != expereinceName
+        (checkedItems) => checkedItems !== expereinceName
       );
       /* actualizamos al arreglo original checkedItems con el arreglo de filter */
       setCheckedItems(result);
@@ -102,13 +102,14 @@ const Multiple = () => {
   /* get --------- */
   useEffect(() => {
     dispatch(fetchTours());
+    dispatch(changeAreaEdited('BASIC_INFORMATION'))
   }, []);
 
   useEffect(() => {
     if (status === "succeeded") {
       if (
-        tour.basicInformation != undefined &&
-        tour.basicInformation.typeOfActivity != undefined
+        tour.basicInformation !== undefined &&
+        tour.basicInformation.typeOfActivity !== undefined
       ) {
         setCheckedItems(tour.basicInformation.typeOfActivity);
       }
@@ -129,50 +130,52 @@ const Multiple = () => {
 
   return (
     <React.Fragment>
-      {status === "succeeded" ?
-          (
-            <Box boxShadow="md" w="65%" p={10} background="#F8F9F9" borderRadius="10px">
-              <Stack spacing={2}>
-                <Text fontSize={Responsive.fontSizeResponsiveHead} color="#3F6FE4">
-                  Basic Information / Type of tour
-                </Text>
-                <Heading fontSize={Responsive.fontSizeResponsiveBody}>
-                  What kind of experience would you like to offer?
-                </Heading>
-              </Stack>
+      {status === "succeeded" ? (
+        <Box
+          boxShadow="md"
+          w="65%"
+          p={10}
+          background="#F8F9F9"
+          borderRadius="10px"
+        >
+          <Stack spacing={2}>
+            <Text fontSize={Responsive.fontSizeResponsiveHead} color="#3F6FE4">
+              Basic Information / Type of tour
+            </Text>
+            <Heading fontSize={Responsive.fontSizeResponsiveBody}>
+              What kind of experience would you like to offer?
+            </Heading>
+          </Stack>
 
-              <SimpleGrid
-                columns={[1, 1, 2, 2, 3]}
-                spacing={15}
-                paddingTop="25px"
-                h="full"
-                fontSize={Responsive.fontSizeResponsiveHead}
-              >
-                {experiences.map((experience: string) => (
-                  <React.Fragment>
-                    {seleccionado.includes(experience) ? (
-                      <CustomCheckbox
-                        /* llamando a función hijo CustomCheckbox, se le pasa el arreglo de experiences */
-                        {...{ value: `${experience}`, isChecked: true }}
-                        /* función que en el Padre se llama handleCheckedItems, se pasa como onChange */
-                        onChange={() => handleCheckedItems(experience, true)}
-                      />
-                    ) : (
-                      <CustomCheckbox
-                        {...{ value: `${experience}`, isChecked: false }}
-                        onChange={() => handleCheckedItems(experience, false)}
-                      />
-                    )}
-                  </React.Fragment>
-                ))}
-              </SimpleGrid>
-            </Box>
-          )
-          :
-          (
-            <Skeleton w="65%" h="75%" p={10} borderRadius="10px" />
-          )
-      }
+          <SimpleGrid
+            columns={[1, 1, 2, 2, 3]}
+            spacing={15}
+            paddingTop="25px"
+            h="full"
+            fontSize={Responsive.fontSizeResponsiveHead}
+          >
+            {experiences.map((experience: string) => (
+              <React.Fragment>
+                {seleccionado.includes(experience) ? (
+                  <CustomCheckbox
+                    /* llamando a función hijo CustomCheckbox, se le pasa el arreglo de experiences */
+                    {...{ value: `${experience}`, isChecked: true }}
+                    /* función que en el Padre se llama handleCheckedItems, se pasa como onChange */
+                    onChange={() => handleCheckedItems(experience, true)}
+                  />
+                ) : (
+                  <CustomCheckbox
+                    {...{ value: `${experience}`, isChecked: false }}
+                    onChange={() => handleCheckedItems(experience, false)}
+                  />
+                )}
+              </React.Fragment>
+            ))}
+          </SimpleGrid>
+        </Box>
+      ) : (
+        <Skeleton w="65%" h="75%" p={10} borderRadius="10px" />
+      )}
     </React.Fragment>
   );
 };

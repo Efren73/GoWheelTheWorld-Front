@@ -1,6 +1,4 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState, AppThunk } from '../app/store';
-import { useAppSelector, useAppDispatch } from '../app/hooks';
 import axios from "axios";
 
 
@@ -15,6 +13,7 @@ export const links = ((data: any) =>{
 export interface  basicInformation 
 {
     tour: {},
+    areaEdited: string,
     /*tourName: string | null;
     id: number;
     duration: string | null;
@@ -28,10 +27,10 @@ export interface  basicInformation
     photos: string | null;
     link: string | null;*/
     status: 'idle' | 'loading' | 'succeeded' | 'failed',
-    url: string
 } 
 const initialState: basicInformation = {
     tour: {},
+    areaEdited: '',
     /*tourName: null,
     id: 1,
     duration: null,
@@ -45,7 +44,6 @@ const initialState: basicInformation = {
     photos: null,
     link: null,*/
     status: 'idle',
-    url : ""
 };
 
 export const fetchTours = createAsyncThunk('tour/fetchTours', async () => {
@@ -69,11 +67,13 @@ export const appSlice = createSlice({
         state.tour = {
           ...state.tour,
          ...action.payload
-        }    
-    },
-    changeUrl : (state, action:PayloadAction<string>) => {
-      state.url = action.payload
-  },
+        }  
+      },
+      changeAreaEdited: (state, action: PayloadAction<any>) => {
+        state.areaEdited = action.payload
+      }
+
+
 
   },
 
@@ -85,7 +85,6 @@ export const appSlice = createSlice({
         .addCase(fetchTours.fulfilled, (state, action) => {
           state.status = 'succeeded'
           state.tour = action.payload
-          state.url = state.url
 
         })
         .addCase(fetchTours.rejected, (state) => {
@@ -101,10 +100,10 @@ export const appSlice = createSlice({
     },
 });
 
-export const { changeState, changeUrl } = appSlice.actions;
+export const { changeState, changeAreaEdited } = appSlice.actions;
 export const selectAllTours = (state:any) => state.appSlice.tour;
 export const getTourStatus = (state: any) => state.appSlice.status;
-
+export const selectAreaEdited = (state: any) => state.appSlice.areaEdited;
 
 //export const tourName = (state: RootState) => state.tourN.tourName;
 

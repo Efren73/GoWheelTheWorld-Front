@@ -26,7 +26,6 @@ import {
 
 function Restrooms(props: IRestrooms): JSX.Element {
   const dispatch = useAppDispatch();
-  const [addRequestStatus, setAddRequestStatus] = useState("idle");
   const tour = useAppSelector(selectAllTours);
   const status = useAppSelector(getTourStatus);
 
@@ -70,8 +69,8 @@ function Restrooms(props: IRestrooms): JSX.Element {
   useEffect(() => {
     if (status === "succeeded") {
       if (
-        tour.accessibility != undefined &&
-        tour.accessibility.restrooms != undefined
+        tour.accessibility !== undefined &&
+        tour.accessibility.restrooms !== undefined
       ) {
         setRestRoom(tour.accessibility.restrooms);
       }
@@ -89,134 +88,137 @@ function Restrooms(props: IRestrooms): JSX.Element {
     );
   }, [restRoom]);
 
+  const tab = <>&nbsp;&nbsp;&nbsp;&nbsp;</>;
+
   return (
     <React.Fragment>
-        {status === "succeeded" ?
-            (
-                <Box boxShadow="md" w="65%" p={10} background="#F8F9F9" borderRadius="10px">
-                <VStack alignItems="flex-start" w="full">
-                    <Text fontSize={Responsive.fontSizeResponsiveHead} color="#3F6FE4">
-                      Accessibility / Restrooms
-                    </Text>
-                    <Heading fontSize={Responsive.fontSizeResponsiveBody}>
-                        Restrooms
-                    </Heading>
-                    <HStack justifyContent="flex-end" w="95%">
-                    <HStack w="15%" spacing={31}>
-                        <Text color="#4F6FE4" fontSize={Responsive.fontSizeResponsiveHead}>
-                          Yes
-                        </Text>
-                        <Text color="#4F6FE4" fontSize={Responsive.fontSizeResponsiveHead}>
-                          No
-                        </Text>
+      {status === "succeeded" ? (
+        <Box
+          boxShadow="md"
+          w="65%"
+          p={10}
+          background="#F8F9F9"
+          borderRadius="10px"
+        >
+          <VStack alignItems="flex-start" w="full">
+            <Text fontSize={Responsive.fontSizeResponsiveHead} color="#3F6FE4">
+              Accessibility / Restrooms
+            </Text>
+            <Heading fontSize={Responsive.fontSizeResponsiveBody}>
+              Restrooms
+            </Heading>
+            <Table bg="white" borderRadius={10}>
+              <Tbody>
+                <Tr fontSize={Responsive.fontSizeResponsiveHead}>
+                  <Td> </Td>
+                  <Td color="#4F6FE4"> 
+                    <HStack justifyContent="flex-end">
+                      <Text> Yes {tab} No </Text>
                     </HStack>
-                    </HStack>
-
-                    <Table bg="white" borderRadius={10}>
-                    <Tbody>
-                        <Tr fontSize={Responsive.fontSizeResponsiveHead}>
-                        <Td>
-                            Accessible restrooms available at every place of the
-                            tour/activity
-                        </Td>
-                        <Td>
-                            <RadioGroup value={restRoom[0].answer}>
-                            <HStack spacing={8} justifyContent="flex-end">
-                                <Radio
-                                value="yes"
-                                border="1px"
-                                borderColor="#2F6FE4"
-                                onChange={(e: any) => changeValue(e, 0)}
-                                ></Radio>
-                                <Radio
-                                value="no"
-                                border="1px"
-                                borderColor="#2F6FE4"
-                                onChange={(e: any) => changeValue(e, 0)}
-                                ></Radio>
-                            </HStack>
-                            </RadioGroup>
-                        </Td>
-                        </Tr>
-                        <Tr fontSize={Responsive.fontSizeResponsiveHead}>
-                        <Td>
-                            Accessible restrooms available at multiple stops during the
-                            tour/activity.
-                        </Td>
-                        <Td>
-                            <RadioGroup value={restRoom[1].answer}>
-                            <HStack spacing={8} justifyContent="flex-end">
-                                <Radio
-                                value="yes"
-                                border="1px"
-                                borderColor="#2F6FE4"
-                                onChange={(e: any) => changeValue(e, 1)}
-                                ></Radio>
-                                <Radio
-                                value="no"
-                                border="1px"
-                                borderColor="#2F6FE4"
-                                onChange={(e: any) => changeValue(e, 1)}
-                                ></Radio>
-                            </HStack>
-                            </RadioGroup>
-                        </Td>
-                        </Tr>
-                        <Tr fontSize={Responsive.fontSizeResponsiveHead}>
-                        <Td>
-                            Accessible restrooms available in only one stop of the
-                            tour/activity.
-                        </Td>
-                        <Td>
-                            <RadioGroup value={restRoom[2].answer}>
-                            <HStack spacing={8} justifyContent="flex-end">
-                                <Radio
-                                value="yes"
-                                border="1px"
-                                borderColor="#2F6FE4"
-                                onChange={(e: any) => changeValue(e, 2)}
-                                ></Radio>
-                                <Radio
-                                value="no"
-                                border="1px"
-                                borderColor="#2F6FE4"
-                                onChange={(e: any) => changeValue(e, 2)}
-                                ></Radio>
-                            </HStack>
-                            </RadioGroup>
-                        </Td>
-                        </Tr>
-                        <Tr fontSize={Responsive.fontSizeResponsiveHead}>
-                        <Td>No accessible restrooms available for the tour/activity.</Td>
-                        <Td>
-                            <RadioGroup value={restRoom[3].answer}>
-                            <HStack spacing={8} justifyContent="flex-end">
-                                <Radio
-                                value="yes"
-                                border="1px"
-                                borderColor="#2F6FE4"
-                                onChange={(e: any) => changeValue(e, 3)}
-                                ></Radio>
-                                <Radio
-                                value="no"
-                                border="1px"
-                                borderColor="#2F6FE4"
-                                onChange={(e: any) => changeValue(e, 3)}
-                                ></Radio>
-                            </HStack>
-                            </RadioGroup>
-                        </Td>
-                        </Tr>
-                    </Tbody>
-                    </Table>
-                </VStack>
-                </Box>
-            )
-            :
-            (
-                <Skeleton w="65%" h="75%" p={10} borderRadius="10px" />
-            )
-        }
+                  </Td>
+                </Tr>
+                <Tr fontSize={Responsive.fontSizeResponsiveHead}>
+                  <Td>
+                    Accessible restrooms available at every place of the
+                    tour/activity
+                  </Td>
+                  <Td>
+                    <RadioGroup value={restRoom[0].answer}>
+                      <HStack spacing={8} justifyContent="flex-end">
+                        <Radio
+                          value="yes"
+                          border="1px"
+                          borderColor="#2F6FE4"
+                          onChange={(e: any) => changeValue(e, 0)}
+                        ></Radio>
+                        <Radio
+                          value="no"
+                          border="1px"
+                          borderColor="#2F6FE4"
+                          onChange={(e: any) => changeValue(e, 0)}
+                        ></Radio>
+                      </HStack>
+                    </RadioGroup>
+                  </Td>
+                </Tr>
+                <Tr fontSize={Responsive.fontSizeResponsiveHead}>
+                  <Td>
+                    Accessible restrooms available at multiple stops during the
+                    tour/activity.
+                  </Td>
+                  <Td>
+                    <RadioGroup value={restRoom[1].answer}>
+                      <HStack spacing={8} justifyContent="flex-end">
+                        <Radio
+                          value="yes"
+                          border="1px"
+                          borderColor="#2F6FE4"
+                          onChange={(e: any) => changeValue(e, 1)}
+                        ></Radio>
+                        <Radio
+                          value="no"
+                          border="1px"
+                          borderColor="#2F6FE4"
+                          onChange={(e: any) => changeValue(e, 1)}
+                        ></Radio>
+                      </HStack>
+                    </RadioGroup>
+                  </Td>
+                </Tr>
+                <Tr fontSize={Responsive.fontSizeResponsiveHead}>
+                  <Td>
+                    Accessible restrooms available in only one stop of the
+                    tour/activity.
+                  </Td>
+                  <Td>
+                    <RadioGroup value={restRoom[2].answer}>
+                      <HStack spacing={8} justifyContent="flex-end">
+                        <Radio
+                          value="yes"
+                          border="1px"
+                          borderColor="#2F6FE4"
+                          onChange={(e: any) => changeValue(e, 2)}
+                        ></Radio>
+                        <Radio
+                          value="no"
+                          border="1px"
+                          borderColor="#2F6FE4"
+                          onChange={(e: any) => changeValue(e, 2)}
+                        ></Radio>
+                      </HStack>
+                    </RadioGroup>
+                  </Td>
+                </Tr>
+                <Tr fontSize={Responsive.fontSizeResponsiveHead}>
+                  <Td>
+                    No accessible restrooms available for the tour/activity.
+                  </Td>
+                  <Td>
+                    <RadioGroup value={restRoom[3].answer}>
+                      <HStack spacing={8} justifyContent="flex-end">
+                        <Radio
+                          value="yes"
+                          border="1px"
+                          borderColor="#2F6FE4"
+                          onChange={(e: any) => changeValue(e, 3)}
+                        ></Radio>
+                        <Radio
+                          value="no"
+                          border="1px"
+                          borderColor="#2F6FE4"
+                          onChange={(e: any) => changeValue(e, 3)}
+                        ></Radio>
+                      </HStack>
+                    </RadioGroup>
+                  </Td>
+                </Tr>
+              </Tbody>
+            </Table>
+          </VStack>
+        </Box>
+      ) : (
+        <Skeleton w="65%" h="75%" p={10} borderRadius="10px" />
+      )}
     </React.Fragment>
   );
 }
