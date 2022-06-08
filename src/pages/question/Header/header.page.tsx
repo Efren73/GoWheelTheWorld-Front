@@ -35,7 +35,14 @@ const Header = (props:any) =>{
   const [isLargerThan1280] = useMediaQuery('(min-width: 768px)')
 
   function saveProgress():any {
-
+        try {
+            setAddRequestStatus('pending')
+            dispatch(updateTour(tour))     
+            } catch (err) {
+              console.error('Failed to save the post', err)
+            } finally {
+              setAddRequestStatus('idle')
+            }
       navigate(
         `/tour-operator/${props}`
       );
