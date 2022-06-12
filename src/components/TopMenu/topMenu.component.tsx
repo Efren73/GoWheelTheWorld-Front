@@ -23,10 +23,14 @@ function TopMenu(props: ITopMenu): JSX.Element {
     const location = useLocation();
     let navigate = useNavigate()
     const link: string[] = location.pathname.split("/");
-    const idTourOperator: string = link[link.length - 1];
+    const idUser: string = link[link.length - 1];
 
+    console.log('link---------->', link[1]);
+
+    
     function Change() {
-        navigate (`/tour-operator/${idTourOperator}/Settings`)
+        if(link[1] === 'admin') navigate(`/admin/${idUser}/Settings`)
+        else if(link[1] === 'tour-operator') navigate(`/tour-operator/${idUser}/Settings`)
     }
 
     return (
