@@ -25,8 +25,7 @@ function TopMenu(props: ITopMenu): JSX.Element {
     const link: string[] = location.pathname.split("/");
     const idUser: string = link[link.length - 1];
 
-    console.log('link---------->', link[1]);
-
+    //console.log('link---------->', link[1]);
     
     function Change() {
         if(link[1] === 'admin') navigate(`/admin/${idUser}/Settings`)
