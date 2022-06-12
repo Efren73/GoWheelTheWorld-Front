@@ -92,7 +92,7 @@ function Transportation(props: ITransportation): JSX.Element {
       {status === "succeeded" ? (
         <Box
           boxShadow="md"
-          w="65%"
+          w="62%"
           p={10}
           background="#F8F9F9"
           borderRadius="10px"
@@ -209,7 +209,7 @@ function Transportation(props: ITransportation): JSX.Element {
           </VStack>
         </Box>
       ) : (
-        <Skeleton w="65%" h="75%" p={10} borderRadius="10px" />
+        <Skeleton w="62%" h="75%" p={10} borderRadius="10px" />
       )}
     </React.Fragment>
   );

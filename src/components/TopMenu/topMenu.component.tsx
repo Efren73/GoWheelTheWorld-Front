@@ -31,6 +31,9 @@ function TopMenu(props: ITopMenu): JSX.Element {
         if(link[1] === 'admin') navigate(`/admin/${idUser}/Settings`)
         else if(link[1] === 'tour-operator') navigate(`/tour-operator/${idUser}/Settings`)
     }
+    function logout(){
+        navigate (`/`)
+    }
 
     return (
         <React.Fragment>
@@ -50,7 +53,7 @@ function TopMenu(props: ITopMenu): JSX.Element {
                                     />
                         <MenuList color='black'>
                             <MenuItem fontSize={Responsive.fontSizeResponsiveBody} onClick={Change}>Profile</MenuItem>
-                            <MenuItem fontSize={Responsive.fontSizeResponsiveBody}>Log out</MenuItem>
+                            <MenuItem fontSize={Responsive.fontSizeResponsiveBody} onClick={logout}>Log out</MenuItem>
                         </MenuList>
                     </Menu>
                 </HStack>
