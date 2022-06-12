@@ -72,9 +72,6 @@ export const appSlice = createSlice({
       changeAreaEdited: (state, action: PayloadAction<any>) => {
         state.areaEdited = action.payload
       }
-
-
-
   },
 
     extraReducers: (builder) => {
