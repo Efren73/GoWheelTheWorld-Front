@@ -17,7 +17,7 @@ import {
 } from "@chakra-ui/react";
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import logo from './logo.png';
-import ImagenPrincipal from '../login/images/ImagenPrincipal.png';
+import ImagenPrincipal from '../login/images/beach-418742_1920.jpg';
 import { ISignup } from './signup.types';
 
 function Signup(props: ISignup): JSX.Element {
@@ -46,8 +46,8 @@ function Signup(props: ISignup): JSX.Element {
               </VStack>
             </Box>
             <Box w="50%">
-              <HStack justifyContent="flex-end" w="full" h="13%" >
-                  <Image src={logo} w="22%" h="full"/>
+              <HStack justifyContent="center" w="full" h="13%" marginTop='5%'>
+                  <Image src={logo} h="100%" marginBottom={'5%'}/>
               </HStack>
               <VStack w="full" spacing={14}>
                 <Heading> Become a partner! </Heading>
@@ -132,8 +132,8 @@ function Signup(props: ISignup): JSX.Element {
           : 
           <Flex w="100%" h="full" justifyContent="center">
             <Box w="90%" h="full">
-              <HStack justifyContent="flex-end" w="full" h="13%" >
-                  <Image src={logo} w={[ "22%", "25%", "28%"]} h={[ "40%", "80%", "80%", "100%" ]}/>
+              <HStack justifyContent="center" w="full" h="13%" marginTop='10%'>
+                  <Image src={logo} h={[ "50%", "90%", "90%", "100%" ]} marginBottom='5%'/>
               </HStack>
               <VStack w="full" spacing={10}>
                 <Heading> Become a partner! </Heading>

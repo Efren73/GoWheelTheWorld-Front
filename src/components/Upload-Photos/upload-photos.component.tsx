@@ -11,9 +11,11 @@ import {
   Heading,
   Skeleton,
   useToast,
+  Grid,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
+import sillaDeRuedas from "../../pages/mainScreenTO/sillaDeRuedas.png";
 import {
   changeState,
   selectAllTours,
@@ -28,9 +30,9 @@ import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { useLocation } from "react-router-dom";
 
 /* CMANEJAR ESTATUS (loading, succeeded, idle' ) ----------- */
-let status = "succeeded";
+  let status = "succeeded";
 
-const UploadPhotos: React.FC = () => {
+  const UploadPhotos: React.FC = () => {
   const location = useLocation();
   const tour = useAppSelector(selectAllTours);
 
@@ -159,7 +161,16 @@ const UploadPhotos: React.FC = () => {
           </VStack>
         </Box>
       ) : (
-        <Skeleton w="65%" h="75%" p={10} borderRadius="10px" />
+        status === "loading" ? (
+          <Skeleton w="62%" h="75%" p={10} borderRadius="10px" />
+        ) : ( // status ===  failed
+        <Grid w="62%" h='full' justifyContent={'center'}>
+          <Text color="#3F6FE4" >
+            Sorry, something went wrong!{" "}
+            <Image src={sillaDeRuedas} boxSize='200px' marginTop='10px'/>
+          </Text>
+        </Grid>
+        )
       )}
     </React.Fragment>
   );
