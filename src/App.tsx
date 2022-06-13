@@ -1,6 +1,6 @@
 import * as React from "react"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
-import {Login, Signup, Admin, MainScreenTO, Question, TourCompleted, AdminSummary, UserSettings, NotFound} from './pages'
+import {Login, Signup, Admin, MainScreenTO, Question, TourCompleted, AdminSummary, UserSettingsTO, NotFound, UserSettingsAdmin} from './pages'
 import { Cart, Description, Multiple, Price, GroupPrivate, UploadPhotos, Meeting, Stops, Languages, Restrictions, ChildPolicy, Assistance, Transportation, Restrooms, Places, Equipment, Faqs, WhatsIncluded, EndPoint, CancelatioPolicy } from "./components"
 
 
@@ -8,15 +8,15 @@ export const App = () => (
   <BrowserRouter>
     <Routes>
       <Route path="/" element = {<Login />}/>
-      <Route path="/login"  element={<Login />}  />
+      <Route path="/login"  element={<Login />} />
       <Route path="signup" element={<Signup />} />
-      <Route path="admin" element={<Admin />} />
+      <Route path="admin/:id" element={<Admin />} />
       <Route path="tour-operator/:id" element={<MainScreenTO />} />
       <Route path="tour-operator/:id/tour-completed/:tourId" element={<TourCompleted />} />
       <Route path="admin/AdminSummary/:tourId" element={<AdminSummary/>} />
 
-      <Route path="admin/Settings" element={<UserSettings/>} />
-      <Route path="tour-operator/:id/Settings" element={<UserSettings/>} />
+      <Route path="admin/:id/Settings" element={<UserSettingsAdmin/>} />
+      <Route path="tour-operator/:id/Settings" element={<UserSettingsTO/>} />
 
 
       <Route path="tour-operator/:id/question/:tourId/*" element={<Question />}>

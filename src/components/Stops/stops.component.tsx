@@ -149,7 +149,7 @@ const Stops: React.FC = () => {
   /* GET ------------------------------*/
   useEffect(() => {
     if (status === "succeeded") {
-      if (tour.intinerary.stops !== undefined) {
+      if ( tour.intinerary !== undefined && tour.intinerary.stops !== undefined) {
         setMyStop(tour.intinerary.stops);
       }
     }

@@ -11,7 +11,11 @@ import {
   Heading,
   Skeleton,
   useToast,
+<<<<<<< HEAD
   Grid,
+=======
+  IconButton
+>>>>>>> Develop
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
@@ -20,38 +24,70 @@ import {
   changeState,
   selectAllTours,
   getTourStatus,
+  fetchTours,
+  changeAreaEdited,
 } from "../../reducers/appSlice";
 
-import Photo from "./image.png";
+
+import { CloseIcon } from '@chakra-ui/icons'
 import "./upload-photos.modules.css";
 import { Responsive } from "../generalTypes";
 import { storage } from "../../firebase/index";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { useLocation } from "react-router-dom";
+import { async } from "@firebase/util";
 
 /* CMANEJAR ESTATUS (loading, succeeded, idle' ) ----------- */
+<<<<<<< HEAD
   let status = "succeeded";
+=======
+>>>>>>> Develop
 
   const UploadPhotos: React.FC = () => {
   const location = useLocation();
   const tour = useAppSelector(selectAllTours);
+  const status = useAppSelector(getTourStatus);
+
 
   const dispatch = useAppDispatch();
   const link: string[] = location.pathname.split("/");
   const idTourOperator: string = link[link.length - 2];
 
   let temp: any;
+
   const [file, setFile] = React.useState(temp);
   const [percent, setPercent] = useState(0);
   const [url, setUrl] = useState("");
+  const [urlTemp, setUrlTemp]= useState([""])
+
+  //GET DATA FROM BD
+  useEffect(() => {
+    dispatch(fetchTours());
+    dispatch(changeAreaEdited('BASIC_INFORMATION'))
+  }, []);
+
+  //SAVE DATA IN LOCAL HOOK
+  useEffect(() => {
+    if (status === "succeeded"){
+      if(tour.photos != undefined && tour.photos != [""])
+        setUrlTemp(tour.photos)
+    }
+  }, [status]);
+
+  useEffect(() => {
+    setUrlTemp([...urlTemp,url])
+  }, [url]);
 
   useEffect(() => {
     dispatch(
       changeState({
-        photos: [],
+        photos: urlTemp
       })
     );
-  }, [url]);
+  }, [urlTemp]);
+
+
+
 
   function handleChange(event: any) {
     setFile(event.target.files[0]);
@@ -79,6 +115,12 @@ import { useLocation } from "react-router-dom";
       isClosable: true,
     });
   }
+  
+  function deleteImage(index:any): any {
+      const result = urlTemp.filter(link => link !== urlTemp[index]);
+      setUrlTemp(result);
+      console.log(urlTemp)
+    }
 
   function handleUpload() {
     if (!file) {
@@ -103,62 +145,68 @@ import { useLocation } from "react-router-dom";
         // download url
         getDownloadURL(uploadTask.snapshot.ref).then((url) => {
           setUrl(url);
-          console.log(url);
+        //  console.log(url);
         });
       }
     );
   }
+
+
 
   return (
     <React.Fragment>
       {status === "succeeded" ? (
         <Box
           boxShadow="md"
-          w="62%"
+          w="65%"
           p={10}
           background="#F8F9F9"
           borderRadius="10px"
         >
-          <VStack alignItems="flex-start">
-            <Stack spacing={2}>
+          <Stack alignItems="flex-start" width="100%">
               <Text
                 fontSize={Responsive.fontSizeResponsiveHead}
                 color="#3F6FE4"
               >
                 Basic Information / Upload Photos
               </Text>
+
               <Heading fontSize={Responsive.fontSizeResponsiveBody}>
                 Send us the best photos of your tour
               </Heading>
-            </Stack>
-            <Box>
+
+          <Box width="40%">
+              {
+                  urlTemp != undefined ?urlTemp.map((value, index)=>
+                    (
+                      <HStack m={5} justifyContent="space-between" bg={"#f5f6fa"}>
+                        <Image src={value} borderRadius={10} shadow={"md"} w={"80px"} h={"80px"} />
+                        <Text>Imagen {index+1} </Text>
+                        <IconButton aria-label='Search database' onClick={()=>{deleteImage(index)}} icon={<CloseIcon />} />
+                      </HStack>
+                    )
+                  ): null
+              }
+          </Box>
+
+            <Box marginTop={10} width="100%">
               <Stack margin="10px">
                 <Stack
                   direction={["column", "column", "row", "row"]}
                   w={["70%", "70%", "90%", "90%"]}
-                >
-                  <Image
-                    boxSize="100px"
-                    borderRadius="10px"
-                    src={url || "http://via.placeholder.com/150"}
-                    alt="firebase-image"
-                  />
-                  <input type="file" onChange={handleChange} accept="" />
+                  >
+                <input type="file" onChange={handleChange} accept="" />
                 </Stack>
                 <Button
-                  w={["70%", "70%", "90%", "90%"]}
+                  w={20}
                   marginTop="50px"
                   onClick={handleUpload}
                 >
                   SAVE
                 </Button>
-                <HStack>
-                  <p>{percent} %</p>
-                  <Progress hasStripe value={percent} />
-                </HStack>
               </Stack>
             </Box>
-          </VStack>
+          </Stack>
         </Box>
       ) : (
         status === "loading" ? (

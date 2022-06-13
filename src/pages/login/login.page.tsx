@@ -30,7 +30,7 @@ function Login(props: ILogin): JSX.Element {
 
   function change() {
     if (password === "tour") navigate("/tour-operator/KQt7tDgPInW9txuxDXXl");
-    else if (password === "admin") navigate("/admin");
+    else if (password === "admin") navigate("/admin/0OpGAjITYggUgCDnA9BZ");
   }
 
   function change2() {

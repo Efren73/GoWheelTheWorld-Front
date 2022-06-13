@@ -29,22 +29,20 @@ export const UserSettings  = () => {
   let navigate = useNavigate();
   
   function goToMenu() {
-    navigate (`/tour-operator/${idTourOperator}`)
+    navigate (`/admin/${idAdmin}`)
   }
 
   /* CONTROL DE INPUTS --------------------------------------------------------- */
-  const [ infoTourOperator, setInfoTourOperator ] = useState({
+  const [ infoAdmin, setInfoAdmin ] = useState({
     fullName: '', 
-    companyName: '', 
-    country: '',
     email: '',
     password: '', 
     phoneNumber: ''
   });
 
   function handleChange (e: any, name: string) {
-    setInfoTourOperator({
-        ...infoTourOperator,
+    setInfoAdmin({
+        ...infoAdmin,
         [name]: e
     })
   };
@@ -52,17 +50,17 @@ export const UserSettings  = () => {
   /* GET ---------------------------------------------------------------------- */
   const location = useLocation();
   const link: string[] = location.pathname.split("/");
-  const idTourOperator: string = link[link.length - 2];
+  const idAdmin: string = link[link.length - 2];
   const [status, setStatus] = useState("idle");
 
-  const url = `https://api-things-to-do.herokuapp.com/tour-operator/info/${idTourOperator}`;
+  const url = `https://api-things-to-do.herokuapp.com/admin/info/${idAdmin}`;
 
   useEffect(() => {
     setStatus("loading");
     axios
       .get(url)
       .then((result) => {
-        setInfoTourOperator(result.data);
+        setInfoAdmin(result.data);
         setStatus("succeeded");
       })
       .catch((error) => {
@@ -75,12 +73,12 @@ export const UserSettings  = () => {
     event.preventDefault();
     setStatus("loading")
     const action ='put';
-    const url = `https://api-things-to-do.herokuapp.com/tour-operator/update-tour-operator/${idTourOperator}`
+    const url = `https://api-things-to-do.herokuapp.com/admin/update-admin/${idAdmin}`;
 
     axios({
         method: action,
         url: url,
-        data: infoTourOperator,
+        data: infoAdmin,
         headers:{
             'Content-type': 'application/json; charset=UTF-8'
         }
@@ -116,9 +114,9 @@ export const UserSettings  = () => {
     return (
       <Editable
           textAlign='left'
-          colorScheme="gray"
+          colorScheme="facebook"
           fontSize='md'
-          isPreviewFocusable={true}
+          startWithEditView={true}
           value={value}
           onChange = { (e: any) => handleChange(e, name) }
       >
@@ -156,23 +154,15 @@ export const UserSettings  = () => {
             <VStack  boxShadow='md' p='6' rounded='md' bg='white' w={ResponsiveSize} >
               <Grid  column={2} columnGap={3} rowGap={6} w="full">
                 <GridItem colSpan={2}>
-                  { MyEditable(infoTourOperator.fullName, "First Name", "fullName") }
+                  { MyEditable(infoAdmin.fullName, "First Name", "fullName") }
                 </GridItem>
 
                 <GridItem colSpan={colSpan} >
-                  { MyEditable(infoTourOperator.companyName, "Company name", "companyName") }                       
-                </GridItem>
-
-                <GridItem colSpan={colSpan} >
-                  { MyEditable(infoTourOperator.phoneNumber, "Phone number", "phoneNumber") }  
+                  { MyEditable(infoAdmin.phoneNumber, "Phone number", "phoneNumber") }  
                 </GridItem>
 
                 <GridItem colSpan={colSpan}>
-                  { MyEditable(infoTourOperator.country, "Country", "country") }                       
-                </GridItem>
-
-                <GridItem colSpan={colSpan}>
-                  { MyEditable(infoTourOperator.email, "Email", "email") }                       
+                  { MyEditable(infoAdmin.email, "Email", "email") }                       
                 </GridItem>
 
                 <GridItem colSpan={colSpan}>
@@ -181,7 +171,6 @@ export const UserSettings  = () => {
               </Grid>
               <Box w='90%' paddingTop={10} >
                 <ButtonGroup variant='solid' spacing='6' size='md'>
-                  <Button>Edit</Button>
                   <Button colorScheme='blue' onClick={update}>Save</Button>
                 </ButtonGroup>
               </Box>
