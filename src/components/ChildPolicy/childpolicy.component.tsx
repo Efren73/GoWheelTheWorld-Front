@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   Text,
   HStack,
@@ -14,9 +14,11 @@ import {
   NumberInput,
   NumberInputField,
   Skeleton,
+  Image,
 } from "@chakra-ui/react";
 import { Responsive } from "../generalTypes";
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
+import sillaDeRuedas from "../../pages/mainScreenTO/sillaDeRuedas.png";
 import {
   fetchTours,
   selectAllTours,
@@ -27,9 +29,9 @@ import {
 
 const ChildPolicy: React.FC = () => {
   /* CONTROL DE INPUTS -------------------------------------------- */
-  const [valueAge, setValueAge] = React.useState(0);
-  const [valuePay, setValuePay] = React.useState(0);
-  const [valueH, setValueH] = React.useState(0);
+  const [valueAge, setValueAge] = useState<number>(0);
+  const [valuePay, setValuePay] = useState<number>(0);
+  const [valueH, setValueH] = useState<number>(0);
 
   let inputAge: any;
   let handleInputAge = (e: any) => {
@@ -91,10 +93,10 @@ const ChildPolicy: React.FC = () => {
     }
   }, [status]);
 
-  const [valueQ1, setValueQ1] = React.useState("");
-  const [valueQ2, setValueQ2] = React.useState("");
-  const [valueQ3, setValueQ3] = React.useState("");
-  const [valueQ4, setValueQ4] = React.useState("");
+  const [valueQ1, setValueQ1] = useState<string>("");
+  const [valueQ2, setValueQ2] = useState<string>("");
+  const [valueQ3, setValueQ3] = useState<string>("");
+  const [valueQ4, setValueQ4] = useState<string>("");
 
   useEffect(() => {
     if (valueQ1 === "true") {
@@ -128,7 +130,7 @@ const ChildPolicy: React.FC = () => {
   console.log('valueQ4----->', valueQ4)
   console.log(valueAge)
 
-  const addQuestionAnswer = (answer: string, numero: number | undefined, input: number) => {
+  const addQuestionAnswer = (answer: string, numero: number, input: number) => {
     if (answer === "no") {
       if (input === 1) {
         return (
@@ -137,7 +139,7 @@ const ChildPolicy: React.FC = () => {
             bg={numero ? "#F8F9F9" : "#fff"}
             borderRadius={5}
             width="55%"
-            value={numero}
+            value={numero >= 0 ? numero : 0}
             onChange={handleInputAge}
           >
             <NumberInputField placeholder={"Number"} />
@@ -151,7 +153,7 @@ const ChildPolicy: React.FC = () => {
             bg={numero ? "#F8F9F9" : "#fff"}
             borderRadius={5}
             width="55%"
-            value={numero}
+            value={numero >= 0 ? numero : 0}
             onChange={handleInputPay}
           >
             <NumberInputField placeholder={"Number"} />
@@ -165,7 +167,7 @@ const ChildPolicy: React.FC = () => {
             bg={numero ? "#F8F9F9" : "#fff"}
             borderRadius={5}
             width="55%"
-            value={numero}
+            value={numero >= 0 ? numero : 0}
             onChange={handleInputH}
           >
             <NumberInputField placeholder={"Number"} />
@@ -300,7 +302,16 @@ const ChildPolicy: React.FC = () => {
           </Stack>
         </Box>
       ) : (
-        <Skeleton w="62%" h="75%" p={10} borderRadius="10px" />
+        status === "loading" ? (
+          <Skeleton w="62%" h="75%" p={10} borderRadius="10px" />
+        ) : ( // status ===  failed
+        <Grid w="62%" h='full' justifyContent={'center'}>
+          <Text color="#3F6FE4" >
+            Sorry, something went wrong!{" "}
+            <Image src={sillaDeRuedas} boxSize='200px' marginTop='10px'/>
+          </Text>
+        </Grid>
+        )
       )}
     </React.Fragment>
   );

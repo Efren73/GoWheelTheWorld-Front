@@ -22,8 +22,8 @@ import {
   ModalCloseButton,
   IconButton,
   Image,
+  Grid,
 } from "@chakra-ui/react";
-
 import { DeleteIcon } from "@chakra-ui/icons";
 import { Responsive } from "../generalTypes";
 import sillaDeRuedas from "../../pages/mainScreenTO/sillaDeRuedas.png";
@@ -339,16 +339,12 @@ const Faqs: React.FC = () => {
         status === "loading" ? (
           <Skeleton w="62%" h="75%" p={10} borderRadius="10px" />
         ) : ( // status ===  failed
-        <Box
-          w="62%"
-          h='full'
-          p={10}
-        >
-          <Text marginBottom={5} color="#3F6FE4">
+        <Grid w="62%" h='full' justifyContent={'center'}>
+          <Text color="#3F6FE4" >
             Sorry, something went wrong!{" "}
+            <Image src={sillaDeRuedas} boxSize='200px' marginTop='10px'/>
           </Text>
-          <Image src={sillaDeRuedas} h="200px" marginTop={"10px"}/>
-        </Box>
+        </Grid>
         )
       )}
       <Modal

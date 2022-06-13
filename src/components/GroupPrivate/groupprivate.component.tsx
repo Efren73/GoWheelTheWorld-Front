@@ -14,8 +14,11 @@ import {
   Heading,
   Skeleton,
   ChakraProvider,
+  Image,
+  Grid,
 } from "@chakra-ui/react";
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
+import sillaDeRuedas from "../../pages/mainScreenTO/sillaDeRuedas.png";
 import {
   fetchTours,
   selectAllTours,
@@ -299,7 +302,16 @@ const GroupPrivate: React.FC = () => {
           </VStack>
         </Box>
       ) : (
-        <Skeleton w="62%" h="75%" p={10} borderRadius="10px" />
+        status === "loading" ? (
+          <Skeleton w="62%" h="75%" p={10} borderRadius="10px" />
+        ) : ( // status ===  failed
+          <Grid w="62%" h='full' justifyContent={'center'}>
+            <Text color="#3F6FE4" >
+              Sorry, something went wrong!{" "}
+              <Image src={sillaDeRuedas} boxSize='200px' marginTop='10px'/>
+            </Text>
+          </Grid>
+        )
       )}
     </ChakraProvider>
   );

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   Text,
   HStack,
@@ -9,8 +9,11 @@ import {
   NumberInputField,
   Heading,
   Skeleton,
+  Grid,
+  Image,
 } from "@chakra-ui/react";
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
+import sillaDeRuedas from "../../pages/mainScreenTO/sillaDeRuedas.png";
 import {
   fetchTours,
   selectAllTours,
@@ -22,7 +25,7 @@ import { Responsive } from "../generalTypes";
 import "../Upload-Photos/upload-photos.modules.css";
 
 const Price: React.FC = () => {
-  const [price, setPrice] = React.useState();
+  const [price, setPrice] = useState<number>(0);
 
   /* REDUX -------------------------------------- */
   const dispatch = useAppDispatch();
@@ -88,7 +91,7 @@ const Price: React.FC = () => {
             <NumberInput
               variant={price ? "filled" : "outline"}
               onChange={(cost: any) => setPrice(cost)}
-              value={price}
+              value={price >= 0 ? price : 0}
             >
               <NumberInputField />
             </NumberInput>
@@ -108,7 +111,16 @@ const Price: React.FC = () => {
           </Stack>
         </Box>
       ) : (
-        <Skeleton w="62%" h="75%" p={10} borderRadius="10px" />
+        status === "loading" ? (
+          <Skeleton w="62%" h="75%" p={10} borderRadius="10px" />
+        ) : ( // status ===  failed
+        <Grid w="62%" h='full' justifyContent={'center'}>
+          <Text color="#3F6FE4" >
+            Sorry, something went wrong!{" "}
+            <Image src={sillaDeRuedas} boxSize='200px' marginTop='10px'/>
+          </Text>
+        </Grid>
+        )
       )}
     </React.Fragment>
   );
