@@ -135,7 +135,6 @@ function MainScreenTO(props: IMainScreenTO): JSX.Element {
          toastError();
        });
     
-    window.location.reload();
     onClose();
   }
 
@@ -168,7 +167,7 @@ function MainScreenTO(props: IMainScreenTO): JSX.Element {
       <Box
       //base: "10%", lg: "3%", md: "5%", sm: "5%" }
         w={{base: "80%", lg:"35%", md:"70%", sm: "80%"}}
-        h={{base: "80%", lg:"80%", md:"70%", sm: "80%"}}
+        h={{base: "80%", lg:"70%", md:"70%", sm: "80%"}}
         bgColor='white'
         boxShadow="md"
         p={[20]}
@@ -220,7 +219,7 @@ function MainScreenTO(props: IMainScreenTO): JSX.Element {
     return (
       <Box
         w={{base: "80%", lg:"35%", md:"70%", sm: "80%"}}
-        h={{base: "80%", lg:"80%", md:"70%", sm: "80%"}}
+        h={{base: "80%", lg:"70%", md:"70%", sm: "80%"}}
         bgColor='white'
         boxShadow="md"
         p={10}
@@ -228,6 +227,7 @@ function MainScreenTO(props: IMainScreenTO): JSX.Element {
         alignSelf={"center"}
       >
         <Heading marginBottom={5}> Tour registered </Heading>
+        <Stack h='85%' overflowY='auto'>
         {status === "loading" ? (
           <Skeleton w="full" h="85%" p={10} borderRadius="10px" />
         ) : status === "succeeded" ? (
@@ -319,6 +319,7 @@ function MainScreenTO(props: IMainScreenTO): JSX.Element {
             <Image src={sillaDeRuedas} h="200px" marginTop={"10px"} />
           </Stack>
         )}
+        </Stack>
       </Box>
     );
   }
