@@ -166,8 +166,8 @@ function MainScreenTO(props: IMainScreenTO): JSX.Element {
     return (
       <Box
       //base: "10%", lg: "3%", md: "5%", sm: "5%" }
-        w={{base: "80%", lg:"35%", md:"70%", sm: "80%"}}
-        h={{base: "80%", lg:"70%", md:"70%", sm: "80%"}}
+      w={{base: "100%", lg:"40%", md:"70%", sm: "80%"}}
+      h={{base: "100%", lg:"85%", md:"90%", sm: "85%"}}
         bgColor='white'
         boxShadow="md"
         p={[20]}
@@ -218,8 +218,8 @@ function MainScreenTO(props: IMainScreenTO): JSX.Element {
   function tourRegisteredWindow() {
     return (
       <Box
-        w={{base: "80%", lg:"35%", md:"70%", sm: "80%"}}
-        h={{base: "80%", lg:"70%", md:"70%", sm: "80%"}}
+        w={{base: "90%", lg:"40%", md:"70%", sm: "80%"}}
+        h={{base: "90%", lg:"85%", md:"75%", sm: "85%"}}
         bgColor='white'
         boxShadow="md"
         p={10}
@@ -332,7 +332,6 @@ function MainScreenTO(props: IMainScreenTO): JSX.Element {
         h="full"
         bgImage={`url(${ImgFondo})`}
         bgSize={"cover"}
-       
        >
           <TopMenu/>
           <Stack
@@ -342,7 +341,8 @@ function MainScreenTO(props: IMainScreenTO): JSX.Element {
             h="full"
             spacing={"7%"}
             direction={["column", "column", "column", "row"]}
-            marginTop={{ base: "100px", lg: "0", md: "90px", sm: "90px" }}
+            marginTop={{ base: "80%", lg: "0", md: "50%", sm: "90%" }}
+           
           >
             {indexValue != "No doc" ? ( // Sí hay tours registrados
               <ChakraProvider>
