@@ -38,6 +38,7 @@ import { storage } from "../../firebase/index";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { useLocation } from "react-router-dom";
 import { async } from "@firebase/util";
+import folder from "./folder.png"
 
 /* CMANEJAR ESTATUS (loading, succeeded, idle' ) ----------- */
 
@@ -66,13 +67,15 @@ const UploadPhotos: React.FC = () => {
   //SAVE DATA IN LOCAL HOOK
   useEffect(() => {
     if (status === "succeeded") {
-      if (tour.photos != undefined && tour.photos != [""])
+      if (tour.photos != undefined)
         setUrlTemp(tour.photos);
     }
   }, [status]);
 
   useEffect(() => {
-    setUrlTemp([...urlTemp, url]);
+    if(url != ""){
+      setUrlTemp([...urlTemp, url]);
+    }
   }, [url]);
 
   useEffect(() => {
@@ -144,9 +147,6 @@ const UploadPhotos: React.FC = () => {
     } else {
       toastErrorDelete();
     }
-
-    console.log("urlTemp", urlTemp);
-
     onClose();
   }
 
@@ -178,6 +178,7 @@ const UploadPhotos: React.FC = () => {
       }
     );
   }
+  console.log(urlTemp)
 
   return (
     <React.Fragment>
@@ -199,7 +200,7 @@ const UploadPhotos: React.FC = () => {
             </Heading>
 
             <Box width="40%">
-              {urlTemp != undefined
+              {status == "succeeded" && urlTemp.length != 0
                 ? urlTemp.map((value, index) => (
                     <HStack m={5} justifyContent="space-between" bg={"#f5f6fa"}>
                       <Image
@@ -221,7 +222,11 @@ const UploadPhotos: React.FC = () => {
                       />
                     </HStack>
                   ))
-                : null}
+                : (
+                  <Box justifyContent="center">
+                      <Image src={folder}/>
+                  </Box>
+                )}
             </Box>
 
             <Box marginTop={10} width="100%">
@@ -232,7 +237,7 @@ const UploadPhotos: React.FC = () => {
                 >
                   <input type="file" onChange={handleChange} accept="" />
                 </Stack>
-                <Button w={20} marginTop="50px" onClick={handleUpload}>
+                <Button w={20} marginTop="50px" colorScheme='blue' onClick={handleUpload}>
                   SAVE
                 </Button>
               </Stack>
