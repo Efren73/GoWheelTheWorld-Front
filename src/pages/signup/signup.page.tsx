@@ -19,6 +19,12 @@ import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import logo from './logo.png';
 import ImagenPrincipal from '../login/images/ImagenPrincipal.png';
 import { ISignup } from './signup.types';
+import {signUpWithEmail} from "../../firebase/firebase-auth"
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+
+
+
 
 function Signup(props: ISignup): JSX.Element {
   const [show, setShow] = React.useState(false)
@@ -28,6 +34,15 @@ function Signup(props: ISignup): JSX.Element {
   const fontSizeResponsive = { base:'20px', sm:'15px'};
   const [isLargerThan1280] = useMediaQuery('(min-width: 800px)')
   const tamano = { base: "62%", sm: "70%" };
+
+  const navigate = useNavigate();
+
+
+  function createUser(){
+    //const id = signUpWithEmail("Efren", "efren_9_@hotmail.com", "123456")
+    //console.log("Holaa", id)
+    
+  }
 
 	return (
     <React.Fragment>
@@ -125,7 +140,8 @@ function Signup(props: ISignup): JSX.Element {
                         fontSize={fontSizeResponsive}
                         bg="#2F6FE4"
                         color="white"
-                        borderRadius={10}> Create Account </Button>
+                        borderRadius={10}
+                        onClick={createUser}> Create Account </Button>
               </VStack>
             </Box>
           </Flex>
@@ -211,7 +227,8 @@ function Signup(props: ISignup): JSX.Element {
                         fontSize={fontSizeResponsive}
                         bg="#2F6FE4"
                         color="white"
-                        borderRadius={10}> Create Account </Button>
+                        borderRadius={10}
+                        onClick={createUser}> Create Account </Button>
               </VStack>
             </Box>
           </Flex> }

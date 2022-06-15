@@ -20,7 +20,7 @@ const root = createRoot(container);
   Question
   Tour completed
 */
-console.log(theme)
+
 root.render(
   <Fragment>
 
