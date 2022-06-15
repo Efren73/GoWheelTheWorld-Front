@@ -18,7 +18,7 @@ import {
 } from "@chakra-ui/react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import logo from "./images/logo.png";
-import ImagenPrincipal from "./images/ImagenPrincipal.png";
+import ImgFondo from "./images/beach-418742_1920.jpg";
 import { ILogin } from "./login.types";
 import { useNavigate } from "react-router-dom";
 
@@ -48,11 +48,11 @@ function Login(props: ILogin): JSX.Element {
 
   return (
     <React.Fragment>
-      <Flex h="100vh" w="100%">
+      <Flex h="100vh" w="100%" overflowY={'hidden'}>
         {isLargerThan1280 ? (
-          <Flex w="100%" h="full">
+          <Flex w="100%" h="full" overflowY={'hidden'}>
             <Box
-              bgImage={`url(${ImagenPrincipal})`}
+              bgImage={`url(${ImgFondo})`}
               w="50%"
               h="full"
               bgSize={"cover"}
@@ -61,7 +61,7 @@ function Login(props: ILogin): JSX.Element {
                 h="full"
                 w="full"
                 paddingLeft={10}
-                paddingTop={85}
+                paddingTop={'6%'}
                 paddingRight={5}
                 alignItems="flex-start"
               >
@@ -74,17 +74,15 @@ function Login(props: ILogin): JSX.Element {
               </VStack>
             </Box>
             <Box w="50%">
-              <HStack justifyContent="flex-end" w="full" h="13%">
+              <HStack justifyContent="center" w="full" h="13%" marginTop='10%'>
                 <Image
                   src={logo}
-                  w={{ lg: "15%", md: "20%" }}
-                  h={{ lg: "100%", md: "80%" }}
-                  p={3}
+                  h={{ lg: "120%", md: "80%" }}
                 />
               </HStack>
-              <VStack w="100%" spacing={59} p={10}>
-                <Heading> Welcome back! </Heading>
-                <VStack w="full" spacing={10}>
+              <VStack w="100%" spacing={59} p={10} marginTop='3px'>
+                <Heading> Welcome! </Heading>
+                <VStack w="full" spacing={5}>
                   <FormControl w={tamano}>
                     <VStack alignItems="flex-start" spacing="-2">
                       <FormLabel fontSize={fontSizeResponsive}>
@@ -169,18 +167,17 @@ function Login(props: ILogin): JSX.Element {
             </Box>
           </Flex>
         ) : (
-          <Flex w="100%" h="full" justifyContent="center">
-            <Box w="90%" h="full">
-              <HStack justifyContent="flex-end" w="full" h="13%">
+          <Flex w="100%" h="full" justifyContent="center" marginTop='10%' overflowY={'hidden'}>
+            <Box w="90%" h="full" overflowY={'hidden'}>
+              <HStack justifyContent="center" w="full" h="13%">
                 <Image
                   src={logo}
-                  w={["22%", "25%", "28%"]}
-                  h={["40%", "80%", "80%", "100%"]}
+                  h={["50%", "90%", "90%", "100%"]}
                 />
               </HStack>
               <VStack w="full" spacing={59} p={10}>
-                <Heading> Welcome back! </Heading>
-                <VStack w="full" spacing={10}>
+                <Heading> Welcome! </Heading>
+                <VStack w="full" spacing={5}>
                   <FormControl>
                     <VStack alignItems="flex-start" spacing="-2">
                       <FormLabel fontSize={fontSizeResponsive}>

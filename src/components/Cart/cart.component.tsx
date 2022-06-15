@@ -23,9 +23,13 @@ import {
   NumberIncrementStepper,
   NumberDecrementStepper,
   Skeleton,
+  Tooltip,
+  Grid,
+  Image,
 } from "@chakra-ui/react";
 import { InfoIcon } from "@chakra-ui/icons";
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
+import sillaDeRuedas from "../../pages/mainScreenTO/sillaDeRuedas.png";
 import {
   fetchTours,
   changeState,
@@ -98,6 +102,8 @@ const Cart: React.FC = () => {
     "Boat Tour in Manhattan",
     "DUMBO Tour, The New Brooklyn",
     "Snorkel with whale sharks",
+    "Río Secreto Wet Cave",
+    "Accessible Airport Transportation - El Cairo",
   ];
   //console.log("Prueba1 ->", Object.values(tour.basicInformation))
   return (
@@ -118,11 +124,14 @@ const Cart: React.FC = () => {
               <Heading fontSize={Responsive.fontSizeResponsiveBody}>
                 Give your experience a name
               </Heading>
-              <IconButton
-                variant="outline"
-                aria-label="Info"
-                icon={<InfoIcon w={6} h={6} />}
-              />
+              <Tooltip bg='#EBE9E9' color='black' placement='top' label=
+              "Choose a unique and descriptive name for your tour to offer">
+                <IconButton
+                  variant="outline"
+                  aria-label="Info"
+                  icon={<InfoIcon w={6} h={6} />}
+                />
+              </Tooltip>
             </HStack>
             <Text
               fontSize={Responsive.fontSizeResponsiveHead}
@@ -190,7 +199,7 @@ const Cart: React.FC = () => {
                   h="40px"
                   fontSize={"20px"}
                   defaultValue={0}
-                  value={hours}
+                  value={hours >= 0 ? hours : 0}
                   borderRadius="10px"
                   onChange={(valueString: any) => {
                     setHours(valueString);
@@ -231,7 +240,7 @@ const Cart: React.FC = () => {
                   h="40px"
                   fontSize={Responsive.fontSizeResponsiveHead}
                   defaultValue={0}
-                  value={minutes}
+                  value={minutes >= 0 ? minutes : 0}
                   borderRadius="10px"
                   onChange={(value: any) => {
                     setMinutes(value);
@@ -258,7 +267,16 @@ const Cart: React.FC = () => {
           </VStack>
         </Box>
       ) : (
-        <Skeleton w="62%" h="75%" p={10} borderRadius="10px" />
+        status === "loading" ? (
+          <Skeleton w="62%" h="75%" p={10} borderRadius="10px" />
+        ) : ( // status ===  failed
+        <Grid w="62%" h='full' justifyContent={'center'}>
+          <Text color="#3F6FE4" >
+            Sorry, something went wrong!{" "}
+            <Image src={sillaDeRuedas} boxSize='200px' marginTop='10px'/>
+          </Text>
+        </Grid>
+        )
       )}
 
       <Modal

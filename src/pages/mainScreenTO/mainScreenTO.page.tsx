@@ -25,11 +25,13 @@ import {
   Skeleton,
   Stack,
   useToast,
+  useMediaQuery,
 } from "@chakra-ui/react";
 import { DeleteIcon } from "@chakra-ui/icons";
 import { IMainScreenTO } from "./mainScreenTO.types";
 import ImageInfoMSTO from "./ImageInfoMSTO.png";
 import sillaDeRuedas from "./sillaDeRuedas.png";
+import ImgFondo from "./maldives-1993704.jpg";
 import TopMenu from "../../components/TopMenu/topMenu.component";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
@@ -63,7 +65,7 @@ function MainScreenTO(props: IMainScreenTO): JSX.Element {
       });
   }
 
-  const tamanoBox = useBreakpointValue({ base: "", md: "80%", lg: "80%" });
+  //const tamanoBox = useBreakpointValue({ base: "100%", md: "80%", lg: "100%" });
   const spacing = useBreakpointValue({ base: "-4", md: "", lg: "-4" });
   const botonContinue = useBreakpointValue({ base: "md", md: "sm", lg: "md" });
   const fSBContinue = useBreakpointValue({ base: "", md: "10px", lg: "14px" });
@@ -110,7 +112,7 @@ function MainScreenTO(props: IMainScreenTO): JSX.Element {
   };
 
   function refresh() {
-    //navigate(`/tour-operator/${idTourOperator}`);
+    window.location.reload();
   }
 
   function deleteTour(event: any) {
@@ -119,21 +121,21 @@ function MainScreenTO(props: IMainScreenTO): JSX.Element {
 
     let idTour = tours[indexValue].id;
 
-    event.preventDefault();
-    const url = `https://api-things-to-do.herokuapp.com/tour-operator/delete-tour/${idTour}`;
-    axios
-      .put(url, {})
-      .then((result) => {
-        console.log("JIJIJ", result);
-        toastSuccess();
+     event.preventDefault();
+     const url = `https://api-things-to-do.herokuapp.com/tour-operator/delete-tour/${idTour}`;
+     axios
+       .put(url, {})
+       .then((result) => {
+         console.log("JIJIJ", result);
+         toastSuccess();
 
-        refresh();
-      })
-      .catch((error) => {
-        console.log(error);
-        toastError();
-      });
-
+         refresh();
+       })
+       .catch((error) => {
+         console.log(error);
+         toastError();
+       });
+    
     onClose();
   }
 
@@ -164,11 +166,12 @@ function MainScreenTO(props: IMainScreenTO): JSX.Element {
   function newTourWindow() {
     return (
       <Box
-        w={["90%", "90%", "40%", "40%"]}
-        h={tamanoBox}
-        bgColor="white"
+        w={{base: "80%", lg:"40%", md:"70%", sm: "80%"}}
+        h={{base: "100%", lg:"500px", md:"90%", sm: "85%"}}
+        marginTop={{ base: "50%", lg: "0", md: "50%", sm: "60%" }}
+        bgColor='white'
         boxShadow="md"
-        p={[20]}
+        p={{base: 10, lg: 20, md: 20, sm: 10}}
         borderRadius={20}
         alignSelf={"center"}
       >
@@ -199,7 +202,7 @@ function MainScreenTO(props: IMainScreenTO): JSX.Element {
         </VStack>
         <HStack justifyContent="center" w="full">
           <Button
-            marginTop={["2", "5", "7", "7", "7", "7", "7"]}
+            marginTop={["2", "4", "6", "6", "6", "6", "6"]}
             height={["50px", "60px", "40px", "68px"]}
             width={"50%"}
             bg="#2F6FE4"
@@ -216,15 +219,16 @@ function MainScreenTO(props: IMainScreenTO): JSX.Element {
   function tourRegisteredWindow() {
     return (
       <Box
-        w={["90%", "90%", "40%", "40%"]}
-        h={tamanoBox}
-        bgColor="white"
+        w={{base: "90%", lg:"40%", md:"70%", sm: "80%"}}
+        h={{base: "90%", lg:"500px", md:"75%", sm: "85%"}}
+        bgColor='white'
         boxShadow="md"
         p={10}
         borderRadius={20}
         alignSelf={"center"}
       >
         <Heading marginBottom={5}> Tour registered </Heading>
+        <Stack h='85%' overflowY='auto'>
         {status === "loading" ? (
           <Skeleton w="full" h="85%" p={10} borderRadius="10px" />
         ) : status === "succeeded" ? (
@@ -316,46 +320,78 @@ function MainScreenTO(props: IMainScreenTO): JSX.Element {
             <Image src={sillaDeRuedas} h="200px" marginTop={"10px"} />
           </Stack>
         )}
+        </Stack>
       </Box>
     );
   }
 
+  //const [isLargerThan1280] = useMediaQuery("(min-width: 800px)");
+  const [isLargerThan1280] = useMediaQuery("(min-width: 1000px)");
+
   return (
     <ChakraProvider>
       <Flex h="100vh">
-        <VStack w="full" h="full" bg={"#f5f6fa"}>
-          <TopMenu />
-          <Flex
-            paddingTop={{ base: "10%", lg: "3%", md: "5%", sm: "5%" }}
-            paddingBottom={{ base: "10%", lg: "3%", md: "5%", sm: "5%" }}
-            bg={"#f5f6fa"}
-            bgSize={"cover"}
-            alignItems={"center"}
+      {isLargerThan1280 ? (
+        <VStack
+        w="full"
+        h='full'
+        minHeight={'750px'}
+        bgImage={`url(${ImgFondo})`}
+        bgSize={'cover'}
+        backgroundPosition={'center'}
+        backdropBlur="2px"
+       >
+          <TopMenu/>
+          <Stack
+            alignItems="center"
             justifyContent="center"
             w="full"
             h="full"
-            direction={["column", "column", "row", "row"]}
+            spacing={"7%"}
+            direction={["column", "column", "column", "row"]}
           >
             {indexValue != "No doc" ? ( // Sí hay tours registrados
               <ChakraProvider>
-                <Stack
-                  bg={"#f5f6fa"}
-                  bgSize={"cover"}
-                  spacing={"7%"}
-                  justifyContent={["center", "center", "start", "center"]}
-                  direction={["column", "column", "column", "row"]}
-                  marginTop={{ base: "50%", lg: "0", md: "40%", sm: "50%" }}
-                >
+                
                   {newTourWindow()}
                   {tourRegisteredWindow()}
-                </Stack>
               </ChakraProvider>
             ) : (
               newTourWindow()
             )}
-          </Flex>
+          </Stack>
         </VStack>
-      </Flex>
+      ) : (
+        <VStack
+        w="full"
+        h='full'
+        background="#F8F9F9"
+        bgSize={'cover'}
+       >
+         
+          <TopMenu/>
+          <Stack
+            alignItems="center"
+            justifyContent="center"
+            w="full"
+            h="full"
+            spacing={"7%"}
+            direction={["column", "column", "column", "row"]}
+           
+          >
+            {indexValue != "No doc" ? ( // Sí hay tours registrados
+              <ChakraProvider>
+                
+                  {newTourWindow()}
+                  {tourRegisteredWindow()}
+              </ChakraProvider>
+            ) : (
+              newTourWindow()
+            )}
+          </Stack>
+        </VStack>
+      )}
+        </Flex>
     </ChakraProvider>
   );
 }
