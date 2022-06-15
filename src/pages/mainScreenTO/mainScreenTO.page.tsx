@@ -31,7 +31,6 @@ import { DeleteIcon } from "@chakra-ui/icons";
 import { IMainScreenTO } from "./mainScreenTO.types";
 import ImageInfoMSTO from "./ImageInfoMSTO.png";
 import sillaDeRuedas from "./sillaDeRuedas.png";
-import ImgFondo2 from "./beach-418742.jpg";
 import ImgFondo from "./maldives-1993704.jpg";
 import TopMenu from "../../components/TopMenu/topMenu.component";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -168,7 +167,7 @@ function MainScreenTO(props: IMainScreenTO): JSX.Element {
     return (
       <Box
         w={{base: "80%", lg:"40%", md:"70%", sm: "80%"}}
-        h={{base: "100%", lg:"550px", md:"90%", sm: "85%"}}
+        h={{base: "100%", lg:"500px", md:"90%", sm: "85%"}}
         marginTop={{ base: "50%", lg: "0", md: "50%", sm: "60%" }}
         bgColor='white'
         boxShadow="md"
@@ -221,7 +220,7 @@ function MainScreenTO(props: IMainScreenTO): JSX.Element {
     return (
       <Box
         w={{base: "90%", lg:"40%", md:"70%", sm: "80%"}}
-        h={{base: "90%", lg:"550px", md:"75%", sm: "85%"}}
+        h={{base: "90%", lg:"500px", md:"75%", sm: "85%"}}
         bgColor='white'
         boxShadow="md"
         p={10}
