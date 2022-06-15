@@ -25,11 +25,13 @@ import {
   Skeleton,
   Stack,
   useToast,
+  useMediaQuery,
 } from "@chakra-ui/react";
 import { DeleteIcon } from "@chakra-ui/icons";
 import { IMainScreenTO } from "./mainScreenTO.types";
 import ImageInfoMSTO from "./ImageInfoMSTO.png";
 import sillaDeRuedas from "./sillaDeRuedas.png";
+import ImgFondo2 from "./beach-418742.jpg";
 import ImgFondo from "./maldives-1993704.jpg";
 import TopMenu from "../../components/TopMenu/topMenu.component";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -165,12 +167,12 @@ function MainScreenTO(props: IMainScreenTO): JSX.Element {
   function newTourWindow() {
     return (
       <Box
-      //base: "10%", lg: "3%", md: "5%", sm: "5%" }
-      w={{base: "100%", lg:"40%", md:"70%", sm: "80%"}}
-      h={{base: "100%", lg:"85%", md:"90%", sm: "85%"}}
+        w={{base: "80%", lg:"40%", md:"70%", sm: "80%"}}
+        h={{base: "100%", lg:"550px", md:"90%", sm: "85%"}}
+        marginTop={{ base: "50%", lg: "0", md: "50%", sm: "60%" }}
         bgColor='white'
         boxShadow="md"
-        p={[20]}
+        p={{base: 10, lg: 20, md: 20, sm: 10}}
         borderRadius={20}
         alignSelf={"center"}
       >
@@ -201,7 +203,7 @@ function MainScreenTO(props: IMainScreenTO): JSX.Element {
         </VStack>
         <HStack justifyContent="center" w="full">
           <Button
-            marginTop={["2", "5", "7", "7", "7", "7", "7"]}
+            marginTop={["2", "4", "6", "6", "6", "6", "6"]}
             height={["50px", "60px", "40px", "68px"]}
             width={"50%"}
             bg="#2F6FE4"
@@ -219,7 +221,7 @@ function MainScreenTO(props: IMainScreenTO): JSX.Element {
     return (
       <Box
         w={{base: "90%", lg:"40%", md:"70%", sm: "80%"}}
-        h={{base: "90%", lg:"85%", md:"75%", sm: "85%"}}
+        h={{base: "90%", lg:"550px", md:"75%", sm: "85%"}}
         bgColor='white'
         boxShadow="md"
         p={10}
@@ -324,14 +326,21 @@ function MainScreenTO(props: IMainScreenTO): JSX.Element {
     );
   }
 
+  //const [isLargerThan1280] = useMediaQuery("(min-width: 800px)");
+  const [isLargerThan1280] = useMediaQuery("(min-width: 1000px)");
+
   return (
     <ChakraProvider>
       <Flex h="100vh">
+      {isLargerThan1280 ? (
         <VStack
         w="full"
-        h="full"
+        h='full'
+        minHeight={'750px'}
         bgImage={`url(${ImgFondo})`}
-        bgSize={"cover"}
+        bgSize={'cover'}
+        backgroundPosition={'center'}
+        backdropBlur="2px"
        >
           <TopMenu/>
           <Stack
@@ -341,7 +350,34 @@ function MainScreenTO(props: IMainScreenTO): JSX.Element {
             h="full"
             spacing={"7%"}
             direction={["column", "column", "column", "row"]}
-            marginTop={{ base: "80%", lg: "0", md: "50%", sm: "90%" }}
+          >
+            {indexValue != "No doc" ? ( // Sí hay tours registrados
+              <ChakraProvider>
+                
+                  {newTourWindow()}
+                  {tourRegisteredWindow()}
+              </ChakraProvider>
+            ) : (
+              newTourWindow()
+            )}
+          </Stack>
+        </VStack>
+      ) : (
+        <VStack
+        w="full"
+        h='full'
+        background="#F8F9F9"
+        bgSize={'cover'}
+       >
+         
+          <TopMenu/>
+          <Stack
+            alignItems="center"
+            justifyContent="center"
+            w="full"
+            h="full"
+            spacing={"7%"}
+            direction={["column", "column", "column", "row"]}
            
           >
             {indexValue != "No doc" ? ( // Sí hay tours registrados
@@ -355,7 +391,8 @@ function MainScreenTO(props: IMainScreenTO): JSX.Element {
             )}
           </Stack>
         </VStack>
-      </Flex>
+      )}
+        </Flex>
     </ChakraProvider>
   );
 }
