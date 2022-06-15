@@ -48,9 +48,9 @@ function Login(props: ILogin): JSX.Element {
 
   return (
     <React.Fragment>
-      <Flex h="100vh" w="100%">
+      <Flex h="100vh" w="100%" overflowY={'hidden'}>
         {isLargerThan1280 ? (
-          <Flex w="100%" h="full">
+          <Flex w="100%" h="full" overflowY={'hidden'}>
             <Box
               bgImage={`url(${ImgFondo})`}
               w="50%"
@@ -61,7 +61,7 @@ function Login(props: ILogin): JSX.Element {
                 h="full"
                 w="full"
                 paddingLeft={10}
-                paddingTop={85}
+                paddingTop={'6%'}
                 paddingRight={5}
                 alignItems="flex-start"
               >
@@ -82,7 +82,7 @@ function Login(props: ILogin): JSX.Element {
               </HStack>
               <VStack w="100%" spacing={59} p={10} marginTop='3px'>
                 <Heading> Welcome! </Heading>
-                <VStack w="full" spacing={10}>
+                <VStack w="full" spacing={5}>
                   <FormControl w={tamano}>
                     <VStack alignItems="flex-start" spacing="-2">
                       <FormLabel fontSize={fontSizeResponsive}>
@@ -167,8 +167,8 @@ function Login(props: ILogin): JSX.Element {
             </Box>
           </Flex>
         ) : (
-          <Flex w="100%" h="full" justifyContent="center" marginTop='10%'>
-            <Box w="90%" h="full">
+          <Flex w="100%" h="full" justifyContent="center" marginTop='10%' overflowY={'hidden'}>
+            <Box w="90%" h="full" overflowY={'hidden'}>
               <HStack justifyContent="center" w="full" h="13%">
                 <Image
                   src={logo}
@@ -177,7 +177,7 @@ function Login(props: ILogin): JSX.Element {
               </HStack>
               <VStack w="full" spacing={59} p={10}>
                 <Heading> Welcome! </Heading>
-                <VStack w="full" spacing={10}>
+                <VStack w="full" spacing={5}>
                   <FormControl>
                     <VStack alignItems="flex-start" spacing="-2">
                       <FormLabel fontSize={fontSizeResponsive}>
