@@ -1,4 +1,4 @@
-# Self Onboarding Things To DO
+# Self Onboarding Things To Do
 
 A microsite to send your experience/tour to wheel the world or if you are an Admin, check the tours.
 
