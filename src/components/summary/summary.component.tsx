@@ -160,7 +160,7 @@ const Summary: React.FC = () => {
             <Stack spacing={"1%"}>
               <HStack justifyContent="flex-start">
                 <Image
-                  src={status === "succeeded" && tour.photos.length != 0 ? tour.photos[0]:photo}
+                  src={status === "succeeded" && tour.photos != undefined && tour.photos.length != 0 ? tour.photos[0]:photo}
                   alt="default image"
                   maxWidth={114}
                   maxH={71}
