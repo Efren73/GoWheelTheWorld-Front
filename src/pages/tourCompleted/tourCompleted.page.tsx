@@ -34,7 +34,6 @@ function TourCompleted(props: ITourCompleted): JSX.Element {
         if(user && !loading){
           axios.get(`https://api-things-to-do.herokuapp.com/tour-operator/info/${user.uid}`)
           .then(result =>{
-            navigate(`/tour-operator/${user.uid}/tour-completed/${idTour}`)
           })
           .catch(error => {
             if(error.response.data.document === "No document"){
@@ -74,8 +73,7 @@ function TourCompleted(props: ITourCompleted): JSX.Element {
                                     <SliderFilledTrack w="full"/>
                                 </SliderTrack>
                             </Slider>
-                            <HStack justifyContent="space-between" w="full" paddingLeft={5} paddingRight={5}>
-                                <Link color="#2F6FE4" fontSize="20px"> Register another tour </Link>
+                            <HStack justifyContent="flex-end" w="full" paddingLeft={5} paddingRight={5}>
                                 <Button size='lg' 
                                         fontSize="18px" 
                                         rightIcon={<ChevronRightIcon />} 
