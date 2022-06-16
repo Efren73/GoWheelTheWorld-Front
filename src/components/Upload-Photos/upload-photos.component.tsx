@@ -62,6 +62,7 @@ const UploadPhotos: React.FC = () => {
   useEffect(() => {
     dispatch(fetchTours());
     dispatch(changeAreaEdited("BASIC_INFORMATION"));
+    setUrlTemp([]);
   }, []);
 
   //SAVE DATA IN LOCAL HOOK
