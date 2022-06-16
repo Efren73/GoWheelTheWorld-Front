@@ -23,6 +23,8 @@ import { MdHome } from 'react-icons/md';
 import { useLocation, useNavigate } from "react-router-dom";
 import { Responsive } from "../../components/generalTypes";
 import axios from "axios";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../../firebase/firebase-auth";
 
 export const UserSettings  = () => {
   /* MOVERME A MENÚ PRINCIPAL -------------------------------------------------- */
@@ -132,6 +134,31 @@ export const UserSettings  = () => {
   const ResponsiveSize = { lg: '40%', md: '60%', sm: '80%' };
   const colSpan = { base: 2, md: 1 };
 
+  const [user, loading, error] = useAuthState(auth)
+
+  useEffect(() => {
+    if(user && !loading){
+      axios.get(`https://api-things-to-do.herokuapp.com/tour-operator/info/${user.uid}`)
+      .then(result =>{
+        navigate(`/tour-operator/${user.uid}/Settings`)
+      })
+      .catch(error => {
+        if(error.response.data.document === "No document"){
+          axios.get(`https://api-things-to-do.herokuapp.com/admin/info/${user.uid}`)
+          .then(result => {
+            navigate(`/admin/${user.uid}/Settings`)
+          })
+          .catch(error => {
+            console.log(error)
+          })
+        }
+      })
+    }
+    else if(!loading && !user){
+        navigate("/")
+    }
+  },[user, loading])
+
   return(
     <React.Fragment>
       <Flex h="100vh">
@@ -172,7 +199,7 @@ export const UserSettings  = () => {
                 </GridItem>
 
                 <GridItem colSpan={colSpan}>
-                  { MyEditable(infoTourOperator.email, "Email", "email") }                       
+                  { /*MyEditable(infoTourOperator.email, "Email", "email") */}                       
                 </GridItem>
 
                 <GridItem colSpan={colSpan}>

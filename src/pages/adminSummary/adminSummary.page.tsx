@@ -78,6 +78,9 @@ export function AdminSummary():any{
             }
           })
         }
+        else if(!loading && !user){
+            navigate("/")
+        }
       },[user, loading])
 
 

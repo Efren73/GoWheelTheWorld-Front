@@ -134,6 +134,9 @@ export const Admin  = () => {
             }
           })
         }
+        else if(!loading && !user){
+            navigate("/")
+        }
       },[user, loading])
 
 
