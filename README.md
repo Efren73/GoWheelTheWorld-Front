@@ -36,6 +36,15 @@ yarn
 yarn start
 ```
 
-* Carlos Manuel González Vallejo: Pantallas del administrador (visualización de los tours) y resumen de tour
-* Fernanda Salvador Velasco: Pantalla de Login, pantalla de inicio de tour operador y pantalla de fin de tour
-* Verónica Martínez, Erik Martínez y Efren Aldana: Pantallas de cuestionario de no accesibilidad
+## Our deployed project
+[Things to do project](https://wheel-the-world-things-to-do.netlify.app/)
+
+## Additional Links and Contributors
+[Backend repository] (https://github.com/Efren73/things-to-do-api.git)
+
+### Contributors
+* Carlos Manuel González Vallejo
+* María Fernanda Salvador Velasco
+* Erik Martín Martínez Ibarra
+* Verónica Martínez Morales 
+* Efren Aldana Escalona
