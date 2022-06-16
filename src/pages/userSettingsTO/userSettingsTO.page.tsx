@@ -140,7 +140,6 @@ export const UserSettings  = () => {
     if(user && !loading){
       axios.get(`https://api-things-to-do.herokuapp.com/tour-operator/info/${user.uid}`)
       .then(result =>{
-        navigate(`/tour-operator/${user.uid}/Settings`)
       })
       .catch(error => {
         if(error.response.data.document === "No document"){

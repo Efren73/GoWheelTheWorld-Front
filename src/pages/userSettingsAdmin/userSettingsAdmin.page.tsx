@@ -144,7 +144,6 @@ export const UserSettings  = () => {
         if(error.response.data.document === "No document"){
           axios.get(`https://api-things-to-do.herokuapp.com/admin/info/${user.uid}`)
           .then(result => {
-            navigate(`/admin/${user.uid}/Settings`)
           })
           .catch(error => {
             console.log(error)

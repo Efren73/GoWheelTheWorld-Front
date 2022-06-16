@@ -41,7 +41,6 @@ function Question(props: any): JSX.Element {
         if(user && !loading){
           axios.get(`https://api-things-to-do.herokuapp.com/tour-operator/info/${user.uid}`)
           .then(result =>{
-            navigate(`/tour-operator/${user.uid}/question/${idTour}/${section}`)
           })
           .catch(error => {
             if(error.response.data.document === "No document"){

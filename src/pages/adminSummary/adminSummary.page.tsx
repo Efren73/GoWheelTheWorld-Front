@@ -70,7 +70,6 @@ export function AdminSummary():any{
             if(error.response.data.document === "No document"){
               axios.get(`https://api-things-to-do.herokuapp.com/admin/info/${user.uid}`)
               .then(result => {
-                navigate(`/admin/${user.uid}/AdminSummary/${section}`)
               })
               .catch(error => {
                 console.log(error)
