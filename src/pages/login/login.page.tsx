@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Text,
   VStack,
@@ -21,16 +21,42 @@ import logo from "./images/logo.png";
 import ImgFondo from "./images/beach-418742_1920.jpg";
 import { ILogin } from "./login.types";
 import { useNavigate } from "react-router-dom";
+import {useAuthState} from "react-firebase-hooks/auth"
+import {auth, signInWithEmail} from "../../firebase/firebase-auth"
+import axios from "axios";
 
 function Login(props: ILogin): JSX.Element {
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
   const navigate = useNavigate();
-  const [password, setPassword] = React.useState("");
+  const [user, loading, error] = useAuthState(auth)
+  const [userInfo, setUserInfo] = React.useState({
+    email: "",
+    password: ""
+  });
 
-  function change() {
-    if (password === "tour") navigate("/tour-operator/KQt7tDgPInW9txuxDXXl");
-    else if (password === "admin") navigate("/admin/0OpGAjITYggUgCDnA9BZ");
+  useEffect(() => {
+    if(user && !loading){
+      axios.get(`https://api-things-to-do.herokuapp.com/tour-operator/info/${user.uid}`)
+      .then(result =>{
+        navigate(`/tour-operator/${user.uid}`)
+      })
+      .catch(error => {
+        if(error.response.data.document === "No document"){
+          axios.get(`https://api-things-to-do.herokuapp.com/admin/info/${user.uid}`)
+          .then(result => {
+            navigate(`/admin/${user.uid}`)
+          })
+          .catch(error => {
+            console.log(error)
+          })
+        }
+      })
+    }
+  },[user, loading])
+  async function change() {
+
+      await signInWithEmail(userInfo.email, userInfo.password)
   }
 
   function change2() {
@@ -38,7 +64,10 @@ function Login(props: ILogin): JSX.Element {
   }
 
   function handleChange(e: any) {
-    setPassword(e.target.value);
+    setUserInfo({
+      ...userInfo, //Mantener todo lo que ya esta en la constante body
+      [e.target.name]: e.target.value
+  })
   }
 
   /* RESPONSIVE ------------------------------------*/
@@ -73,7 +102,7 @@ function Login(props: ILogin): JSX.Element {
                 </Text>
               </VStack>
             </Box>
-            <Box w="50%">
+            <Box w="50%" overflowY="auto">
               <HStack justifyContent="center" w="full" h="13%" marginTop='10%'>
                 <Image
                   src={logo}
@@ -98,6 +127,8 @@ function Login(props: ILogin): JSX.Element {
                         borderColor="#2F6FE4"
                         isRequired={true}
                         type="email"
+                        name="email"
+                        onChange={handleChange}
                       />
                     </VStack>
                   </FormControl>
@@ -117,8 +148,8 @@ function Login(props: ILogin): JSX.Element {
                           border="1px"
                           borderColor="#2F6FE4"
                           isRequired={true}
-                          value={password}
-                          onChange={handleChange}
+                          name="password"
+                        onChange={handleChange}
                         />
                         <InputRightElement width="19%" h="100%">
                           <Button
@@ -193,6 +224,8 @@ function Login(props: ILogin): JSX.Element {
                         borderColor="#2F6FE4"
                         isRequired={true}
                         type="email"
+                        name="email"
+                        onChange={handleChange}
                       />
                     </VStack>
                   </FormControl>
@@ -212,8 +245,8 @@ function Login(props: ILogin): JSX.Element {
                           border="1px"
                           borderColor="#2F6FE4"
                           isRequired={true}
-                          value={password}
-                          onChange={handleChange}
+                          name="password"
+                        onChange={handleChange}
                         />
                         <InputRightElement width="19%" h="100%">
                           <Button

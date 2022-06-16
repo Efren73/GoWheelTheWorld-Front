@@ -24,9 +24,13 @@ import {
 
   import {useState, useEffect} from 'react'
   import axios from 'axios'
-import { Assistance, Equipment } from "../../components";
-  export function AdminSummary():any{
 
+  import { Assistance, Equipment } from "../../components";
+  import { useAuthState } from "react-firebase-hooks/auth";
+  import { auth } from "../../firebase/firebase-auth";
+export function AdminSummary():any{
+
+    
     const scroll = useLocation();
     const link: string[] = scroll.pathname.split("/");
     const section: string = link[link.length - 1];
@@ -53,8 +57,35 @@ import { Assistance, Equipment } from "../../components";
     console.log(tour)
 
     let navigate = useNavigate()  
+
+    const [user, loading, error] = useAuthState(auth)
+
+    useEffect(() => {
+        if(user && !loading){
+          axios.get(`https://api-things-to-do.herokuapp.com/tour-operator/info/${user.uid}`)
+          .then(result =>{
+            navigate(`/tour-operator/${user.uid}`)
+          })
+          .catch(error => {
+            if(error.response.data.document === "No document"){
+              axios.get(`https://api-things-to-do.herokuapp.com/admin/info/${user.uid}`)
+              .then(result => {
+                navigate(`/admin/${user.uid}/AdminSummary/${section}`)
+              })
+              .catch(error => {
+                console.log(error)
+              })
+            }
+          })
+        }
+        else if(!loading && !user){
+            navigate("/")
+        }
+      },[user, loading])
+
+
     function Change():void {
-        navigate (`/admin`)
+        navigate (`/admin/${user?.uid}`)
     }
     function restrictions(){
         if(tour.intinerary !== undefined && tour.intinerary.restrictions !== undefined){

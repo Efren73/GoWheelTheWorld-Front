@@ -36,6 +36,8 @@ import TopMenu from "../../components/TopMenu/topMenu.component";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import { links } from "../../reducers/appSlice";
+import {useAuthState} from "react-firebase-hooks/auth"
+import {auth} from "../../firebase/firebase-auth"
 
 function MainScreenTO(props: IMainScreenTO): JSX.Element {
   /* ALERT DIALOG ------------------------------*/
@@ -43,6 +45,31 @@ function MainScreenTO(props: IMainScreenTO): JSX.Element {
   const cancelRef: any = useRef();
 
   const navigate = useNavigate();
+
+  const [user, loading, error] = useAuthState(auth)
+
+  useEffect(() => {
+      if(user && !loading){
+        axios.get(`https://api-things-to-do.herokuapp.com/tour-operator/info/${user.uid}`)
+        .then(result =>{
+          navigate(`/tour-operator/${user.uid}`)
+        })
+        .catch(error => {
+          if(error.response.data.document === "No document"){
+            axios.get(`https://api-things-to-do.herokuapp.com/admin/info/${user.uid}`)
+            .then(result => {
+              navigate(`/admin/${user.uid}`)
+            })
+            .catch(error => {
+              console.log(error)
+            })
+          }
+        })
+      }
+      else if(!loading && !user){
+        navigate("/")
+    }
+    },[user, loading])
 
   function cambiarPag(idTour: string) {
     navigate(

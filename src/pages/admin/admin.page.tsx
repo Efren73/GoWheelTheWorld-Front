@@ -33,7 +33,8 @@ import {
   import { Avatar } from '@chakra-ui/react'
   import TopMenu from "../../components/TopMenu/topMenu.component"
 import axios from "axios"
-  
+import {useAuthState} from "react-firebase-hooks/auth"
+import {auth} from "../../firebase/firebase-auth"
 
 function StatusSlider(State:boolean){
 
@@ -49,11 +50,11 @@ function StatusSlider(State:boolean){
 }
 
 
-function Feature({ Title, Destination, TourOperator, Date, Status, tourId, ...rest }:any) {
+function Feature({ AdminId, Title, Destination, TourOperator, Date, Status, tourId, ...rest }:any) {
     let navigate = useNavigate()
     
     function Change():void {
-        navigate (`/admin/AdminSummary/${tourId}`)
+        navigate (`/admin/${AdminId}/AdminSummary/${tourId}`)
     }
 
     let colorScheme = ""
@@ -110,6 +111,33 @@ export const Admin  = () => {
           console.log(error);
         });
     }, []);
+
+
+    const [user, loading, error] = useAuthState(auth)
+
+    const navigate = useNavigate()
+    useEffect(() => {
+        if(user && !loading){
+          axios.get(`https://api-things-to-do.herokuapp.com/tour-operator/info/${user.uid}`)
+          .then(result =>{
+            navigate(`/tour-operator/${user.uid}`)
+          })
+          .catch(error => {
+            if(error.response.data.document === "No document"){
+              axios.get(`https://api-things-to-do.herokuapp.com/admin/info/${user.uid}`)
+              .then(result => {
+                navigate(`/admin/${user.uid}`)
+              })
+              .catch(error => {
+                console.log(error)
+              })
+            }
+          })
+        }
+        else if(!loading && !user){
+            navigate("/")
+        }
+      },[user, loading])
 
 
     console.log(tours)
@@ -243,6 +271,7 @@ export const Admin  = () => {
                         tours.map((tour: any) => {
                             return(
                                 <Feature w={"full"} 
+                                AdminId={user?.uid}
                                 Title={tour.basicInformation.tourName}
                                 Destination={tour.tourOperatorCountry}
                                 TourOperator = {tour.tourOperatorName}

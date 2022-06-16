@@ -2,6 +2,9 @@ import * as React from "react"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import {Login, Signup, Admin, MainScreenTO, Question, TourCompleted, AdminSummary, UserSettingsTO, NotFound, UserSettingsAdmin} from './pages'
 import { Cart, Description, Multiple, Price, GroupPrivate, UploadPhotos, Meeting, Stops, Languages, Restrictions, ChildPolicy, Assistance, Transportation, Restrooms, Places, Equipment, Faqs, WhatsIncluded, EndPoint, CancelatioPolicy } from "./components"
+import {useState, useEffect} from "react"
+
+
 
 
 export const App = () => (
@@ -13,7 +16,7 @@ export const App = () => (
       <Route path="admin/:id" element={<Admin />} />
       <Route path="tour-operator/:id" element={<MainScreenTO />} />
       <Route path="tour-operator/:id/tour-completed/:tourId" element={<TourCompleted />} />
-      <Route path="admin/AdminSummary/:tourId" element={<AdminSummary/>} />
+      <Route path="admin/:id/AdminSummary/:tourId" element={<AdminSummary/>} />
 
       <Route path="admin/:id/Settings" element={<UserSettingsAdmin/>} />
       <Route path="tour-operator/:id/Settings" element={<UserSettingsTO/>} />
