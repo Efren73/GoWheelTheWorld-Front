@@ -16,7 +16,7 @@ export const App = () => (
       <Route path="admin/:id" element={<Admin />} />
       <Route path="tour-operator/:id" element={<MainScreenTO />} />
       <Route path="tour-operator/:id/tour-completed/:tourId" element={<TourCompleted />} />
-      <Route path="admin/AdminSummary/:tourId" element={<AdminSummary/>} />
+      <Route path="admin/:id/AdminSummary/:tourId" element={<AdminSummary/>} />
 
       <Route path="admin/:id/Settings" element={<UserSettingsAdmin/>} />
       <Route path="tour-operator/:id/Settings" element={<UserSettingsTO/>} />
