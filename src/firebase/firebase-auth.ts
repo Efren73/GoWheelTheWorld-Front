@@ -2,13 +2,13 @@ import { initializeApp } from "firebase/app";
 import {getAuth, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail, signOut} from "firebase/auth"
 import {getFirestore, query, collection, where, getDocs, addDoc} from "firebase/firestore"
 import axios from 'axios'
-console.log(process.env.REACT_APP_ACCESS_KEY)
+//console.log(process.env.REACT_APP_ACCESS_KEY)
 const firebaseConfig: any = {"apiKey":"AIzaSyD0lTphBiNja8eYJDPawwXo95X2C0zhjjk","authDomain":"things-to-do-e2e1f.firebaseapp.com","projectId":"things-to-do-e2e1f","storageBucket":"things-to-do-e2e1f.appspot.com","messagingSenderId":"19534654398","appId":"1:19534654398:web:1627d33c9cd5c5ea11e7ef"}
 
 const firebaseApp = initializeApp(firebaseConfig)
 const auth = getAuth(firebaseApp)
 const db = getFirestore(firebaseApp)
-console.log(db)
+//console.log(db)
 const googleProvider = new GoogleAuthProvider();
 
 // const signInWithGoogle = async() =>{
@@ -45,12 +45,11 @@ const signInWithEmail = async(email: string, password:string) => {
     }
 }
 
-const signUpWithEmail = async (name: string, company: string, phone: number, email: string, place: string, password: string) =>{
+const signUpWithEmail = async (name: string, company: string, phone: number, place: string, email: string, password: string) =>{
     try {
         const response = await createUserWithEmailAndPassword(auth, email, password)
         const user = response.user;
-        console.log(user.uid)
-        const url = `http://localhost:3000/tour-operator/create-tour-operator/${user.uid}`;
+        const url = `https://api-things-to-do.herokuapp.com/tour-operator/create-tour-operator/${user.uid}`;
         axios.post(url, {
             fullName: name, 
             companyName: company, 
@@ -60,7 +59,7 @@ const signUpWithEmail = async (name: string, company: string, phone: number, ema
         })
         .then((result) => {
             let value = result.data;
-            console.log(value)
+            //console.log(value)
         })
         .catch((error) => {
             console.log(error);
