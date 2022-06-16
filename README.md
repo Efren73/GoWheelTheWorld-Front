@@ -37,10 +37,10 @@ yarn start
 ```
 
 ## Our deployed project
-[Things to do project](https://wheel-the-world-things-to-do.netlify.app/)
+Frontend deployment: [Things to do project](https://wheel-the-world-things-to-do.netlify.app/)
 
 ## Additional Links and Contributors
-[Backend repository] (https://github.com/Efren73/things-to-do-api.git)
+Backend repository: [Backend repository](https://github.com/Efren73/things-to-do-api.git)
 
 ### Contributors
 * Carlos Manuel González Vallejo
