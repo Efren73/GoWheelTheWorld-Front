@@ -8,6 +8,7 @@ import {
   Box,
   Heading,
   Skeleton,
+  Progress,
   useToast,
   Grid,
   IconButton,
@@ -43,20 +44,19 @@ import folder from "./folder.png"
 /* CMANEJAR ESTATUS (loading, succeeded, idle' ) ----------- */
 
 const UploadPhotos: React.FC = () => {
+  let temp: any;
+  const dispatch = useAppDispatch();
+  
   const location = useLocation();
   const tour = useAppSelector(selectAllTours);
   const status = useAppSelector(getTourStatus);
-
-  const dispatch = useAppDispatch();
-  const link: string[] = location.pathname.split("/");
-  const idTourOperator: string = link[link.length - 2];
-
-  let temp: any;
-
   const [file, setFile] = useState(temp);
   const [percent, setPercent] = useState(0);
   const [url, setUrl] = useState("");
   const [urlTemp, setUrlTemp] = useState([""]);
+  
+  const link: string[] = location.pathname.split("/");
+  const idTourOperator: string = link[link.length - 2];
 
   //GET DATA FROM BD
   useEffect(() => {
@@ -148,6 +148,7 @@ const UploadPhotos: React.FC = () => {
     } else {
       toastErrorDelete();
     }
+    setPercent(0)
     onClose();
   }
 
@@ -195,7 +196,6 @@ const UploadPhotos: React.FC = () => {
             <Text fontSize={Responsive.fontSizeResponsiveHead} color="#3F6FE4">
               Basic Information / Upload Photos
             </Text>
-
             <Heading fontSize={Responsive.fontSizeResponsiveBody}>
               Send us the best photos of your tour
             </Heading>
@@ -224,20 +224,20 @@ const UploadPhotos: React.FC = () => {
                     </HStack>
                   ))
                 : (
-                  <Box justifyContent="center">
+                  <Box justifyContent="space-around" w="full">
                       <Image src={folder}/>
                   </Box>
-                )}
-            </Box>
-
+                )}  
+        </Box>
             <Box marginTop={10} width="100%">
               <Stack margin="10px">
                 <Stack
                   direction={["column", "column", "row", "row"]}
                   w={["70%", "70%", "90%", "90%"]}
                 >
-                  <input type="file" onChange={handleChange} accept="" />
+                  <input type="file" onChange={handleChange} accept="image/*" />
                 </Stack>
+                <Progress value={percent}  hasStripe={percent != 100 ? true : false}  m={5} size='sm' colorScheme={percent != 100 ? "red" : "green"} />
                 <Button w={20} marginTop="50px" colorScheme='blue' onClick={handleUpload}>
                   SAVE
                 </Button>
