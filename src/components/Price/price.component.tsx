@@ -1,18 +1,22 @@
-import * as React from "react";
+import { useAppSelector, useAppDispatch } from "../../app/hooks";
 import { useEffect, useState } from "react";
+import * as React from "react";
 import {
   Text,
   HStack,
   Stack,
   NumberInput,
-  Box,
+  Progress,
   NumberInputField,
-  Heading,
-  Skeleton,
+  useToast,
+  Button,
   Grid,
   Image,
+  Heading,
+  Skeleton,
+  Box,
+
 } from "@chakra-ui/react";
-import { useAppSelector, useAppDispatch } from "../../app/hooks";
 import sillaDeRuedas from "../../pages/mainScreenTO/sillaDeRuedas.png";
 import {
   fetchTours,
@@ -21,11 +25,28 @@ import {
   changeState,
   changeAreaEdited,
 } from "../../reducers/appSlice";
+
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { storage } from "../../firebase/index";
+
 import { Responsive } from "../generalTypes";
 import "../Upload-Photos/upload-photos.modules.css";
+import { useLocation } from "react-router-dom";
 
 const Price: React.FC = () => {
+
+  let temp: any;
+  const location = useLocation();
+  const [file, setFile] = useState(temp);
+  const [url, setUrl] = useState("");
+  const [percent, setPercent] = useState(0);
   const [price, setPrice] = useState<number>(0);
+  const toast = useToast();
+
+  const link: string[] = location.pathname.split("/");
+  const idTourOperator: string = link[link.length - 2];
+
+
 
   /* REDUX -------------------------------------- */
   const dispatch = useAppDispatch();
@@ -57,6 +78,70 @@ const Price: React.FC = () => {
       })
     );
   }, [price]);
+
+  useEffect(() => {
+    dispatch(
+      changeState({
+        basicInformation: {
+          ...tour.basicInformation,
+          priceDocument: url
+        }
+      })
+    );
+  }, [url]);
+
+  function toastSuccess() {
+    toast({
+      title: "Success!",
+      description: "Your file has been uploaded.",
+      status: "success",
+      duration: 9000,
+      isClosable: true,
+    });
+  }
+
+  function toastError() {
+    toast({
+      title: "Warning!",
+      description: "Please choose a file first.",
+      status: "warning",
+      duration: 9000,
+      isClosable: true,
+    });
+  }
+
+  function handleUpload() {
+    if (!file) {
+      toastError();
+    } else toastSuccess();
+
+    const storageRef = ref(storage, `/${idTourOperator}/docs/${file?.name}`);
+    const uploadTask = uploadBytesResumable(storageRef, file);
+
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const percent = Math.round(
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        );
+
+        // update progress
+        setPercent(percent);
+      },
+      (err) => console.log(err),
+      () => {
+        // download url
+        getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+          setUrl(url);
+          //  console.log(url);
+        });
+      }
+    );
+  }
+
+  function handleChange(event: any) {
+    setFile(event.target.files[0]);
+  }
 
   return (
     <React.Fragment>
@@ -103,12 +188,17 @@ const Price: React.FC = () => {
           >
             Please share any document related to the price
           </Heading>
-          <Stack justifyItems={"center"}>
-            <div className="uploadBtn">
-              <p className="textBtn"> Upload </p>
-              <input className="inputFile" type="file" accept="image/*, .pdf" />
-            </div>
+          <Stack 
+          justifyItems={"center"}
+          direction={["column", "column", "row", "row"]}
+          w={["70%", "70%", "90%", "90%"]}
+          >
+            <input type="file" onChange={handleChange}/>
+            <Button w={20} marginTop="50px" colorScheme='blue' onClick={handleUpload} >
+              SAVE
+            </Button>
           </Stack>
+          <Progress value={percent}  hasStripe={percent != 100 ? true : false}  m={5} size='sm' colorScheme={percent != 100 ? "red" : "green"} />
         </Box>
       ) : (
         status === "loading" ? (
@@ -121,7 +211,7 @@ const Price: React.FC = () => {
           </Text>
         </Grid>
         )
-      )}
+      )}  
     </React.Fragment>
   );
 };

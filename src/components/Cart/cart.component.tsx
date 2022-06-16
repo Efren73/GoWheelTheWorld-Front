@@ -26,6 +26,8 @@ import {
   Tooltip,
   Grid,
   Image,
+  toast,
+  useToast,
 } from "@chakra-ui/react";
 import { InfoIcon } from "@chakra-ui/icons";
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
@@ -37,15 +39,12 @@ import {
   getTourStatus,
   changeAreaEdited,
 } from "../../reducers/appSlice";
-import { Responsive } from "../generalTypes";
+import { Responsive, ToastWarning } from "../generalTypes";
 
 const Cart: React.FC = () => {
   const dispatch = useAppDispatch();
   const tour = useAppSelector(selectAllTours);
   const status = useAppSelector(getTourStatus);
-
-  console.log(status);
-  console.log(tour);
 
   /* NÚMERO DE CARÁCTERES ------------------------------*/
   let [value, setValue] = useState("");
@@ -92,6 +91,22 @@ const Cart: React.FC = () => {
       }
     }
   }, [status]);
+  
+  const toast = useToast();
+
+  function ToastWarning() {
+    toast({
+      title: "Out of range!",
+      description: "The value is out of range.",
+      status: "warning",
+      duration: 4000,
+      isClosable: true,
+    });
+  }
+
+  if( hours>10 || minutes > 59) {
+    ToastWarning();
+  } 
 
   /* VENTANA MODAL -------------------------------------*/
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -145,7 +160,7 @@ const Cart: React.FC = () => {
                 variant={value ? "filled" : "outline"}
                 h="40px"
                 fontSize={Responsive.fontSizeResponsiveHead}
-                required
+                isRequired = {true}
                 maxLength={80}
                 placeholder="Experience name"
                 onChange={handleInputChange}
@@ -202,7 +217,7 @@ const Cart: React.FC = () => {
                   value={hours >= 0 ? hours : 0}
                   borderRadius="10px"
                   onChange={(valueString: any) => {
-                    setHours(valueString);
+                    Number.isInteger(Number(value)) == true ?  setHours(valueString) : setHours(Math.round(valueString)) 
                   }}
                 >
                   <NumberInputField />
