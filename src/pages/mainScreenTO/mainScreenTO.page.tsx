@@ -395,5 +395,4 @@ function MainScreenTO(props: IMainScreenTO): JSX.Element {
     </ChakraProvider>
   );
 }
-
 export default MainScreenTO;
