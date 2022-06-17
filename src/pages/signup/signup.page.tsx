@@ -70,13 +70,22 @@ function Signup(props: ISignup): JSX.Element {
     password: ""
   })
 
+  const [passwordLengthAd, setPasswordLengthAd] = useState(false)
+
   async function createUser(e: any){
-    try {
-      await signUpWithEmail(user.fullName, user.company, +user.phone, user.country, user.email, user.password)
-    } catch (error) {
-      console.log(error)
+    if(user.password.length < 5 ){
+      setPasswordLengthAd(true)
     }
-    
+    else{
+      try {
+        await signUpWithEmail(user.fullName, user.company, +user.phone, user.country, user.email, user.password)
+        setTimeout(function(){
+          window.location.reload();
+       }, 3000)
+      } catch (error) {
+        console.log(error)
+      }
+    }
   }
 
   function change2(){
@@ -84,6 +93,9 @@ function Signup(props: ISignup): JSX.Element {
   }
 
   function handleChange(e: any){
+    if(e.target.name === "password"){
+      setPasswordLengthAd(false)
+    }
     setUser({
       ...user, //Mantener todo lo que ya esta en la constante body
       [e.target.name]: e.target.value
@@ -252,6 +264,13 @@ function Signup(props: ISignup): JSX.Element {
                       </InputGroup>
                     </VStack>
                   </FormControl>
+                  {passwordLengthAd === false ? null : 
+                      <Flex alignItems="flex-start" w="70%">
+                        <Text color="red" fontSize={{base: "15px", sm: "12px"}}>
+                        Password has to have at least 6 characters
+                        </Text>
+                      </Flex>
+                      }
                 </VStack>
                 <Button
                   size="lg"
@@ -283,7 +302,7 @@ function Signup(props: ISignup): JSX.Element {
           </Flex>
         ) : (
           <Flex w="100%" h="full" justifyContent="center">
-            <Box w="90%" h="full">
+            <Box w="90%" h="full" overflowY="auto">
               <HStack justifyContent="center" w="full" h="13%" marginTop="5%">
                 <Image
                   src={logo}
@@ -421,6 +440,13 @@ function Signup(props: ISignup): JSX.Element {
                       </InputGroup>
                     </VStack>
                   </FormControl>
+                  {passwordLengthAd === false ? null : 
+                      <Flex alignItems="flex-start" w="70%">
+                        <Text color="red" fontSize={{base: "15px", sm: "12px"}}>
+                        Password has to have at least 6 characters
+                        </Text>
+                      </Flex>
+                      }
                 </VStack>
                 <Button
                   size="lg"

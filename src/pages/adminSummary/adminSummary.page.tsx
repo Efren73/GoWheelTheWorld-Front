@@ -332,8 +332,9 @@ export function AdminSummary():any{
             )
         }
     }
-        
+    
     if(status === "Ready"){
+        const date = new Date(tour.createdAt._seconds * 1000).toLocaleDateString()
         return (
             <React.Fragment>
                  <Flex h="100vh">
@@ -348,7 +349,7 @@ export function AdminSummary():any{
                                 </Heading>
                                 <Text fontSize='2xl'>Summary of the tour divided by categories</Text>
         
-                                <Text p={1} fontSize='md' color='gray.500'>{tour.basicInformation.tourName}; {tour.tourOperatorCountry}, Mapped by: {tour.tourOperatorName} on 11/11/10  </Text>
+                                <Text p={1} fontSize='md' color='gray.500'>{tour.basicInformation.tourName}; {tour.tourOperatorCountry}, Mapped by: {tour.tourOperatorName} on {date}  </Text>
                             </Box>
         
                             <Box w='15%'>
