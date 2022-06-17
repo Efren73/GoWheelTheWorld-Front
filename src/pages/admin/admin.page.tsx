@@ -17,6 +17,7 @@ import {
     Menu,
     Radio, 
     RadioGroup, 
+    Image,
     MenuButton,
     Wrap,
     MenuList,
@@ -50,7 +51,7 @@ function StatusSlider(State:boolean){
 }
 
 
-function Feature({ AdminId, Title, Destination, TourOperator, Date, Status, tourId, ...rest }:any) {
+function Feature({ AdminId, Title, Destination, TourOperator, Date, Status, tourId, photo, ...rest }:any) {
     let navigate = useNavigate()
     
     function Change():void {
@@ -86,7 +87,7 @@ function Feature({ AdminId, Title, Destination, TourOperator, Date, Status, tour
                     <Text>{Status}%</Text>
                 </WrapItem>
                 <WrapItem  paddingLeft={1} paddingBottom={1} paddingRight={1}>
-                    <Avatar size='lg' src='http://t2.gstatic.com/licensed-image?q=tbn:ANd9GcS2YWLd02hXBD0xLRSWqzCKHpImAEQ_1BuQFhfZn8iNjvXFIFy9J_WOK2vFoiML' />
+                    <Image w='100px' h='50px' borderRadius={10} src={photo} />
                 </WrapItem>
             </Wrap>
         </HStack>
@@ -277,6 +278,7 @@ export const Admin  = () => {
                                 Date = {tour.cratedAt}
                                 Status = {tour.percentage}
                                 tourId = {tour.id}
+                                photo = {tour.photos!==undefined && tour.photos[0]!== ""? tour.photos[0]: "https://t3.ftcdn.net/jpg/02/48/42/64/360_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg"}
                                 />
                             )
                         })
