@@ -10,6 +10,7 @@ import {
   NumberInputField,
   useToast,
   Button,
+  IconButton,
   Grid,
   Image,
   Heading,
@@ -25,6 +26,8 @@ import {
   changeState,
   changeAreaEdited,
 } from "../../reducers/appSlice";
+import { CloseIcon } from "@chakra-ui/icons";
+
 
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { storage } from "../../firebase/index";
@@ -188,11 +191,33 @@ const Price: React.FC = () => {
           >
             Please share any document related to the price
           </Heading>
+          {
+              status == "succeeded" && tour.basicInformation.priceDocument !== undefined ?
+               (                  
+                <HStack m={5} justifyContent="space-between" bg={"#f5f6fa"}>
+               <Image
+                 src={"https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Circle-icons-document.svg/1024px-Circle-icons-document.svg.png"}
+                 borderRadius={10}
+                 shadow={"md"}
+                 w={"80px"}
+                 h={"80px"}
+               />
+               <Text> Document 1 </Text>
+               <IconButton
+                 aria-label="Search database"
+                 //onClick={()=>{deleteImage(index)}}
+                 icon={<CloseIcon />}
+               />
+              </HStack>
+) 
+               : null
+          }
           <Stack 
           justifyItems={"center"}
           direction={["column", "column", "row", "row"]}
           w={["70%", "70%", "90%", "90%"]}
           >
+
             <input type="file" onChange={handleChange}/>
             <Button w={20} marginTop="50px" colorScheme='blue' onClick={handleUpload} >
               SAVE
