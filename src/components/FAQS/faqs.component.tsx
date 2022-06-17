@@ -226,7 +226,7 @@ const Faqs: React.FC = () => {
           </Stack>
 
           <Stack overflowY="auto" w="full" justifyContent="flex-start">
-            <Stack w="85%" justifyContent="start">
+            {/* <Stack w="85%" justifyContent="start">
               <HStack justifyContent="flex-start" marginTop="20px">
                 <Checkbox
                   background="#fff"
@@ -239,7 +239,7 @@ const Faqs: React.FC = () => {
                 </Text>
               </HStack>
               {check1 && addAnswer()}
-            </Stack>
+            </Stack> */}
             <Stack>
               <Button
                 marginTop="20px"
