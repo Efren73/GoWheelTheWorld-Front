@@ -1,144 +1,491 @@
-import * as React from "react"
+import * as React from "react";
+import { useRef } from "react";
 import {
-  ChakraProvider,
   Box,
   Text,
-  Link,
   VStack,
-  Code,
-  Grid,
-  theme,
   Heading,
   HStack,
   Image,
-  AspectRatio,
-} from "@chakra-ui/react"
+  Skeleton,
+  Stack,
+  Textarea,
+} from "@chakra-ui/react";
+import photo from "./images/photo.png";
+import duration from "./images/duration.png";
+import group from "./images/group.png";
+import child from "./images/child.png";
+import height from "./images/height.png";
+import language from "./images/language.png";
+import location from "./images/location.png";
+import person from "./images/person.png";
+import Typetour from "./images/type-of-tour.png";
+import price from "./images/price.png";
+import { Responsive } from "../generalTypes";
+import { useAppSelector } from "../../app/hooks";
+import { selectAllTours, getTourStatus, selectAreaEdited } from "../../reducers/appSlice";
+import { useLocation } from "react-router-dom";
 
-import photo from './images/photo.png';
-import duration from './images/duration.png';
-import group from './images/group.png';
-import child from './images/child.png';
-import height from './images/height.png';
-import language from './images/language.png';
-import location from './images/location.png';
-import person from './images/person.png';
-import Typetour from './images/type-of-tour.png';
-import price from './images/price.png';
+const Summary: React.FC = () => {
+  /* REDUX ----------------------------------------- */
+  const tour = useAppSelector(selectAllTours);
+  const status = useAppSelector(getTourStatus);
+  const areaEdited = useAppSelector(selectAreaEdited)
+  //console.log(status.diff)
 
-const Summary = () => (
-  <Box h="full" w={360} background="#000" borderRadius='10px' borderColor={'black'}>
-    <Heading paddingLeft={22} paddingTop={12} color="#fff">
-      Summary
-    </Heading>
-    <Text color='#2F6FE4' paddingLeft={22}>
-      Basic Information
-    </Text>
-    <Box borderRadius='10px' borderColor='#2F6FE4' border='3px solid #2F6FE4' maxW={310} marginLeft={22}>
+  /* GROUP-PRIVATE --------------------------------- */
+  function showGroupPrivate() {
+    if (status === "succeeded") {
+      if (
+        tour.basicInformation.privateTour !== undefined &&
+        tour.basicInformation.groupTour !== undefined
+      ) {
+        if (
+          tour.basicInformation.privateTour === true &&
+          tour.basicInformation.groupTour === true
+        )
+          return "Group / Private tour";
+        else if (
+          tour.basicInformation.privateTour === false &&
+          tour.basicInformation.groupTour === true
+        )
+          return "Group tour";
+        else if (
+          tour.basicInformation.privateTour === true &&
+          tour.basicInformation.groupTour === false
+        )
+          return "Private tour";
+      } else return "Type of group";
+    }
+  }
 
-        <HStack justifyContent='center'>
-          <Image src={photo} alt="default image"  maxWidth={114} maxH={71}/>
-          <Text color='#2F6FE4'>
-            Name of the tour
-          </Text>
-        </HStack>
+  /* TOUR NAME ----------------------------- */
+  function showTourName() {
+    if (status === "succeeded") {
+      if (tour.basicInformation.tourName !== "Experience name")
+        return tour.basicInformation.tourName;
+      else return "Name of the tour";
+    }
+  }
 
-        <HStack justifyContent="en" spacing={6} w="full">
-            <Image src={Typetour} alt="Type of tour icon" w={25} h={25}/>
-          <Text color="#fff">
-            Type of tour
-          </Text> 
-        </HStack>
+  const initialRef = React.useRef<any>(null);
+  let link = useLocation().pathname.split("/")[-1]
+  console.log(link)
 
-        <HStack >
-          <Image src={duration} alt="Duration icon" w={25} h={25} />
-          <Text color="#fff">
-          Duration
-          </Text>
-        </HStack>
+  const refItinerary = useRef<HTMLDivElement>(null);
+  const refBasic = useRef<HTMLDivElement>(null);
+  const refChildren = useRef<HTMLDivElement>(null);
+  const refWhats = useRef<HTMLDivElement>(null);
 
-        <HStack >
-          <Image src={group} alt="Group icon" w={25} h={25} />
-          <Text color="#fff">
-            Group/Private tour
-          </Text>
-        </HStack>
+  React.useEffect (() =>{
+    let element: any;
+    switch(areaEdited){
+      case 'BASIC_INFORMATION': {
+        element = refBasic.current;
+        break;
+      }
+      case 'ITINERARY': {
+        element = refItinerary.current;
+        break;
+      }
+      case 'CHILDREN':{
+        element = refChildren.current;
+        break;
+      }
+      case 'WHATS_INCLUDED':{
+        element = refWhats.current;
+        break;
+      }
+    }
+    if(element){
+      element.scrollIntoView();
+    }
+  }, [areaEdited])
+  
+  /* CHILD POLICY -------------------------- */
+  function showChildPolicy() {
+    if (status === "succeeded") {
+      if(tour.childrenPolicy !== undefined) {
+        if(tour.childrenPolicy.childrenAllowed === 'true') {
+          return 'informacion disponible'
+        } else return "Nada en children policy";
+      } 
+    } 
+  } 
 
-        <HStack >
-          <Image src={person} alt="Number of members icon" w={25} h={25} />
-          <Text color="#fff">
-            Number of traveleres
-          </Text>
-        </HStack>
 
-        <HStack >
-        <Image src={price} alt="Price icon" w={25} h={25} />
-          <Text color="#fff">
-            $ Price
-          </Text>
-        </HStack>
+   let arrayGeneral: string[] = [''];
+   let arrayFood: string[] = [''];
+   let arrayTransport: string[] = [''];
+   let arrayAccs: string[] = [''];
+
+  return (
+    <Box
+      h={{ base: "60%", md: "100%", sm: "100%" }}
+      w={{ base: "25%", md: "25%", sm: "100%" }}
+      background="#1e272e"
+      borderRadius="10px"
+      borderColor={"black"}
+      paddingBottom="20px"
+    >
+      <Heading
+        fontSize="20px"
+        paddingLeft={22}
+        paddingTop={5}
+        color="#fff"
+        paddingBottom={2}
+      >
+        Summary
+      </Heading>
+      <VStack h="88%" padding="20px" overflowY="scroll" transitionTimingFunction='ease-in' transition='0.5s'>
+        <VStack w="full" h="full" alignItems="flex-start" spacing="-0.4">
+          <Box
+            borderRadius="10px"
+            w="98%"
+            paddingLeft={"10px"}
+            paddingBottom={"10px"}
+            paddingRight={"10px"}
+            borderBottom={"solid #89A1CD"}
+            borderLeft={"solid #89A1CD"}
+            borderRight={"solid #89A1CD"}
+            ref={refBasic}
+          >
+            <Text
+              color="#89A1CD"
+              fontSize={Responsive.fontSizeResponsiveBody}
+              marginLeft={"3%"}
+            >
+              Basic Information
+            </Text>
+            <Stack spacing={"1%"}>
+              <HStack justifyContent="flex-start">
+                <Image
+                  src={status === "succeeded" && tour.photos != undefined && tour.photos.length != 0 ? tour.photos[0]:photo}
+                  alt="default image"
+                  maxWidth={114}
+                  maxH={71}
+                  p={1}
+                />
+                <Text
+                  color="#89A1CD"
+                  fontSize={Responsive.fontSizeResponsiveHead}
+                >
+                  {status === "loading" ? (
+                    <Skeleton height="20px" />
+                  ) : (
+                    showTourName()
+                  )}
+                </Text>
+              </HStack>
+
+              <HStack>
+                <Image
+                  src={duration}
+                  alt="Duration icon"
+                  w={25}
+                  h={25}
+                  m={0.5}
+                />
+                <Text color="#fff" fontSize={Responsive.fontSizeResponsiveHead}>
+                  {status === "succeeded" &&
+                  tour.basicInformation.duration.hours !== "" &&
+                  tour.basicInformation.duration.minutes !== ""
+                    ? tour.basicInformation.duration.hours +
+                      ":" +
+                      tour.basicInformation.duration.minutes +
+                      " hours"
+                    : "Duration"}
+                </Text>
+              </HStack>
+
+              <HStack justifyContent="en" w="full">
+                <Image
+                  src={Typetour}
+                  alt="Type of tour icon"
+                  w={25}
+                  h={25}
+                  m={0.5}
+                  alignSelf='start'
+                />
+                <Text color="#fff" fontSize={Responsive.fontSizeResponsiveHead}>
+                  {status === "succeeded" &&
+                  tour.basicInformation.typeOfActivity !== undefined
+                    ? tour.basicInformation.typeOfActivity + ""
+                    : "Type of tour"}
+                </Text>
+              </HStack>
+
+              <HStack>
+                <Image src={group} alt="Group icon" w={25} h={25} m={0.5} />
+                <Text color="#fff" fontSize={Responsive.fontSizeResponsiveHead}>
+                  {showGroupPrivate()}
+                </Text>
+              </HStack>
+
+              <HStack>
+                <Image
+                  src={person}
+                  alt="Number of members icon"
+                  w={25}
+                  h={25}
+                  m={0.5}
+                />
+                <Text color="#fff" fontSize={Responsive.fontSizeResponsiveHead}>
+                  {status === "succeeded" &&
+                  tour.basicInformation.numberMaxTravelers !== undefined &&
+                  tour.basicInformation.numberMinTravelers !== undefined
+                    ? `Min: ${tour.basicInformation.numberMinTravelers} / Max: ${tour.basicInformation.numberMaxTravelers}`
+                    : "Number of traveleres"}
+                </Text>
+              </HStack>
+
+              <HStack>
+                <Image src={price} alt="Price icon" w={25} h={25} m={0.5} />
+                <Text color="#fff" fontSize={Responsive.fontSizeResponsiveHead}>
+                  {status === "succeeded" &&
+                  tour.basicInformation.price !== undefined
+                    ? "USD " + tour.basicInformation.price
+                    : "USD Price"}
+                </Text>
+              </HStack>
+            </Stack>
+          </Box>
+        </VStack>
+
+        <VStack w="full" h="full" alignItems="flex-start" spacing="-0.4">
+          <Box
+            borderRadius="10px"
+            w="98%"
+            marginTop={"15px"}
+            paddingLeft={"10px"}
+            paddingBottom={"10px"}
+            paddingRight={"10px"}
+            borderBottom={"solid #89A1CD"}
+            borderLeft={"solid #89A1CD"}
+            borderRight={"solid #89A1CD"}
+            ref={refItinerary}
+          >
+            <Text
+              color="#89A1CD"
+              fontSize={Responsive.fontSizeResponsiveHead}
+              marginBottom={"3%"}
+              
+            >
+              Itinerary
+            </Text>
+            
+            <Stack spacing={"1%"}>
+              <HStack justifyContent="en" w="full">
+                <Image
+                  src={location}
+                  alt="Meeting point icon"
+                  w={25}
+                  h={25}
+                  m={0.5}
+                  alignSelf='start'
+                />
+                <Text color="#fff" fontSize={Responsive.fontSizeResponsiveHead}>
+                  {status === "succeeded" && tour.intinerary !== undefined && tour.intinerary.meetPoint !== undefined
+                    ? tour.intinerary.meetPoint
+                    : "Meeting point"}
+                </Text>
+              </HStack>
+
+              <HStack>
+                <Image
+                  src={location}
+                  alt="End point icon"
+                  w={25}
+                  h={25}
+                  m={0.5}
+                  alignSelf='start'
+                />
+                <Text color="#fff" fontSize={Responsive.fontSizeResponsiveHead}>
+                  {status === "succeeded" && tour.intinerary !== undefined && tour.intinerary.endPoint !== undefined
+                    ? tour.intinerary.endPoint
+                    : "End point"}
+                </Text>
+              </HStack>
+              <HStack>
+                <Image
+                  src={language}
+                  alt="Language icon"
+                  w={25}
+                  h={25}
+                  m={0.5}
+                  alignSelf='start'
+                />
+                <Text
+                  color="#fff"
+                  fontSize={Responsive.fontSizeResponsiveHead}
+                  w="80%"
+                >
+                  {status === "succeeded" && tour.intinerary !== undefined && tour.intinerary.languages !== undefined
+                    ? tour.intinerary.languages + ""
+                    : "Languages"}
+                </Text>
+              </HStack>
+            </Stack>
+          </Box>
+        </VStack>
+
+        <VStack w="full" h="full" alignItems="flex-start" spacing="-0.4">
+          <Box
+            borderRadius="10px"
+            w="98%"
+            marginTop={"15px"}
+            paddingLeft={"10px"}
+            paddingBottom={"10px"}
+            paddingRight={"10px"}
+            borderBottom={"solid #89A1CD"}
+            borderLeft={"solid #89A1CD"}
+            borderRight={"solid #89A1CD"}
+            ref={refChildren}
+          >
+            <Text
+              color="#89A1CD"
+              fontSize={Responsive.fontSizeResponsiveHead}
+              marginBottom={"3%"}
+            >
+              Children policy
+            </Text>
+
+            { showChildPolicy() === 'informacion disponible' ? 
+              <Stack spacing={"1%"}>
+                <HStack justifyContent="en" w="full">
+                  <Image src={child} alt="Child icon" w={25} h={25} m={0.5} />
+                  <Text color="#fff" fontSize={Responsive.fontSizeResponsiveHead}>
+                    { tour.childrenPolicy.childrenAge !== undefined && tour.childrenPolicy.childrenAge === 0
+                      ? "Children's allow age: Every age "
+                      : "Children's allow age: " + tour.childrenPolicy.childrenAge}
+                  </Text>
+                </HStack>
+                <HStack>
+                  <Image src={price} alt="Price icon" w={25} h={25} m={0.5} />
+                  <Text color="#fff" fontSize={Responsive.fontSizeResponsiveHead}>
+                    { tour.childrenPolicy.childrenAgePay !== undefined && tour.childrenPolicy.childrenAgePay === 0
+                      ? "Children's pay from age: Every age "
+                      : "Children's pay from age: " + tour.childrenPolicy.childrenAgePay }   
+                  </Text>
+                </HStack>
+                <HStack>
+                  <Image src={height} alt="Height icon" w={25} h={25} m={0.5} />
+                  <Text color="#fff" fontSize={Responsive.fontSizeResponsiveHead}>
+                    { tour.childrenPolicy.childrenHeight !== undefined && tour.childrenPolicy.childrenHeight === 0
+                      ? "Limit height: Any height "
+                      : "Limit height: " + tour.childrenPolicy.childrenHeight } 
+                  </Text>
+                </HStack>
+              </Stack> 
+              :
+              <Text color="#fff" fontSize={Responsive.fontSizeResponsiveHead}>
+                Doesn't include anything in children policy
+              </Text>
+            } 
+          </Box>
+        </VStack>
+
+        <VStack w="full" h="full" alignItems="flex-start" spacing="-0.4">
+          <Box
+            borderRadius="10px"
+            w="98%"
+            marginTop={"15px"}
+            paddingLeft={"10px"}
+            paddingBottom={"10px"}
+            paddingRight={"10px"}
+            borderBottom={"solid #89A1CD"}
+            borderLeft={"solid #89A1CD"}
+            borderRight={"solid #89A1CD"}
+            ref={refWhats}
+          >
+            <Text color="#89A1CD" fontSize={Responsive.fontSizeResponsiveHead}>
+              What's included?
+            </Text>
+            <Box w="98%" padding="10px">
+              {status === "succeeded" && tour.whatsIncluded ? (
+                tour.whatsIncluded.general.map((i: string) => (
+                  arrayGeneral = [
+                    ...arrayGeneral,
+                    i, ' '
+                  ]
+                )),
+                <Text
+                  color="#fff"
+                  fontSize={Responsive.fontSizeResponsiveHead}
+                >
+                  {arrayGeneral}
+                </Text>
+              ) : (
+                <Text color="#fff" fontSize={Responsive.fontSizeResponsiveHead}>
+                  Doesn't include anything in general
+                </Text>
+              )}
+            </Box>
+            <Box w="98%" padding="10px">
+              {status === "succeeded" && tour.whatsIncluded ? (
+                tour.whatsIncluded.food.map((i: string) => (
+                  arrayFood = [
+                    ...arrayFood,
+                    i, ' '
+                  ]
+                )),
+                <Text
+                  color="#fff"
+                  fontSize={Responsive.fontSizeResponsiveHead}
+                >
+                  {arrayFood}
+                </Text>
+              ) : (
+                <Text color="#fff" fontSize={Responsive.fontSizeResponsiveHead}>
+                  Doesn't include anything in food
+                </Text>
+              )}
+            </Box>
+            <Box w="98%" padding="10px">
+              {status === "succeeded" && tour.whatsIncluded ? (
+                tour.whatsIncluded.transport.map((i: string) => (
+                  arrayTransport = [
+                    ...arrayTransport,
+                    i, ' '
+                  ]
+                )),
+                <Text
+                  color="#fff"
+                  fontSize={Responsive.fontSizeResponsiveHead}
+                >
+                  {arrayTransport}
+                </Text>
+              ) : (
+                <Text color="#fff" fontSize={Responsive.fontSizeResponsiveHead}>
+                  Doesn't include anything in transport
+                </Text>
+              )}
+            </Box>
+            <Box w="98%" padding="10px">
+              {status === "succeeded" && tour.whatsIncluded ? (
+                tour.whatsIncluded.accessibility.map((i: string) => (
+                  arrayAccs = [
+                    ...arrayAccs,
+                    i, ' '
+                  ]
+                )),
+                <Text
+                  color="#fff"
+                  fontSize={Responsive.fontSizeResponsiveHead}
+                >
+                  {arrayAccs}
+                </Text>
+              ) : (
+                <Text color="#fff" fontSize={Responsive.fontSizeResponsiveHead}>
+                  Doesn't include anything in accessibility
+                </Text>
+              )}
+            </Box>
+          </Box>
+        </VStack>
+      </VStack>
     </Box>
+  );
+};
 
-    <Text color='#2F6FE4' paddingLeft={22}>
-      Itinerary
-    </Text>
-
-    <Box borderRadius='10px' borderColor='#2F6FE4' border='3px solid #2F6FE4' maxW={310} marginLeft={22}>
-        <HStack justifyContent="en" spacing={6} w="full">
-            <Image src={location} alt="Meeting point icon" w={25} h={25}/>
-          <Text color="#fff">
-            Meeting point
-          </Text> 
-        </HStack>
-
-        <HStack >
-          <Image src={location} alt="End point icon" w={25} h={25} />
-          <Text color="#fff">
-            End point
-          </Text>
-        </HStack>
-        <HStack >
-          <Image src={language} alt="Language icon" w={25} h={25} />
-          <Text color="#fff">
-            Language
-          </Text>
-        </HStack>
-    </Box>
-
-    <Text color='#2F6FE4' paddingLeft={22}>
-      Children Policy
-    </Text>
-
-    <Box borderRadius='10px' borderColor='#2F6FE4' border='3px solid #2F6FE4' maxW={310} marginLeft={22}>
-        <HStack justifyContent="en" spacing={6} w="full">
-            <Image src={child} alt="Child icon" w={25} h={25}/>
-          <Text color="#fff">
-          Children's allow age
-          </Text> 
-        </HStack>
-
-        <HStack >
-          <Image src={price} alt="Price icon" w={25} h={25} />
-          <Text color="#fff">
-          Children's pay from age
-          </Text>
-        </HStack>
-        <HStack >
-          <Image src={height} alt="Height icon" w={25} h={25} />
-          <Text color="#fff">
-            Limit height
-          </Text>
-        </HStack>
-    </Box>
-
-    <Text color='#2F6FE4' paddingLeft={22}>
-      What's included?
-    </Text>
-
-    <Box borderRadius='10px' borderColor='#2F6FE4' border='3px solid #2F6FE4' maxW={310} marginLeft={22}>
-      <Text color="#fff">
-        Here are the things included on this tour
-      </Text>
-    </Box>
-  </Box>
-) 
 export default Summary;

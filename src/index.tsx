@@ -1,17 +1,37 @@
-import { ColorModeScript } from "@chakra-ui/react"
-import * as React from "react"
-import ReactDOM from "react-dom"
+import { ChakraProvider, ColorModeScript, CSSReset } from "@chakra-ui/react"
+import React, { Fragment } from "react"
+
 import { App } from "./App"
-import { Summary } from "./components"
 import reportWebVitals from "./reportWebVitals"
 import * as serviceWorker from "./serviceWorker"
+import { Provider } from 'react-redux';
+import {store} from './app/store'
+import theme from "./theme"
+import './styles.css'
+import { createRoot } from 'react-dom/client';
+const container = document.getElementById('root')!;
+const root = createRoot(container);
 
-ReactDOM.render(
-  <React.StrictMode>
+/*
+  signup
+  Login
+  Admin
+  mainScreenTo
+  Question
+  Tour completed
+*/
+
+root.render(
+  <Fragment>
+
     <ColorModeScript />
-    <Summary />
-  </React.StrictMode>,
-  document.getElementById("root"),
+      <ChakraProvider theme={theme}>
+        <Provider store={store}>
+            <CSSReset />
+            <App />
+        </Provider>
+      </ChakraProvider>
+  </Fragment>
 )
 
 // If you want your app to work offline and load faster, you can change
