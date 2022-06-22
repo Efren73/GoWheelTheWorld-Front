@@ -1,25 +1,25 @@
-# Self Onboarding Things To Do
+# Self-Onboarding Things To Do
 
 
-A microsite to send your experience/tour to wheel the world or if you are an Admin, check the tours.
+A web application that allows tour operators to create a new experience or tour that will later become part of Wheel the World's AMS system. It also enables admin users to review the tours.
 
 <p><img src = "https://github.com/Efren73/GoWheelTheWorld-Front/blob/Develop/WheelTheWorldGif.gif" /></p>
 
 ## System Features
 
 ### General 
-1. You can sign up as a tour operator.
+1. Sign up as a tour operator.
 
 ### Tour Operator
-1. Register your experience information.
-2. If you have to stop a registration, you can save it and complete it later (Upload your experience).
-3. If you regret of sending your tour, you can delete it.
+1. Register the experience information.
+2. Stop anytime, save it with "Upload your experience," and complete it later.
+3. If needed, the tour can be deleted.
 
 ### Administrator
 1. Have a general view of all the tours that are registered.
-2. Check the information of a specific tour. 
+2. Check the information about a specific tour. 
 
-## How to install our code in your computer?
+## How to run the project locally on a computer?
 * Clone the repo 
 ```shell
 git clone https://github.com/Efren73/GoWheelTheWorld-Front.git
@@ -37,7 +37,7 @@ yarn
 yarn start
 ```
 
-## Our deployed project
+## Check the live project
 Frontend deployment: [Things to do project](https://wheel-the-world-things-to-do.netlify.app/)
 
 ## Additional Links and Contributors
